@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://jn4ws45okvb0"]
+
+[ext_resource type="Script" path="res://Scripts/Client.gd" id="1_enf40"]
+
+[node name="Client" type="Node2D"]
+script = ExtResource("1_enf40")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 162.0
+offset_bottom = 52.0
+text = "Connection Status:"
+
+[node name="Connection_Status" type="RichTextLabel" parent="."]
+offset_left = 164.0
+offset_top = 11.0
+offset_right = 339.0
+offset_bottom = 51.0
+text = "Not Connected"
+
+[node name="Play_Button" type="Button" parent="."]
+offset_left = 446.0
+offset_top = 289.0
+offset_right = 724.0
+offset_bottom = 358.0
+disabled = true
+text = "Play"
+
+[connection signal="pressed" from="Play_Button" to="." method="_on_play_button_pressed"]
