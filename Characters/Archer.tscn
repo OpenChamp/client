@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfd8wm4hdoeap"]
+[gd_scene load_steps=9 format=3 uid="uid://dfd8wm4hdoeap"]
 
 [ext_resource type="Script" path="res://Scripts/CharacterControllers/Archer.gd" id="1_7ipi4"]
+[ext_resource type="PackedScene" uid="uid://x10srxg18eg5" path="res://Effects/Arrow.tscn" id="2_4x5h4"]
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="2_31ije"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7og34"]
@@ -22,6 +23,7 @@ metallic_specular = 1.0
 collision_layer = 3
 script = ExtResource("1_7ipi4")
 RangeCollider = NodePath("RangeArea")
+Projectile = ExtResource("2_4x5h4")
 
 [node name="Healthbar" parent="." instance=ExtResource("2_31ije")]
 offset_right = 4.0
@@ -40,5 +42,6 @@ collision_mask = 2
 shape = SubResource("CylinderShape3D_gbxrq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RangeArea"]
+visible = false
 mesh = SubResource("CylinderMesh_78jyx")
 surface_material_override/0 = SubResource("StandardMaterial3D_bnaj1")
