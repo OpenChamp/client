@@ -7,7 +7,7 @@ func _ready():
 	hide()
 
 func update_loc(player_position: Vector3):
-	if value < max_value:
+	if value < max_value && !value <= 0:
 		show()
 		var viewport = get_viewport()
 			
