@@ -61,6 +61,7 @@ func Action(event):
 	print_debug(result);
 	# Move
 	if result and result.collider.is_in_group("ground"):
+		result.position.y += 1;
 		marker.position = result.position
 		get_node("/root").add_child(marker);
 		Player.MoveTo(result.position);
