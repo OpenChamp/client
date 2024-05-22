@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0mug86g1buyj"]
+
+[ext_resource type="Script" path="res://Effects/MoveMarker.gd" id="1_v7fxt"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fvp73"]
+lifetime_randomness = 1.0
+direction = Vector3(1, 1, 1)
+initial_velocity_min = 3.0
+initial_velocity_max = 10.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_753fa"]
+
+[node name="MoveTo" type="Node3D" node_paths=PackedStringArray("Particles")]
+script = ExtResource("1_v7fxt")
+Particles = NodePath("GPUParticles3D")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 25
+lifetime = 0.5
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_fvp73")
+draw_pass_1 = SubResource("SphereMesh_753fa")

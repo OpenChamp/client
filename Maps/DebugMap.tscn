@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://cf3wfr4d5kn2s"]
+
+[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="1_bonyp"]
+[ext_resource type="PackedScene" uid="uid://dfd8wm4hdoeap" path="res://Characters/Archer.tscn" id="2_mslen"]
+[ext_resource type="PackedScene" uid="uid://d0mug86g1buyj" path="res://Effects/MoveMarker.tscn" id="2_x2gh8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qewsh"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_bk0si"]
+sky_material = SubResource("ProceduralSkyMaterial_qewsh")
+
+[sub_resource type="Environment" id="Environment_bcyjk"]
+background_mode = 2
+sky = SubResource("Sky_bk0si")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3bvvs"]
+size = Vector2(10, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ojcmw"]
+data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+
+[node name="DebugMap" type="Node3D"]
+
+[node name="Player" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("1_bonyp")]
+Player = NodePath("../Archer")
+MoveMarker = ExtResource("2_x2gh8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bcyjk")
+
+[node name="World" type="MeshInstance3D" parent="." groups=["ground"]]
+mesh = SubResource("PlaneMesh_3bvvs")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World" groups=["ground"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ojcmw")
+
+[node name="Archer" parent="." groups=["Order"] instance=ExtResource("2_mslen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)
+team = 1
+
+[node name="Archer2" parent="." groups=["Chaos"] instance=ExtResource("2_mslen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 0)
+team = 2

@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfd8wm4hdoeap"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterControllers/Archer.gd" id="1_7ipi4"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="2_31ije"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7og34"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xaiv2"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_gbxrq"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_78jyx"]
+height = 0.001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnaj1"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+metallic_specular = 1.0
+
+[node name="Archer" type="CharacterBody3D" node_paths=PackedStringArray("RangeCollider")]
+collision_layer = 3
+script = ExtResource("1_7ipi4")
+RangeCollider = NodePath("RangeArea")
+
+[node name="Healthbar" parent="." instance=ExtResource("2_31ije")]
+offset_right = 4.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_7og34")
+
+[node name="PlayerCollider" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_xaiv2")
+
+[node name="RangeArea" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RangeArea"]
+shape = SubResource("CylinderShape3D_gbxrq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RangeArea"]
+mesh = SubResource("CylinderMesh_78jyx")
+surface_material_override/0 = SubResource("StandardMaterial3D_bnaj1")

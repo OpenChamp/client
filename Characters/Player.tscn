@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt0fo48rp3ikk"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_5w15s"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_55eo2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1uteu"]
+albedo_color = Color(0.247059, 0.878431, 1, 1)
+
+[node name="Player" type="Node3D" node_paths=PackedStringArray("Spring_Arm", "Camera")]
+script = ExtResource("1_5w15s")
+Spring_Arm = NodePath("SpringArm3D")
+Camera = NodePath("SpringArm3D/Camera3D")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+collision_mask = 0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_55eo2")
+surface_material_override/0 = SubResource("StandardMaterial3D_1uteu")
