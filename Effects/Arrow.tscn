@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://x10srxg18eg5"]
+
+[ext_resource type="Script" path="res://Effects/AutoProjectile.gd" id="1_3s1vo"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s8s0j"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_soxce"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_toew3"]
+
+[node name="Arrow" type="StaticBody3D"]
+script = ExtResource("1_3s1vo")
+
+[node name="Shaft" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.04907e-08, 0.6, 0, -0.24, -2.62268e-08, 0, 0, 0, 0.24, 0, 0, 0)
+mesh = SubResource("CylinderMesh_s8s0j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.67852e-08, 0.4, 0, -0.384, -1.74846e-08, 0, 0, 0, 0.312, 0.790151, 0, 0)
+mesh = SubResource("PrismMesh_soxce")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0984885, -0.0112842, 0.0143905)
+shape = SubResource("CapsuleShape3D_toew3")

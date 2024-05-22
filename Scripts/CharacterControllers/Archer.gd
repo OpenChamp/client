@@ -12,6 +12,8 @@ extends CharacterBody3D
 @export var target_pos:Vector3
 
 @export var RangeCollider: Area3D;
+@export var Projectile:PackedScene;
+
 var isAttacking: bool = false;
 var isDead: bool = false;
 var targetEntity:CharacterBody3D;
@@ -78,7 +80,12 @@ func Attack(entity:CharacterBody3D):
 	isAttacking = true
 
 func AutoAttack():
-	targetEntity.TakeDamage(attack)
+	var Arrow = Projectile.instantiate()
+	Arrow.position = position
+	Arrow.target = targetEntity
+	Arrow.damage = attack
+	get_node("/root").add_child(Arrow)
+	pass
 	
 func TakeDamage(damage):
 	print(damage);
