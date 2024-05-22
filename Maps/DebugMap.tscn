@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cf3wfr4d5kn2s"]
+[gd_scene load_steps=15 format=3 uid="uid://cf3wfr4d5kn2s"]
 
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="1_bonyp"]
+[ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/UI.tscn" id="1_w137o"]
 [ext_resource type="PackedScene" uid="uid://dfd8wm4hdoeap" path="res://Characters/Archer.tscn" id="2_mslen"]
 [ext_resource type="PackedScene" uid="uid://d0mug86g1buyj" path="res://Effects/MoveMarker.tscn" id="2_x2gh8"]
 [ext_resource type="PackedScene" uid="uid://d2nrxob1lindp" path="res://Environment/Turret.tscn" id="5_j06yq"]
@@ -39,6 +40,9 @@ size = Vector2(70, 10)
 data = PackedVector3Array(35, 0, 5, -35, 0, 5, 35, 0, -5, -35, 0, 5, -35, 0, -5, 35, 0, -5)
 
 [node name="DebugMap" type="Node3D"]
+process_priority = 1
+
+[node name="Ui" parent="." instance=ExtResource("1_w137o")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("1_bonyp")]
 Player = NodePath("../Archer")

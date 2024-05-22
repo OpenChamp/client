@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckkjiabom6ntl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61eu7"]
+bg_color = Color(0.996015, 0, 0.0749672, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hx0v"]
+bg_color = Color(3.65794e-06, 0.650878, 0.889345, 1)
+
+[node name="Ui" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Health" type="ProgressBar" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -199.0
+offset_top = -30.0
+offset_right = 197.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_61eu7")
+value = 100.0
+show_percentage = false
+
+[node name="Mana" type="ProgressBar" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -199.0
+offset_top = -16.0
+offset_right = 197.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_1hx0v")
+value = 100.0
+show_percentage = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -201.5
+offset_top = -86.0
+offset_right = 201.5
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0.0627451, 0.117647, 0.184314)
