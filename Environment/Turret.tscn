@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2nrxob1lindp"]
+
+[ext_resource type="Script" path="res://Environment/Scripts/Turret.gd" id="1_5f2lw"]
+[ext_resource type="ArrayMesh" path="res://Environment/Models/turret.mesh" id="1_vckyp"]
+[ext_resource type="ArrayMesh" path="res://Environment/Models/crystal.mesh" id="2_ota7h"]
+[ext_resource type="Texture2D" uid="uid://ct3hetvyluc2n" path="res://Environment/Textures/turretbody.png" id="2_xcrih"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mrsgm"]
+albedo_texture = ExtResource("2_xcrih")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xu3pd"]
+radius = 8.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rl361"]
+top_radius = 8.0
+bottom_radius = 8.0
+height = 0.001
+
+[node name="Turret" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_5f2lw")
+
+[node name="Turret" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_mrsgm")
+mesh = ExtResource("1_vckyp")
+
+[node name="Crystal" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_ota7h")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_xu3pd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("CylinderMesh_rl361")

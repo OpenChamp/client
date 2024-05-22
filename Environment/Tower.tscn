@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://brqeiatrwm3ju"]
+
+[ext_resource type="Script" path="res://Environment/Scripts/Tower.gd" id="1_0uple"]
+[ext_resource type="ArrayMesh" path="res://Environment/Models/tower.mesh" id="1_y4mwl"]
+[ext_resource type="Texture2D" uid="uid://dlqyy1ksvpbui" path="res://Environment/Textures/towerbody.png" id="2_12ry7"]
+[ext_resource type="ArrayMesh" path="res://Environment/Models/towercrystal.mesh" id="2_ft873"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2o12x"]
+albedo_texture = ExtResource("2_12ry7")
+
+[node name="Tower" type="Node3D"]
+script = ExtResource("1_0uple")
+
+[node name="Tower" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_2o12x")
+mesh = ExtResource("1_y4mwl")
+
+[node name="Towercrystal" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_ft873")
