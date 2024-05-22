@@ -1,6 +1,5 @@
 extends ProgressBar
 
-var maxHealth : int
 var camera : Camera3D
 
 func _ready():
@@ -8,14 +7,14 @@ func _ready():
 	hide()
 
 func update_loc(player_position: Vector3):
-	if value < maxHealth:
+	if value < max_value:
 		show()
 		var viewport = get_viewport()
 			
 		if camera:
 			var screen_pos = camera.unproject_position(player_position)
 			var screen_size = viewport.get_visible_rect().size
-			var bar_pos = Vector2(screen_pos.x, screen_pos.y - 50)
+			var bar_pos = Vector2(screen_pos.x - 50, screen_pos.y - 50)
 			# Adjust the offset (e.g., -50) to position the health bar above the player
 			# You might need to tweak this value based on your game's camera settings
 			set_position(bar_pos)

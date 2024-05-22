@@ -18,10 +18,10 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3bvvs"]
-size = Vector2(10, 10)
+size = Vector2(70, 10)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ojcmw"]
-data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ct13e"]
+data = PackedVector3Array(35, 0, 5, -35, 0, 5, 35, 0, -5, -35, 0, 5, -35, 0, -5, 35, 0, -5)
 
 [node name="DebugMap" type="Node3D"]
 
@@ -38,12 +38,12 @@ mesh = SubResource("PlaneMesh_3bvvs")
 [node name="StaticBody3D" type="StaticBody3D" parent="World" groups=["ground"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_ojcmw")
+shape = SubResource("ConcavePolygonShape3D_ct13e")
 
 [node name="Archer" parent="." groups=["Order"] instance=ExtResource("2_mslen")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.9641, 1, 0)
 team = 1
 
 [node name="Archer2" parent="." groups=["Chaos"] instance=ExtResource("2_mslen")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.1555, 1, 0)
 team = 2

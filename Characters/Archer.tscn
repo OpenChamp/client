@@ -13,7 +13,8 @@
 height = 0.001
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnaj1"]
-albedo_color = Color(0, 0, 0, 1)
+transparency = 1
+albedo_color = Color(0.34902, 0.831373, 0.831373, 0.996078)
 metallic = 1.0
 metallic_specular = 1.0
 

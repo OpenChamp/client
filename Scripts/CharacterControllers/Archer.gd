@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @export var team:int;
-@export var health = 550
+@export var health:float = 550.00
 @export var mana = 300
 @export var attack = 60
 @export var attack_speed = .75 #APM
@@ -9,7 +9,7 @@ extends CharacterBody3D
 @export var resistance = 30
 @export var speed = 5 # 330 
 @export var range = 3
-@export var target_pos:Vector3 = position
+@export var target_pos:Vector3
 
 @export var RangeCollider: Area3D;
 var isAttacking: bool = false;
@@ -22,8 +22,8 @@ func _ready():
 	# Set Range
 	RangeCollider.get_node("./CollisionShape3D").shape.radius = range
 	RangeCollider.get_node("./MeshInstance3D").mesh.top_radius = range;
-	
-	$Healthbar.maxHealth = health
+	target_pos = position
+	$Healthbar.max_value = health
 	$Healthbar.value = health
 	pass # Replace with function body.
 
@@ -68,6 +68,8 @@ func move(delta):
 
 
 func MoveTo(pos:Vector3):
+	isAttacking = false;
+	targetEntity = null;
 	target_pos = pos;
 
 func Attack(entity:CharacterBody3D):
