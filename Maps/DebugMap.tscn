@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cf3wfr4d5kn2s"]
+[gd_scene load_steps=14 format=3 uid="uid://cf3wfr4d5kn2s"]
 
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="1_bonyp"]
 [ext_resource type="PackedScene" uid="uid://dfd8wm4hdoeap" path="res://Characters/Archer.tscn" id="2_mslen"]
 [ext_resource type="PackedScene" uid="uid://d0mug86g1buyj" path="res://Effects/MoveMarker.tscn" id="2_x2gh8"]
+[ext_resource type="PackedScene" uid="uid://d2nrxob1lindp" path="res://Environment/Turret.tscn" id="5_j06yq"]
+[ext_resource type="PackedScene" uid="uid://brqeiatrwm3ju" path="res://Environment/Tower.tscn" id="6_i164n"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qewsh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,7 +19,20 @@ sky = SubResource("Sky_bk0si")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qk4ui"]
+noise_type = 5
+seed = 8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tjdc3"]
+noise = SubResource("FastNoiseLite_qk4ui")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ub4og"]
+albedo_color = Color(0.631373, 0.647059, 0.219608, 1)
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_tjdc3")
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_3bvvs"]
+material = SubResource("StandardMaterial3D_ub4og")
 size = Vector2(70, 10)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ct13e"]
@@ -41,9 +56,25 @@ mesh = SubResource("PlaneMesh_3bvvs")
 shape = SubResource("ConcavePolygonShape3D_ct13e")
 
 [node name="Archer" parent="." groups=["Order"] instance=ExtResource("2_mslen")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.9641, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9641, 1, 0)
 team = 1
 
 [node name="Archer2" parent="." groups=["Chaos"] instance=ExtResource("2_mslen")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.1555, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1555, 1, 0)
+team = 2
+
+[node name="Turret" parent="." instance=ExtResource("5_j06yq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 0)
+team = 1
+
+[node name="Turret2" parent="." instance=ExtResource("5_j06yq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 0)
+team = 2
+
+[node name="Tower" parent="." instance=ExtResource("6_i164n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 2, 0)
+team = 1
+
+[node name="Tower2" parent="." instance=ExtResource("6_i164n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 2, 0)
 team = 2
