@@ -33,6 +33,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Healthbar.update_loc(position)
+	if attackTimeout > 0:
+		attackTimeout -= delta;
 	if isAttacking:
 		var bodies = RangeCollider.get_overlapping_bodies()
 		var actionPerformed = false;
@@ -48,8 +50,6 @@ func _process(delta):
 						print("Attack!")
 						attackTimeout = attack_speed;
 						AutoAttack()
-					else:
-						attackTimeout -= delta;
 			if !actionPerformed:
 				target_pos = targetEntity.position
 				move(delta)
