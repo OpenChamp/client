@@ -10,4 +10,8 @@
 OpenChamp
 OpenChamp.sh
 OpenChamp.x86_64
-OpenChamp.aarch64
+OpenChamp.arm64
+OpenChampServer
+OpenChampServer.sh
+OpenChampServer.x86_64
+OpenChampServer.arm64
