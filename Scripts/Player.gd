@@ -61,9 +61,15 @@ func set_player(p:CharacterBody3D):
 	isPlayer = true
 
 func _process(delta):
+	# Handle the escape key (for now just close the game)
+	if Input.is_action_just_pressed("player_pause"):
+		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+		get_tree().quit()
+
 	# Get Mouse Coords on screen
 	var mouse_pos = get_viewport().get_mouse_position();
 	var size = get_viewport().size;
+	
 	# Edge Panning
 	if (mouse_pos.x <= edge_margin && mouse_pos.x >= 0) || Input.is_action_pressed("player_left"):
 		position += Vector3(-1,0,0) * delta * cam_speed
@@ -83,3 +89,12 @@ func _process(delta):
 	# Recenter
 	if Input.is_action_just_pressed("player_cameraRecenter") && isPlayer:
 		position = Player.position
+		
+	# toggle fullscreen	
+	if Input.is_action_just_pressed("toggle_maximize"):
+		var window_mode = get_tree().root.mode
+		if window_mode == Window.MODE_FULLSCREEN or window_mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+			get_tree().root.mode = Window.MODE_WINDOWED
+		else:
+			get_tree().root.mode = Window.MODE_FULLSCREEN
+	
