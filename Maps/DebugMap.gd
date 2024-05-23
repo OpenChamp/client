@@ -36,6 +36,7 @@ func add_player(clientId: int):
 	character.team = Team
 	character.name = str(clientId)
 	$Heroes.add_child(character)
+	multiplayer.rpc(clientId, character, "setOwner")
 	
 	
 func del_player(clientId: int):

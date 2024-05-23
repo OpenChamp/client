@@ -34,9 +34,13 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Connecting To Server"
 
+[node name="Reconnect" type="Timer" parent="ConnectionUI"]
+
 [node name="Map" type="Node3D" parent="."]
 
 [node name="MapSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Maps/DebugMap.tscn")
 spawn_path = NodePath("../Map")
 spawn_limit = 1
+
+[connection signal="timeout" from="ConnectionUI/Reconnect" to="." method="_on_reconnect_timeout"]

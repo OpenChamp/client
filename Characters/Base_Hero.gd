@@ -35,7 +35,10 @@ func _ready():
 	call_deferred("actor_setup")
 	$Healthbar.max_value = health
 	$Healthbar.value = health
-	pass # Replace with function body.
+
+func _process(delta):
+	move(delta)
+
 
 func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
@@ -46,6 +49,18 @@ func actor_setup():
 	else:
 		pos = position
 	navigation_agent.set_target_position(pos)
+
+@rpc("authority")
+func setOwner():
+	get_parent().get_parent().get_node("Player").set_player(self)
+	
+@rpc("any_peer")
+func MoveTo(coords):
+	print(coords);
+	isAttacking = false;
+	targetEntity = null;
+	navigation_agent.set_target_position(coords);
+	pass
 
 func move(delta):
 	var target_pos = navigation_agent.get_next_path_position()
@@ -58,11 +73,6 @@ func move(delta):
 		global_position += dir * dist;
 	else:
 		global_position = target_pos;
-
-func MoveTo(pos:Vector3):
-	isAttacking = false;
-	targetEntity = null;
-	navigation_agent.set_target_position(pos);
 
 func Attack(entity:CharacterBody3D):
 	targetEntity = entity;

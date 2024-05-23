@@ -22,15 +22,15 @@ var isPlayer: bool = false;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Spring_Arm.spring_length = max_zoom
-	if Player:
-		isPlayer = true;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _input(event):
 	if event is InputEventMouseButton:
 		# Right click to move
-		if event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.button_index == MOUSE_BUTTON_RIGHT && isPlayer:
 			Action(event)
+		elif event.button_index == MOUSE_BUTTON_RIGHT && isPlayer:
+			print("Not yet bud");
 			
 func Action(event):
 	var marker = MoveMarker.instantiate()
@@ -46,6 +46,7 @@ func Action(event):
 		result.position.y += 1;
 		marker.position = result.position
 		get_node("/root").add_child(marker);
+		multiplayer.rpc(get_multiplayer_authority(), Player, "MoveTo", [result.position])
 		#Player.MoveTo(result.position);
 	# Attack
 	if result and result.collider is CharacterBody3D:
@@ -54,9 +55,10 @@ func Action(event):
 			print("GONNA HURT YOU")
 			#Player.Attack(result.collider)
 
-@rpc("call_local")
-func moveto(coords):
-	pass
+func set_player(p:CharacterBody3D):
+	print("Player Set")
+	Player = p
+	isPlayer = true
 
 func _process(delta):
 	# Get Mouse Coords on screen
