@@ -17,3 +17,6 @@ mesh = ExtResource("1_y4mwl")
 
 [node name="Towercrystal" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_ft873")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+transform = Transform3D(4.08303, 0, 0, 0, 4.08303, 0, 0, 0, 4.0044, 0, -0.757519, 0)

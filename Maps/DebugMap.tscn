@@ -1,9 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://cf3wfr4d5kn2s"]
 
-[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="1_bonyp"]
+[ext_resource type="Script" path="res://Maps/DebugMap.gd" id="1_jf6oq"]
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/UI.tscn" id="1_w137o"]
-[ext_resource type="PackedScene" uid="uid://dfd8wm4hdoeap" path="res://Characters/Archer.tscn" id="2_mslen"]
-[ext_resource type="PackedScene" uid="uid://d0mug86g1buyj" path="res://Effects/MoveMarker.tscn" id="2_x2gh8"]
+[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="3_tygk6"]
 [ext_resource type="PackedScene" uid="uid://d2nrxob1lindp" path="res://Environment/Turret.tscn" id="5_j06yq"]
 [ext_resource type="PackedScene" uid="uid://brqeiatrwm3ju" path="res://Environment/Tower.tscn" id="6_i164n"]
 
@@ -19,6 +18,11 @@ background_mode = 2
 sky = SubResource("Sky_bk0si")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_vdgac"]
+vertices = PackedVector3Array(-16, 0.273582, 4.5, -16, 0.273582, 2.75, -17.25, 0.273582, 2.75, -17.75, 0.273582, -2.5, -16, 0.273582, -2.75, -16, 0.273582, -4.5, -34.5, 0.273582, -4.5, -16, 0.273582, 4.5, -17.25, 0.273582, 2.75, -18.5, 0.273582, 1.75, -34.5, 0.273582, 4.5, -18.75, 0.273582, -1.25, -17.75, 0.273582, -2.5, -34.5, 0.273582, -4.5, -34.5, 0.273582, 4.5, -18.5, 0.273582, 1.75, -18.75, 0.273582, -1.25, -34.5, 0.273582, -4.5, -14.75, 0.273582, 2.75, -16, 0.273582, 2.75, -16, 0.273582, 4.5, 16, 0.273582, 4.5, 16, 0.273582, 2.75, 14.75, 0.273582, 2.75, -14.25, 0.273582, -2.5, 14.25, 0.273582, -2.5, 16, 0.273582, -2.75, 16, 0.273582, -4.5, -16, 0.273582, -4.5, -16, 0.273582, -2.75, -14.25, 0.273582, -2.5, -13.25, 0.273582, -1.25, 13.25, 0.273582, -1.25, 14.25, 0.273582, -2.5, 13.5, 0.273582, 1.75, -13.5, 0.273582, 1.75, -14.75, 0.273582, 2.75, -16, 0.273582, 4.5, 16, 0.273582, 4.5, 14.75, 0.273582, 2.75, -13.25, 0.273582, -1.25, -13.5, 0.273582, 1.75, 13.5, 0.273582, 1.75, 13.25, 0.273582, -1.25, 17.25, 0.273582, 2.75, 16, 0.273582, 2.75, 16, 0.273582, 4.5, 16, 0.273582, -4.5, 16, 0.273582, -2.75, 17.75, 0.273582, -2.5, 34.5, 0.273582, -4.5, 18.5, 0.273582, 1.75, 17.25, 0.273582, 2.75, 16, 0.273582, 4.5, 34.5, 0.273582, 4.5, 17.75, 0.273582, -2.5, 18.75, 0.273582, -1.25, 34.5, 0.273582, -4.5, 18.75, 0.273582, -1.25, 18.5, 0.273582, 1.75, 34.5, 0.273582, 4.5, 34.5, 0.273582, -4.5, -14.25, 2.02358, 0.75, -15.25, 2.02358, -1.75, -17.75, 2.02358, -0.75, -17.75, 2.02358, 0.75, -16.75, 2.02358, 1.75, -15.25, 2.02358, 1.75, -15.25, 2.02358, -1.75, -16.75, 2.02358, -1.75, -17.75, 2.02358, -0.75, -14.25, 2.02358, 0.75, -14.25, 2.02358, -0.75, -15.25, 2.02358, -1.75, 17.75, 2.02358, 0.75, 16.75, 2.02358, -1.75, 14.25, 2.02358, -0.75, 14.25, 2.02358, 0.75, 15.25, 2.02358, 1.75, 16.75, 2.02358, 1.75, 16.75, 2.02358, -1.75, 15.25, 2.02358, -1.75, 14.25, 2.02358, -0.75, 17.75, 2.02358, 0.75, 17.75, 2.02358, -0.75, 16.75, 2.02358, -1.75, -17, 0.273582, -1.25, -17.5, 0.273582, -0.5, -17.5, 0.273582, 0.5, -17.5, 0.273582, 0.5, -16.5, 0.273582, 1.5, -15.5, 0.273582, 1.5, -14.5, 0.273582, 0.5, -15.5, 0.273582, -1.5, -17, 0.273582, -1.25, -14.5, 0.273582, 0.5, -14.75, 0.273582, -1, -15.5, 0.273582, -1.5, 15, 0.273582, -1.25, 14.5, 0.273582, -0.5, 14.5, 0.273582, 0.5, 14.5, 0.273582, 0.5, 15.5, 0.273582, 1.5, 16.5, 0.273582, 1.5, 17.5, 0.273582, 0.5, 16.5, 0.273582, -1.5, 15, 0.273582, -1.25, 17.5, 0.273582, 0.5, 17.25, 0.273582, -1, 16.5, 0.273582, -1.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 6), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 10), PackedInt32Array(13, 12, 11), PackedInt32Array(15, 14, 16), PackedInt32Array(16, 14, 17), PackedInt32Array(20, 19, 18), PackedInt32Array(23, 22, 21), PackedInt32Array(29, 28, 24), PackedInt32Array(24, 28, 25), PackedInt32Array(25, 28, 26), PackedInt32Array(26, 28, 27), PackedInt32Array(31, 30, 32), PackedInt32Array(32, 30, 33), PackedInt32Array(39, 38, 34), PackedInt32Array(34, 38, 35), PackedInt32Array(35, 38, 36), PackedInt32Array(36, 38, 37), PackedInt32Array(43, 42, 40), PackedInt32Array(40, 42, 41), PackedInt32Array(46, 45, 44), PackedInt32Array(48, 47, 49), PackedInt32Array(49, 47, 50), PackedInt32Array(52, 51, 53), PackedInt32Array(53, 51, 54), PackedInt32Array(57, 56, 55), PackedInt32Array(59, 58, 60), PackedInt32Array(60, 58, 61), PackedInt32Array(67, 66, 62), PackedInt32Array(62, 66, 65), PackedInt32Array(62, 65, 64), PackedInt32Array(62, 64, 63), PackedInt32Array(70, 69, 68), PackedInt32Array(73, 72, 71), PackedInt32Array(79, 78, 74), PackedInt32Array(74, 78, 77), PackedInt32Array(74, 77, 76), PackedInt32Array(74, 76, 75), PackedInt32Array(82, 81, 80), PackedInt32Array(85, 84, 83), PackedInt32Array(88, 87, 86), PackedInt32Array(90, 89, 91), PackedInt32Array(91, 89, 92), PackedInt32Array(92, 89, 94), PackedInt32Array(92, 94, 93), PackedInt32Array(95, 97, 96), PackedInt32Array(100, 99, 98), PackedInt32Array(102, 101, 103), PackedInt32Array(103, 101, 104), PackedInt32Array(104, 101, 106), PackedInt32Array(104, 106, 105), PackedInt32Array(107, 109, 108)]
+geometry_parsed_geometry_type = 1
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qk4ui"]
 noise_type = 5
@@ -41,44 +45,52 @@ data = PackedVector3Array(35, 0, 5, -35, 0, 5, 35, 0, -5, -35, 0, 5, -35, 0, -5,
 
 [node name="DebugMap" type="Node3D"]
 process_priority = 1
+script = ExtResource("1_jf6oq")
 
 [node name="Ui" parent="." instance=ExtResource("1_w137o")]
 
-[node name="Player" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("1_bonyp")]
-Player = NodePath("../Archer")
-MoveMarker = ExtResource("2_x2gh8")
+[node name="Player" parent="." instance=ExtResource("3_tygk6")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bcyjk")
 
-[node name="World" type="MeshInstance3D" parent="." groups=["ground"]]
+[node name="WorldNav" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_vdgac")
+
+[node name="World" type="MeshInstance3D" parent="WorldNav" groups=["ground"]]
 mesh = SubResource("PlaneMesh_3bvvs")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World" groups=["ground"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldNav/World" groups=["ground"]]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldNav/World/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ct13e")
 
-[node name="Archer" parent="." groups=["Order"] instance=ExtResource("2_mslen")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9641, 1, 0)
-team = 1
-
-[node name="Archer2" parent="." groups=["Chaos"] instance=ExtResource("2_mslen")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1555, 1, 0)
-team = 2
-
-[node name="Turret" parent="." instance=ExtResource("5_j06yq")]
+[node name="Turret" parent="WorldNav" instance=ExtResource("5_j06yq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 0)
 team = 1
 
-[node name="Turret2" parent="." instance=ExtResource("5_j06yq")]
+[node name="Turret2" parent="WorldNav" instance=ExtResource("5_j06yq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 0)
 team = 2
 
-[node name="Tower" parent="." instance=ExtResource("6_i164n")]
+[node name="Tower" parent="WorldNav" instance=ExtResource("6_i164n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 2, 0)
 team = 1
 
-[node name="Tower2" parent="." instance=ExtResource("6_i164n")]
+[node name="Tower2" parent="WorldNav" instance=ExtResource("6_i164n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 2, 0)
 team = 2
+
+[node name="Spawn1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
+
+[node name="Spawn2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
+
+[node name="Heroes" type="Node" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Characters/Archer.tscn")
+spawn_path = NodePath("../Heroes")
+spawn_limit = 10

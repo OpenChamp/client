@@ -1,10 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfd8wm4hdoeap"]
+[gd_scene load_steps=12 format=3 uid="uid://dfd8wm4hdoeap"]
 
-[ext_resource type="Script" path="res://Scripts/CharacterControllers/Archer.gd" id="1_7ipi4"]
-[ext_resource type="PackedScene" uid="uid://x10srxg18eg5" path="res://Effects/Arrow.tscn" id="2_4x5h4"]
+[ext_resource type="Script" path="res://Characters/Base_Hero.gd" id="1_qp5gj"]
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="2_31ije"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7og34"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06p36"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_faxsj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8be7u"]
+albedo_color = Color(1, 0.623529, 0.54902, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xaiv2"]
 
@@ -19,17 +26,34 @@ albedo_color = Color(0.34902, 0.831373, 0.831373, 0.996078)
 metallic = 1.0
 metallic_specular = 1.0
 
-[node name="Archer" type="CharacterBody3D" node_paths=PackedStringArray("RangeCollider")]
-collision_layer = 3
-script = ExtResource("1_7ipi4")
-RangeCollider = NodePath("RangeArea")
-Projectile = ExtResource("2_4x5h4")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dk3dr"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
-[node name="Healthbar" parent="." instance=ExtResource("2_31ije")]
-offset_right = 4.0
+[node name="Archer" type="CharacterBody3D"]
+collision_layer = 3
+script = ExtResource("1_qp5gj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+debug_path_custom_color = Color(0.862786, 0, 0.355292, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_7og34")
+surface_material_override/0 = SubResource("StandardMaterial3D_06p36")
+
+[node name="Eyes" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.403436, 0, 0, 0, 0.517296, 0.157644, 0.454047, 0)
+mesh = SubResource("BoxMesh_faxsj")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_8be7u")
+
+[node name="Healthbar" parent="." instance=ExtResource("2_31ije")]
+offset_right = 4.0
 
 [node name="PlayerCollider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_xaiv2")
@@ -45,3 +69,9 @@ shape = SubResource("CylinderShape3D_gbxrq")
 visible = false
 mesh = SubResource("CylinderMesh_78jyx")
 surface_material_override/0 = SubResource("StandardMaterial3D_bnaj1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dk3dr")

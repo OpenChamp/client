@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3bqm80sur07l"]
+
+[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="1_f71ij"]
+[ext_resource type="PackedScene" uid="uid://dfd8wm4hdoeap" path="res://Characters/Archer.tscn" id="2_p0h86"]
+[ext_resource type="PackedScene" uid="uid://d0mug86g1buyj" path="res://Effects/MoveMarker.tscn" id="2_wtoe6"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_xph75"]
+vertices = PackedVector3Array(-4.5, 0.5, -4.5, -4.5, 0.5, 4.5, 4.5, 0.5, 4.5, 4.5, 0.5, -4.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_parsed_geometry_type = 1
+
+[node name="Falloff" type="NavigationRegion3D"]
+navigation_mesh = SubResource("NavigationMesh_xph75")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="Player" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("1_f71ij")]
+Player = NodePath("../Archer")
+MoveMarker = ExtResource("2_wtoe6")
+
+[node name="Archer" parent="." instance=ExtResource("2_p0h86")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

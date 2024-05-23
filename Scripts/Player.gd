@@ -1,17 +1,22 @@
 extends Node3D
 
-
 @export var edge_margin = 10
 
 @export var cam_speed = 10;
 @export var min_zoom = 1;
-@export var max_zoom = 10;
+@export var max_zoom = 25;
 @export var cur_zoom:int;
 
 @export var Spring_Arm: SpringArm3D;
 @export var Camera:Camera3D;
 @export var Player:CharacterBody3D;
 @export var MoveMarker:PackedScene;
+
+#@export var player := 1:
+	#set(id):
+		#player = id
+		#$MultiplayerSynchronizer.set_multiplayer_authority(id)
+
 var isPlayer: bool = false;
 
 # Called when the node enters the scene tree for the first time.
@@ -21,6 +26,9 @@ func _ready():
 		isPlayer = true;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	position = Vector3(0,0,0);
+
+func _1process(delta):
 	# Get Mouse Coords on screen
 	var mouse_pos = get_viewport().get_mouse_position();
 	var size = get_viewport().size;
@@ -43,33 +51,3 @@ func _process(delta):
 	# Recenter
 	if Input.is_action_just_pressed("player_cameraRecenter") && isPlayer:
 		position = Player.position
-
-func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		# Right click to move
-		if event.button_index == MOUSE_BUTTON_RIGHT && isPlayer:
-			Action(event)
-			
-func Action(event):
-	var marker = MoveMarker.instantiate()
-	var from = Camera.project_ray_origin(event.position)
-	var to = from + Camera.project_ray_normal(event.position) * 1000
-	
-	var space = get_world_3d().direct_space_state
-	var params = PhysicsRayQueryParameters3D.create(from, to)
-	var result = space.intersect_ray(params)
-	print_debug(result);
-	# Move
-	if result and result.collider.is_in_group("ground"):
-		result.position.y += 1;
-		marker.position = result.position
-		get_node("/root").add_child(marker);
-		Player.MoveTo(result.position);
-	# Attack
-	if result and result.collider is CharacterBody3D:
-		print("FOUND YOU")
-		if result.collider.team != Player.team:
-			print("GONNA HURT YOU")
-			Player.Attack(result.collider)
-		print(result.collider.team)
-		print(Player.team)

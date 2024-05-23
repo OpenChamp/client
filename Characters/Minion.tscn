@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvkhtu6bkd00x"]
+
+[ext_resource type="Script" path="res://Scripts/Minion.gd" id="1_ney5p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c1kmt"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_s1d1o"]
+
+[node name="Minion" type="CharacterBody3D"]
+script = ExtResource("1_ney5p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_c1kmt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_s1d1o")

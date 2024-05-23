@@ -26,8 +26,8 @@ var attackTimeout = 0;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set Range
-	RangeCollider.get_node("./CollisionShape3D").shape.radius = range
-	RangeCollider.get_node("./MeshInstance3D").mesh.top_radius = float(range);
+	RangeCollider.get_node("./RangeArea/CollisionShape3D").shape.radius = range
+	RangeCollider.get_node("./RangeArea/MeshInstance3D").mesh.top_radius = float(range);
 	# Set Nav
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.5
@@ -46,34 +46,6 @@ func actor_setup():
 	else:
 		pos = position
 	navigation_agent.set_target_position(pos)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	$Healthbar.update_loc(position)
-	if attackTimeout > 0:
-		attackTimeout -= delta;
-	if isAttacking:
-		var bodies = RangeCollider.get_overlapping_bodies()
-		var actionPerformed = false;
-		if bodies:
-			for body in bodies:
-				if body == targetEntity:
-					actionPerformed = true;
-					if(targetEntity.isDead):
-						isAttacking = false;
-						targetEntity = null;
-					elif attackTimeout<=0:
-						print("Attack!")
-						attackTimeout = attack_speed;
-						AutoAttack()
-			if !actionPerformed:
-				navigation_agent.set_target_position(targetEntity.position)
-				move(delta)
-		else:
-			navigation_agent.set_target_position(targetEntity.position)
-			move(delta)
-			
-	elif !navigation_agent.is_navigation_finished():
-		move(delta)
 
 func move(delta):
 	var target_pos = navigation_agent.get_next_path_position()
