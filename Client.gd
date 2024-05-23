@@ -29,7 +29,7 @@ func ChangeMap(scene: PackedScene):
 func PrepareClient(peer):
 	print("Preparing Client")
 	
-	var client = peer.create_client("127.0.0.1", 80)
+	var client = peer.create_client("127.0.0.1", 10000)
 	if client != MultiplayerPeer.CONNECTION_CONNECTED:
 		$ConnectionUI/RichTextLabel.text = "[center]Failed to connect..."
 		$ConnectionUI/RichTextLabel.fit_content = true
@@ -44,7 +44,7 @@ func PrepareServer(peer):
 	print("Preparing Server")
 	peer.create_server(10000, 10)
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
-		OS.alert("Failed to Start Server.")
+		print("Server failed to start")
 	return true
 
 # launch a standalone client
