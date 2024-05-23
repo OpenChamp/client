@@ -27,11 +27,16 @@ mesh = ExtResource("1_vckyp")
 [node name="Crystal" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_ota7h")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="RangeArea" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RangeArea"]
 shape = SubResource("CylinderShape3D_xu3pd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RangeArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh = SubResource("CylinderMesh_rl361")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88592, 0)
+
+[node name="ShootTimer" type="Timer" parent="."]
