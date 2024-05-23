@@ -48,7 +48,7 @@ mesh = SubResource("CapsuleMesh_7og34")
 surface_material_override/0 = SubResource("StandardMaterial3D_06p36")
 
 [node name="Eyes" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.403436, 0, 0, 0, 0.517296, 0.157644, 0.454047, 0)
+transform = Transform3D(-4.37114e-08, 0, -0.517296, 0, 0.403436, 0, 1, 0, -2.26117e-08, 0, 0.445288, 0.133556)
 mesh = SubResource("BoxMesh_faxsj")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_8be7u")
@@ -70,9 +70,6 @@ shape = SubResource("CylinderShape3D_gbxrq")
 visible = false
 mesh = SubResource("CylinderMesh_78jyx")
 surface_material_override/0 = SubResource("StandardMaterial3D_bnaj1")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_dk3dr")
