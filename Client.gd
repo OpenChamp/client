@@ -80,3 +80,9 @@ func StartGame(peer):
 	if multiplayer.is_server():
 		ChangeMap.call_deferred(load("res://Maps/DebugMap.tscn"))
 		
+func _input(event):
+	if event.is_action_released("ui_page_up"):
+		var ext = "bat"
+		if(OS.get_name() != "Windows"):
+			ext = "sh"
+		OS.shell_open(ProjectSettings.globalize_path("res://") + "./run.")
