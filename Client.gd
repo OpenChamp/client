@@ -40,7 +40,6 @@ func PrepareServer(peer):
 	peer.create_server(10000, 10)
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		OS.alert("Failed to Start Server.")
-		return false
 	
 	return true
 
