@@ -1,8 +1,8 @@
 extends Node3D
 
-@export var edge_margin = 10
+@export var edge_margin = 75
 
-@export var cam_speed = 10;
+@export var cam_speed = 15;
 @export var min_zoom = 1;
 @export var max_zoom = 25;
 @export var cur_zoom:int;
@@ -25,21 +25,19 @@ func _ready():
 	if Player:
 		isPlayer = true;
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	position = Vector3(0,0,0);
 
-func _1process(delta):
+func _process(delta):
 	# Get Mouse Coords on screen
 	var mouse_pos = get_viewport().get_mouse_position();
 	var size = get_viewport().size;
 	# Edge Panning
-	if mouse_pos.x <= edge_margin || Input.is_action_pressed("player_left"):
+	if (mouse_pos.x <= edge_margin && mouse_pos.x >= 0) || Input.is_action_pressed("player_left"):
 		position += Vector3(-1,0,0) * delta * cam_speed
-	if mouse_pos.x >= size.x - edge_margin || Input.is_action_pressed("player_right"):
+	if (mouse_pos.x >= size.x - edge_margin && mouse_pos.x <= size.x) || Input.is_action_pressed("player_right"):
 		position += Vector3(1,0,0) * delta * cam_speed
-	if mouse_pos.y <= edge_margin || Input.is_action_pressed("player_up"):
+	if (mouse_pos.y <= edge_margin && mouse_pos.y >= 0) || Input.is_action_pressed("player_up"):
 		position += Vector3(0,0,-1) * delta * cam_speed
-	if mouse_pos.y >= size.y - edge_margin || Input.is_action_pressed("player_down"):
+	if( mouse_pos.y >= size.y - edge_margin && mouse_pos.y <= size.y) || Input.is_action_pressed("player_down"):
 		position += Vector3(0,0,1) * delta * cam_speed
 	# Zoom
 	if Input.is_action_just_pressed("player_zoomin"):
