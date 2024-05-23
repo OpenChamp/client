@@ -16,13 +16,13 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if attackTimeout > 0:
-		attackTimeout -= delta;
-	var bodies = $Range.get_overlapping_bodies();
-	for body in bodies:
-		if body is CharacterBody3D and body.team != team:
-			if attackTimeout <=0:
-				#Attack(body)
-				print("Turret Attack!")
-	pass
+#func _process(delta):
+	#if attackTimeout > 0:
+		#attackTimeout -= delta;
+	#var bodies = $Range.get_overlapping_bodies();
+	#for body in bodies:
+		#if body is CharacterBody3D and body.team != team:
+			#if attackTimeout <=0:
+				##Attack(body)
+				#print("Turret Attack!")
+	#pass
