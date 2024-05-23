@@ -1,0 +1,1 @@
+OpenChamp.console.exe -s
