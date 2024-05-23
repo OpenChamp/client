@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://nk1xfsgemn1b"]
+[gd_scene load_steps=3 format=3 uid="uid://nk1xfsgemn1b"]
 
 [ext_resource type="Script" path="res://Client.gd" id="1_ie1js"]
+[ext_resource type="Script" path="res://UI/Reconnect.gd" id="2_lgp3q"]
 
 [node name="Client" type="Control"]
 layout_mode = 3
@@ -19,6 +20,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="RetryText" type="RichTextLabel" parent="ConnectionUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -184.0
+offset_top = 23.0
+offset_right = 184.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+
 [node name="RichTextLabel" type="RichTextLabel" parent="ConnectionUI"]
 layout_mode = 1
 anchors_preset = 8
@@ -26,15 +42,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -85.0
+offset_left = -177.5
 offset_top = -20.0
-offset_right = 85.0
+offset_right = 177.5
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Connecting To Server"
+bbcode_enabled = true
+text = "[center]Connecting To Server[/center]"
 
 [node name="Reconnect" type="Timer" parent="ConnectionUI"]
+script = ExtResource("2_lgp3q")
 
 [node name="Map" type="Node3D" parent="."]
 
@@ -42,5 +60,3 @@ text = "Connecting To Server"
 _spawnable_scenes = PackedStringArray("res://Maps/DebugMap.tscn")
 spawn_path = NodePath("../Map")
 spawn_limit = 1
-
-[connection signal="timeout" from="ConnectionUI/Reconnect" to="." method="_on_reconnect_timeout"]
