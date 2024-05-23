@@ -4,3 +4,10 @@
 *.import
 *.exe
 *.pck
+*.zip
+
+# Linux exports
+OpenChamp
+OpenChamp.sh
+OpenChamp.x86_64
+OpenChamp.aarch64
