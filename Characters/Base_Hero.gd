@@ -26,8 +26,8 @@ var attackTimeout = 0;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set Range
-	RangeCollider.get_node("./RangeArea/CollisionShape3D").shape.radius = range
-	RangeCollider.get_node("./RangeArea/MeshInstance3D").mesh.top_radius = float(range);
+	RangeCollider.get_node("./CollisionShape3D").shape.radius = range
+	RangeCollider.get_node("./MeshInstance3D").mesh.top_radius = float(range);
 	# Set Nav
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.5

@@ -34,9 +34,10 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Archer" type="CharacterBody3D"]
+[node name="Archer" type="CharacterBody3D" node_paths=PackedStringArray("RangeCollider")]
 collision_layer = 3
 script = ExtResource("1_qp5gj")
+RangeCollider = NodePath("RangeArea")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
