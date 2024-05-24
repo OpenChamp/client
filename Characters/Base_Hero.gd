@@ -5,9 +5,9 @@ extends CharacterBody3D
 @export var pid:int; # Default to owned by the server
 
 @export var Max_Health:float = 10.00
-@export var Cur_Health:float = 10.00
+@export var Health:float = 10.00
 @export var Max_Mana = 300
-@export var CUR_MANA = 300
+@export var Mana = 300
 @export var attack = 60
 @export var attack_speed:float = .75 #APM
 @export var attack_timeout:float = 0.00
@@ -55,6 +55,10 @@ func _process(delta):
 	if attack_timeout >0 :
 		attack_timeout -= delta;
 	if isAttacking:
+		if targetEntity.Health <=0:
+			targetEntity = null
+			isAttacking = false
+			return;
 		var hasAction = true
 		if target_in_range():
 			InitAutoAttack()
@@ -70,8 +74,8 @@ func _process(delta):
 		move(delta)
 
 func _update_health():
-	$Healthbar.value = Cur_Health
-	if(Cur_Health <=0):
+	$Healthbar.value = Health
+	if(Health <=0):
 		Die()
 		
 func target_in_range():
@@ -146,8 +150,8 @@ func TakeDamage(damage):
 	taken /= 100
 	taken = damage / (taken + 1)
 	print(taken);
-	Cur_Health -= taken;
-	if(Cur_Health <= 0):
+	Health -= taken;
+	if(Health <= 0):
 		Die()
 		
 func Die():

@@ -20,7 +20,12 @@ func TakeDamage(dmg):
 	Health -= dmg;
 	print(Health)
 	if(Health <=0):
-		queue_free()
+		Die()
+		
+func Die():
+	$Crystal.hide()
+	$GPUParticles3D.one_shot = true
+	$GPUParticles3D.emitting = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#if attackTimeout > 0:
