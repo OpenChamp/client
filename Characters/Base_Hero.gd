@@ -7,7 +7,8 @@ extends CharacterBody3D
 @export var health:float = 550.00
 @export var mana = 300
 @export var attack = 60
-@export var attack_speed = .75 #APM
+@export var attack_speed:float = .75 #APM
+@export var attack_timeout:float = 0.00
 @export var armor = 20 
 @export var resistance = 30
 @export var speed = 5 # 330 
@@ -37,7 +38,23 @@ func _ready():
 	$Healthbar.value = health
 
 func _process(delta):
-	move(delta)
+	if attack_timeout >0 :
+		attack_timeout -= delta;
+	if isAttacking:
+		var hasAction = true
+		# Can Attack
+		var bodies = RangeCollider.get_overlapping_bodies()
+		for body in bodies:
+			if body == targetEntity:
+				AutoAttack()
+				hasAction = false
+		# Can't Attack
+		if hasAction:
+			navigation_agent.set_target_position(targetEntity.position)
+			move(delta)
+		
+	else:
+		move(delta)
 
 
 func actor_setup():
@@ -56,14 +73,6 @@ func setOwner(args:Array):
 	self.team = args[0];
 	self.pid = args[1];
 	
-@rpc("any_peer")
-func MoveTo(coords):
-	print(coords);
-	isAttacking = false;
-	targetEntity = null;
-	navigation_agent.set_target_position(coords);
-	pass
-
 func move(delta):
 	var target_pos = navigation_agent.get_next_path_position()
 	var local_destination = target_pos - global_position
@@ -82,6 +91,9 @@ func Attack(entity:CharacterBody3D):
 	isAttacking = true
 
 func AutoAttack():
+	if attack_timeout > 0:
+		return
+	attack_timeout = attack_speed;
 	var Arrow = Projectile.instantiate()
 	Arrow.position = position
 	Arrow.target = targetEntity
@@ -102,4 +114,3 @@ func TakeDamage(damage):
 func Die():
 	isDead = true;
 	hide()
-	print("RIP");

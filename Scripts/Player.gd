@@ -47,7 +47,7 @@ func Action(event):
 		#Player.MoveTo(result.position);
 	# Attack
 	if result and result.collider is CharacterBody3D:
-		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result)
+		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider)
 		
 
 func _process(delta):
