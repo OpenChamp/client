@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 # Net  Vars
 @export var team:int;
-@export var pid:int
+@onready var pid:int = 1; # Default to owned by the server
 
 @export var health:float = 550.00
 @export var mana = 300
@@ -51,9 +51,10 @@ func actor_setup():
 	navigation_agent.set_target_position(pos)
 
 @rpc("authority")
-func setOwner(team):
-	self.team = team;
-	get_parent().get_parent().get_node("Player").set_player(self)
+func setOwner(args:Array):
+	print("Owning Myself");
+	self.team = args[0];
+	self.pid = args[1];
 	
 @rpc("any_peer")
 func MoveTo(coords):
