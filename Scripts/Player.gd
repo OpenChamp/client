@@ -26,7 +26,6 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseButton:
 		# Right click to move
-		print("Clicky");
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			Action(event)
 			
@@ -44,15 +43,12 @@ func Action(event):
 		var marker = MoveMarker.instantiate()
 		marker.position = result.position
 		get_node("/root").add_child(marker);
-		print("HEAR ME");
 		ServerListener.rpc_id(get_multiplayer_authority(),"MoveTo", result.position)
 		#Player.MoveTo(result.position);
 	# Attack
-	#if result and result.collider is CharacterBody3D:
-		#print("FOUND YOU")
-		#if result.collider.team != Player.team:
-			#print("GONNA HURT YOU")
-			#Player.Attack(result.collider)
+	if result and result.collider is CharacterBody3D:
+		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result)
+		
 
 func _process(delta):
 	# Handle the escape key (for now just close the game)

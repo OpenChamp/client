@@ -25,7 +25,7 @@ func _ready():
 		add_player(1)
 
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local")
 func MoveTo(pos):
 	var peer_id = multiplayer.get_remote_sender_id()
 	var Character = Players[peer_id]
