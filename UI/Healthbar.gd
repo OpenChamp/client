@@ -13,6 +13,9 @@ func _process(_delta):
 	else:
 		hide();
 
+func sync(val):
+	value = val;
+
 func update_loc(player_position: Vector3):
 	if value < max_value && !value <= 0:
 		show()

@@ -1,7 +1,7 @@
 extends StaticBody3D
 
 @export var team:int
-var Health = 1000;
+@export var Health = 1000;
 
 signal GameOver(team)
 # Called when the node enters the scene tree for the first time.
@@ -14,6 +14,10 @@ func _ready():
 	# Set Health
 	$Healthbar.max_value = Health
 	$Healthbar.value = Health
+
+func _process(delta):
+	$Healthbar.sync(Health)
+
 
 func TakeDamage(amt):
 	Health -= amt;

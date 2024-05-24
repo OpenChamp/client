@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2nrxob1lindp"]
+[gd_scene load_steps=15 format=3 uid="uid://d2nrxob1lindp"]
 
 [ext_resource type="Script" path="res://Environment/Scripts/Turret.gd" id="1_5f2lw"]
 [ext_resource type="ArrayMesh" path="res://Environment/Models/turret.mesh" id="1_vckyp"]
@@ -31,6 +31,11 @@ albedo_texture = ExtResource("5_a1148")
 
 [sub_resource type="BoxMesh" id="BoxMesh_kxe1f"]
 material = SubResource("StandardMaterial3D_xtu81")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dw5oy"]
+properties/0/path = NodePath(".:Health")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Turret" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -69,3 +74,6 @@ amount = 50
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_o06sk")
 draw_pass_1 = SubResource("BoxMesh_kxe1f")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dw5oy")

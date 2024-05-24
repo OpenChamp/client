@@ -6,7 +6,7 @@ var attackSpeed = 1.5; # 1.5/s
 var attackTimeout = 0;
 var Target:CharacterBody3D
 var targetAttackedPlayer:bool = false;
-var Health = 1000
+@export var Health = 1000
 var Armor = 50
 
 # Called when the node enters the scene tree for the first time.
@@ -19,10 +19,12 @@ func _ready():
 	$Healthbar.max_value = Health
 	$Healthbar.value = Health
 
-
+func _process(delta):
+	$Healthbar.sync(Health)
+	
 func TakeDamage(dmg):
 	Health -= dmg;
-	$Healthbar.value -= dmg;
+
 	if(Health <=0):
 		Die()
 		
