@@ -31,12 +31,10 @@ func add_player(clientId: int):
 		Team1.append(clientId)
 		Team = 1
 		character.position = $Spawn1.position
-	
 	character.pid = clientId
-	character.team = Team
 	character.name = str(clientId)
 	$Heroes.add_child(character)
-	multiplayer.rpc(clientId, character, "setOwner")
+	multiplayer.rpc(clientId, character, "setOwner", [clientId, Team])
 	
 	
 func del_player(clientId: int):
