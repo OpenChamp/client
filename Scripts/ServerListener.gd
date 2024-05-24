@@ -39,8 +39,11 @@ func MoveTo(pos):
 
 @rpc("any_peer", "call_local")
 func Target(name):
-	print(name);
 	var peer_id = multiplayer.get_remote_sender_id()
+	# Dont Kill Yourself
+	if(name == peer_id):
+		print("That's you ya idjit");
+		return;
 	print(str(peer_id) + " : " + str(name))
 	var Character = Players[peer_id]
 	if !Character:
