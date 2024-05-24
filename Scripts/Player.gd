@@ -36,7 +36,6 @@ func Action(event):
 	var space = get_world_3d().direct_space_state
 	var params = PhysicsRayQueryParameters3D.create(from, to)
 	var result = space.intersect_ray(params)
-	print_debug(result);
 	# Move
 	if result and result.collider.is_in_group("ground"):
 		result.position.y += 1;
@@ -47,7 +46,7 @@ func Action(event):
 		#Player.MoveTo(result.position);
 	# Attack
 	if result and result.collider is CharacterBody3D:
-		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider)
+		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.pid)
 		
 
 func _process(delta):

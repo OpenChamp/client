@@ -36,13 +36,14 @@ func MoveTo(pos):
 	Character.navigation_agent.set_target_position(pos);
 
 @rpc("any_peer", "call_local")
-func Target(entity):
+func Target(pid):
 	var peer_id = multiplayer.get_remote_sender_id()
+	print(str(peer_id) + " : " + str(pid))
 	var Character = Players[peer_id]
 	if !Character:
 		print("Failed to find character")
 		return;
-	Character.targetEntity = entity;
+	Character.targetEntity = Players[pid]
 	Character.isAttacking = true
 
 
@@ -62,7 +63,6 @@ func add_player(clientId: int):
 	character.name = str(clientId)
 	Players[clientId] = character
 	Heroes.add_child(character)
-	character.rpc_id(clientId, "setOwner", [clientId, Team])
 
 func del_player(clientId: int):
 	if not Heroes.has_node(str(clientId)):

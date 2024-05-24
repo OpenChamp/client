@@ -2,17 +2,20 @@ extends CharacterBody3D
 
 # Net  Vars
 @export var team:int;
-@onready var pid:int = 1; # Default to owned by the server
+@export var pid:int; # Default to owned by the server
 
-@export var health:float = 550.00
-@export var mana = 300
+@export var Max_Health:float = 550.00
+@export var Cur_Health:float = 550.00
+@export var Max_Mana = 300
+@export var CUR_MANA = 300
 @export var attack = 60
 @export var attack_speed:float = .75 #APM
 @export var attack_timeout:float = 0.00
-@export var armor = 20 
-@export var resistance = 30
+
 @export var speed = 5 # 330 
-@export var range = 3
+@export var range = 5
+
+@export var Armor = 20;
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @export var RangeCollider: Area3D;
@@ -21,7 +24,8 @@ extends CharacterBody3D
 
 var isAttacking: bool = false;
 var isDead: bool = false;
-var targetEntity:CharacterBody3D;
+@export var targetEntity:CharacterBody3D;
+@export var targetId:int;
 var attackTimeout = 0;
 
 # Called when the node enters the scene tree for the first time.
@@ -34,10 +38,13 @@ func _ready():
 	navigation_agent.target_desired_distance = 0.5
 	# Set Health
 	call_deferred("actor_setup")
-	$Healthbar.max_value = health
-	$Healthbar.value = health
+	$Healthbar.max_value = Max_Health;
+	_update_health();
 
 func _process(delta):
+	_update_health()
+	if not multiplayer.is_server():
+		return;
 	if attack_timeout >0 :
 		attack_timeout -= delta;
 	if isAttacking:
@@ -49,14 +56,19 @@ func _process(delta):
 				AutoAttack()
 				hasAction = false
 		# Can't Attack
-		if hasAction:
+		if hasAction && targetEntity:
 			navigation_agent.set_target_position(targetEntity.position)
 			move(delta)
 		
 	else:
 		move(delta)
 
-
+func _update_health():
+	$Healthbar.value = Cur_Health
+	if(Cur_Health <=0):
+		Die()
+	
+	
 func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
 	await get_tree().physics_frame
@@ -66,12 +78,17 @@ func actor_setup():
 	else:
 		pos = position
 	navigation_agent.set_target_position(pos)
-
-@rpc("authority")
-func setOwner(args:Array):
-	print("Owning Myself");
-	self.team = args[0];
-	self.pid = args[1];
+	
+@rpc("authority", "call_local")
+func SetTarget(pid):
+	print(pid)
+	var Champions = get_parent().get_children()
+	for champ in Champions:
+		if champ.pid == pid:
+			targetEntity = champ
+			isAttacking = true
+		else:
+			print(pid);
 	
 func move(delta):
 	var target_pos = navigation_agent.get_next_path_position()
@@ -103,12 +120,12 @@ func AutoAttack():
 	
 func TakeDamage(damage):
 	print(damage);
-	var taken:float = armor
+	var taken:float = Armor
 	taken /= 100
 	taken = damage / (taken + 1)
 	print(taken);
-	$Healthbar.value -= taken
-	if $Healthbar.value <= 0:
+	Cur_Health -= taken;
+	if(Cur_Health <= 0):
 		Die()
 		
 func Die():
