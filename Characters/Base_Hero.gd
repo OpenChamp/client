@@ -51,7 +51,8 @@ func actor_setup():
 	navigation_agent.set_target_position(pos)
 
 @rpc("authority")
-func setOwner():
+func setOwner(team):
+	self.team = team;
 	get_parent().get_parent().get_node("Player").set_player(self)
 	
 @rpc("any_peer")
