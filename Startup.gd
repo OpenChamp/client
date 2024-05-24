@@ -15,14 +15,15 @@ var max_attempts = 3
 var attempts = 0
 var timeout = 3
  
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	# UI
+	_set_status("Connecting...")
 	$Panel/ReconnectButton.hide()
 	$Panel/ExitButton.hide()
-	_set_status("Connecting...")
+	# Parse Args
 	var args = Array(OS.get_cmdline_args())
 	ParseArgs(args)
+	# Start Relevant Process
 	if args.has("-s") || DisplayServer.get_name() == "headless":
 		call_deferred("Start", START.SERVER)
 	else:
@@ -36,16 +37,14 @@ func ParseArgs(args:Array):
 				address = args[i] + 1
 			if(args[i] == "-P"):
 				port = args[i] + 1
-		else:
-			pass
 
 # Client Peer Connection
 func SetupClient(peer:ENetMultiplayerPeer):
 	_set_status("Connecting as Client...")
+	_update_attempts()
 	print("Attempting connection to:" + address + ":" + str(port))
-	var client = peer.create_client(address, port)
-	if client == Error.OK:
-		print(peer.get_connection_status())
+	
+	peer.create_client(address, port)
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		return false
 	elif peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING:
@@ -53,11 +52,30 @@ func SetupClient(peer:ENetMultiplayerPeer):
 		multiplayer.multiplayer_peer = peer
 		$CheckupTimer.wait_time = 1
 		$CheckupTimer.start()
+		return false
 	return true
-# Server Peer Connection
 
+func ClientSuccess():
+	print("Connected!");
+	get_tree().change_scene_to_file("res://Client/Client.tscn")
+
+func ClientFail():
+	_set_status("Failed To Connect...")
+	multiplayer.multiplayer_peer.close()
+	attempts +=1
+	_update_attempts()
+	if attempts <= max_attempts:
+		$ReconnectTimer.wait_time = timeout
+		$ReconnectTimer.start()
+	else:
+		_set_status("Could not connect to server")
+		$Panel/ReconnectButton.show()
+		$Panel/ExitButton.show()
+		
+# Server Peer Connection
 func SetupServer(peer:ENetMultiplayerPeer):
 	_set_status("Creating Server...")
+	
 	peer.create_server(port, 10)
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		print("Server failed to start")
@@ -66,35 +84,29 @@ func SetupServer(peer:ENetMultiplayerPeer):
 
 func Start(method:int):
 	var peer = ENetMultiplayerPeer.new()
+	# Client Side
 	if method == START.CLIENT:
 		if not SetupClient(peer):
-			_set_status("Failed To Connect...")
-			attempts +=1
-			_update_attempts()
-			if attempts <= max_attempts:
-				$ReconnectTimer.wait_time = timeout
-				$ReconnectTimer.start()
+			if !$CheckupTimer.is_stopped():
+				_set_status("Connecting...")
 			else:
-				_set_status("Could not connect to server")
-				$Panel/ReconnectButton.show()
-				$Panel/ExitButton.show()
-
+				ClientFail()
+		else:
+			ClientSuccess()
+	# Server Side
 	elif method == START.SERVER:
 		if not SetupServer(peer):
-			match method:
-				START.SERVER:
-					OS.alert("Server failed to start")
-					get_tree().quit()
-					return
+			OS.alert("Server failed to start")
+			get_tree().quit()
+			return
 		else:
 			multiplayer.multiplayer_peer = peer
 			print("Server Started, beginning initialization")
 			get_tree().change_scene_to_file("res://Server/Server.tscn")
 			return;
 			
-	
-			
 
+		
 func _set_status(message:String):
 	var text = "[center]" + message + "[/center]"
 	$Panel/StatusText.text = text;
@@ -116,24 +128,18 @@ func _on_host_pressed():
 	Start(START.SERVER)
 	$ReconnectTimer.stop()
 
-
 func _on_checkup_timer_timeout():
 	# Is Connected?
+	print("A")
 	$CheckupTimer.stop()
 	if multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
-		_set_status("Connected!")
+		print("D")
+		ClientSuccess()
 	elif multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
-		_set_status("Failed To Connect...")
-		attempts +=1
-		_update_attempts()
-		if attempts <= max_attempts:
-			$ReconnectTimer.wait_time = timeout
-			$ReconnectTimer.start()
-		else:
-			_set_status("Could not connect to server")
-			$Panel/ReconnectButton.show()
-			$Panel/ExitButton.show()
+		print("C")
+		ClientFail()
 	elif multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING:
+		print("B")
 		$CheckupTimer.wait_time = 1
 		$CheckupTimer.start()
 	pass # Replace with function body.
