@@ -26,7 +26,7 @@ extends CharacterBody3D
 
 var isAttacking: bool = false;
 var isDead: bool = false;
-@export var targetEntity:CharacterBody3D;
+var targetEntity; 
 @export var targetId:int;
 var attackTimeout = 0;
 
@@ -59,7 +59,11 @@ func _process(delta):
 		if target_in_range():
 			InitAutoAttack()
 		else:
-			navigation_agent.set_target_position(targetEntity.position)
+			if(targetEntity != null):
+				navigation_agent.set_target_position(targetEntity.position)
+			else:
+				targetEntity = null
+				isAttacking = false
 			move(delta)
 		
 	else:
@@ -122,6 +126,7 @@ func InitAutoAttack():
 	$CastTimer.start()
 
 func FinishAutoAttack():
+	print("Attacking")
 	$CastTimer.stop()
 	#Check if target is still in range
 	if !target_in_range():

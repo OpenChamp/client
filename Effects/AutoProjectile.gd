@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var target:CharacterBody3D
+var target
 @export var damage: int
 var speed=10
 

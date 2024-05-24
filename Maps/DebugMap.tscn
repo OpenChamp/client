@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://cf3wfr4d5kn2s"]
+[gd_scene load_steps=17 format=3 uid="uid://cf3wfr4d5kn2s"]
 
 [ext_resource type="Script" path="res://Maps/DebugMap.gd" id="1_jf6oq"]
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/UI.tscn" id="1_w137o"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="3_tygk6"]
+[ext_resource type="Script" path="res://Maps/WorldNav.gd" id="4_3ciml"]
 [ext_resource type="PackedScene" uid="uid://d2nrxob1lindp" path="res://Environment/Turret.tscn" id="5_j06yq"]
 [ext_resource type="PackedScene" uid="uid://brqeiatrwm3ju" path="res://Environment/Tower.tscn" id="6_i164n"]
 [ext_resource type="Script" path="res://Scripts/ServerListener.gd" id="6_yqk4b"]
@@ -58,6 +59,7 @@ environment = SubResource("Environment_bcyjk")
 
 [node name="WorldNav" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_vdgac")
+script = ExtResource("4_3ciml")
 
 [node name="World" type="MeshInstance3D" parent="WorldNav" groups=["ground"]]
 mesh = SubResource("PlaneMesh_3bvvs")
@@ -68,19 +70,19 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldNav/World/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ct13e")
 
-[node name="Turret" parent="WorldNav" instance=ExtResource("5_j06yq")]
+[node name="Turret" parent="WorldNav" groups=["Objective"] instance=ExtResource("5_j06yq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 0)
 team = 1
 
-[node name="Turret2" parent="WorldNav" instance=ExtResource("5_j06yq")]
+[node name="Turret2" parent="WorldNav" groups=["Objective"] instance=ExtResource("5_j06yq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 0)
 team = 2
 
-[node name="Tower" parent="WorldNav" instance=ExtResource("6_i164n")]
+[node name="Tower" parent="WorldNav" groups=["Objective"] instance=ExtResource("6_i164n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 2, 0)
 team = 1
 
-[node name="Tower2" parent="WorldNav" instance=ExtResource("6_i164n")]
+[node name="Tower2" parent="WorldNav" groups=["Objective"] instance=ExtResource("6_i164n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 2, 0)
 team = 2
 
@@ -106,3 +108,5 @@ spawn_limit = 10
 
 [node name="ServerListener" type="Node" parent="."]
 script = ExtResource("6_yqk4b")
+
+[connection signal="tree_exited" from="WorldNav/Turret" to="WorldNav" method="_on_turret_tree_exited"]

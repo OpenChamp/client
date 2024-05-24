@@ -45,6 +45,8 @@ func Action(event):
 		ServerListener.rpc_id(get_multiplayer_authority(),"MoveTo", result.position)
 		#Player.MoveTo(result.position);
 	# Attack
+	if result and result.collider.is_in_group("Objective"):
+		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.name)
 	if result and result.collider is CharacterBody3D:
 		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.pid)
 		

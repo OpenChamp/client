@@ -18,7 +18,8 @@ func _ready():
 		
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
-	
+	$"../WorldNav/Tower2".GameOver.connect(GameOver)
+	$"../WorldNav/Tower".GameOver.connect(GameOver)
 	for id in multiplayer.get_peers():
 		add_player(id)
 	
@@ -37,15 +38,22 @@ func MoveTo(pos):
 	Character.navigation_agent.set_target_position(pos);
 
 @rpc("any_peer", "call_local")
-func Target(pid):
+func Target(name):
+	print(name);
 	var peer_id = multiplayer.get_remote_sender_id()
-	print(str(peer_id) + " : " + str(pid))
+	print(str(peer_id) + " : " + str(name))
 	var Character = Players[peer_id]
 	if !Character:
 		print("Failed to find character")
 		return;
-	Character.targetEntity = Players[pid]
+	if name is int:
+		Character.targetEntity = Players[name]
+	else: 
+		Character.targetEntity = get_parent().get_node("./WorldNav/"+name)
 	Character.isAttacking = true
+
+func GameOver(team):
+	get_tree().quit();
 
 func add_player(clientId: int):
 	print("Player Connected: " + str(clientId))
