@@ -6,7 +6,8 @@ var attackSpeed = 1.5; # 1.5/s
 var attackTimeout = 0;
 var Target:CharacterBody3D
 var targetAttackedPlayer:bool = false;
-var Health = 100
+var Health = 1000
+var Armor = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,11 +15,14 @@ func _ready():
 		get_node("Crystal").set_surface_override_material(0, load("res://Environment/Materials/Blue.material"))
 	elif team == 2:
 		get_node("Crystal").set_surface_override_material(0, load("res://Environment/Materials/Red.material"))
+	# Set Health
+	$Healthbar.max_value = Health
+	$Healthbar.value = Health
 
 
 func TakeDamage(dmg):
 	Health -= dmg;
-	print(Health)
+	$Healthbar.value -= dmg;
 	if(Health <=0):
 		Die()
 		

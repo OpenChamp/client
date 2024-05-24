@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://d2nrxob1lindp"]
+[gd_scene load_steps=14 format=3 uid="uid://d2nrxob1lindp"]
 
 [ext_resource type="Script" path="res://Environment/Scripts/Turret.gd" id="1_5f2lw"]
 [ext_resource type="ArrayMesh" path="res://Environment/Models/turret.mesh" id="1_vckyp"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="2_h3doq"]
 [ext_resource type="ArrayMesh" path="res://Environment/Models/crystal.mesh" id="2_ota7h"]
 [ext_resource type="Texture2D" uid="uid://ct3hetvyluc2n" path="res://Environment/Textures/turretbody.png" id="2_xcrih"]
 [ext_resource type="Texture2D" uid="uid://dlqyy1ksvpbui" path="res://Environment/Textures/towerbody.png" id="5_a1148"]
@@ -36,6 +37,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_5f2lw")
+
+[node name="Healthbar" parent="." instance=ExtResource("2_h3doq")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(4.35, 0, 0, 0, 1, 0, 0, 0, 4.35, 0, -0.476418, 0)

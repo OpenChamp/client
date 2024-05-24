@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://brqeiatrwm3ju"]
+[gd_scene load_steps=8 format=3 uid="uid://brqeiatrwm3ju"]
 
 [ext_resource type="Script" path="res://Environment/Scripts/Tower.gd" id="1_0uple"]
 [ext_resource type="ArrayMesh" path="res://Environment/Models/tower.mesh" id="1_y4mwl"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="2_7iyaq"]
 [ext_resource type="Texture2D" uid="uid://dlqyy1ksvpbui" path="res://Environment/Textures/towerbody.png" id="2_12ry7"]
 [ext_resource type="ArrayMesh" path="res://Environment/Models/towercrystal.mesh" id="2_ft873"]
 
@@ -16,6 +17,8 @@ radius = 4.0
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_0uple")
+
+[node name="Healthbar" parent="." instance=ExtResource("2_7iyaq")]
 
 [node name="Tower" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_2o12x")
