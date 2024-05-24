@@ -9,6 +9,7 @@ func _ready():
 func _process(_delta):
 	if(value < max_value):
 		show()
+		update_loc(get_parent().position)
 	else:
 		hide();
 

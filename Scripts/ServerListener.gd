@@ -10,6 +10,7 @@ var Team2 = Array()
 @onready var Spawn1 = $"../Spawn1"
 @onready var Spawn2 = $"../Spawn2"
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if not multiplayer.is_server():
@@ -45,7 +46,6 @@ func Target(pid):
 		return;
 	Character.targetEntity = Players[pid]
 	Character.isAttacking = true
-
 
 func add_player(clientId: int):
 	print("Player Connected: " + str(clientId))
