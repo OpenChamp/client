@@ -12,13 +12,13 @@
 script = ExtResource("1_3s1vo")
 
 [node name="Shaft" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.04907e-08, 0.6, 0, -0.24, -2.62268e-08, 0, 0, 0, 0.24, 0, 0, 0)
+transform = Transform3D(4.58563e-16, -2.62268e-08, -0.24, -0.24, -2.62268e-08, 0, -1.04907e-08, 0.6, -1.04907e-08, 0.30101, 0, -0.291416)
 mesh = SubResource("CylinderMesh_s8s0j")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.67852e-08, 0.4, 0, -0.384, -1.74846e-08, 0, 0, 0, 0.312, 0.790151, 0, 0)
+transform = Transform3D(7.33704e-16, -1.74846e-08, -0.312, -0.384, -1.74846e-08, 0, -1.67852e-08, 0.4, -1.3638e-08, 0.30101, 0, 0.498735)
 mesh = SubResource("PrismMesh_soxce")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0984885, -0.0112842, 0.0143905)
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 0.28662, -0.0112842, -0.192928)
 shape = SubResource("CapsuleShape3D_toew3")

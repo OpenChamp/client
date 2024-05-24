@@ -18,6 +18,7 @@ func _process(delta):
 		var dir = (target.position - global_position).normalized();
 		var dist = speed * delta
 		global_position += dir * dist;
+		look_at(target.position);
 	else:
 		target.TakeDamage(damage)
 		queue_free()
