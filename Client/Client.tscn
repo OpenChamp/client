@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqp802oi7kk14"]
-
-[ext_resource type="Script" path="res://Client/Client.gd" id="1_34qkp"]
-
-[node name="Client" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_34qkp")

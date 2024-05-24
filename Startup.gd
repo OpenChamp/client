@@ -10,16 +10,24 @@ enum START {
 # Network
 @onready var address = "127.0.0.1"
 @onready var port = 10000
+
+@onready var StatusText = $ConnectionUI/StatusText
+@onready var AttemptsText = $ConnectionUI/AttemptsText
+
+@onready var ReconnectButton = $ConnectionUI/ReconnectButton
+@onready var ExitButton = $ConnectionUI/ExitButton
+@onready var HostButton = $ConnectionUI/HostButton
 # Retry
 var max_attempts = 3
 var attempts = 0
 var timeout = 3
- 
+
+# Godot Default Listeners
 func _ready():
 	# UI
 	_set_status("Connecting...")
-	$Panel/ReconnectButton.hide()
-	$Panel/ExitButton.hide()
+	ReconnectButton.hide()
+	ExitButton.hide()
 	# Parse Args
 	var args = Array(OS.get_cmdline_args())
 	ParseArgs(args)
@@ -29,16 +37,7 @@ func _ready():
 	else:
 		call_deferred("Start", START.CLIENT)
 
-func ParseArgs(args:Array):
-	for i in args.size():
-		if(args[i].begins_with("-")):
-			# Process as command
-			if(args[i] == "-S"):
-				address = args[i] + 1
-			if(args[i] == "-P"):
-				port = args[i] + 1
-
-# Client Peer Connection
+# Client Connection Functionality
 func SetupClient(peer:ENetMultiplayerPeer):
 	_set_status("Connecting as Client...")
 	_update_attempts()
@@ -57,7 +56,7 @@ func SetupClient(peer:ENetMultiplayerPeer):
 
 func ClientSuccess():
 	print("Connected!");
-	get_tree().change_scene_to_file("res://Client/Client.tscn")
+	$ConnectionUI.hide()
 
 func ClientFail():
 	_set_status("Failed To Connect...")
@@ -69,10 +68,10 @@ func ClientFail():
 		$ReconnectTimer.start()
 	else:
 		_set_status("Could not connect to server")
-		$Panel/ReconnectButton.show()
-		$Panel/ExitButton.show()
-		
-# Server Peer Connection
+		ReconnectButton.show()
+		ExitButton.show()
+
+# Server Connection Functionality
 func SetupServer(peer:ENetMultiplayerPeer):
 	_set_status("Creating Server...")
 	
@@ -82,6 +81,16 @@ func SetupServer(peer:ENetMultiplayerPeer):
 		return false;
 	return true
 
+func ServerFail():
+	OS.alert("Server failed to start")
+	get_tree().quit()
+
+func ServerSuccess():
+	print("Server Started, beginning initialization")
+	$ConnectionUI.hide()
+	ChangeMap(load("res://Maps/DebugMap.tscn"))
+
+# Custom Functions
 func Start(method:int):
 	var peer = ENetMultiplayerPeer.new()
 	# Client Side
@@ -96,24 +105,31 @@ func Start(method:int):
 	# Server Side
 	elif method == START.SERVER:
 		if not SetupServer(peer):
-			OS.alert("Server failed to start")
-			get_tree().quit()
-			return
+			ServerFail()
 		else:
 			multiplayer.multiplayer_peer = peer
-			print("Server Started, beginning initialization")
-			get_tree().change_scene_to_file("res://Server/Server.tscn")
+			ServerSuccess()
 			return;
-			
 
-		
-func _set_status(message:String):
-	var text = "[center]" + message + "[/center]"
-	$Panel/StatusText.text = text;
-	
-func _update_attempts():
-	$Panel/AttemptsText.text = "[center]Attempts: " + str(attempts) + "[/center]";
-	
+func ChangeMap(scene: PackedScene):
+	var map = $Map
+	print(map)
+	# Clean out everything
+	for child in map.get_children():
+		map.remove_child(child)
+		child.queue_free()
+	map.add_child(scene.instantiate())
+
+func ParseArgs(args:Array):
+	for i in args.size():
+		if(args[i].begins_with("-")):
+			# Process as command
+			if(args[i] == "-S"):
+				address = args[i] + 1
+			if(args[i] == "-P"):
+				port = args[i] + 1
+
+# Event Listeners
 func _on_reconnect_timer_timeout():
 	$ReconnectTimer.stop()
 	Start(START.CLIENT)
@@ -143,3 +159,12 @@ func _on_checkup_timer_timeout():
 		$CheckupTimer.wait_time = 1
 		$CheckupTimer.start()
 	pass # Replace with function body.
+
+# Setters
+func _set_status(message:String):
+	var text = "[center]" + message + "[/center]"
+	StatusText.text = text;
+	
+func _update_attempts():
+	AttemptsText.text = "[center]Attempts: " + str(attempts) + "[/center]";
+	

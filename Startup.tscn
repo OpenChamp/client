@@ -15,7 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8gim2")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="ConnectionUI" type="Panel" parent="."]
 layout_mode = 2
 offset_left = -577.0
 offset_top = -324.0
@@ -23,7 +23,7 @@ offset_right = 576.0
 offset_bottom = 324.0
 size_flags_vertical = 4
 
-[node name="StatusText" type="RichTextLabel" parent="Panel"]
+[node name="StatusText" type="RichTextLabel" parent="ConnectionUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,7 +39,7 @@ grow_vertical = 2
 bbcode_enabled = true
 text = "[center]Connecting.[/center]"
 
-[node name="AttemptsText" type="RichTextLabel" parent="Panel"]
+[node name="AttemptsText" type="RichTextLabel" parent="ConnectionUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,7 +55,7 @@ grow_vertical = 2
 bbcode_enabled = true
 text = "[center]Attempt: [/center]"
 
-[node name="ReconnectButton" type="Button" parent="Panel"]
+[node name="ReconnectButton" type="Button" parent="ConnectionUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -70,7 +70,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Reconnect"
 
-[node name="ExitButton" type="Button" parent="Panel"]
+[node name="ExitButton" type="Button" parent="ConnectionUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -85,7 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Exit"
 
-[node name="Host" type="Button" parent="Panel"]
+[node name="HostButton" type="Button" parent="ConnectionUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -104,8 +104,31 @@ text = "Host Server"
 
 [node name="CheckupTimer" type="Timer" parent="."]
 
-[connection signal="pressed" from="Panel/ReconnectButton" to="." method="_on_reconnect_button_pressed"]
-[connection signal="pressed" from="Panel/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="Panel/Host" to="." method="_on_host_pressed"]
+[node name="Map" type="Node" parent="."]
+
+[node name="MapSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Maps/DebugMap.tscn")
+spawn_path = NodePath("../Map")
+spawn_limit = 1
+
+[node name="ServerLogs" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -577.0
+offset_top = -326.0
+offset_right = -230.0
+offset_bottom = 321.0
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ServerLogs"]
+layout_mode = 2
+text = "This is a log"
+fit_content = true
+
+[connection signal="pressed" from="ConnectionUI/ReconnectButton" to="." method="_on_reconnect_button_pressed"]
+[connection signal="pressed" from="ConnectionUI/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="ConnectionUI/HostButton" to="." method="_on_host_pressed"]
 [connection signal="timeout" from="ReconnectTimer" to="." method="_on_reconnect_timer_timeout"]
 [connection signal="timeout" from="CheckupTimer" to="." method="_on_checkup_timer_timeout"]

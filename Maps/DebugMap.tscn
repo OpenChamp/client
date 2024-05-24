@@ -90,6 +90,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
 
 [node name="Heroes" type="Node" parent="."]
 
+[node name="Players" type="Node" parent="."]
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Characters/Player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 10
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Characters/Archer.tscn")
 spawn_path = NodePath("../Heroes")
