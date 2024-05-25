@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cf3wfr4d5kn2s"]
+[gd_scene load_steps=16 format=3 uid="uid://cf3wfr4d5kn2s"]
 
 [ext_resource type="Script" path="res://Maps/DebugMap.gd" id="1_jf6oq"]
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/UI.tscn" id="1_w137o"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d2nrxob1lindp" path="res://Environment/Turret.tscn" id="5_j06yq"]
 [ext_resource type="PackedScene" uid="uid://brqeiatrwm3ju" path="res://Environment/Tower.tscn" id="6_i164n"]
 [ext_resource type="Script" path="res://Scripts/ServerListener.gd" id="6_yqk4b"]
+[ext_resource type="PackedScene" uid="uid://co35cw7i1opr1" path="res://grass_curve.tscn" id="7_l5dlw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qewsh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -49,6 +50,7 @@ ServerListener = NodePath("../ServerListener")
 environment = SubResource("Environment_bcyjk")
 
 [node name="WorldNav" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0326872, -0.073719, 0.11956)
 navigation_mesh = SubResource("NavigationMesh_vdgac")
 
 [node name="World" type="MeshInstance3D" parent="WorldNav" groups=["ground"]]
@@ -76,6 +78,14 @@ team = 1
 [node name="Tower2" parent="WorldNav" groups=["Objective"] instance=ExtResource("6_i164n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 2, 0)
 team = 2
+
+[node name="Grasses" type="Node" parent="WorldNav"]
+
+[node name="GrassCurve" parent="WorldNav/Grasses" instance=ExtResource("7_l5dlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -10)
+
+[node name="GrassCurve2" parent="WorldNav/Grasses" instance=ExtResource("7_l5dlw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0005, 0.0259819, -10.0436)
 
 [node name="Spawn1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
