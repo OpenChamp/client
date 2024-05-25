@@ -7,6 +7,11 @@ extends Node3D
 @export var max_zoom = 25;
 @export var cur_zoom:int;
 
+@export var min_x:int;
+@export var max_x:int;
+@export var min_z:int;
+@export var max_z:int;
+
 @export var Spring_Arm: SpringArm3D;
 @export var Camera:Camera3D;
 @export var MoveMarker:PackedScene;
@@ -65,17 +70,21 @@ func _process(delta):
 	
 	# Edge Panning
 	if (mouse_pos.x <= edge_margin && mouse_pos.x >= 0) || Input.is_action_pressed("player_left"):
-		cam_delta += Vector3(-1,0,0)
-		cam_moved = true
+		if !position.x <= min_x:
+			cam_delta += Vector3(-1,0,0)
+			cam_moved = true
 	if (mouse_pos.x >= size.x - edge_margin && mouse_pos.x <= size.x) || Input.is_action_pressed("player_right"):
-		cam_delta += Vector3(1,0,0)
-		cam_moved = true
+		if !position.x >= max_x:
+			cam_delta += Vector3(1,0,0)
+			cam_moved = true
 	if (mouse_pos.y <= edge_margin && mouse_pos.y >= 0) || Input.is_action_pressed("player_up"):
-		cam_delta += Vector3(0,0,-1)
-		cam_moved = true
+		if !position.z <= min_z:
+			cam_delta += Vector3(0,0,-1)
+			cam_moved = true
 	if( mouse_pos.y >= size.y - edge_margin && mouse_pos.y <= size.y) || Input.is_action_pressed("player_down"):
-		cam_delta += Vector3(0,0,1)
-		cam_moved = true
+		if !position.z >= max_z:
+			cam_delta += Vector3(0,0,1)
+			cam_moved = true
 	
 	if cam_moved:
 		position += cam_delta.normalized() * delta * cam_speed
