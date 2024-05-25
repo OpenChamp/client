@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://dg6884b3h18iy"]
+[gd_scene load_steps=8 format=3 uid="uid://dg6884b3h18iy"]
 
 [ext_resource type="Script" path="res://Scripts/Minion.gd" id="1_yr24i"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="2_whhxv"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_ja06h"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_me4cv"]
+radius = 0.1
+height = 0.2
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_demsi"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_iaetu"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_aye5i"]
 properties/0/path = NodePath(".:position")
@@ -19,28 +26,66 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:id")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath(".:health")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_iaetu"]
-
-[node name="Minion" type="CharacterBody3D" groups=["minions"]]
+[node name="Minion" type="CharacterBody3D" groups=["Minion"]]
 script = ExtResource("1_yr24i")
+
+[node name="Dead" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("PrismMesh_ja06h")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Eyes" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="Eye1" type="MeshInstance3D" parent="Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.15, -0.5)
+mesh = SubResource("SphereMesh_me4cv")
+skeleton = NodePath(".")
+
+[node name="Eye2" type="MeshInstance3D" parent="Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.15, -0.5)
+mesh = SubResource("SphereMesh_me4cv")
+skeleton = NodePath(".")
+
+[node name="Healthbar" parent="." instance=ExtResource("2_whhxv")]
+
+[node name="MinionCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_demsi")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="RangeArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RangeArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_iaetu")
+
+[node name="ActivationArea" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ActivationArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_iaetu")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_aye5i")
 
-[node name="ActivationArea" type="Area3D" parent="."]
-
-[node name="ActivationBoundry" type="CollisionShape3D" parent="ActivationArea"]
-shape = SubResource("CylinderShape3D_iaetu")
+[node name="AttackTimer" type="Timer" parent="."]
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
+[connection signal="body_entered" from="RangeArea" to="." method="_on_range_area_body_entered"]
+[connection signal="body_exited" from="RangeArea" to="." method="_on_range_area_body_exited"]
+[connection signal="body_entered" from="ActivationArea" to="." method="_on_activation_area_body_entered"]
+[connection signal="body_exited" from="ActivationArea" to="." method="_on_activation_area_body_exited"]
