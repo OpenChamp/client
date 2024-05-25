@@ -1,16 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvkhtu6bkd00x"]
+[gd_scene load_steps=5 format=3 uid="uid://dg6884b3h18iy"]
 
-[ext_resource type="Script" path="res://Scripts/Minion.gd" id="1_ney5p"]
+[ext_resource type="Script" path="res://Scripts/Minion.gd" id="1_yr24i"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_c1kmt"]
+[sub_resource type="PrismMesh" id="PrismMesh_ja06h"]
 
-[sub_resource type="PrismMesh" id="PrismMesh_s1d1o"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_demsi"]
 
-[node name="Minion" type="CharacterBody3D"]
-script = ExtResource("1_ney5p")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_aye5i"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:team")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:id")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_c1kmt")
+[node name="Minion" type="CharacterBody3D" groups=["minions"]]
+script = ExtResource("1_yr24i")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("PrismMesh_s1d1o")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("PrismMesh_ja06h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_demsi")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_aye5i")
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
