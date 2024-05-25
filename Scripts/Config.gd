@@ -11,10 +11,12 @@ signal camera_property_changed()
 @export var min_zoom = 1.0: set = set_min_zoom
 @export var max_zoom = 25.0: set = set_max_zoom
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-	
+# Settings Keybinds
+func _input(e):
+	if Input.is_action_just_pressed("toggle_maximize"):
+		toggle_fullscreen()
+
+
 func set_fullscreen_mode(new_value):
 	if new_value == is_fullscreen:
 		return
