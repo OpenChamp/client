@@ -4,8 +4,8 @@ extends CharacterBody3D
 @export var team:int;
 @export var pid:int; # Default to owned by the server
 
-@export var Max_Health:float = 10.00
-@export var Health:float = 10.00
+@export var Max_Health:float = 550.00
+@export var Health:float = 550.00
 @export var Max_Mana = 300
 @export var Mana = 300
 @export var attack = 60
@@ -15,7 +15,7 @@ extends CharacterBody3D
 @export var Casttime:float = 0.1
 
 @export var speed = 5 # 330 
-@export var range = 50
+@export var range = 8
 
 @export var Armor = 20;
 
@@ -128,6 +128,7 @@ func Attack(entity:CharacterBody3D):
 func InitAutoAttack():
 	if attack_timeout > 0:
 		return
+	look_at(targetEntity.position)
 	$CastTimer.wait_time = Casttime
 	$CastTimer.start()
 
