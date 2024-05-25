@@ -1,5 +1,12 @@
 extends Node3D
 
+enum MovingState {
+	NONE,
+	MOVING,
+	ATTACK_MOVING,
+}
+
+
 @export var cur_zoom: int;
 
 @export var min_x: int;
@@ -11,6 +18,8 @@ extends Node3D
 @export var Camera: Camera3D;
 @export var MoveMarker: PackedScene;
 @export var ServerListener: Node;
+
+var move_state : MovingState
 
 var UI: Script;
 
