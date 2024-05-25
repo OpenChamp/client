@@ -38,12 +38,12 @@ func _input(event):
 	if event is InputEventMouseButton:
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
-			move_action(event)
+			move_action(event, true)
 			
 func _on_camera_setting_changed():
 	Spring_Arm.spring_length = clamp(Spring_Arm.spring_length, Config.min_zoom, Config.max_zoom)
 
-func move_action(event):
+func move_action(event, show_particle_effect : bool):
 	var from = Camera.project_ray_origin(event.position)
 	var to = from + Camera.project_ray_normal(event.position) * 1000
 	
@@ -53,9 +53,10 @@ func move_action(event):
 	# Move
 	if result and result.collider.is_in_group("ground"):
 		result.position.y += 1;
-		var marker = MoveMarker.instantiate()
-		marker.position = result.position
-		get_node("/root").add_child(marker);
+		if show_particle_effect:
+			var marker = MoveMarker.instantiate()
+			marker.position = result.position
+			get_node("/root").add_child(marker);
 		ServerListener.rpc_id(get_multiplayer_authority(), "MoveTo", result.position)
 		#Player.MoveTo(result.position);
 	# Attack
@@ -70,7 +71,7 @@ func move_action(event):
 		var group = 0
 		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.pid, group)
 
-func attack_move_action(event):
+func attack_move_action(event, show_particle_effect : bool):
 	pass
 
 func _process(delta):
