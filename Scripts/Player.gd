@@ -38,12 +38,12 @@ func _input(event):
 	if event is InputEventMouseButton:
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
-			Action(event)
+			move_action(event)
 			
 func _on_camera_setting_changed():
 	Spring_Arm.spring_length = clamp(Spring_Arm.spring_length, Config.min_zoom, Config.max_zoom)
 
-func Action(event):
+func move_action(event):
 	var from = Camera.project_ray_origin(event.position)
 	var to = from + Camera.project_ray_normal(event.position) * 1000
 	
@@ -69,6 +69,9 @@ func Action(event):
 	if result and result.collider is CharacterBody3D:
 		var group = 0
 		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.pid, group)
+
+func attack_move_action(event):
+	pass
 
 func _process(delta):
 	# ignore all inputs when changing configs since that is annoying
