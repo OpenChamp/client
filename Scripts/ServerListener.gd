@@ -60,6 +60,9 @@ func Target(name, target_team):
 		return;
 	
 	if name is int:
+		if (Players[name].team == Character.team):
+			print("Don't hurt your own team!")
+			return;
 		Character.targetEntity = Players[name]
 	else: 
 		Character.targetEntity = get_parent().get_node("./WorldNav/"+name)
