@@ -7,14 +7,20 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	visibility_changed.connect(on_show)
+	
 	ExitBtn.pressed.connect(_on_game_close_pressed)
 	ConfirmBtn.pressed.connect(_on_confirm_changes)
-	
-	fullscreen_toggle.button_pressed = Config.is_fullscreen
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+func on_show():
+	if not visible:
+		return
+	
+	fullscreen_toggle.button_pressed = Config.is_fullscreen
 	
 func _on_game_close_pressed():
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
