@@ -1,13 +1,14 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dotqt8s7vvc1j"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cff8t2xshrr1x"]
 
-[ext_resource type="Script" path="res://game_settings/templates/display/display_fullscreen.gd" id="1_ppjrw"]
+[ext_resource type="Script" path="res://game_settings/settings/graphics/fullscreen.gd" id="1_huvv3"]
 
 [resource]
-script = ExtResource("1_ppjrw")
-current = false
-default = false
-name = ""
-category = ""
+resource_name = "fullscreen"
+script = ExtResource("1_huvv3")
+current = true
+default = true
+name = "fullscreen"
+category = "graphics"
 value_type = 1
 value_hint = 0
 value_hint_string = ""
