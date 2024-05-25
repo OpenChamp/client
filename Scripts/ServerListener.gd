@@ -41,7 +41,8 @@ func MoveTo(pos):
 func Target(name):
 	var peer_id = multiplayer.get_remote_sender_id()
 	# Dont Kill Yourself
-	if(name == str(peer_id)):
+
+	if(str(name) == str(peer_id)):
 		print("That's you ya idjit");
 		return;
 	print(str(peer_id) + " : " + str(name))
