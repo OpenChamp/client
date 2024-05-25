@@ -15,7 +15,7 @@ extends CharacterBody3D
 @export var Casttime:float = 0.1
 
 @export var speed = 5 # 330 
-@export var range = 5
+@export var range = 50
 
 @export var Armor = 20;
 
@@ -108,9 +108,11 @@ func SetTarget(pid):
 	
 func move(delta):
 	var target_pos = navigation_agent.get_next_path_position()
+	if(position == target_pos):
+		return;
 	var local_destination = target_pos - global_position
 	var direction = local_destination.normalized();
-	look_at(direction)
+	look_at(target_pos)
 	if global_position.distance_to(target_pos) > 0.1:
 		var dir = (target_pos - global_position).normalized();
 		var dist = speed * delta
@@ -158,4 +160,19 @@ func Die():
 	isDead = true;
 	if multiplayer.multiplayer_peer.get_unique_id() == pid:
 		$Dead.show()
-	hide()
+		$RespawnTimer.wait_time = 3;
+		$RespawnTimer.start()
+	$Body.hide()
+	$PlayerCollider.hide()
+
+
+func _on_respawn_timer_timeout():
+	$RespawnTimer.stop()
+	print("ReAlive");
+	$Dead.hide()
+	$Body.show()
+	$PlayerCollider.show()
+	Health = Max_Health
+	position = get_parent().get_parent().get_node("Spawn" + str(team)).position
+	isDead = false
+	show()
