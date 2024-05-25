@@ -32,10 +32,15 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="SplitContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="Display" type="PanelContainer" parent="SplitContainer/PanelContainer/TabContainer"]
+[node name="Display" type="BoxContainer" parent="SplitContainer/PanelContainer/TabContainer"]
 layout_mode = 2
+vertical = true
 
-[node name="Camera" type="PanelContainer" parent="SplitContainer/PanelContainer/TabContainer"]
+[node name="FullscreenToggleBtn" type="CheckBox" parent="SplitContainer/PanelContainer/TabContainer/Display"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Camera" type="BoxContainer" parent="SplitContainer/PanelContainer/TabContainer"]
 visible = false
 layout_mode = 2
 
