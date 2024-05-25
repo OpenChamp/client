@@ -62,14 +62,13 @@ func GameOver(team):
 func add_player(clientId: int):
 	print("Player Connected: " + str(clientId))
 	var character = preload("res://Characters/Archer.tscn").instantiate()
-	var Team = 0
 	if Team1.size() > Team2.size():
 		Team2.append(clientId)
-		Team = 2
+		character.team = 2
 		character.position = Spawn2.position
 	else:
 		Team1.append(clientId)
-		Team = 1
+		character.team = 1
 		character.position = Spawn1.position
 	character.pid = clientId
 	character.name = str(clientId)
