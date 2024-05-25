@@ -22,6 +22,7 @@ var UI: Script;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Spring_Arm.spring_length = Config.max_zoom
+	Config.camera_property_changed.connect(_on_camera_setting_changed)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _input(event):
@@ -29,6 +30,9 @@ func _input(event):
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			Action(event)
+			
+func _on_camera_setting_changed():
+	Spring_Arm.spring_length = clamp(Spring_Arm.spring_length, Config.min_zoom, Config.max_zoom)
 
 func Action(event):
 	var from = Camera.project_ray_origin(event.position)

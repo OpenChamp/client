@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcc1r64ba6itj"]
+[gd_scene load_steps=4 format=3 uid="uid://dcc1r64ba6itj"]
 
 [ext_resource type="Script" path="res://UI/Settings_Menu/SettingsMenu.gd" id="1_g0wed"]
+[ext_resource type="Script" path="res://addons/SliderLabel/SliderLabel.gd" id="2_krd3l"]
 
 [sub_resource type="GDScript" id="GDScript_gmak4"]
 script/source = "extends PanelContainer
@@ -46,19 +47,11 @@ visible = false
 layout_mode = 2
 vertical = true
 
-[node name="cam_speed_label_base" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="cam_speed_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
 layout_mode = 2
 text = "Camera Speed:"
 
-[node name="GridContainer" type="GridContainer" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
-layout_mode = 2
-columns = 3
-
-[node name="cam_min_txt" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera/GridContainer"]
-layout_mode = 2
-text = "1"
-
-[node name="cam_speed_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/Camera/GridContainer"]
+[node name="cam_speed_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -66,9 +59,71 @@ max_value = 30.0
 step = 0.25
 value = 15.0
 
-[node name="cam_max_txt" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera/GridContainer"]
+[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera/cam_speed_slider"]
+layout_mode = 0
+offset_right = 28.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_krd3l")
+metadata/_edit_initialized_ = true
+
+[node name="HSeparator" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
 layout_mode = 2
-text = "30"
+
+[node name="edge_margin_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+layout_mode = 2
+text = "Camera movement edge margin:"
+
+[node name="edge_margin_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 15.0
+max_value = 150.0
+value = 15.0
+rounded = true
+
+[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera/edge_margin_slider"]
+layout_mode = 0
+offset_right = 28.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_krd3l")
+metadata/_edit_initialized_ = true
+
+[node name="HSeparator2" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+layout_mode = 2
+
+[node name="max_zoom_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+layout_mode = 2
+text = "Maximum zoom out distance:"
+
+[node name="max_zoom_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+step = 0.25
+value = 25.0
+exp_edit = true
+
+[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera/max_zoom_slider"]
+layout_mode = 0
+offset_right = 28.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_krd3l")
+metadata/_edit_initialized_ = true
+
+[node name="HSeparator3" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+layout_mode = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="SplitContainer"]
 layout_mode = 2
