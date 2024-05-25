@@ -110,4 +110,11 @@ spawn_limit = 10
 [node name="ServerListener" type="Node" parent="."]
 script = ExtResource("6_yqk4b")
 
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Effects/Arrow.tscn")
+spawn_path = NodePath("../Projectiles")
+spawn_limit = 9999
+
 [connection signal="tree_exited" from="WorldNav/Turret" to="WorldNav" method="_on_turret_tree_exited"]

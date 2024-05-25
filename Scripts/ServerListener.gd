@@ -1,6 +1,7 @@
 extends Node
 
 var Players = {}
+var DeathTimers = []
 var Team1 = Array()
 var Team2 = Array()
 
@@ -9,6 +10,7 @@ var Team2 = Array()
 @onready var Player = $"../Players"
 @onready var Spawn1 = $"../Spawn1"
 @onready var Spawn2 = $"../Spawn2"
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,6 +28,9 @@ func _ready():
 	if not OS.has_feature("dedicated_server"):
 		add_player(1)
 
+func _process(delta):
+	pass;
+
 @rpc("any_peer", "call_local")
 func MoveTo(pos):
 	var peer_id = multiplayer.get_remote_sender_id()
@@ -41,7 +46,6 @@ func MoveTo(pos):
 func Target(name):
 	var peer_id = multiplayer.get_remote_sender_id()
 	# Dont Kill Yourself
-
 	if(str(name) == str(peer_id)):
 		print("That's you ya idjit");
 		return;
@@ -59,6 +63,12 @@ func Target(name):
 func GameOver(team):
 	get_tree().quit();
 
+func player_died(pid):
+	var Character = Players[pid]
+	Character.Die()
+	Character.PlayerDeath.rpc_id(pid)
+	
+
 func add_player(clientId: int):
 	print("Player Connected: " + str(clientId))
 	var character = preload("res://Characters/Archer.tscn").instantiate()
@@ -72,6 +82,7 @@ func add_player(clientId: int):
 		character.position = Spawn1.position
 	character.pid = clientId
 	character.name = str(clientId)
+	character.died.connect(player_died)
 	Players[clientId] = character
 	Heroes.add_child(character)
 
@@ -79,10 +90,9 @@ func del_player(clientId: int):
 	if not Heroes.has_node(str(clientId)):
 		return
 	Heroes.get_node(str(clientId)).queue_free()
-	
+
 func _exit_tree():
 	if not multiplayer.is_server():
 		return
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(del_player)
-

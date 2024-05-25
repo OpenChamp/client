@@ -23,6 +23,7 @@ extends CharacterBody3D
 @export var RangeCollider: Area3D;
 @export var Projectile:PackedScene;
 
+signal died(pid)
 
 var isAttacking: bool = false;
 var isDead: bool = false;
@@ -34,7 +35,6 @@ var attackTimeout = 0;
 func _ready():
 	# Set Signals
 	$CastTimer.timeout.connect(FinishAutoAttack)
-	add_user_signal("Died")
 	# Set Range
 	RangeCollider.get_node("./CollisionShape3D").shape.radius = range
 	RangeCollider.get_node("./MeshInstance3D").mesh.top_radius = float(range);
@@ -143,9 +143,8 @@ func FinishAutoAttack():
 	Arrow.position = position
 	Arrow.target = targetEntity
 	Arrow.damage = attack
-	get_node("/root").add_child(Arrow)
-	pass
-	
+	get_parent().get_parent().get_node("Projectiles").add_child(Arrow, true)
+
 func TakeDamage(damage):
 	print(damage);
 	var taken:float = Armor
@@ -154,17 +153,16 @@ func TakeDamage(damage):
 	print(taken);
 	Health -= taken;
 	if(Health <= 0):
-		Die()
+		died.emit(pid)
 		
 func Die():
 	isDead = true;
-	if multiplayer.multiplayer_peer.get_unique_id() == pid:
-		$Dead.show()
-		$RespawnTimer.wait_time = 3;
-		$RespawnTimer.start()
 	$Body.hide()
 	$PlayerCollider.hide()
-
+	
+@rpc("authority","call_local")
+func PlayerDeath():
+	$Dead.show()
 
 func _on_respawn_timer_timeout():
 	$RespawnTimer.stop()
