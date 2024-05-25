@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Maps/DebugMap.gd" id="1_jf6oq"]
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/UI.tscn" id="1_w137o"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="3_tygk6"]
-[ext_resource type="Texture2D" uid="uid://c7ogld2vwwxkd" path="res://Environment/Textures/clover.jpg" id="4_8uryc"]
+[ext_resource type="Texture2D" uid="uid://ca7j2ty4v14cu" path="res://Environment/Textures/clover.jpg" id="4_8uryc"]
 [ext_resource type="PackedScene" uid="uid://d2nrxob1lindp" path="res://Environment/Turret.tscn" id="5_j06yq"]
 [ext_resource type="PackedScene" uid="uid://brqeiatrwm3ju" path="res://Environment/Tower.tscn" id="6_i164n"]
 [ext_resource type="Script" path="res://Scripts/ServerListener.gd" id="6_yqk4b"]
@@ -63,19 +63,19 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldNav/World/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xmnii")
 
-[node name="Turret" parent="WorldNav" groups=["Objective"] instance=ExtResource("5_j06yq")]
+[node name="BlueTurret" parent="WorldNav" groups=["Objective", "RedObjective"] instance=ExtResource("5_j06yq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 0)
 team = 1
 
-[node name="Turret2" parent="WorldNav" groups=["Objective"] instance=ExtResource("5_j06yq")]
+[node name="RedTurret" parent="WorldNav" groups=["BlueObjective", "Objective"] instance=ExtResource("5_j06yq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 0)
 team = 2
 
-[node name="Tower" parent="WorldNav" groups=["Objective"] instance=ExtResource("6_i164n")]
+[node name="BlueTower" parent="WorldNav" groups=["Objective", "RedObjective"] instance=ExtResource("6_i164n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 2, 0)
 team = 1
 
-[node name="Tower2" parent="WorldNav" groups=["Objective"] instance=ExtResource("6_i164n")]
+[node name="RedTower" parent="WorldNav" groups=["BlueObjective", "Objective"] instance=ExtResource("6_i164n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 2, 0)
 team = 2
 
@@ -117,4 +117,4 @@ _spawnable_scenes = PackedStringArray("res://Effects/Arrow.tscn")
 spawn_path = NodePath("../Projectiles")
 spawn_limit = 9999
 
-[connection signal="tree_exited" from="WorldNav/Turret" to="WorldNav" method="_on_turret_tree_exited"]
+[connection signal="tree_exited" from="WorldNav/BlueTurret" to="WorldNav" method="_on_turret_tree_exited"]
