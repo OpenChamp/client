@@ -58,6 +58,9 @@ func Action(event):
 		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.pid, group)
 
 func _process(delta):
+	# ignore all inputs when changing configs since that is annoying
+	if Config.in_config_settings:
+		return
 
 	# Get Mouse Coords on screen
 	var mouse_pos = get_viewport().get_mouse_position()
