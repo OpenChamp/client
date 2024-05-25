@@ -22,5 +22,18 @@ func _on_game_close_pressed():
 	get_tree().quit()
 
 func _on_confirm_changes():
-	Config.set_fullscreen_mode(fullscreen_toggle.button_pressed)
+	var all_settings = GGS.get_all_settings()
+	for setting_str in all_settings:
+		var setting: ggsSetting = load(setting_str)
+		_apply_setting(setting)
+	
 	hide()
+
+func _apply_setting(setting: ggsSetting):
+	match setting.name:
+		"fullscreen":
+			var fullscreen_val = fullscreen_toggle.button_pressed
+			setting.set_current(fullscreen_val)
+			Config.is_fullscreen = fullscreen_val
+		_ :
+			pass
