@@ -15,9 +15,19 @@ run/main_scene="res://Startup.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GGS="*res://addons/ggs/classes/global/ggs.tscn"
+Config="*res://Scripts/Config.gd"
+
 [editor]
 
 run/main_run_args="-i"
+export/convert_text_resources_to_binary=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ggs/plugin.cfg")
 
 [filesystem]
 
