@@ -54,9 +54,7 @@ func move_action(event, show_particle_effect : bool):
 	if result and result.collider.is_in_group("ground"):
 		result.position.y += 1;
 		if show_particle_effect:
-			var marker = MoveMarker.instantiate()
-			marker.position = result.position
-			get_node("/root").add_child(marker);
+			place_move_marker(result.position)
 		ServerListener.rpc_id(get_multiplayer_authority(), "MoveTo", result.position)
 		#Player.MoveTo(result.position);
 	# Attack
@@ -71,8 +69,17 @@ func move_action(event, show_particle_effect : bool):
 		var group = 0
 		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.pid, group)
 
+
 func attack_move_action(event, show_particle_effect : bool):
 	pass
+
+
+func place_move_marker(location : Vector3):
+	var marker = MoveMarker.instantiate()
+	marker.position = location
+	get_node("/root").add_child(marker);
+	
+
 
 func _process(delta):
 	# ignore all inputs when changing configs since that is annoying
