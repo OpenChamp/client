@@ -12,6 +12,8 @@ extends Node3D
 @export var MoveMarker:PackedScene;
 @export var ServerListener:Node;
 
+var UI: Script;
+
 #@export var player := 1:
 	#set(id):
 		#player = id
@@ -52,10 +54,6 @@ func Action(event):
 		
 
 func _process(delta):
-	# Handle the escape key (for now just close the game)
-	if Input.is_action_just_pressed("player_pause"):
-		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-		get_tree().quit()
 
 	# Get Mouse Coords on screen
 	var mouse_pos = get_viewport().get_mouse_position()

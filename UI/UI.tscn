@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckkjiabom6ntl"]
+[gd_scene load_steps=5 format=3 uid="uid://ckkjiabom6ntl"]
+
+[ext_resource type="PackedScene" uid="uid://dcc1r64ba6itj" path="res://UI/Settings_Menu/SettingsMenu.tscn" id="1_btxsk"]
+[ext_resource type="Script" path="res://UI/UI.gd" id="1_ua7qq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61eu7"]
 bg_color = Color(0.996015, 0, 0.0749672, 1)
@@ -15,6 +18,21 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("1_ua7qq")
+
+[node name="SettingsMenu" parent="." instance=ExtResource("1_btxsk")]
+visible = false
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -308.0
+offset_top = -556.0
+offset_right = -308.0
+offset_bottom = -556.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.64, 0.64)
 
 [node name="Health" type="ProgressBar" parent="."]
 z_index = 2

@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcc1r64ba6itj"]
+
+[ext_resource type="Script" path="res://UI/Settings_Menu/SettingsMenu.gd" id="1_g0wed"]
+
+[sub_resource type="GDScript" id="GDScript_gmak4"]
+script/source = "extends PanelContainer
+
+
+"
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g0wed")
+
+[node name="SplitContainer" type="SplitContainer" parent="."]
+layout_mode = 0
+offset_right = 799.0
+offset_bottom = 468.0
+dragger_visibility = 1
+vertical = true
+
+[node name="PanelContainer" type="PanelContainer" parent="SplitContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="SplitContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Display" type="PanelContainer" parent="SplitContainer/PanelContainer/TabContainer"]
+layout_mode = 2
+
+[node name="Camera" type="PanelContainer" parent="SplitContainer/PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="SplitContainer"]
+layout_mode = 2
+script = SubResource("GDScript_gmak4")
+
+[node name="GridContainer" type="GridContainer" parent="SplitContainer/PanelContainer2"]
+clip_contents = true
+layout_mode = 2
+columns = 4
+
+[node name="ConfirmBtn" type="Button" parent="SplitContainer/PanelContainer2/GridContainer"]
+layout_mode = 2
+action_mode = 0
+text = "Confirm"
+
+[node name="ExitBtn" type="Button" parent="SplitContainer/PanelContainer2/GridContainer"]
+layout_mode = 2
+action_mode = 0
+text = "Exit Game"
