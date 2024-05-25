@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd7fb0hlfpnrq"]
+
+[ext_resource type="Script" path="res://UI/Playerstats/Player_stat_interface.gd" id="1_fb5x6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7tir"]
+bg_color = Color(0.996015, 0, 0.0749672, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07tx8"]
+bg_color = Color(3.65794e-06, 0.650878, 0.889345, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ymyw"]
+bg_color = Color(0.230708, 0.716816, 3.85046e-07, 1)
+
+[node name="PlayerStatInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_fb5x6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -60.0
+offset_right = 300.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0.0627451, 0.117647, 0.184314)
+
+[node name="BoxContainer" type="BoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -24.0
+offset_right = 300.0
+grow_horizontal = 2
+grow_vertical = 0
+vertical = true
+
+[node name="Health" type="ProgressBar" parent="ColorRect/BoxContainer"]
+z_index = 2
+custom_minimum_size = Vector2(400, 10)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_w7tir")
+value = 100.0
+show_percentage = false
+
+[node name="Mana" type="ProgressBar" parent="ColorRect/BoxContainer"]
+z_index = 2
+custom_minimum_size = Vector2(400, 10)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_07tx8")
+value = 100.0
+show_percentage = false
+
+[node name="Experience" type="ProgressBar" parent="ColorRect/BoxContainer"]
+z_index = 2
+custom_minimum_size = Vector2(400, 10)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_0ymyw")
+value = 100.0
+show_percentage = false

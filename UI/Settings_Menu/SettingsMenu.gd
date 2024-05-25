@@ -11,7 +11,6 @@ func _ready():
 	ConfirmBtn.pressed.connect(_on_confirm_changes)
 	
 	fullscreen_toggle.button_pressed = Config.is_fullscreen
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

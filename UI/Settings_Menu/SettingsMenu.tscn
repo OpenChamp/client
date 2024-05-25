@@ -19,15 +19,15 @@ script = ExtResource("1_g0wed")
 
 [node name="SplitContainer" type="SplitContainer" parent="."]
 layout_mode = 0
-offset_right = 799.0
-offset_bottom = 468.0
+offset_right = 1156.0
+offset_bottom = 645.0
 dragger_visibility = 1
 vertical = true
 
 [node name="PanelContainer" type="PanelContainer" parent="SplitContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(0, 500)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="SplitContainer/PanelContainer"]
 layout_mode = 2
