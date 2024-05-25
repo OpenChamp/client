@@ -44,12 +44,7 @@ func _on_camera_setting_changed():
 	Spring_Arm.spring_length = clamp(Spring_Arm.spring_length, Config.min_zoom, Config.max_zoom)
 
 func move_action(event, show_particle_effect : bool):
-	var from = Camera.project_ray_origin(event.position)
-	var to = from + Camera.project_ray_normal(event.position) * 1000
-	
-	var space = get_world_3d().direct_space_state
-	var params = PhysicsRayQueryParameters3D.create(from, to)
-	var result = space.intersect_ray(params)
+	var result = camera_to_mouse_raycast(event.position)
 	# Move
 	if result and result.collider.is_in_group("ground"):
 		result.position.y += 1;
@@ -79,6 +74,14 @@ func place_move_marker(location : Vector3):
 	marker.position = location
 	get_node("/root").add_child(marker);
 	
+
+func camera_to_mouse_raycast(target_position) -> Dictionary:
+	var from = Camera.project_ray_origin(target_position)
+	var to = from + Camera.project_ray_normal(target_position) * 1000
+	
+	var space = get_world_3d().direct_space_state
+	var params = PhysicsRayQueryParameters3D.create(from, to)
+	return space.intersect_ray(params)
 
 
 func _process(delta):
