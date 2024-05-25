@@ -96,15 +96,15 @@ func actor_setup():
 	navigation_agent.set_target_position(pos)
 	
 @rpc("authority", "call_local")
-func SetTarget(pid):
-	print(pid)
+func SetTarget(target_pid):
+	print(target_pid)
 	var Champions = get_parent().get_children()
 	for champ in Champions:
-		if champ.pid == pid:
+		if champ.pid == target_pid:
 			targetEntity = champ
 			isAttacking = true
 		else:
-			print(pid);
+			print(target_pid);
 	
 func move(delta):
 	var target_pos = navigation_agent.get_next_path_position()

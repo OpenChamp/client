@@ -43,13 +43,13 @@ func MoveTo(pos):
 	Character.navigation_agent.set_target_position(pos);
 
 @rpc("any_peer", "call_local")
-func Target(name, target_team):
+func Target(target_name, target_team):
 	var peer_id = multiplayer.get_remote_sender_id()
 	# Dont Kill Yourself
-	if(str(name) == str(peer_id)):
+	if(str(target_name) == str(peer_id)):
 		print("That's you ya idjit");
 		return;
-	print(str(peer_id) + " : " + str(name))
+	print(str(peer_id) + " : " + str(target_name))
 	var Character = Players[peer_id]
 	if !Character:
 		print("Failed to find character")
@@ -59,13 +59,13 @@ func Target(name, target_team):
 		print("That's YOUR turret, dummy!")
 		return;
 	
-	if name is int:
-		if (Players[name].team == Character.team):
+	if target_name is int:
+		if (Players[target_name].team == Character.team):
 			print("Don't hurt your own team!")
 			return;
-		Character.targetEntity = Players[name]
+		Character.targetEntity = Players[target_name]
 	else: 
-		Character.targetEntity = get_parent().get_node("./WorldNav/"+name)
+		Character.targetEntity = get_parent().get_node("./WorldNav/"+target_name)
 	Character.isAttacking = true
 
 func GameOver(team):
