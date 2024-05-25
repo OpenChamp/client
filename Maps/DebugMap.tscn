@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Maps/DebugMap.gd" id="1_jf6oq"]
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/UI.tscn" id="1_w137o"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="3_tygk6"]
-[ext_resource type="Texture2D" uid="uid://cw7wxykbtwxft" path="res://Environment/Textures/clover.jpg" id="4_8uryc"]
+[ext_resource type="Texture2D" uid="uid://b16u04nhttam8" path="res://Environment/Textures/clover.jpg" id="4_8uryc"]
 [ext_resource type="PackedScene" uid="uid://d2nrxob1lindp" path="res://Environment/Turret.tscn" id="5_j06yq"]
 [ext_resource type="PackedScene" uid="uid://brqeiatrwm3ju" path="res://Environment/Tower.tscn" id="6_i164n"]
 [ext_resource type="Script" path="res://Scripts/ServerListener.gd" id="6_yqk4b"]
