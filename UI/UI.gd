@@ -9,7 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	# Handle the escape key (for now just close the game)
+	# Handle the player pause action, which opens the settings page
 	if Input.is_action_just_pressed("player_pause"):
 		if SettingsMenu.visible:
 			SettingsMenu.hide()

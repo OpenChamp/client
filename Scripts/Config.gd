@@ -5,6 +5,8 @@ signal camera_property_changed()
 
 @export var is_fullscreen: bool = false: set = set_fullscreen_mode
 
+@export var in_config_settings: bool = false
+
 @export var edge_margin = 75: set = set_edge_margin
 @export var cam_speed: float = 15.0: set = set_cam_speed
 

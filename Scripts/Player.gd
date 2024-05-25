@@ -22,6 +22,7 @@ var UI: Script;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Spring_Arm.spring_length = Config.max_zoom
+	Config.camera_property_changed.connect(_on_camera_setting_changed)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _input(event):
@@ -29,6 +30,9 @@ func _input(event):
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			Action(event)
+			
+func _on_camera_setting_changed():
+	Spring_Arm.spring_length = clamp(Spring_Arm.spring_length, Config.min_zoom, Config.max_zoom)
 
 func Action(event):
 	var from = Camera.project_ray_origin(event.position)
@@ -58,6 +62,9 @@ func Action(event):
 		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.pid, group)
 
 func _process(delta):
+	# ignore all inputs when changing configs since that is annoying
+	if Config.in_config_settings:
+		return
 
 	# Get Mouse Coords on screen
 	var mouse_pos = get_viewport().get_mouse_position()
