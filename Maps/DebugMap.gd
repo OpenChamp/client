@@ -1,11 +1,5 @@
 extends Node3D
 
-## DEBUG: Make minions follow camera ###############################################################
-@onready var player = $Player
-func _physics_process(delta):
-	get_tree().call_group("minions", "update_target_location", player.global_transform.origin)
-####################################################################################################
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Player.min_x = -30
