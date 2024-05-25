@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cf3wfr4d5kn2s"]
+[gd_scene load_steps=17 format=3 uid="uid://cf3wfr4d5kn2s"]
 
 [ext_resource type="Script" path="res://Maps/DebugMap.gd" id="1_jf6oq"]
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/UI.tscn" id="1_w137o"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d2nrxob1lindp" path="res://Environment/Turret.tscn" id="5_j06yq"]
 [ext_resource type="PackedScene" uid="uid://brqeiatrwm3ju" path="res://Environment/Tower.tscn" id="6_i164n"]
 [ext_resource type="Script" path="res://Scripts/ServerListener.gd" id="6_yqk4b"]
+[ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://Environment/MinionSpawner.tscn" id="7_l3x7b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qewsh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -87,6 +88,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
 
 [node name="Players" type="Node" parent="."]
 
+[node name="Minions" type="Node" parent="."]
+
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Characters/Player.tscn")
 spawn_path = NodePath("../Players")
@@ -99,5 +102,9 @@ spawn_limit = 10
 
 [node name="ServerListener" type="Node" parent="."]
 script = ExtResource("6_yqk4b")
+
+[node name="MinionSpawner" parent="." instance=ExtResource("7_l3x7b")]
+_spawnable_scenes = PackedStringArray("res://Characters/Minion.tscn")
+spawn_path = NodePath("../Minions")
 
 [connection signal="tree_exited" from="WorldNav/Turret" to="WorldNav" method="_on_turret_tree_exited"]
