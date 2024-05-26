@@ -11,7 +11,7 @@ var DeathTimers = []
 @onready var spawn1 = $"../Spawn1"
 @onready var spawn2 = $"../Spawn2"
 
-const PlayerScene = preload("res://Characters/Champion.tscn")
+const PlayerScene = preload("res://Characters/champion.tscn")
 
 
 # Called when the node enters the scene tree for the first time.

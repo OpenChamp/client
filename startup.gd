@@ -88,7 +88,7 @@ func server_fail():
 func server_success():
 	print("Server Started, beginning initialization")
 	$ConnectionUI.hide()
-	change_map(load("res://Maps/DebugMap.tscn"))
+	change_map(load("res://Maps/debug_map.tscn"))
 
 # Custom Functions
 func start(method:int):

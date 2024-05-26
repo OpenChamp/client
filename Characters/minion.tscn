@@ -1,39 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkjw8e0bppjxu"]
+[gd_scene load_steps=8 format=3 uid="uid://dtianmy4psi45"]
 
-[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="2_2mmwr"]
-
-[sub_resource type="GDScript" id="GDScript_ny1n0"]
-script/source = "extends Unit
-
-@onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
-@onready var range_collider_activate: Area3D = $ActivationArea
-@onready var range_collider_attack: Area3D = $AttackArea
-@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var attack_timer: Timer = $AttackTimer
-@onready var healthbar: ProgressBar = $Healthbar
-
-func _ready():
-	setup(
-		nav_agent,
-		range_collider_activate,
-		range_collider_attack,
-		mesh_instance,
-		attack_timer,
-		healthbar
-	)
-
-func _physics_process(delta):
-	_update_healthbar(healthbar)
-	if not multiplayer.is_server():
-		return
-	var current_location = global_transform.origin
-	var target_location = nav_agent.get_next_path_position()
-	if current_location.distance_to(target_location) <= .1:
-		return
-	velocity = (target_location - current_location).normalized() * speed
-	look_at(target_location)
-	move_and_slide()
-"
+[ext_resource type="Script" path="res://Scripts/minion.gd" id="1_scuc3"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/healthbar.tscn" id="2_tlp0k"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_onol1"]
 
@@ -42,6 +10,8 @@ radius = 0.1
 height = 0.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fd5j0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_818fm"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5frdt"]
 properties/0/path = NodePath(".:position")
@@ -60,9 +30,9 @@ properties/4/path = NodePath(".:health")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
-[node name="Unit" type="CharacterBody3D" groups=["Unit"]]
+[node name="Minion" type="CharacterBody3D" groups=["Minion", "Unit"]]
 collision_layer = 3
-script = SubResource("GDScript_ny1n0")
+script = ExtResource("1_scuc3")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -84,9 +54,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.15, -0.5)
 mesh = SubResource("SphereMesh_iaiu6")
 skeleton = NodePath(".")
 
-[node name="Healthbar" parent="." instance=ExtResource("2_2mmwr")]
+[node name="Healthbar" parent="." instance=ExtResource("2_tlp0k")]
 
-[node name="UnitCollider" type="CollisionShape3D" parent="."]
+[node name="MinionCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_fd5j0")
 
@@ -94,6 +64,7 @@ shape = SubResource("BoxShape3D_fd5j0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_818fm")
 
 [node name="ActivationArea" type="Area3D" parent="."]
 collision_layer = 2
@@ -101,6 +72,7 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ActivationArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_818fm")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5frdt")

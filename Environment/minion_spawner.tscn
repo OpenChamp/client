@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://kqv21ursy1cb"]
 
-[ext_resource type="Script" path="res://Environment/Scripts/MinionSpawner.gd" id="1_ni6fh"]
+[ext_resource type="Script" path="res://Environment/Scripts/minion_spawner.gd" id="1_ni6fh"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_7kjsf"]
 

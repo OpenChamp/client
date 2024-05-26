@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bve3msypuyiwq"]
 
-[ext_resource type="Script" path="res://Startup.gd" id="1_8gim2"]
+[ext_resource type="Script" path="res://startup.gd" id="1_fnbjw"]
 
 [node name="Startup" type="Control"]
 layout_mode = 3
@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
-script = ExtResource("1_8gim2")
+script = ExtResource("1_fnbjw")
 
 [node name="ConnectionUI" type="Panel" parent="."]
 layout_mode = 1
@@ -105,7 +105,6 @@ text = "Host Server"
 [node name="Map" type="Node" parent="."]
 
 [node name="MapSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Maps/DebugMap.tscn")
 spawn_path = NodePath("../Map")
 spawn_limit = 1
 
