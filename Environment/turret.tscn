@@ -28,8 +28,6 @@ properties/4/replication_mode = 1
 collision_layer = 3
 script = ExtResource("1_6p426")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 mesh = ExtResource("1_vckyp")
@@ -48,17 +46,7 @@ shape = SubResource("BoxShape3D_fd5j0")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
-[node name="ActivationArea" type="Area3D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ActivationArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5frdt")
 
 [node name="AttackTimer" type="Timer" parent="."]
-
-[connection signal="body_entered" from="ActivationArea" to="." method="_on_activation_area_body_entered"]
-[connection signal="body_exited" from="ActivationArea" to="." method="_on_activation_area_body_exited"]

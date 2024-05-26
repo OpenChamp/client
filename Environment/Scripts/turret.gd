@@ -1,7 +1,5 @@
 extends Objective
 
-@onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
-@onready var range_collider_activate: Area3D = $ActivationArea
 @onready var range_collider_attack: Area3D = $AttackArea
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var attack_timer: Timer = $AttackTimer
@@ -9,8 +7,8 @@ extends Objective
 
 func _ready():
 	setup(
-		nav_agent,
-		range_collider_activate,
+		null,
+		null,
 		range_collider_attack,
 		mesh_instance,
 		attack_timer,
