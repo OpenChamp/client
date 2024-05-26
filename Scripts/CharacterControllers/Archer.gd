@@ -1,12 +1,12 @@
 extends CharacterBody3D
 
 # Net  Vars
-@export var team:int;
-@export var pid:int
+@export var team: int
+@export var pid: int
 
-@export var health:float = 550.00
+@export var health: float = 550.00
 @export var mana = 300
-@export var attack = 60
+@export var attack_damage = 60
 @export var attack_speed = .75 #APM
 @export var armor = 20 
 @export var resistance = 30
@@ -14,20 +14,20 @@ extends CharacterBody3D
 @export var range = 3
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
-@export var RangeCollider: Area3D;
-@export var Projectile:PackedScene;
+@export var range_collider: Area3D
+@export var projectile: PackedScene
 
 
-var isAttacking: bool = false;
-var isDead: bool = false;
-var targetEntity:CharacterBody3D;
-var attackTimeout = 0;
+var is_attacking: bool = false
+var is_dead: bool = false
+var target_entity: CharacterBody3D
+var attack_timeout = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set Range
-	RangeCollider.get_node("./CollisionShape3D").shape.radius = range
-	RangeCollider.get_node("./MeshInstance3D").mesh.top_radius = float(range);
+	range_collider.get_node("./CollisionShape3D").shape.radius = range
+	range_collider.get_node("./MeshInstance3D").mesh.top_radius = float(range)
 	# Set Nav
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.5
@@ -41,35 +41,35 @@ func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
 	await get_tree().physics_frame
 	var pos
-	if targetEntity:
-		pos = targetEntity.position
+	if target_entity:
+		pos = target_entity.position
 	else:
 		pos = position
 	navigation_agent.set_target_position(pos)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Healthbar.update_loc(position)
-	if attackTimeout > 0:
-		attackTimeout -= delta;
-	if isAttacking:
-		var bodies = RangeCollider.get_overlapping_bodies()
-		var actionPerformed = false;
+	if attack_timeout > 0:
+		attack_timeout -= delta
+	if is_attacking:
+		var bodies = range_collider.get_overlapping_bodies()
+		var action_performed = false
 		if bodies:
 			for body in bodies:
-				if body == targetEntity:
-					actionPerformed = true;
-					if(targetEntity.isDead):
-						isAttacking = false;
-						targetEntity = null;
-					elif attackTimeout<=0:
+				if body == target_entity:
+					action_performed = true
+					if target_entity.is_dead:
+						is_attacking = false
+						target_entity = null
+					elif attack_timeout <= 0:
 						print("Attack!")
-						attackTimeout = attack_speed;
-						AutoAttack()
-			if !actionPerformed:
-				navigation_agent.set_target_position(targetEntity.position)
+						attack_timeout = attack_speed
+						auto_attack()
+			if !action_performed:
+				navigation_agent.set_target_position(target_entity.position)
 				move(delta)
 		else:
-			navigation_agent.set_target_position(targetEntity.position)
+			navigation_agent.set_target_position(target_entity.position)
 			move(delta)
 			
 	elif !navigation_agent.is_navigation_finished():
@@ -78,44 +78,44 @@ func _process(delta):
 func move(delta):
 	var target_pos = navigation_agent.get_next_path_position()
 	var local_destination = target_pos - global_position
-	var direction = local_destination.normalized();
+	var direction = local_destination.normalized()
 	look_at(direction)
 	if global_position.distance_to(target_pos) > 0.1:
-		var dir = (target_pos - global_position).normalized();
+		var dir = (target_pos - global_position).normalized()
 		var dist = speed * delta
-		global_position += dir * dist;
+		global_position += dir * dist
 	else:
-		global_position = target_pos;
+		global_position = target_pos
 
-func MoveTo(pos:Vector3):
-	isAttacking = false;
-	targetEntity = null;
-	navigation_agent.set_target_position(pos);
+func move_to(pos: Vector3):
+	is_attacking = false
+	target_entity = null
+	navigation_agent.set_target_position(pos)
 
-func Attack(entity:CharacterBody3D):
-	targetEntity = entity;
-	navigation_agent.set_target_position(targetEntity.position)
-	isAttacking = true
+func attack(entity: CharacterBody3D):
+	target_entity = entity
+	navigation_agent.set_target_position(target_entity.position)
+	is_attacking = true
 
-func AutoAttack():
-	var Arrow = Projectile.instantiate()
-	Arrow.position = position
-	Arrow.target = targetEntity
-	Arrow.damage = attack
-	get_node("/root").add_child(Arrow)
+func auto_attack():
+	var arrow = projectile.instantiate()
+	arrow.position = position
+	arrow.target = target_entity
+	arrow.damage = attack
+	get_node("/root").add_child(arrow)
 	pass
 	
-func TakeDamage(damage):
-	print(damage);
-	var taken:float = armor
+func take_damage(damage):
+	print(damage)
+	var taken: float = armor
 	taken /= 100
 	taken = damage / (taken + 1)
-	print(taken);
+	print(taken)
 	$Healthbar.value -= taken
 	if $Healthbar.value <= 0:
-		Die()
+		die()
 		
-func Die():
-	isDead = true;
+func die():
+	is_dead = true
 	hide()
-	print("RIP");
+	print("RIP")

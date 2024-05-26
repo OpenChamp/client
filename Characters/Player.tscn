@@ -1,18 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt0fo48rp3ikk"]
+[gd_scene load_steps=4 format=3 uid="uid://dt0fo48rp3ikk"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_5w15s"]
-[ext_resource type="PackedScene" uid="uid://d0mug86g1buyj" path="res://Effects/MoveMarker.tscn" id="2_vhda5"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_55eo2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1uteu"]
 albedo_color = Color(0.247059, 0.878431, 1, 1)
 
-[node name="Player" type="Node3D" node_paths=PackedStringArray("Spring_Arm", "Camera")]
+[node name="Player" type="Node3D"]
 script = ExtResource("1_5w15s")
-Spring_Arm = NodePath("SpringArm3D")
-Camera = NodePath("SpringArm3D/Camera3D")
-MoveMarker = ExtResource("2_vhda5")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)

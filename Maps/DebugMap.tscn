@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/UI.tscn" id="1_w137o"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/Player.tscn" id="3_tygk6"]
 [ext_resource type="Texture2D" uid="uid://b16u04nhttam8" path="res://Environment/Textures/clover.jpg" id="4_8uryc"]
-[ext_resource type="PackedScene" uid="uid://d2nrxob1lindp" path="res://Environment/Turret.tscn" id="5_j06yq"]
-[ext_resource type="PackedScene" uid="uid://brqeiatrwm3ju" path="res://Environment/Tower.tscn" id="6_i164n"]
+[ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://Environment/Nexus.tscn" id="5_gfpv0"]
+[ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://Environment/Turret.tscn" id="5_j06yq"]
 [ext_resource type="Script" path="res://Scripts/ServerListener.gd" id="6_yqk4b"]
 [ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://Environment/MinionSpawner.tscn" id="7_l3x7b"]
 
@@ -43,8 +43,8 @@ script = ExtResource("1_jf6oq")
 
 [node name="Ui" parent="." instance=ExtResource("1_w137o")]
 
-[node name="Player" parent="." node_paths=PackedStringArray("ServerListener") instance=ExtResource("3_tygk6")]
-ServerListener = NodePath("../ServerListener")
+[node name="Player" parent="." node_paths=PackedStringArray("server_listener") instance=ExtResource("3_tygk6")]
+server_listener = NodePath("../ServerListener")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bcyjk")
@@ -62,21 +62,17 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldNav/World/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xmnii")
 
-[node name="Turret" parent="WorldNav" groups=["Objective"] instance=ExtResource("5_j06yq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 0)
-team = 1
+[node name="Turret" parent="WorldNav" instance=ExtResource("5_j06yq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
 
-[node name="Turret2" parent="WorldNav" groups=["Objective"] instance=ExtResource("5_j06yq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 0)
-team = 2
+[node name="Turret2" parent="WorldNav" instance=ExtResource("5_j06yq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
 
-[node name="Tower" parent="WorldNav" groups=["Objective"] instance=ExtResource("6_i164n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 2, 0)
-team = 1
+[node name="Nexus" parent="WorldNav" instance=ExtResource("5_gfpv0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 0)
 
-[node name="Tower2" parent="WorldNav" groups=["Objective"] instance=ExtResource("6_i164n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 2, 0)
-team = 2
+[node name="Nexus2" parent="WorldNav" instance=ExtResource("5_gfpv0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 0)
 
 [node name="Spawn1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
@@ -84,7 +80,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
 [node name="Spawn2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
 
-[node name="Heroes" type="Node" parent="."]
+[node name="Summoners" type="Node" parent="."]
 
 [node name="Players" type="Node" parent="."]
 
@@ -96,8 +92,8 @@ spawn_path = NodePath("../Players")
 spawn_limit = 10
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Characters/Archer.tscn")
-spawn_path = NodePath("../Heroes")
+_spawnable_scenes = PackedStringArray("res://Characters/Champion.tscn")
+spawn_path = NodePath("../Summoners")
 spawn_limit = 10
 
 [node name="ServerListener" type="Node" parent="."]
@@ -106,5 +102,3 @@ script = ExtResource("6_yqk4b")
 [node name="MinionSpawner" parent="." instance=ExtResource("7_l3x7b")]
 _spawnable_scenes = PackedStringArray("res://Characters/Minion.tscn")
 spawn_path = NodePath("../Minions")
-
-[connection signal="tree_exited" from="WorldNav/Turret" to="WorldNav" method="_on_turret_tree_exited"]

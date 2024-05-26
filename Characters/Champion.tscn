@@ -1,11 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjjv3488swmh2"]
+[gd_scene load_steps=9 format=3 uid="uid://ccnpxwrivnu02"]
 
-[ext_resource type="Script" path="res://Environment/Scripts/Nexus.gd" id="1_kncq4"]
-[ext_resource type="ArrayMesh" path="res://Environment/Models/turret.mesh" id="1_vckyp"]
-[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="2_h3doq"]
-[ext_resource type="ArrayMesh" path="res://Environment/Models/crystal.mesh" id="2_ota7h"]
+[ext_resource type="Script" path="res://Scripts/Champion.gd" id="1_ex6ch"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="1_qiayh"]
+[ext_resource type="PackedScene" uid="uid://x10srxg18eg5" path="res://Effects/Arrow.tscn" id="2_ffmlk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_am47k"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_iaiu6"]
+radius = 0.1
+height = 0.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fd5j0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_818fm"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5frdt"]
 properties/0/path = NodePath(".:position")
@@ -24,22 +31,40 @@ properties/4/path = NodePath(".:health")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
-[node name="Turret" type="CharacterBody3D" groups=["Objective", "Unit"]]
+[node name="Champion" type="CharacterBody3D" groups=["Champion", "Unit"]]
 collision_layer = 3
-script = ExtResource("1_kncq4")
+script = ExtResource("1_ex6ch")
+projectile = ExtResource("2_ffmlk")
+
+[node name="Dead" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-mesh = ExtResource("1_vckyp")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_am47k")
 
-[node name="Crystal" type="MeshInstance3D" parent="MeshInstance3D"]
-mesh = ExtResource("2_ota7h")
+[node name="Eyes" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+skeleton = NodePath("../MeshInstance3D")
 
-[node name="Healthbar" parent="." instance=ExtResource("2_h3doq")]
+[node name="Eye1" type="MeshInstance3D" parent="Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.15, -0.5)
+mesh = SubResource("SphereMesh_iaiu6")
+skeleton = NodePath(".")
 
-[node name="UnitCollider" type="CollisionShape3D" parent="."]
+[node name="Eye2" type="MeshInstance3D" parent="Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.15, -0.5)
+mesh = SubResource("SphereMesh_iaiu6")
+skeleton = NodePath(".")
+
+[node name="Healthbar" parent="." instance=ExtResource("1_qiayh")]
+
+[node name="ChampionCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_fd5j0")
 
@@ -47,6 +72,7 @@ shape = SubResource("BoxShape3D_fd5j0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_818fm")
 
 [node name="ActivationArea" type="Area3D" parent="."]
 collision_layer = 2
@@ -54,6 +80,7 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ActivationArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_818fm")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5frdt")

@@ -5,24 +5,24 @@
 [sub_resource type="GDScript" id="GDScript_83sxv"]
 script/source = "extends Control
 
-@export var CountDown = 30
+@export var count_down: int = 30
+@export var connection_reset: int = 3
+@export var max_tries: int = 100
 
-@export var connection_reset = 3
-@export var max_tries = 100
+const MapScene = preload(\"res://Maps/DebugMap.tscn\")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	$ConnectionUI/Reconnect.timeout.connect(TryReconnect)
+	$ConnectionUI/Reconnect.timeout.connect(try_reconnect)
 	var args = Array(OS.get_cmdline_args())
-	if args.has(\"-s\") || DisplayServer.get_name() == \"headless\":
-		call_deferred(\"StartServer\")
+	if args.has(\"-s\") or DisplayServer.get_name() == \"headless\":
+		call_deferred(\"start_server\")
 	else:
 		if args.has(\"-i\"):
-			call_deferred(\"StartIntegrated\")
+			call_deferred(\"start_integrated\")
 		else:
-			call_deferred(\"StartClient\")
+			call_deferred(\"start_client\")
 
-func ChangeMap(scene: PackedScene):
+func change_map(scene: PackedScene):
 	var map = $Map
 	# Clean out everything
 	for child in map.get_children():
@@ -31,21 +31,19 @@ func ChangeMap(scene: PackedScene):
 	map.add_child(scene.instantiate())
 
 # setup the client part of a network peer
-func PrepareClient(peer):
+func prepare_client(peer):
 	print(\"Preparing Client\")
-	
 	var client = peer.create_client(\"127.0.0.1\", 10000)
 	if client != MultiplayerPeer.CONNECTION_CONNECTED:
 		$ConnectionUI/RichTextLabel.text = \"[center]Failed to connect...\"
 		$ConnectionUI/RichTextLabel.fit_content = true
-		RetryClient();
+		retry_client();
 		return false
-		
 	print(peer.get_connection_status())
 	return true
 
-# setup the serer part of a peer
-func PrepareServer(peer):
+# setup the server part of a peer
+func prepare_server(peer):
 	print(\"Preparing Server\")
 	peer.create_server(10000, 10)
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
@@ -53,55 +51,55 @@ func PrepareServer(peer):
 	return true
 
 # launch a standalone client
-func StartClient():
+func start_client():
 	var peer = ENetMultiplayerPeer.new()
-	if not PrepareClient(peer):
+	if not prepare_client(peer):
 		return
 	
-	StartGame(peer)
+	start_game(peer)
 
 # launch a standalone server
-func StartServer():
+func start_server():
 	var peer = ENetMultiplayerPeer.new()
-	if not PrepareServer(peer):
+	if not prepare_server(peer):
 		return
 		
-	StartGame(peer)
+	start_game(peer)
 
 # launch a client and a server at the same time
-func StartIntegrated():
+func start_integrated():
 	var peer = ENetMultiplayerPeer.new()
-	if not PrepareServer(peer):
-		PrepareClient(peer)
+	if not prepare_server(peer):
+		prepare_client(peer)
 		
-	StartGame(peer)
+	start_game(peer)
 
-func RetryClient():
+func retry_client():
 	$ConnectionUI/Reconnect.wait_time = connection_reset
 	$ConnectionUI/Reconnect.start()
 
 # actually start the game logic
-func StartGame(peer):
+func start_game(peer):
 	print(\"Starting Game\")
 	multiplayer.multiplayer_peer = peer
 	$ConnectionUI.hide()
 	if multiplayer.is_server():
-		ChangeMap.call_deferred(load(\"res://Maps/DebugMap.tscn\"))
+		change_map.call_deferred(MapScene)
 		
 func _input(event):
 	if event.is_action_released(\"ui_page_up\"):
 		var ext = \"bat\"
-		if(OS.get_name() != \"Windows\"):
+		if OS.get_name().to_lower() != \"windows\":
 			ext = \"sh\"
 		OS.shell_open(ProjectSettings.globalize_path(\"res://\") + \"./run.\")
 
-
-func TryReconnect():
+func try_reconnect():
+	print_debug(\"Trying to connect...\")
 	$ConnectionUI/Reconnect.stop()
 	max_tries -= 1
 	if max_tries <=0:
 		get_tree().quit()
-	StartClient()
+	start_client()
 "
 
 [node name="Client" type="Control"]

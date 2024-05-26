@@ -4,13 +4,13 @@ extends Node3D
 func _ready():
 	print("Level Loaded")
 
-func spawn_minion_wave(team:int, wave_size:int = 6, delay:float = .5):
+func spawn_minion_wave(team: int, wave_size: int = 6, delay: float = .5):
 	var wave = $MinionSpawner.get_wave(team, wave_size)
 	for minion in wave:
 		spawn_minion(team, minion)
 		await get_tree().create_timer(delay).timeout
 
-func spawn_minion(team:int = 0, minion = null):
+func spawn_minion(team: int = 0, minion = null):
 	if minion != null:
 		$Minions.add_child(minion)
 	else:
