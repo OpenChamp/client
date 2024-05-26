@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://x10srxg18eg5"]
 
-[ext_resource type="Script" path="res://Effects/AutoProjectile.gd" id="1_3s1vo"]
+[ext_resource type="Script" path="res://Effects/auto_projectile.gd" id="1_rrlto"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_s8s0j"]
 
@@ -9,7 +9,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_toew3"]
 
 [node name="Arrow" type="StaticBody3D"]
-script = ExtResource("1_3s1vo")
+script = ExtResource("1_rrlto")
 
 [node name="Shaft" type="MeshInstance3D" parent="."]
 transform = Transform3D(4.58563e-16, -2.62268e-08, -0.24, -0.24, -2.62268e-08, 0, -1.04907e-08, 0.6, -1.04907e-08, 0.30101, 0, -0.291416)

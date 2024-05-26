@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://5f6bj1u1ir3f"]
+[gd_scene load_steps=7 format=3 uid="uid://cjjv3488swmh2"]
 
-[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="1_3dl01"]
-[ext_resource type="Script" path="res://Environment/Scripts/Nexus.gd" id="1_q8ip6"]
-[ext_resource type="ArrayMesh" path="res://Environment/Models/nexus.mesh" id="2_2llp2"]
-[ext_resource type="ArrayMesh" path="res://Environment/Models/nexuscrystal.mesh" id="3_brwd8"]
+[ext_resource type="Script" path="res://Environment/Scripts/turret.gd" id="1_6p426"]
+[ext_resource type="ArrayMesh" uid="uid://bs3i0h7050jhc" path="res://Environment/Models/turret.mesh" id="1_vckyp"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/healthbar.tscn" id="2_h3doq"]
+[ext_resource type="ArrayMesh" uid="uid://dfsx34bcg0mc1" path="res://Environment/Models/crystal.mesh" id="2_ota7h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fd5j0"]
 
@@ -24,20 +24,20 @@ properties/4/path = NodePath(".:health")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
-[node name="Nexus" type="CharacterBody3D" groups=["Objective", "Unit"]]
+[node name="Turret" type="CharacterBody3D" groups=["Objective", "Unit"]]
 collision_layer = 3
-script = ExtResource("1_q8ip6")
+script = ExtResource("1_6p426")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-mesh = ExtResource("2_2llp2")
+mesh = ExtResource("1_vckyp")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
-mesh = ExtResource("3_brwd8")
+[node name="Crystal" type="MeshInstance3D" parent="MeshInstance3D"]
+mesh = ExtResource("2_ota7h")
 
-[node name="Healthbar" parent="." instance=ExtResource("1_3dl01")]
+[node name="Healthbar" parent="." instance=ExtResource("2_h3doq")]
 
 [node name="UnitCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

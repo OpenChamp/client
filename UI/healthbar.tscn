@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c7wnji0axaya3"]
 
-[ext_resource type="Script" path="res://UI/Healthbar.gd" id="1_kv6rk"]
+[ext_resource type="Script" path="res://UI/healthbar.gd" id="1_wwmir"]
 
 [node name="Healthbar" type="ProgressBar"]
 anchors_preset = 8
@@ -15,4 +15,4 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 show_percentage = false
-script = ExtResource("1_kv6rk")
+script = ExtResource("1_wwmir")

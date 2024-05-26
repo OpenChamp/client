@@ -9,8 +9,9 @@ extends Node3D
 
 @onready var spring_arm: SpringArm3D = $SpringArm3D
 @onready var camera: Camera3D = $SpringArm3D/Camera3D
-@onready var move_marker: PackedScene = preload("res://Effects/MoveMarker.tscn")
 @export var server_listener: Node
+
+const MoveMarker: PackedScene = preload("res://Effects/move_marker.tscn")
 
 #@export var player := 1:
 	#set(id):
@@ -38,7 +39,7 @@ func action(event):
 	# Move
 	if result and result.collider.is_in_group("ground"):
 		result.position.y += 1
-		var marker = move_marker.instantiate()
+		var marker = MoveMarker.instantiate()
 		marker.position = result.position
 		get_node("/root").add_child(marker)
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
