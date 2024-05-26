@@ -1,4 +1,4 @@
-extends Unit
+extends Objective
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var range_collider_activate: Area3D = $ActivationArea
@@ -8,8 +8,6 @@ extends Unit
 @onready var healthbar: ProgressBar = $Healthbar
 
 func _ready():
-	speed = 0.0
-	max_health = 200
 	setup(
 		nav_agent,
 		range_collider_activate,
@@ -22,12 +20,11 @@ func _ready():
 func _physics_process(delta):
 	_update_healthbar(healthbar)
 
-#@export var team: int
-#@export var pid: int
 #var target: CharacterBody3D
 #var target_attacked_player: bool = false
 
 func die():
+	is_dead = true
 	mesh_instance.get_node("Crystal").hide()
 	#$GPUParticles3D.one_shot = true
 	#$GPUParticles3D.emitting = true

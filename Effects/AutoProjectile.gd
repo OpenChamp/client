@@ -10,7 +10,7 @@ func _ready():
 
 func _process(delta):
 	if not multiplayer.is_server(): return
-	if target == null:
+	if target == null or target.is_dead:
 		queue_free()
 		return
 	if global_position.distance_to(target.position) > 0.1:
