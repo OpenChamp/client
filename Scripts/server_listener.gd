@@ -42,7 +42,7 @@ func move_to(pos: Vector3):
 func target(name):
 	var peer_id = multiplayer.get_remote_sender_id()
 	# Dont Kill Yourself
-	if str(name) == str(peer_id):
+	if str(name) == "summoner_" + str(peer_id):
 		print_debug("That's you ya idjit") # :O
 		return
 	var character = players[peer_id]
