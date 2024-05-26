@@ -17,7 +17,7 @@ class_name Unit extends CharacterBody3D
 @export var projectile: PackedScene = null
 # Targeting:
 @export var activation_range: float = 5.0
-var target_entity
+var target_entity: Node = null
 # States:
 var is_attacking: bool = false
 var is_dead: bool = false
@@ -71,9 +71,8 @@ func update_target_location(nav_agent: NavigationAgent3D, target_location: Vecto
 
 func target_in_attack_range(collider: Area3D):
 	var bodies = collider.get_overlapping_bodies()
-	for body in bodies:
-		if body == target_entity:
-			return true
+	if bodies.has(target_entity):
+		return true
 	return false
 
 func attack(entity: CharacterBody3D, nav_agent: NavigationAgent3D):

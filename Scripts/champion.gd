@@ -45,5 +45,8 @@ func _physics_process(delta):
 				target_entity = null
 				is_attacking = false
 			move(nav_agent)
+	elif not target_entity == null:
+		update_target_location(nav_agent, target_entity.global_transform.origin)
+		move(nav_agent)
 	else:
 		move(nav_agent)
