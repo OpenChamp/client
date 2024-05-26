@@ -28,14 +28,16 @@ func _ready():
 	if not OS.has_feature("dedicated_server"):
 		add_player(1)
 
+
 func _process(delta):
 	pass;
+
 
 @rpc("any_peer", "call_local")
 func center_cam():
 	var peer_id = multiplayer.get_remote_sender_id()
-	var Character = Players[peer_id]
-	rpc_id(peer_id, "jump_cam_to", Character.position)
+	var character = Players[peer_id]
+	rpc_id(peer_id, "jump_cam_to", character.position)
 
 
 @rpc("any_peer", "call_local")
