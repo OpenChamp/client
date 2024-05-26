@@ -40,7 +40,9 @@ func _input(event):
 		return
 
 	if Input.is_action_just_released("hero_attack_move") or Input.is_action_just_released("hero_move"):
-		place_move_marker(camera_to_mouse_raycast(event.position).position)
+		var raycast = camera_to_mouse_raycast(event.position)
+		if not raycast.is_empty:
+			place_move_marker(raycast.position)
 
 	if not (Input.is_action_pressed("hero_attack_move") or Input.is_action_pressed("hero_move")):
 		move_state = MovingState.NONE
