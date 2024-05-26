@@ -20,6 +20,7 @@ class_name Unit extends CharacterBody3D
 var target_entity
 # States:
 var is_attacking: bool = false
+var is_dead: bool = false
 
 signal unit_died
 
@@ -90,6 +91,7 @@ func take_damage(damage: float):
 		die()
 
 func die():
+	is_dead = true
 	self.queue_free()
 
 func init_auto_attack(attack_timer: Timer):

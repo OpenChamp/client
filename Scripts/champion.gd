@@ -11,8 +11,6 @@ extends Unit
 @export var max_mana: float = 300.0
 @export var mana: float = 300.0
 
-var is_dead: bool = false
-
 func _ready():
 	attack_range = 20.0
 	setup(

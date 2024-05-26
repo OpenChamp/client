@@ -1,7 +1,5 @@
 class_name Objective extends Unit
 
-@export var is_dead: bool = false
-
 func setup(
 	_nav_agent: NavigationAgent3D,
 	_range_collider_activation: Area3D,
