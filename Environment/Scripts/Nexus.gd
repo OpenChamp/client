@@ -1,4 +1,4 @@
-extends Unit
+extends Objective
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var range_collider_activate: Area3D = $ActivationArea
@@ -10,8 +10,6 @@ extends Unit
 signal game_over(team)
 
 func _ready():
-	speed = 0.0
-	max_health = 800
 	setup(
 		nav_agent,
 		range_collider_activate,
@@ -27,5 +25,6 @@ func _physics_process(delta):
 func take_damage(damage: float):
 	health -= damage
 	if health <= 0:
+		is_dead = true
 		emit_signal("game_over", team)
 		die()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cjjv3488swmh2"]
 
-[ext_resource type="Script" path="res://Environment/Scripts/Nexus.gd" id="1_kncq4"]
+[ext_resource type="Script" path="res://Environment/Scripts/Turret.gd" id="1_6p426"]
 [ext_resource type="ArrayMesh" path="res://Environment/Models/turret.mesh" id="1_vckyp"]
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/Healthbar.tscn" id="2_h3doq"]
 [ext_resource type="ArrayMesh" path="res://Environment/Models/crystal.mesh" id="2_ota7h"]
@@ -26,7 +26,7 @@ properties/4/replication_mode = 1
 
 [node name="Turret" type="CharacterBody3D" groups=["Objective", "Unit"]]
 collision_layer = 3
-script = ExtResource("1_kncq4")
+script = ExtResource("1_6p426")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

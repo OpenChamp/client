@@ -9,7 +9,7 @@ func _ready():
 		queue_free()
 
 func _process(delta):
-	if target == null:
+	if target == null or target.is_dead:
 		queue_free()
 		return
 	if global_position.distance_to(target.position) > 0.1:
