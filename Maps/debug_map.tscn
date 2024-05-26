@@ -101,5 +101,14 @@ spawn_limit = 10
 [node name="ServerListener" type="Node" parent="."]
 script = ExtResource("7_p6jd3")
 
-[node name="MinionSpawner" parent="." instance=ExtResource("8_dli2g")]
+[node name="MinionSpawner1" parent="." instance=ExtResource("8_dli2g")]
 spawn_path = NodePath("../Minions")
+team = 1
+spawn_position = Vector3(24, 0, 0)
+
+[node name="MinionSpawner2" parent="." instance=ExtResource("8_dli2g")]
+spawn_path = NodePath("../Minions")
+team = 2
+spawn_position = Vector3(-24, 0, 0)
+wave_size = 4
+spawn_delay = 0.75

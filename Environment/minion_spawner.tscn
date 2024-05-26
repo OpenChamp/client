@@ -9,3 +9,5 @@ script = ExtResource("1_ni6fh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("TorusMesh_7kjsf")
+
+[node name="SpawnTimer" type="Timer" parent="."]
