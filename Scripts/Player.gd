@@ -39,21 +39,21 @@ func _input(event):
 		try_move(event,false)
 		return
 
-	if Input.is_action_just_released("hero_attack_move") or Input.is_action_just_released("hero_move"):
+	if Input.is_action_just_released("champion_attack_move") or Input.is_action_just_released("champion_move"):
 		var raycast = camera_to_mouse_raycast(event.position)
 		if not raycast.is_empty():
 			place_move_marker(raycast.position)
 
-	if not (Input.is_action_pressed("hero_attack_move") or Input.is_action_pressed("hero_move")):
+	if not (Input.is_action_pressed("champion_attack_move") or Input.is_action_pressed("champion_move")):
 		move_state = MovingState.NONE
 		return
 
-	if Input.is_action_just_pressed("hero_attack_move"):
+	if Input.is_action_just_pressed("champion_attack_move"):
 		move_state = MovingState.ATTACK_MOVING
 		try_move(event, true)
 		return
 	
-	if Input.is_action_just_pressed("hero_move"):
+	if Input.is_action_just_pressed("champion_move"):
 		move_state = MovingState.MOVING
 		try_move(event, true)
 
