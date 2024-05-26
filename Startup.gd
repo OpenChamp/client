@@ -1,9 +1,9 @@
 # Set up network and determine if Client or Server
 extends Control
-enum START {
+enum Start {
 	SERVER, 
 	CLIENT,
-	INTEGRATED
+	INTEGRATED,
 }
 
 @onready var args = Array(OS.get_cmdline_args())
@@ -11,12 +11,12 @@ enum START {
 @onready var address = "127.0.0.1"
 @onready var port = 10000
 
-@onready var StatusText = $ConnectionUI/StatusText
-@onready var AttemptsText = $ConnectionUI/AttemptsText
+@onready var status_text = $ConnectionUI/StatusText
+@onready var attempts_text = $ConnectionUI/AttemptsText
 
-@onready var ReconnectButton = $ConnectionUI/ReconnectButton
-@onready var ExitButton = $ConnectionUI/ExitButton
-@onready var HostButton = $ConnectionUI/HostButton
+@onready var reconnect_button = $ConnectionUI/ReconnectButton
+@onready var exit_button = $ConnectionUI/ExitButton
+@onready var host_button = $ConnectionUI/HostButton
 # Retry
 var max_attempts = 3
 var attempts = 0
@@ -26,19 +26,19 @@ var timeout = 3
 func _ready():
 	# UI
 	_set_status("Connecting...")
-	ReconnectButton.hide()
-	ExitButton.hide()
+	reconnect_button.hide()
+	exit_button.hide()
 	# Parse Args
 	var args = Array(OS.get_cmdline_args())
-	ParseArgs(args)
+	parse_args(args)
 	# Start Relevant Process
-	if args.has("-s") || DisplayServer.get_name() == "headless":
-		call_deferred("Start", START.SERVER)
+	if args.has("-s") or DisplayServer.get_name() == "headless":
+		call_deferred("start", Start.SERVER)
 	else:
-		call_deferred("Start", START.CLIENT)
+		call_deferred("start", Start.CLIENT)
 
 # Client Connection Functionality
-func SetupClient(peer:ENetMultiplayerPeer):
+func setup_client(peer:ENetMultiplayerPeer):
 	_set_status("Connecting as Client...")
 	_update_attempts()
 	print("Attempting connection to:" + address + ":" + str(port))
@@ -47,18 +47,18 @@ func SetupClient(peer:ENetMultiplayerPeer):
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		return false
 	elif peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING:
-		_set_status("Connecting...");
+		_set_status("Connecting...")
 		multiplayer.multiplayer_peer = peer
 		$CheckupTimer.wait_time = 1
 		$CheckupTimer.start()
 		return false
 	return true
 
-func ClientSuccess():
-	print("Connected!");
+func client_success():
+	print("Connected!")
 	$ConnectionUI.hide()
 
-func ClientFail():
+func client_fail():
 	_set_status("Failed To Connect...")
 	multiplayer.multiplayer_peer.close()
 	attempts +=1
@@ -68,50 +68,50 @@ func ClientFail():
 		$ReconnectTimer.start()
 	else:
 		_set_status("Could not connect to server")
-		ReconnectButton.show()
-		ExitButton.show()
+		reconnect_button.show()
+		exit_button.show()
 
 # Server Connection Functionality
-func SetupServer(peer:ENetMultiplayerPeer):
+func setup_server(peer:ENetMultiplayerPeer):
 	_set_status("Creating Server...")
 	
 	peer.create_server(port, 10)
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		print("Server failed to start")
-		return false;
+		return false
 	return true
 
-func ServerFail():
+func server_fail():
 	OS.alert("Server failed to start")
 	get_tree().quit()
 
-func ServerSuccess():
+func server_success():
 	print("Server Started, beginning initialization")
 	$ConnectionUI.hide()
-	ChangeMap(load("res://Maps/DebugMap.tscn"))
+	change_map(load("res://Maps/DebugMap.tscn"))
 
 # Custom Functions
-func Start(method:int):
+func start(method:int):
 	var peer = ENetMultiplayerPeer.new()
 	# Client Side
-	if method == START.CLIENT:
-		if not SetupClient(peer):
+	if method == Start.CLIENT:
+		if not setup_client(peer):
 			if !$CheckupTimer.is_stopped():
 				_set_status("Connecting...")
 			else:
-				ClientFail()
+				client_fail()
 		else:
-			ClientSuccess()
+			client_success()
 	# Server Side
-	elif method == START.SERVER:
-		if not SetupServer(peer):
-			ServerFail()
+	elif method == Start.SERVER:
+		if not setup_server(peer):
+			server_fail()
 		else:
 			multiplayer.multiplayer_peer = peer
-			ServerSuccess()
-			return;
+			server_success()
+			return
 
-func ChangeMap(scene: PackedScene):
+func change_map(scene: PackedScene):
 	var map = $Map
 	print(map)
 	# Clean out everything
@@ -120,28 +120,28 @@ func ChangeMap(scene: PackedScene):
 		child.queue_free()
 	map.add_child(scene.instantiate())
 
-func ParseArgs(args:Array):
+func parse_args(args:Array):
 	for i in args.size():
-		if(args[i].begins_with("-")):
+		if args[i].begins_with("-"):
 			# Process as command
-			if(args[i] == "-S"):
+			if args[i] == "-S":
 				address = args[i] + 1
-			if(args[i] == "-P"):
+			if args[i] == "-P":
 				port = args[i] + 1
 
 # Event Listeners
 func _on_reconnect_timer_timeout():
 	$ReconnectTimer.stop()
-	Start(START.CLIENT)
+	start(Start.CLIENT)
 
 func _on_reconnect_button_pressed():
-	Start(START.CLIENT)
+	start(Start.CLIENT)
 
 func _on_exit_button_pressed():
 	get_tree().quit()
 
 func _on_host_pressed():
-	Start(START.SERVER)
+	start(Start.SERVER)
 	$ReconnectTimer.stop()
 
 func _on_checkup_timer_timeout():
@@ -150,10 +150,10 @@ func _on_checkup_timer_timeout():
 	$CheckupTimer.stop()
 	if multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
 		print("D")
-		ClientSuccess()
+		client_success()
 	elif multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		print("C")
-		ClientFail()
+		client_fail()
 	elif multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING:
 		print("B")
 		$CheckupTimer.wait_time = 1
@@ -163,8 +163,8 @@ func _on_checkup_timer_timeout():
 # Setters
 func _set_status(message:String):
 	var text = "[center]" + message + "[/center]"
-	StatusText.text = text;
+	status_text.text = text
 	
 func _update_attempts():
-	AttemptsText.text = "[center]Attempts: " + str(attempts) + "[/center]";
+	attempts_text.text = "[center]Attempts: " + str(attempts) + "[/center]"
 	

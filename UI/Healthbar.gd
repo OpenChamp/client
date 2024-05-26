@@ -1,23 +1,23 @@
 extends ProgressBar
 
-var camera : Camera3D
+var camera: Camera3D
 
 func _ready():
 	camera = get_viewport().get_camera_3d()
 	hide()
 	
 func _process(_delta):
-	if(value < max_value):
+	if value < max_value:
 		show()
 		update_loc(get_parent().position)
 	else:
-		hide();
+		hide()
 
 func sync(val):
-	value = val;
+	value = val
 
 func update_loc(player_position: Vector3):
-	if value < max_value && !value <= 0:
+	if value < max_value and not value <= 0:
 		show()
 		var viewport = get_viewport()
 			

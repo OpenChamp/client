@@ -7,9 +7,11 @@ extends Unit
 @onready var attack_timer: Timer = $AttackTimer
 @onready var healthbar: ProgressBar = $Healthbar
 
+signal game_over(team)
+
 func _ready():
 	speed = 0.0
-	max_health = 200
+	max_health = 800
 	setup(
 		nav_agent,
 		range_collider_activate,
@@ -22,23 +24,8 @@ func _ready():
 func _physics_process(delta):
 	_update_healthbar(healthbar)
 
-#@export var team: int
-#@export var pid: int
-#var target: CharacterBody3D
-#var target_attacked_player: bool = false
-
-func die():
-	mesh_instance.get_node("Crystal").hide()
-	#$GPUParticles3D.one_shot = true
-	#$GPUParticles3D.emitting = true
-
-#func _process(delta):
-	#if attackTimeout > 0:
-		#attackTimeout -= delta
-	#var bodies = $Range.get_overlapping_bodies()
-	#for body in bodies:
-		#if body is CharacterBody3D and body.team != team:
-			#if attackTimeout <=0:
-				##Attack(body)
-				#print("Turret Attack!")
-	#pass
+func take_damage(damage: float):
+	health -= damage
+	if health <= 0:
+		emit_signal("game_over", team)
+		die()

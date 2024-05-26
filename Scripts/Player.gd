@@ -6,18 +6,15 @@ enum MovingState {
 	ATTACK_MOVING,
 }
 
+@export var cam_speed = 15;
+@export var min_zoom = 1;
+@export var max_zoom = 25;
+@export var cur_zoom:int;
 
-@export var cur_zoom: int;
-
-@export var min_x: int;
-@export var max_x: int;
-@export var min_z: int;
-@export var max_z: int;
-
-@export var Spring_Arm: SpringArm3D;
-@export var Camera: Camera3D;
-@export var MoveMarker: PackedScene;
-@export var ServerListener: Node;
+@onready var spring_arm: SpringArm3D = $SpringArm3D
+@onready var camera: Camera3D = $SpringArm3D/Camera3D
+@onready var move_marker: PackedScene = preload("res://Effects/MoveMarker.tscn")
+@export var server_listener: Node
 
 var move_state : MovingState
 
@@ -78,22 +75,25 @@ func move_action(event, show_particle_effect : bool):
 	var result = camera_to_mouse_raycast(event.position)
 	# Move
 	if result and result.collider.is_in_group("ground"):
-		result.position.y += 1;
-		if show_particle_effect:
-			place_move_marker(result.position)
-		ServerListener.rpc_id(get_multiplayer_authority(), "MoveTo", result.position)
-		#Player.MoveTo(result.position);
+		result.position.y += 1
+		var marker = move_marker.instantiate()
+		marker.position = result.position
+		get_node("/root").add_child(marker)
+		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
+		#Player.MoveTo(result.position)
 	# Attack
 	if result and result.collider.is_in_group("Objective"):
-		var group = 0
-		if (result.collider.is_in_group("BlueObjective")):
-			group = 1
-		elif (result.collider.is_in_group("RedObjective")):
-			group = 2
-		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.name, group)
+		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
+		return
+	if result and result.collider.is_in_group("Minion"):
+		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
+		return
+	if result and result.collider.is_in_group("Champion"):
+		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
+		return
 	if result and result.collider is CharacterBody3D:
-		var group = 0
-		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.pid, group)
+		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.pid)
+		
 
 
 func attack_move_action(event, show_particle_effect : bool):
@@ -128,22 +128,18 @@ func _process(delta):
 	var edge_margin = Config.edge_margin
 	
 	# Edge Panning
-	if (mouse_pos.x <= edge_margin&&mouse_pos.x >= 0)||Input.is_action_pressed("player_left"):
-		if !position.x <= min_x:
-			cam_delta += Vector3( - 1, 0, 0)
-			cam_moved = true
-	if (mouse_pos.x >= size.x - edge_margin&&mouse_pos.x <= size.x)||Input.is_action_pressed("player_right"):
-		if !position.x >= max_x:
-			cam_delta += Vector3(1, 0, 0)
-			cam_moved = true
-	if (mouse_pos.y <= edge_margin&&mouse_pos.y >= 0)||Input.is_action_pressed("player_up"):
-		if !position.z <= min_z:
-			cam_delta += Vector3(0, 0, -1)
-			cam_moved = true
-	if (mouse_pos.y >= size.y - edge_margin&&mouse_pos.y <= size.y)||Input.is_action_pressed("player_down"):
-		if !position.z >= max_z:
-			cam_delta += Vector3(0, 0, 1)
-			cam_moved = true
+	if (mouse_pos.x <= edge_margin and mouse_pos.x >= 0) or Input.is_action_pressed("player_left"):
+		cam_delta += Vector3(-1,0,0)
+		cam_moved = true
+	if (mouse_pos.x >= size.x - edge_margin and mouse_pos.x <= size.x) or Input.is_action_pressed("player_right"):
+		cam_delta += Vector3(1,0,0)
+		cam_moved = true
+	if (mouse_pos.y <= edge_margin and mouse_pos.y >= 0) or Input.is_action_pressed("player_up"):
+		cam_delta += Vector3(0,0,-1)
+		cam_moved = true
+	if (mouse_pos.y >= size.y - edge_margin and mouse_pos.y <= size.y) or Input.is_action_pressed("player_down"):
+		cam_delta += Vector3(0,0,1)
+		cam_moved = true
 	
 	if cam_moved:
 		position += cam_delta.normalized() * delta * Config.cam_speed

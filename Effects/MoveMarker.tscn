@@ -10,9 +10,8 @@ initial_velocity_max = 10.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_753fa"]
 
-[node name="MoveTo" type="Node3D" node_paths=PackedStringArray("Particles")]
+[node name="MoveTo" type="Node3D"]
 script = ExtResource("1_v7fxt")
-Particles = NodePath("GPUParticles3D")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 emitting = false
