@@ -37,11 +37,12 @@ func center_cam():
 	var Character = Players[peer_id]
 	rpc_id(peer_id, "jump_cam_to", Character.position)
 
+
 @rpc("any_peer", "call_local")
 func jump_cam_to(pos):
 	var player_node = $"../Player"
 	player_node.position = pos
-	
+
 
 @rpc("any_peer", "call_local")
 func MoveTo(pos):
@@ -53,6 +54,7 @@ func MoveTo(pos):
 	Character.isAttacking = false;
 	Character.targetEntity = null;
 	Character.navigation_agent.set_target_position(pos);
+
 
 @rpc("any_peer", "call_local")
 func Target(target_name, target_team):
@@ -80,8 +82,10 @@ func Target(target_name, target_team):
 		Character.targetEntity = get_parent().get_node("./WorldNav/"+target_name)
 	Character.isAttacking = true
 
+
 func GameOver(team):
 	get_tree().quit();
+
 
 func player_died(pid):
 	var Character = Players[pid]
@@ -106,10 +110,12 @@ func add_player(clientId: int):
 	Players[clientId] = character
 	Heroes.add_child(character)
 
+
 func del_player(clientId: int):
 	if not Heroes.has_node(str(clientId)):
 		return
 	Heroes.get_node(str(clientId)).queue_free()
+
 
 func _exit_tree():
 	if not multiplayer.is_server():

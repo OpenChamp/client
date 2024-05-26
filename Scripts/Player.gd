@@ -36,6 +36,7 @@ func _ready():
 	Config.camera_property_changed.connect(_on_camera_setting_changed)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		try_move(event,false)
@@ -73,6 +74,7 @@ func try_move(event, show_particle_effect : bool):
 		move_action(event, show_particle_effect)
 		return
 
+
 func move_action(event, show_particle_effect : bool):
 	var result = camera_to_mouse_raycast(event.position)
 	# Move
@@ -98,6 +100,7 @@ func move_action(event, show_particle_effect : bool):
 func attack_move_action(event, show_particle_effect : bool):
 	move_action(event, show_particle_effect)
 
+
 func place_move_marker(location : Vector3):
 	var marker = MoveMarker.instantiate()
 	marker.position = location
@@ -111,6 +114,7 @@ func camera_to_mouse_raycast(target_position : Vector2) -> Dictionary:
 	var space = get_world_3d().direct_space_state
 	var params = PhysicsRayQueryParameters3D.create(from, to)
 	return space.intersect_ray(params)
+
 
 func _process(delta):
 	# ignore all inputs when changing configs since that is annoying
