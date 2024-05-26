@@ -1,5 +1,12 @@
 extends Node3D
 
+enum MovingState {
+	NONE,
+	MOVING,
+	ATTACK_MOVING,
+}
+
+
 @export var cur_zoom: int;
 
 @export var min_x: int;
@@ -11,6 +18,8 @@ extends Node3D
 @export var Camera: Camera3D;
 @export var MoveMarker: PackedScene;
 @export var ServerListener: Node;
+
+var move_state : MovingState
 
 var UI: Script;
 
@@ -26,27 +35,52 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _input(event):
-	if event is InputEventMouseButton:
-		# Right click to move
-		if event.button_index == MOUSE_BUTTON_RIGHT:
-			Action(event)
+	if event is InputEventMouseMotion:
+		try_move(event,false)
+		return
+
+	if Input.is_action_just_released("champion_attack_move") or Input.is_action_just_released("champion_move"):
+		var raycast = camera_to_mouse_raycast(event.position)
+		if not raycast.is_empty():
+			place_move_marker(raycast.position)
+
+	if not (Input.is_action_pressed("champion_attack_move") or Input.is_action_pressed("champion_move")):
+		move_state = MovingState.NONE
+		return
+
+	if Input.is_action_just_pressed("champion_attack_move"):
+		move_state = MovingState.ATTACK_MOVING
+		try_move(event, true)
+		return
+	
+	if Input.is_action_just_pressed("champion_move"):
+		move_state = MovingState.MOVING
+		try_move(event, true)
+
+
+
+	pass
 			
 func _on_camera_setting_changed():
 	Spring_Arm.spring_length = clamp(Spring_Arm.spring_length, Config.min_zoom, Config.max_zoom)
 
-func Action(event):
-	var from = Camera.project_ray_origin(event.position)
-	var to = from + Camera.project_ray_normal(event.position) * 1000
+
+func try_move(event, show_particle_effect : bool):
+	if move_state == MovingState.ATTACK_MOVING:
+		attack_move_action(event, show_particle_effect)
+		return
 	
-	var space = get_world_3d().direct_space_state
-	var params = PhysicsRayQueryParameters3D.create(from, to)
-	var result = space.intersect_ray(params)
+	if move_state == MovingState.MOVING:
+		move_action(event, show_particle_effect)
+		return
+
+func move_action(event, show_particle_effect : bool):
+	var result = camera_to_mouse_raycast(event.position)
 	# Move
 	if result and result.collider.is_in_group("ground"):
 		result.position.y += 1;
-		var marker = MoveMarker.instantiate()
-		marker.position = result.position
-		get_node("/root").add_child(marker);
+		if show_particle_effect:
+			place_move_marker(result.position)
 		ServerListener.rpc_id(get_multiplayer_authority(), "MoveTo", result.position)
 		#Player.MoveTo(result.position);
 	# Attack
@@ -60,6 +94,26 @@ func Action(event):
 	if result and result.collider is CharacterBody3D:
 		var group = 0
 		ServerListener.rpc_id(get_multiplayer_authority(), "Target", result.collider.pid, group)
+
+
+func attack_move_action(event, show_particle_effect : bool):
+	move_action(event, show_particle_effect)
+
+
+func place_move_marker(location : Vector3):
+	var marker = MoveMarker.instantiate()
+	marker.position = location
+	get_node("/root").add_child(marker);
+	
+
+func camera_to_mouse_raycast(target_position : Vector2) -> Dictionary:
+	var from = Camera.project_ray_origin(target_position)
+	var to = from + Camera.project_ray_normal(target_position) * 1000
+	
+	var space = get_world_3d().direct_space_state
+	var params = PhysicsRayQueryParameters3D.create(from, to)
+	return space.intersect_ray(params)
+
 
 func _process(delta):
 	# ignore all inputs when changing configs since that is annoying
