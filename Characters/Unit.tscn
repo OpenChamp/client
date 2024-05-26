@@ -63,17 +63,6 @@ properties/4/replication_mode = 1
 [node name="Unit" type="CharacterBody3D" groups=["Unit"]]
 collision_layer = 3
 script = SubResource("GDScript_ny1n0")
-id = null
-team = null
-speed = null
-max_health = null
-armor = null
-attack_damage = null
-attack_speed = null
-attack_timeout = null
-attack_range = null
-attack_time = null
-activation_range = null
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
