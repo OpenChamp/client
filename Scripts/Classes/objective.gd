@@ -3,17 +3,16 @@ class_name Objective extends Unit
 @export var is_dead: bool = false
 
 func setup(
-	nav_agent: NavigationAgent3D,
-	range_collider_activation: Area3D,
+	_nav_agent: NavigationAgent3D,
+	_range_collider_activation: Area3D,
 	range_collider_attack: Area3D,
 	mesh_instance: MeshInstance3D,
 	attack_timer: Timer,
 	healthbar: ProgressBar
 ):
 	speed = 0.0
-	activation_range - 0.0
+	activation_range = 0.0
 	attack_timer.timeout.connect(finish_auto_attack.bind(attack_timer, range_collider_attack))
-	update_collision_radius(range_collider_activation, activation_range)
 	update_collision_radius(range_collider_attack, attack_range)
 	healthbar.max_value = max_health
 	health = max_health
@@ -43,9 +42,8 @@ func target_in_attack_range(collider: Area3D):
 			return true
 	return false
 
-func attack(entity: CharacterBody3D, nav_agent: NavigationAgent3D):
+func attack(entity: CharacterBody3D, _nav_agent: NavigationAgent3D):
 	target_entity = entity
-	nav_agent.set_target_position(target_entity.position)
 	is_attacking = true
 
 func take_damage(damage: float):
