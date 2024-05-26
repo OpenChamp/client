@@ -35,13 +35,42 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _input(event):
-	if event is InputEventMouseButton:
-		# Right click to move
-		if event.button_index == MOUSE_BUTTON_RIGHT:
-			move_action(event, true)
+	if event is InputEventMouseMotion:
+		try_move(event,false)
+		return
+
+	if Input.is_action_just_released("hero_attack_move") or Input.is_action_just_released("hero_move"):
+		place_move_marker(camera_to_mouse_raycast(event.position).position)
+
+	if not (Input.is_action_pressed("hero_attack_move") or Input.is_action_pressed("hero_move")):
+		move_state = MovingState.NONE
+		return
+
+	if Input.is_action_just_pressed("hero_attack_move"):
+		move_state = MovingState.ATTACK_MOVING
+		try_move(event, true)
+		return
+	
+	if Input.is_action_just_pressed("hero_move"):
+		move_state = MovingState.MOVING
+		try_move(event, true)
+
+
+
+	pass
 			
 func _on_camera_setting_changed():
 	Spring_Arm.spring_length = clamp(Spring_Arm.spring_length, Config.min_zoom, Config.max_zoom)
+
+
+func try_move(event, show_particle_effect : bool):
+	if move_state == MovingState.ATTACK_MOVING:
+		attack_move_action(event, show_particle_effect)
+		return
+	
+	if move_state == MovingState.MOVING:
+		move_action(event, show_particle_effect)
+		return
 
 func move_action(event, show_particle_effect : bool):
 	var result = camera_to_mouse_raycast(event.position)
@@ -66,7 +95,7 @@ func move_action(event, show_particle_effect : bool):
 
 
 func attack_move_action(event, show_particle_effect : bool):
-	pass
+	move_action(event, show_particle_effect)
 
 
 func place_move_marker(location : Vector3):
@@ -75,7 +104,7 @@ func place_move_marker(location : Vector3):
 	get_node("/root").add_child(marker);
 	
 
-func camera_to_mouse_raycast(target_position) -> Dictionary:
+func camera_to_mouse_raycast(target_position : Vector2) -> Dictionary:
 	var from = Camera.project_ray_origin(target_position)
 	var to = from + Camera.project_ray_normal(target_position) * 1000
 	
