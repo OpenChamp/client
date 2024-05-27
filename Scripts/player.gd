@@ -8,7 +8,6 @@ extends Node3D
 
 const MoveMarker: PackedScene = preload("res://Effects/move_marker.tscn")
 
-var is_cam_centered : bool = false
 
 #@export var player := 1:
 	#set(id):
@@ -30,11 +29,12 @@ func _input(event):
 			action(event)
 
 
-func center_cam():
+func get_target_position(pid : int) -> Vector3:
 	var champs = $"../Champions".get_children()
 	for child in champs:
-		if child.name == str(multiplayer.get_unique_id()):
-			position = child.position
+		if child.name == str(pid):
+			return child.position
+	return Vector3.ZERO
 
 
 func action(event):
@@ -72,8 +72,8 @@ func _process(delta):
 		return
 	
 	# If centered, blindly follow the champion
-	if (is_cam_centered):
-		center_cam()
+	if (Config.is_cam_centered):
+		position = get_target_position(multiplayer.get_unique_id())
 	else:
 		# Get Mouse Coords on screen
 		var mouse_pos = get_viewport().get_mouse_position()
@@ -109,10 +109,10 @@ func _process(delta):
 	
 	# Recenter - Tap
 	if Input.is_action_pressed("player_camera_recenter"):
-		center_cam()
+		position = get_target_position(multiplayer.get_unique_id())
 	# Recenter - Toggle
 	if Input.is_action_just_pressed("player_camera_recenter_toggle"):
-		is_cam_centered = !is_cam_centered
+		Config.set_cam_centered(!Config.is_cam_centered)
 	
 	# toggle fullscreen
 	if Input.is_action_just_pressed("toggle_maximize"):
