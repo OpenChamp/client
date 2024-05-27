@@ -2,10 +2,12 @@ extends ProgressBar
 
 var camera: Camera3D
 
+
 func _ready():
 	camera = get_viewport().get_camera_3d()
 	hide()
-	
+
+
 func _process(_delta):
 	if value < max_value:
 		show()
@@ -13,8 +15,10 @@ func _process(_delta):
 	else:
 		hide()
 
+
 func sync(val):
 	value = val
+
 
 func update_loc(player_position: Vector3):
 	if value < max_value and not value <= 0:
