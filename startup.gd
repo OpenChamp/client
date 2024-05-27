@@ -22,6 +22,7 @@ var max_attempts = 3
 var attempts = 0
 var timeout = 3
 
+
 # Godot Default Listeners
 func _ready():
 	# UI
@@ -35,6 +36,7 @@ func _ready():
 		call_deferred("start", Start.SERVER)
 	else:
 		call_deferred("start", Start.CLIENT)
+
 
 # Client Connection Functionality
 func setup_client(peer:ENetMultiplayerPeer):
@@ -53,9 +55,11 @@ func setup_client(peer:ENetMultiplayerPeer):
 		return false
 	return true
 
+
 func client_success():
 	print("Connected!")
 	$ConnectionUI.hide()
+
 
 func client_fail():
 	_set_status("Failed To Connect...")
@@ -70,6 +74,7 @@ func client_fail():
 		reconnect_button.show()
 		exit_button.show()
 
+
 # Server Connection Functionality
 func setup_server(peer:ENetMultiplayerPeer):
 	_set_status("Creating Server...")
@@ -80,14 +85,17 @@ func setup_server(peer:ENetMultiplayerPeer):
 		return false
 	return true
 
+
 func server_fail():
 	OS.alert("Server failed to start")
 	get_tree().quit()
+
 
 func server_success():
 	print("Server Started, beginning initialization")
 	$ConnectionUI.hide()
 	change_map(load("res://Maps/debug_map.tscn"))
+
 
 # Custom Functions
 func start(method: int):
@@ -110,6 +118,7 @@ func start(method: int):
 			server_success()
 			return
 
+
 func change_map(scene: PackedScene):
 	var map = $Map
 	print(map)
@@ -118,6 +127,7 @@ func change_map(scene: PackedScene):
 		map.remove_child(child)
 		child.queue_free()
 	map.add_child(scene.instantiate())
+
 
 func parse_args():
 	for i in args.size():
@@ -128,20 +138,25 @@ func parse_args():
 			if args[i] == "-P":
 				port = args[i] + 1
 
+
 # Event Listeners
 func _on_reconnect_timer_timeout():
 	$ReconnectTimer.stop()
 	start(Start.CLIENT)
 
+
 func _on_reconnect_button_pressed():
 	start(Start.CLIENT)
+
 
 func _on_exit_button_pressed():
 	get_tree().quit()
 
+
 func _on_host_pressed():
 	start(Start.SERVER)
 	$ReconnectTimer.stop()
+
 
 func _on_checkup_timer_timeout():
 	# Is Connected?
@@ -158,11 +173,12 @@ func _on_checkup_timer_timeout():
 		$CheckupTimer.wait_time = 1
 		$CheckupTimer.start()
 
+
 # Setters
 func _set_status(message:String):
 	var text = "[center]" + message + "[/center]"
 	status_text.text = text
-	
+
+
 func _update_attempts():
 	attempts_text.text = "[center]Attempts: " + str(attempts) + "[/center]"
-	

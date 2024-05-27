@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://d0rpn5bkhlq0y"]
+
+[ext_resource type="Script" path="res://game_settings/settings/camera/min_zoom.gd" id="1_1o7vp"]
+
+[resource]
+resource_name = "min_zoom"
+script = ExtResource("1_1o7vp")
+current = 1.0
+default = 1.0
+name = "min_zoom"
+category = "camera"
+value_type = 3
+value_hint = 0
+value_hint_string = ""

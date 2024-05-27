@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cet8jlx6ntnad"]
+
+[ext_resource type="Script" path="res://game_settings/settings/camera/edge_margin.gd" id="1_pi33d"]
+
+[resource]
+resource_name = "edge_margin"
+script = ExtResource("1_pi33d")
+current = 75
+default = 75
+name = "edge_margin"
+category = "camera"
+value_type = 2
+value_hint = 1
+value_hint_string = "15-150"

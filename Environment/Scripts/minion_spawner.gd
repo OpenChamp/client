@@ -12,6 +12,7 @@ const MinionScene: PackedScene = preload("res://Characters/minion.tscn")
 var max_ids: Dictionary
 var timeout: float = 1.0
 
+
 func _ready():
 	if timeout < 1.0:
 		timeout = 1.0
@@ -21,11 +22,13 @@ func _ready():
 		_spawnable_scenes = [MinionScene.resource_path]
 	set_auto_spawn(auto_spawn)
 
+
 func set_auto_spawn(enabled: bool = true):
 	if enabled:
 		spawn_timer.start()
 	else:
 		spawn_timer.stop()
+
 
 func spawn_minion():
 	if not max_ids.has(team):
@@ -37,7 +40,8 @@ func spawn_minion():
 	minion.position = spawn_position
 	get_parent().find_child("Minions").add_child(minion)
 	max_ids[team] += 1
-	
+
+
 func spawn_wave():
 	for i in wave_size:
 		spawn_minion()

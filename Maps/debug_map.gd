@@ -1,8 +1,9 @@
 extends Node3D
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	print("Level Loaded")
+
 
 ## DEBUG: Spawn minions using a button click #######################################################
 func _input(event):

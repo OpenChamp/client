@@ -11,6 +11,7 @@ script/source = "extends Control
 
 const MapScene = preload(\"res://Maps/debug_map.tscn\")
 
+
 func _ready():
 	$ConnectionUI/Reconnect.timeout.connect(try_reconnect)
 	var args = Array(OS.get_cmdline_args())
@@ -22,6 +23,7 @@ func _ready():
 		else:
 			call_deferred(\"start_client\")
 
+
 func change_map(scene: PackedScene):
 	var map = $Map
 	# Clean out everything
@@ -29,6 +31,7 @@ func change_map(scene: PackedScene):
 		map.remove_child(child)
 		child.queue_free()
 	map.add_child(scene.instantiate())
+
 
 # setup the client part of a network peer
 func prepare_client(peer):
@@ -42,6 +45,7 @@ func prepare_client(peer):
 	print(peer.get_connection_status())
 	return true
 
+
 # setup the server part of a peer
 func prepare_server(peer):
 	print(\"Preparing Server\")
@@ -50,6 +54,7 @@ func prepare_server(peer):
 		print(\"Server failed to start\")
 	return true
 
+
 # launch a standalone client
 func start_client():
 	var peer = ENetMultiplayerPeer.new()
@@ -57,12 +62,14 @@ func start_client():
 		return
 	start_game(peer)
 
+
 # launch a standalone server
 func start_server():
 	var peer = ENetMultiplayerPeer.new()
 	if not prepare_server(peer):
 		return
 	start_game(peer)
+
 
 # launch a client and a server at the same time
 func start_integrated():
@@ -75,6 +82,7 @@ func retry_client():
 	$ConnectionUI/Reconnect.wait_time = connection_reset
 	$ConnectionUI/Reconnect.start()
 
+
 # actually start the game logic
 func start_game(peer):
 	print(\"Starting Game\")
@@ -82,13 +90,15 @@ func start_game(peer):
 	$ConnectionUI.hide()
 	if multiplayer.is_server():
 		change_map.call_deferred(MapScene)
-		
+
+
 func _input(event):
 	if event.is_action_released(\"ui_page_up\"):
 		var ext = \"bat\"
 		if not OS.get_name().to_lower() == \"windows\":
 			ext = \"sh\"
 		OS.shell_open(ProjectSettings.globalize_path(\"res://\") + \"./run.\")
+
 
 func try_reconnect():
 	print_debug(\"Trying to connect...\")

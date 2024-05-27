@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dkjw8e0bppjxu"]
 
-[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/healthbar.tscn" id="1_xul5m"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/player_stats/healthbar.tscn" id="1_xul5m"]
 
 [sub_resource type="GDScript" id="GDScript_ny1n0"]
 script/source = "extends Unit

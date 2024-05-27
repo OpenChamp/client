@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dtianmy4psi45"]
 
 [ext_resource type="Script" path="res://Scripts/minion.gd" id="1_scuc3"]
-[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/healthbar.tscn" id="2_tlp0k"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/player_stats/healthbar.tscn" id="2_tlp0k"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_onol1"]
 
