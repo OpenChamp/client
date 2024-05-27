@@ -44,10 +44,11 @@ func move_to(pos: Vector3):
 	character.update_target_location(character.nav_agent, pos)
 
 @rpc("any_peer", "call_local")
-func Target(name):
+func target(name):
 	var peer_id = multiplayer.get_remote_sender_id()
+	var player_name = "summoner_" + str(peer_id)
 	# Dont Kill Yourself
-	if str(name) == "summoner_" + str(peer_id):
+	if str(name) == player_name:
 		print_debug("That's you ya idjit") # :O
 		return
 	var character = players[peer_id]
@@ -56,20 +57,6 @@ func Target(name):
 		return
 	character.target_entity = get_parent().find_child(str(name), true, false)
 	character.is_attacking = true
-
-	if(str(name) == str(peer_id)):
-		print("That's you ya idjit");
-		return;
-	print(str(peer_id) + " : " + str(name))
-	var Character = players[peer_id]
-	if !Character:
-		print("Failed to find character")
-		return;
-	if name is int:
-		Character.targetEntity = players[name]
-	else: 
-		Character.targetEntity = get_parent().get_node("./WorldNav/"+name)
-	Character.isAttacking = true
 
 func GameOver(team):
 	get_tree().quit();
