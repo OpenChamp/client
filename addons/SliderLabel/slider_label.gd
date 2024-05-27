@@ -19,7 +19,6 @@ enum Placement { TOP_RIGHT, BOTTOM_LEFT }
 var slider: Slider
 var vertical: bool
 
-
 func _enter_tree() -> void:
 	if not has_meta(&"_edit_initialized_"):
 		set_meta(&"_edit_initialized_", true)
@@ -27,7 +26,6 @@ func _enter_tree() -> void:
 		vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		size_flags_horizontal = SIZE_SHRINK_CENTER
 		text = "100"
-
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -62,22 +60,18 @@ func _ready() -> void:
 	
 	_update_label()
 
-
 func _on_slider_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		visible = event.pressed
 		_update_label()
 
-
 func _on_slider_hover_focus(hover: bool):
 	visible = hover
 	_update_label()
 
-
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PARENTED:
 		update_configuration_warnings()
-
 
 func _update_label():
 	if not is_visible_in_tree():
@@ -109,7 +103,6 @@ func _update_label():
 			position.y = -size.y - separation
 		else:
 			position.y = slider.size.y + separation
-
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var ret: PackedStringArray
