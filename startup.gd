@@ -22,6 +22,7 @@ var max_attempts = 3
 var attempts = 0
 var timeout = 3
 
+
 # Godot Default Listeners
 func _ready():
 	# UI
@@ -29,13 +30,13 @@ func _ready():
 	reconnect_button.hide()
 	exit_button.hide()
 	# Parse Args
-	var args = Array(OS.get_cmdline_args())
-	parse_args(args)
+	parse_args()
 	# Start Relevant Process
 	if args.has("-s") or DisplayServer.get_name() == "headless":
 		call_deferred("start", Start.SERVER)
 	else:
 		call_deferred("start", Start.CLIENT)
+
 
 # Client Connection Functionality
 func setup_client(peer:ENetMultiplayerPeer):
@@ -54,9 +55,11 @@ func setup_client(peer:ENetMultiplayerPeer):
 		return false
 	return true
 
+
 func client_success():
 	print("Connected!")
 	$ConnectionUI.hide()
+
 
 func client_fail():
 	_set_status("Failed To Connect...")
@@ -71,6 +74,7 @@ func client_fail():
 		reconnect_button.show()
 		exit_button.show()
 
+
 # Server Connection Functionality
 func setup_server(peer:ENetMultiplayerPeer):
 	_set_status("Creating Server...")
@@ -81,22 +85,25 @@ func setup_server(peer:ENetMultiplayerPeer):
 		return false
 	return true
 
+
 func server_fail():
 	OS.alert("Server failed to start")
 	get_tree().quit()
+
 
 func server_success():
 	print("Server Started, beginning initialization")
 	$ConnectionUI.hide()
 	change_map(load("res://Maps/debug_map.tscn"))
 
+
 # Custom Functions
-func start(method:int):
+func start(method: int):
 	var peer = ENetMultiplayerPeer.new()
 	# Client Side
 	if method == Start.CLIENT:
 		if not setup_client(peer):
-			if !$CheckupTimer.is_stopped():
+			if not $CheckupTimer.is_stopped():
 				_set_status("Connecting...")
 			else:
 				client_fail()
@@ -111,6 +118,7 @@ func start(method:int):
 			server_success()
 			return
 
+
 func change_map(scene: PackedScene):
 	var map = $Map
 	print(map)
@@ -120,7 +128,8 @@ func change_map(scene: PackedScene):
 		child.queue_free()
 	map.add_child(scene.instantiate())
 
-func parse_args(args:Array):
+
+func parse_args():
 	for i in args.size():
 		if args[i].begins_with("-"):
 			# Process as command
@@ -129,20 +138,25 @@ func parse_args(args:Array):
 			if args[i] == "-P":
 				port = args[i] + 1
 
+
 # Event Listeners
 func _on_reconnect_timer_timeout():
 	$ReconnectTimer.stop()
 	start(Start.CLIENT)
 
+
 func _on_reconnect_button_pressed():
 	start(Start.CLIENT)
+
 
 func _on_exit_button_pressed():
 	get_tree().quit()
 
+
 func _on_host_pressed():
 	start(Start.SERVER)
 	$ReconnectTimer.stop()
+
 
 func _on_checkup_timer_timeout():
 	# Is Connected?
@@ -158,13 +172,13 @@ func _on_checkup_timer_timeout():
 		print("B")
 		$CheckupTimer.wait_time = 1
 		$CheckupTimer.start()
-	pass # Replace with function body.
+
 
 # Setters
 func _set_status(message:String):
 	var text = "[center]" + message + "[/center]"
 	status_text.text = text
-	
+
+
 func _update_attempts():
 	attempts_text.text = "[center]Attempts: " + str(attempts) + "[/center]"
-	

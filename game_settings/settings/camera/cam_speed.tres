@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://4cl8lsd14e3a"]
+
+[ext_resource type="Script" path="res://game_settings/settings/camera/cam_speed.gd" id="1_b7ivo"]
+
+[resource]
+resource_name = "cam_speed"
+script = ExtResource("1_b7ivo")
+current = 15
+default = 15
+name = "cam_speed"
+category = "camera"
+value_type = 3
+value_hint = 1
+value_hint_string = "1-30"

@@ -7,6 +7,7 @@ extends Objective
 
 signal game_over(team)
 
+
 func _ready():
 	setup(
 		null,
@@ -17,8 +18,10 @@ func _ready():
 		healthbar
 	)
 
+
 func _physics_process(delta):
 	_update_healthbar(healthbar)
+
 
 func take_damage(damage: float):
 	health -= damage

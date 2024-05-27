@@ -7,6 +7,7 @@ extends Unit
 @onready var attack_timer: Timer = $AttackTimer
 @onready var healthbar: ProgressBar = $Healthbar
 
+
 func _ready():
 	name = "minion_%d_%d" % [team, id]
 	activation_range = 10.0
@@ -20,6 +21,7 @@ func _ready():
 		attack_timer,
 		healthbar
 	)
+
 
 func _physics_process(delta):
 	_update_healthbar(healthbar)
@@ -37,9 +39,11 @@ func _physics_process(delta):
 	look_at(target_location)
 	move_and_slide()
 
+
 func _on_activation_area_body_entered(body):
 	if target_entity == null or target_entity == self:
 		target_entity = body
+
 
 func _on_activation_area_body_exited(body):
 	if target_entity == body:

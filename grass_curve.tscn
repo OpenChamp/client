@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://co35cw7i1opr1"]
+
+[ext_resource type="PackedScene" uid="uid://cfipoor60ec0t" path="res://Environment/Grass.tscn" id="1_sg32i"]
+
+[node name="GrassCurve" type="StaticBody3D"]
+
+[node name="grass" parent="." instance=ExtResource("1_sg32i")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 0, 0)
+
+[node name="grass2" parent="." instance=ExtResource("1_sg32i")]
+
+[node name="grass3" parent="." instance=ExtResource("1_sg32i")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, 0, 0)
+
+[node name="grass4" parent="." instance=ExtResource("1_sg32i")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 5, 0, 1)
+
+[node name="grass5" parent="." instance=ExtResource("1_sg32i")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -5, 0, 1)

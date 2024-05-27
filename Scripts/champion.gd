@@ -11,7 +11,6 @@ extends Unit
 @export var max_mana: float = 300.0
 @export var mana: float = 300.0
 
-var is_dead: bool = false
 
 func _ready():
 	attack_range = 20.0
@@ -23,6 +22,7 @@ func _ready():
 		attack_timer,
 		healthbar
 	)
+
 
 func _physics_process(delta):
 	_update_healthbar(healthbar)
@@ -47,5 +47,8 @@ func _physics_process(delta):
 				target_entity = null
 				is_attacking = false
 			move(nav_agent)
+	elif not target_entity == null:
+		update_target_location(nav_agent, target_entity.global_transform.origin)
+		move(nav_agent)
 	else:
 		move(nav_agent)
