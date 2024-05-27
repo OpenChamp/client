@@ -32,7 +32,7 @@ func die():
 		#attackTimeout -= delta
 	#var bodies = $Range.get_overlapping_bodies()
 	#for body in bodies:
-		#if body is CharacterBody3D and body.team != team:
+		#if not body is CharacterBody3D and body.team == team:
 			#if attackTimeout <=0:
 				##Attack(body)
 				#print("Turret Attack!")

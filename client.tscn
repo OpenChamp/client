@@ -34,7 +34,7 @@ func change_map(scene: PackedScene):
 func prepare_client(peer):
 	print(\"Preparing Client\")
 	var client = peer.create_client(\"127.0.0.1\", 10000)
-	if client != MultiplayerPeer.CONNECTION_CONNECTED:
+	if not client == MultiplayerPeer.CONNECTION_CONNECTED:
 		$ConnectionUI/RichTextLabel.text = \"[center]Failed to connect...\"
 		$ConnectionUI/RichTextLabel.fit_content = true
 		retry_client();
@@ -55,7 +55,6 @@ func start_client():
 	var peer = ENetMultiplayerPeer.new()
 	if not prepare_client(peer):
 		return
-	
 	start_game(peer)
 
 # launch a standalone server
@@ -63,7 +62,6 @@ func start_server():
 	var peer = ENetMultiplayerPeer.new()
 	if not prepare_server(peer):
 		return
-		
 	start_game(peer)
 
 # launch a client and a server at the same time
@@ -71,7 +69,6 @@ func start_integrated():
 	var peer = ENetMultiplayerPeer.new()
 	if not prepare_server(peer):
 		prepare_client(peer)
-		
 	start_game(peer)
 
 func retry_client():
@@ -89,7 +86,7 @@ func start_game(peer):
 func _input(event):
 	if event.is_action_released(\"ui_page_up\"):
 		var ext = \"bat\"
-		if OS.get_name().to_lower() != \"windows\":
+		if not OS.get_name().to_lower() == \"windows\":
 			ext = \"sh\"
 		OS.shell_open(ProjectSettings.globalize_path(\"res://\") + \"./run.\")
 

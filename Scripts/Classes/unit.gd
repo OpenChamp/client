@@ -102,7 +102,7 @@ func init_auto_attack(attack_timer: Timer):
 func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 	attack_timer.stop()
 	#Check if target is still in range
-	if !target_in_attack_range(collider):
+	if not target_in_attack_range(collider):
 		return
 	attack_timeout = attack_speed
 	

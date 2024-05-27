@@ -31,7 +31,7 @@ func _ready():
 func move_to(pos: Vector3):
 	var peer_id = multiplayer.get_remote_sender_id()
 	var character = summoners.get_node("summoner_" + str(peer_id))
-	if !character:
+	if not character:
 		print("Failed to find character")
 		return
 	character.is_attacking = false
@@ -42,7 +42,7 @@ func move_to(pos: Vector3):
 func target(name):
 	var peer_id = multiplayer.get_remote_sender_id()
 	var character = players[peer_id]
-	if !character:
+	if not character:
 		print_debug("Failed to find character")
 		return
 	# Dont Kill Yourself

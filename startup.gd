@@ -96,7 +96,7 @@ func start(method:int):
 	# Client Side
 	if method == Start.CLIENT:
 		if not setup_client(peer):
-			if !$CheckupTimer.is_stopped():
+			if not $CheckupTimer.is_stopped():
 				_set_status("Connecting...")
 			else:
 				client_fail()

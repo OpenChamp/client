@@ -5,7 +5,7 @@ var target
 var speed = 10
 
 func _ready():
-	if !target:
+	if not target:
 		queue_free()
 
 func _process(delta):
