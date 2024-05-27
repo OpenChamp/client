@@ -17,6 +17,8 @@ func _ready():
 		timeout = 1.0
 	spawn_timer.wait_time = timeout
 	spawn_timer.timeout.connect(spawn_wave.bind())
+	if _spawnable_scenes.size() == 0:
+		_spawnable_scenes = [MinionScene.resource_path]
 	set_auto_spawn(auto_spawn)
 
 func set_auto_spawn(enabled: bool = true):
