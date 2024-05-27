@@ -64,7 +64,7 @@ func _process(delta):
 	
 	# Get Mouse Coords on screen
 	var mouse_pos = get_viewport().get_mouse_position()
-	var size = get_viewport().size
+	var size = get_viewport().get_visible_rect().size
 	var cam_delta = Vector3(0, 0, 0)
 	var cam_moved = false
 	var edge_margin = Config.edge_margin
