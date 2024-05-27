@@ -10,9 +10,11 @@ extends MultiplayerSpawner
 
 const MinionScene: PackedScene = preload("res://Characters/minion.tscn")
 var max_ids: Dictionary
-var timeout: float = 0.0
+var timeout: float = 1.0
 
 func _ready():
+	if timeout < 1.0:
+		timeout = 1.0
 	spawn_timer.wait_time = timeout
 	spawn_timer.timeout.connect(spawn_wave.bind())
 	set_auto_spawn(auto_spawn)
