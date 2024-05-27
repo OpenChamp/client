@@ -13,7 +13,7 @@ extends ggsUIComponent
 var type: ggsInputHelper.InputType = ggsInputHelper.InputType.INVALID
 var input_helper: ggsInputHelper = ggsInputHelper.new()
 
-@onready var Btn: Button = $Btn
+@onready var btn: Button = $Btn
 
 
 func _ready() -> void:
@@ -22,12 +22,12 @@ func _ready() -> void:
 		return
 	
 	super()
-	Btn.pressed.connect(_on_Btn_pressed)
+	btn.pressed.connect(_on_btn_pressed)
 	ICW.input_selected.connect(_on_ICW_input_selected)
 	Input.joy_connection_changed.connect(_on_Input_joy_connection_changed)
 	
-	Btn.mouse_entered.connect(_on_Btn_mouse_entered)
-	Btn.focus_entered.connect(_on_Btn_focus_entered)
+	btn.mouse_entered.connect(_on_btn_mouse_entered)
+	btn.focus_entered.connect(_on_btn_focus_entered)
 
 
 func init_value() -> void:
@@ -40,7 +40,7 @@ func init_value() -> void:
 	_set_btn_text_or_icon(event)
 
 
-func _on_Btn_pressed() -> void:
+func _on_btn_pressed() -> void:
 	ICW.src = self
 	ICW.type = type
 	ICW.accept_mouse = accept_mouse
@@ -72,17 +72,17 @@ func _set_btn_text_or_icon(event: InputEvent) -> void:
 		type == ggsInputHelper.InputType.GP_BTN or
 		type == ggsInputHelper.InputType.GP_MOTION)
 	):
-		Btn.icon = input_helper.get_event_as_icon(event, icon_db)
+		btn.icon = input_helper.get_event_as_icon(event, icon_db)
 		
-		if Btn.icon == null:
-			Btn.text = input_helper.get_event_as_text(event)
+		if btn.icon == null:
+			btn.text = input_helper.get_event_as_text(event)
 		else:
-			Btn.text = ""
+			btn.text = ""
 		
 		return
 	
-	Btn.icon = null
-	Btn.text = input_helper.get_event_as_text(event)
+	btn.icon = null
+	btn.text = input_helper.get_event_as_text(event)
 
 
 func _on_Input_joy_connection_changed(_device: int, _connected: bool) -> void:
@@ -102,12 +102,12 @@ func reset_setting() -> void:
 
 ### SFX
 
-func _on_Btn_mouse_entered() -> void:
+func _on_btn_mouse_entered() -> void:
 	GGS.play_sfx(GGS.SFX.MOUSE_OVER)
 	
 	if grab_focus_on_mouse_over:
-		Btn.grab_focus()
+		btn.grab_focus()
 
 
-func _on_Btn_focus_entered() -> void:
+func _on_btn_focus_entered() -> void:
 	GGS.play_sfx(GGS.SFX.FOCUS)
