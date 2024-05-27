@@ -14,16 +14,19 @@ const MoveMarker: PackedScene = preload("res://Effects/move_marker.tscn")
 		#$MultiplayerSynchronizer.set_multiplayer_authority(id)
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	# For now close game when server dies
+	multiplayer.server_disconnected.connect(get_tree().quit)
 	spring_arm.spring_length = Config.max_zoom
 	Config.camera_property_changed.connect(_on_camera_setting_changed)
+
 
 func _input(event):
 	if event is InputEventMouseButton:
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			action(event)
+
 
 func action(event):
 	var from = camera.project_ray_origin(event.position)
@@ -52,7 +55,7 @@ func action(event):
 		return
 	if result and result.collider is CharacterBody3D:
 		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.pid)
-		
+
 
 func _process(delta):
 	# don't move the cam while changing the settings since that is annoying af
@@ -101,6 +104,7 @@ func _process(delta):
 			get_tree().root.mode = Window.MODE_WINDOWED
 		else:
 			get_tree().root.mode = Window.MODE_FULLSCREEN
+
 
 func _on_camera_setting_changed():
 	spring_arm.spring_length = clamp(spring_arm.spring_length, Config.min_zoom, Config.max_zoom)
