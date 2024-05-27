@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://x10srxg18eg5" path="res://Effects/arrow.tscn" id="2_7k1hj"]
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/player_stats/healthbar.tscn" id="3_yrm0u"]
 
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_am47k"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_iaiu6"]
