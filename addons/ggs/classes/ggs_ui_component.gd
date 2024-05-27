@@ -36,7 +36,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 	):
 		return PackedStringArray([WARNING_INCOMPATIBLE_SETTING])
 	
-	
 	return PackedStringArray()
 
 
