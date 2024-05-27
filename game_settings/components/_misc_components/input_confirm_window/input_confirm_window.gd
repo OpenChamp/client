@@ -21,41 +21,41 @@ var use_icons: bool
 
 var input_helper: ggsInputHelper = ggsInputHelper.new()
 
-@onready var AlreadyExistsLabel: Label = $MainCtnr/AlreadyExistsLabel
-@onready var OkBtn: Button = get_ok_button()
-@onready var CancelBtn: Button = get_cancel_button()
-@onready var ListenBtn: Button = $MainCtnr/ListenBtn
-@onready var ListenTimer: Timer = $ListenTimer
-@onready var MaxListenTimer: Timer = $MaxListenTimer
-@onready var ListenProgress: ProgressBar = $MainCtnr/ListenProgress
+@onready var already_exists_label: Label = $MainCtnr/AlreadyExistsLabel
+@onready var ok_btn: Button = get_ok_button()
+@onready var cancel_btn: Button = get_cancel_button()
+@onready var listen_btn: Button = $MainCtnr/ListenBtn
+@onready var listen_timer: Timer = $ListenTimer
+@onready var max_listen_timer: Timer = $MaxListenTimer
+@onready var listen_progress: ProgressBar = $MainCtnr/ListenProgress
 
 
 func _ready() -> void:
 	visibility_changed.connect(_on_visibility_changed)
 	confirmed.connect(_on_confirmed)
 	
-	ListenBtn.pressed.connect(_on_ListenBtn_pressed)
-	ListenTimer.timeout.connect(_on_ListenTimer_timeout)
-	MaxListenTimer.timeout.connect(_on_MaxListenTimer_timeout)
+	listen_btn.pressed.connect(_on_listen_btn_pressed)
+	listen_timer.timeout.connect(_on_listen_timer_timeout)
+	max_listen_timer.timeout.connect(_on_max_listen_timer_timeout)
 	
-	ListenBtn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(ListenBtn))
-	OkBtn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(OkBtn))
-	CancelBtn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(CancelBtn))
-	ListenBtn.focus_entered.connect(_on_AnyBtn_focus_entered)
-	OkBtn.focus_entered.connect(_on_AnyBtn_focus_entered)
-	CancelBtn.focus_entered.connect(_on_AnyBtn_focus_entered)
-	CancelBtn.pressed.connect(_on_CancelBtn_pressed)
+	listen_btn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(listen_btn))
+	ok_btn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(ok_btn))
+	cancel_btn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(cancel_btn))
+	listen_btn.focus_entered.connect(_on_AnyBtn_focus_entered)
+	ok_btn.focus_entered.connect(_on_AnyBtn_focus_entered)
+	cancel_btn.focus_entered.connect(_on_AnyBtn_focus_entered)
+	cancel_btn.pressed.connect(_on_cancel_btn_pressed)
 	
-	ListenBtn.focus_neighbor_bottom = CancelBtn.get_path()
-	OkBtn.focus_neighbor_top = ListenBtn.get_path()
-	CancelBtn.focus_neighbor_top = ListenBtn.get_path()
+	listen_btn.focus_neighbor_bottom = cancel_btn.get_path()
+	ok_btn.focus_neighbor_top = listen_btn.get_path()
+	cancel_btn.focus_neighbor_top = listen_btn.get_path()
 	
-	ListenTimer.wait_time = listening_wait_time
-	MaxListenTimer.wait_time = listening_max_time
+	listen_timer.wait_time = listening_wait_time
+	max_listen_timer.wait_time = listening_max_time
 
 
 func _process(_delta: float) -> void:
-	ListenProgress.value = ListenTimer.time_left / ListenTimer.wait_time
+	listen_progress.value = listen_timer.time_left / listen_timer.wait_time
 
 
 func _input(event: InputEvent) -> void:
@@ -66,18 +66,18 @@ func _input(event: InputEvent) -> void:
 	
 	var input_already_exists: Array = input_helper.input_already_exists(event, src.setting.action)
 	if input_already_exists[0]:
-		AlreadyExistsLabel.text = already_exists_msg.format({"action": input_already_exists[1].capitalize()})
+		already_exists_label.text = already_exists_msg.format({"action": input_already_exists[1].capitalize()})
 		
-		ListenProgress.hide()
-		AlreadyExistsLabel.show()
-		ListenTimer.stop()
-		MaxListenTimer.start()
+		listen_progress.hide()
+		already_exists_label.show()
+		listen_timer.stop()
+		max_listen_timer.start()
 		return
 	
-	ListenProgress.show()
-	AlreadyExistsLabel.hide()
-	ListenTimer.start()
-	MaxListenTimer.start()
+	listen_progress.show()
+	already_exists_label.hide()
+	listen_timer.start()
+	max_listen_timer.start()
 	
 	chosen_input = event
 
@@ -181,76 +181,76 @@ func _set_btn_text_or_icon(event: InputEvent) -> void:
 		type == ggsInputHelper.InputType.GP_BTN or
 		type == ggsInputHelper.InputType.GP_MOTION)
 	):
-		ListenBtn.icon = input_helper.get_event_as_icon(event, src.icon_db)
+		listen_btn.icon = input_helper.get_event_as_icon(event, src.icon_db)
 		
-		if ListenBtn.icon == null:
-			ListenBtn.text = input_helper.get_event_as_text(event)
+		if listen_btn.icon == null:
+			listen_btn.text = input_helper.get_event_as_text(event)
 		else:
-			ListenBtn.text = ""
+			listen_btn.text = ""
 		
 		return
 	
-	ListenBtn.icon = null
-	ListenBtn.text = input_helper.get_event_as_text(event)
+	listen_btn.icon = null
+	listen_btn.text = input_helper.get_event_as_text(event)
 
 
 func _start_listening() -> void:
-	ListenBtn.text = btn_listening
-	ListenBtn.icon = null
+	listen_btn.text = btn_listening
+	listen_btn.icon = null
 	title = title_listening
 	
-	OkBtn.release_focus()
-	OkBtn.disabled = true
-	OkBtn.focus_mode = Control.FOCUS_NONE
+	ok_btn.release_focus()
+	ok_btn.disabled = true
+	ok_btn.focus_mode = Control.FOCUS_NONE
 	
-	ListenBtn.release_focus()
-	ListenBtn.disabled = true
-	ListenBtn.focus_mode = Control.FOCUS_NONE
+	listen_btn.release_focus()
+	listen_btn.disabled = true
+	listen_btn.focus_mode = Control.FOCUS_NONE
 	
-	CancelBtn.release_focus()
+	cancel_btn.release_focus()
 	
 	if show_progress_bar:
-		ListenProgress.show()
+		listen_progress.show()
 	
 	set_process_input(true)
 	set_process(true)
-	MaxListenTimer.start()
+	max_listen_timer.start()
 
 
 func _stop_listening(timed_out: bool = false) -> void:
 	title = title_confirm
 	
-	ListenBtn.focus_mode = Control.FOCUS_ALL
-	ListenBtn.disabled = false
-	ListenBtn.grab_focus()
+	listen_btn.focus_mode = Control.FOCUS_ALL
+	listen_btn.disabled = false
+	listen_btn.grab_focus()
 	
 	if timed_out:
-		ListenBtn.text = timeout_text
-		ListenBtn.icon = null
+		listen_btn.text = timeout_text
+		listen_btn.icon = null
 	
 	if not timed_out:
-		OkBtn.focus_mode = Control.FOCUS_ALL
-		OkBtn.disabled = false
-		OkBtn.grab_focus()
+		ok_btn.focus_mode = Control.FOCUS_ALL
+		ok_btn.disabled = false
+		ok_btn.grab_focus()
 	
-	ListenProgress.hide()
-	AlreadyExistsLabel.hide()
+	listen_progress.hide()
+	already_exists_label.hide()
 	
 	set_process_input(false)
 	set_process(false)
-	MaxListenTimer.stop()
+	max_listen_timer.stop()
 
 
-func _on_ListenBtn_pressed() -> void:
+func _on_listen_btn_pressed() -> void:
 	_start_listening()
 	GGS.play_sfx(GGS.SFX.INTERACT)
 
 
-func _on_ListenTimer_timeout() -> void:
+func _on_listen_timer_timeout() -> void:
 	_stop_listening()
 
 
-func _on_MaxListenTimer_timeout() -> void:
+func _on_max_listen_timer_timeout() -> void:
 	_stop_listening(true)
 
 
@@ -258,7 +258,7 @@ func _on_MaxListenTimer_timeout() -> void:
 
 func _on_visibility_changed() -> void:
 	if visible:
-		OkBtn.release_focus()
+		ok_btn.release_focus()
 		chosen_input = null
 		_start_listening()
 
@@ -281,5 +281,5 @@ func _on_AnyBtn_focus_entered() -> void:
 	GGS.play_sfx(GGS.SFX.FOCUS)
 
 
-func _on_CancelBtn_pressed() -> void:
+func _on_cancel_btn_pressed() -> void:
 	GGS.play_sfx(GGS.SFX.INTERACT)
