@@ -55,6 +55,10 @@ func action(event):
 		
 
 func _process(delta):
+	# don't move the cam while changing the settings since that is annoying af
+	if Config.in_config_settings:
+		return
+	
 	# Get Mouse Coords on screen
 	var mouse_pos = get_viewport().get_mouse_position()
 	var size = get_viewport().size

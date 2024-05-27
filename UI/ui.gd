@@ -1,6 +1,6 @@
 extends Control
 
-@onready var SettingsMenu = $SettingsMenu
+@onready var settings_menu = $SettingsMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,8 +11,8 @@ func _ready():
 func _process(delta):
 	# Handle the player pause action, which opens the settings page
 	if Input.is_action_just_pressed("player_pause"):
-		if SettingsMenu.visible:
-			SettingsMenu.hide()
+		if settings_menu.visible:
+			settings_menu.hide()
 		else:
-			SettingsMenu.show()
+			settings_menu.show()
 	

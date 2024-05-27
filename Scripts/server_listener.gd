@@ -21,8 +21,8 @@ func _ready():
 		
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
-	$"../WorldNav/RedTower".GameOver.connect(GameOver)
-	$"../WorldNav/BlueTower".GameOver.connect(GameOver)
+	$"../WorldNav/RedTower".game_over.connect(GameOver)
+	$"../WorldNav/BlueTower".game_over.connect(GameOver)
 	for id in multiplayer.get_peers():
 		add_player(id)
 	
@@ -61,12 +61,12 @@ func Target(name):
 		print("That's you ya idjit");
 		return;
 	print(str(peer_id) + " : " + str(name))
-	var Character = Players[peer_id]
+	var Character = players[peer_id]
 	if !Character:
 		print("Failed to find character")
 		return;
 	if name is int:
-		Character.targetEntity = Players[name]
+		Character.targetEntity = players[name]
 	else: 
 		Character.targetEntity = get_parent().get_node("./WorldNav/"+name)
 	Character.isAttacking = true
@@ -76,25 +76,26 @@ func GameOver(team):
 
 func add_player(clientId: int):
 	print("Player Connected: " + str(clientId))
-	var character = preload("res://Characters/Archer.tscn").instantiate()
+	var character = preload("res://Characters/champion.tscn").instantiate()
 	var Team = 0
-	if Team1.size() > Team2.size():
-		Team2.append(clientId)
+	if team1.size() > team2.size():
+		team2.append(clientId)
 		Team = 2
-		character.position = Spawn2.position
+		character.position = spawn2.position
 	else:
-		Team1.append(clientId)
+		team1.append(clientId)
 		Team = 1
-		character.position = Spawn1.position
+		character.position = spawn1.position
 	character.pid = clientId
-	character.name = str(clientId)
-	Players[clientId] = character
-	Heroes.add_child(character)
+	character.name = "summoner_" + str(clientId)
+	players[clientId] = character
+	summoners.add_child(character)
 
 func del_player(client_id: int):
 	if not summoners.has_node(str(client_id)):
 		return
-	Heroes.get_node(str(clientId)).queue_free()
+
+	summoners.get_node(str(client_id)).queue_free()
 	
 func _exit_tree():
 	if not multiplayer.is_server():
