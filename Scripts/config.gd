@@ -13,6 +13,7 @@ signal camera_property_changed()
 @export var min_zoom = 1.0: set = set_min_zoom
 @export var max_zoom = 25.0: set = set_max_zoom
 
+
 # Settings Keybinds
 func _input(e):
 	if Input.is_action_just_pressed("toggle_maximize"):
@@ -34,23 +35,27 @@ func set_fullscreen_mode(new_value):
 	is_fullscreen = new_value
 	
 	display_property_changed.emit()
-	
+
+
 func toggle_fullscreen():
 	set_fullscreen_mode(!is_fullscreen)
+
 
 func set_edge_margin(new_value: int):
 	edge_margin = new_value
 	camera_property_changed.emit()
-	
+
+
 func set_cam_speed(new_value: float):
 	cam_speed = new_value
 	camera_property_changed.emit()
+
 
 func set_min_zoom(new_value: float):
 	min_zoom = new_value
 	camera_property_changed.emit()
 
+
 func set_max_zoom(new_value: float):
 	max_zoom = new_value
 	camera_property_changed.emit()
-
