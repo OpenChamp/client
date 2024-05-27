@@ -30,7 +30,7 @@ func _ready():
 @rpc("any_peer", "call_local")
 func move_to(pos: Vector3):
 	var peer_id = multiplayer.get_remote_sender_id()
-	var character = summoners.get_node("summoner_" + str(peer_id))
+	var character = summoners.get_node(str(peer_id))
 	if !character:
 		print("Failed to find character")
 		return
@@ -42,7 +42,7 @@ func move_to(pos: Vector3):
 func target(name):
 	var peer_id = multiplayer.get_remote_sender_id()
 	# Dont Kill Yourself
-	if str(name) == "summoner_" + str(peer_id):
+	if str(name) == str(peer_id):
 		print_debug("That's you ya idjit") # :O
 		return
 	var character = players[peer_id]
@@ -67,7 +67,7 @@ func add_player(client_id: int):
 		champion.position = spawn1.position
 		champion.team = 1
 	champion.pid = client_id
-	champion.name = "summoner_" + str(client_id)
+	champion.name = str(client_id)
 	players[client_id] = champion
 	summoners.add_child(champion)
 
