@@ -62,6 +62,6 @@ func set_max_zoom(new_value: float):
 	camera_property_changed.emit()
 
 
-func set_cam_centered(new_value: float):
+func set_cam_centered(new_value: bool):
 	is_cam_centered = new_value
 	camera_property_changed.emit()
