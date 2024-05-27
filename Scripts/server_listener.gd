@@ -79,19 +79,6 @@ func add_player(client_id: int):
 	champions.add_child(character)
 
 
-@rpc("any_peer", "call_local")
-func MoveCamTo():
-	var peer_id = multiplayer.get_remote_sender_id()
-	var character = players[peer_id]
-	rpc_id(peer_id, "JumpCamTo", character.position)
-
-
-@rpc("any_peer", "call_local")
-func JumpCamTo(pos):
-	var player_node = $"../Player"
-	player_node.position = pos
-
-
 func del_player(client_id: int):
 	if not champions.has_node(str(client_id)):
 		return

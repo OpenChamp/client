@@ -30,6 +30,13 @@ func _input(event):
 			action(event)
 
 
+func center_cam():
+	var champs = $"../Champions".get_children()
+	for child in champs:
+		if child.name == str(multiplayer.get_unique_id()):
+			position = child.position
+
+
 func action(event):
 	var from = camera.project_ray_origin(event.position)
 	var to = from + camera.project_ray_normal(event.position) * 1000
@@ -66,7 +73,7 @@ func _process(delta):
 	
 	# If centered, blindly follow the champion
 	if (is_cam_centered):
-		server_listener.rpc_id(get_multiplayer_authority(), "MoveCamTo")
+		center_cam()
 	else:
 		# Get Mouse Coords on screen
 		var mouse_pos = get_viewport().get_mouse_position()
@@ -102,12 +109,12 @@ func _process(delta):
 	
 	# Recenter - Tap
 	if Input.is_action_pressed("player_camera_recenter"):
-		server_listener.rpc_id(get_multiplayer_authority(), "MoveCamTo")
+		center_cam()
 	# Recenter - Toggle
 	if Input.is_action_just_pressed("player_camera_recenter_toggle"):
 		is_cam_centered = !is_cam_centered
 	
-	# toggle fullscreen	
+	# toggle fullscreen
 	if Input.is_action_just_pressed("toggle_maximize"):
 		var window_mode = get_tree().root.mode
 		if window_mode == Window.MODE_FULLSCREEN or window_mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
