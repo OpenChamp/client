@@ -60,7 +60,6 @@ func start_client():
 	var peer = ENetMultiplayerPeer.new()
 	if not prepare_client(peer):
 		return
-	
 	start_game(peer)
 
 
@@ -69,7 +68,6 @@ func start_server():
 	var peer = ENetMultiplayerPeer.new()
 	if not prepare_server(peer):
 		return
-		
 	start_game(peer)
 
 
@@ -78,7 +76,6 @@ func start_integrated():
 	var peer = ENetMultiplayerPeer.new()
 	if not prepare_server(peer):
 		prepare_client(peer)
-		
 	start_game(peer)
 
 func retry_client():

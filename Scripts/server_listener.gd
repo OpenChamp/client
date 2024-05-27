@@ -40,6 +40,7 @@ func move_to(pos: Vector3):
 	character.target_entity = null
 	character.update_target_location(character.nav_agent, pos)
 
+
 @rpc("any_peer", "call_local")
 func target(name):
 	var peer_id = multiplayer.get_remote_sender_id()
@@ -76,6 +77,7 @@ func add_player(client_id: int):
 	character.name = str(client_id)
 	players[client_id] = character
 	summoners.add_child(character)
+
 
 func del_player(client_id: int):
 	if not summoners.has_node(str(client_id)):
