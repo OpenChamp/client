@@ -11,12 +11,13 @@ extends Control
 @onready var edge_margin_slider = $SplitContainer/PanelContainer/TabContainer/Camera/edge_margin_slider
 @onready var max_zoom_slider = $SplitContainer/PanelContainer/TabContainer/Camera/max_zoom_slider
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	visibility_changed.connect(on_show)
 	
 	ExitBtn.pressed.connect(_on_game_close_pressed)
 	ConfirmBtn.pressed.connect(_on_confirm_changes)
+
 
 func on_show():
 	Config.in_config_settings = visible
@@ -29,10 +30,12 @@ func on_show():
 	edge_margin_slider.value = Config.edge_margin
 	max_zoom_slider.value = Config.max_zoom
 	max_zoom_slider.min_value = Config.min_zoom + 1
-	
+
+
 func _on_game_close_pressed():
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()
+
 
 func _on_confirm_changes():
 	var all_settings = GGS.get_all_settings()
@@ -41,6 +44,7 @@ func _on_confirm_changes():
 		_apply_setting(setting)
 		
 	hide()
+
 
 func _apply_setting(setting: ggsSetting):
 	var new_value;
