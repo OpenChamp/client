@@ -34,19 +34,6 @@ func _process(delta):
 
 
 @rpc("any_peer", "call_local")
-func center_cam():
-	var peer_id = multiplayer.get_remote_sender_id()
-	var character = Players[peer_id]
-	rpc_id(peer_id, "jump_cam_to", character.position)
-
-
-@rpc("any_peer", "call_local")
-func jump_cam_to(pos):
-	var player_node = $"../Player"
-	player_node.position = pos
-
-
-@rpc("any_peer", "call_local")
 func MoveTo(pos):
 	var peer_id = multiplayer.get_remote_sender_id()
 	var Character = Players[peer_id]

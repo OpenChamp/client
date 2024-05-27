@@ -116,6 +116,13 @@ func camera_to_mouse_raycast(target_position : Vector2) -> Dictionary:
 	return space.intersect_ray(params)
 
 
+func center_cam():
+	var heroes = $"../Heroes"
+	for child in heroes.get_children():
+		if child.pid == multiplayer.get_unique_id():
+			position = child.position
+
+
 func _process(delta):
 	# ignore all inputs when changing configs since that is annoying
 	if Config.in_config_settings:
@@ -123,7 +130,7 @@ func _process(delta):
 
 	# Blindly follow player if centered toggle is on
 	if (_centered):
-		ServerListener.rpc_id(get_multiplayer_authority(), "center_cam")
+		center_cam()
 	else:
 		# Get Mouse Coords on screen
 		var mouse_pos = get_viewport().get_mouse_position()
@@ -160,9 +167,10 @@ func _process(delta):
 	if Input.is_action_just_pressed("player_zoomout"):
 		if Spring_Arm.spring_length < Config.max_zoom:
 			Spring_Arm.spring_length += 1;
+	
 	# Recenter - Tap
 	if Input.is_action_pressed("player_camera_recenter"):
-		ServerListener.rpc_id(get_multiplayer_authority(), "center_cam")
+		center_cam()
 	
 	# Recenter - Toggle
 	if Input.is_action_just_pressed("player_camera_recenter_toggle"):
