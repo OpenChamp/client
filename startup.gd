@@ -29,8 +29,7 @@ func _ready():
 	reconnect_button.hide()
 	exit_button.hide()
 	# Parse Args
-	var args = Array(OS.get_cmdline_args())
-	parse_args(args)
+	parse_args()
 	# Start Relevant Process
 	if args.has("-s") or DisplayServer.get_name() == "headless":
 		call_deferred("start", Start.SERVER)
@@ -91,7 +90,7 @@ func server_success():
 	change_map(load("res://Maps/debug_map.tscn"))
 
 # Custom Functions
-func start(method:int):
+func start(method: int):
 	var peer = ENetMultiplayerPeer.new()
 	# Client Side
 	if method == Start.CLIENT:
@@ -120,7 +119,7 @@ func change_map(scene: PackedScene):
 		child.queue_free()
 	map.add_child(scene.instantiate())
 
-func parse_args(args:Array):
+func parse_args():
 	for i in args.size():
 		if args[i].begins_with("-"):
 			# Process as command
@@ -158,7 +157,6 @@ func _on_checkup_timer_timeout():
 		print("B")
 		$CheckupTimer.wait_time = 1
 		$CheckupTimer.start()
-	pass # Replace with function body.
 
 # Setters
 func _set_status(message:String):
