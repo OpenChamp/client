@@ -6,7 +6,7 @@ var team2 = Array()
 var death_timers = []
 
 # ENV
-@onready var summoners = $"../Summoners"
+@onready var champions = $"../Champions"
 @onready var player = $"../Players"
 @onready var spawn1 = $"../Spawn1"
 @onready var spawn2 = $"../Spawn2"
@@ -32,7 +32,7 @@ func _ready():
 @rpc("any_peer", "call_local")
 func move_to(pos: Vector3):
 	var peer_id = multiplayer.get_remote_sender_id()
-	var character = summoners.get_node(str(peer_id))
+	var character = champions.get_node(str(peer_id))
 	if not character:
 		print("Failed to find character")
 		return
@@ -76,13 +76,13 @@ func add_player(client_id: int):
 	character.pid = client_id
 	character.name = str(client_id)
 	players[client_id] = character
-	summoners.add_child(character)
+	champions.add_child(character)
 
 
 func del_player(client_id: int):
-	if not summoners.has_node(str(client_id)):
+	if not champions.has_node(str(client_id)):
 		return
-	summoners.get_node(str(client_id)).queue_free()
+	champions.get_node(str(client_id)).queue_free()
 
 
 func _exit_tree():
