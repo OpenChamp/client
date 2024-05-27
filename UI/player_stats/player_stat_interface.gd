@@ -15,7 +15,6 @@ func update_mana(mp : int, max_mp : int = -1):
 	manabar.value = mp
 	if max_mp == -1: return
 	manabar.max_value = max_mp
-	
 
 
 func update_xp(xp : int, max_xp : int = -1):
