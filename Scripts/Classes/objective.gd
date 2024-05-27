@@ -1,6 +1,5 @@
 class_name Objective extends Unit
 
-@export var is_dead: bool = false
 
 func setup(
 	_nav_agent: NavigationAgent3D,
@@ -24,16 +23,19 @@ func setup(
 	if not multiplayer.is_server():
 		set_physics_process(false)
 
+
 func update_collision_radius(range_collider: Area3D, radius: float):
 	var collision_shape = CylinderShape3D.new()
 	collision_shape.radius = radius
 	range_collider.get_node("CollisionShape3D").shape = collision_shape
+
 
 func _update_healthbar(healthbar: ProgressBar):
 	healthbar.value = health
 	if health <= 0:
 		health = 0
 		die()
+
 
 func target_in_attack_range(collider: Area3D):
 	var bodies = collider.get_overlapping_bodies()
@@ -42,9 +44,11 @@ func target_in_attack_range(collider: Area3D):
 			return true
 	return false
 
+
 func attack(entity: CharacterBody3D, _nav_agent: NavigationAgent3D):
 	target_entity = entity
 	is_attacking = true
+
 
 func take_damage(damage: float):
 	print_debug(damage)
@@ -55,8 +59,10 @@ func take_damage(damage: float):
 	if health <= 0:
 		die()
 
+
 func die():
 	self.queue_free()
+
 
 func init_auto_attack(attack_timer: Timer):
 	if attack_timeout > 0:
@@ -64,10 +70,11 @@ func init_auto_attack(attack_timer: Timer):
 	attack_timer.wait_time = attack_time
 	attack_timer.start()
 
+
 func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 	attack_timer.stop()
 	#Check if target is still in range
-	if !target_in_attack_range(collider):
+	if not target_in_attack_range(collider):
 		return
 	attack_timeout = attack_speed
 	
