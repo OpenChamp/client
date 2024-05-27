@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="OpenChamp"
-run/main_scene="res://Startup.tscn"
+run/main_scene="res://startup.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GGS="*res://addons/ggs/classes/global/ggs.tscn"
-Config="*res://Scripts/Config.gd"
+Config="*res://Scripts/config.gd"
 
 [editor]
 

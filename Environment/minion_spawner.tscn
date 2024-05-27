@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://kqv21ursy1cb"]
+
+[ext_resource type="Script" path="res://Environment/Scripts/minion_spawner.gd" id="1_ni6fh"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_7kjsf"]
+
+[node name="MinionSpawner" type="MultiplayerSpawner"]
+script = ExtResource("1_ni6fh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_7kjsf")
+
+[node name="SpawnTimer" type="Timer" parent="."]

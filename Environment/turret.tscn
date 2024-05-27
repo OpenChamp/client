@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjjv3488swmh2"]
+
+[ext_resource type="Script" path="res://Environment/Scripts/turret.gd" id="1_6p426"]
+[ext_resource type="ArrayMesh" uid="uid://bs3i0h7050jhc" path="res://Environment/Models/turret.mesh" id="1_vckyp"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/player_stats/healthbar.tscn" id="2_h3doq"]
+[ext_resource type="ArrayMesh" uid="uid://dfsx34bcg0mc1" path="res://Environment/Models/crystal.mesh" id="2_ota7h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fd5j0"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5frdt"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:team")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:id")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:health")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[node name="Turret" type="CharacterBody3D" groups=["Objective", "Unit"]]
+collision_layer = 3
+script = ExtResource("1_6p426")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("1_vckyp")
+
+[node name="Crystal" type="MeshInstance3D" parent="MeshInstance3D"]
+mesh = ExtResource("2_ota7h")
+
+[node name="Healthbar" parent="." instance=ExtResource("2_h3doq")]
+
+[node name="UnitCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_fd5j0")
+
+[node name="AttackArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5frdt")
+
+[node name="AttackTimer" type="Timer" parent="."]

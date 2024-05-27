@@ -35,7 +35,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 		not compatible_types.has(setting.value_type)
 	):
 		return PackedStringArray([WARNING_INCOMPATIBLE_SETTING])
-	
+		
 	
 	return PackedStringArray()
 

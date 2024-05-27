@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtianmy4psi45"]
+
+[ext_resource type="Script" path="res://Scripts/minion.gd" id="1_scuc3"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/player_stats/healthbar.tscn" id="2_tlp0k"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_onol1"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_iaiu6"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fd5j0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_818fm"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5frdt"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:team")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:id")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:health")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[node name="Minion" type="CharacterBody3D" groups=["Minion", "Unit"]]
+collision_layer = 3
+script = ExtResource("1_scuc3")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("PrismMesh_onol1")
+
+[node name="Eyes" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="Eye1" type="MeshInstance3D" parent="Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.15, -0.5)
+mesh = SubResource("SphereMesh_iaiu6")
+skeleton = NodePath(".")
+
+[node name="Eye2" type="MeshInstance3D" parent="Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.15, -0.5)
+mesh = SubResource("SphereMesh_iaiu6")
+skeleton = NodePath(".")
+
+[node name="Healthbar" parent="." instance=ExtResource("2_tlp0k")]
+
+[node name="MinionCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_fd5j0")
+
+[node name="AttackArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_818fm")
+
+[node name="ActivationArea" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ActivationArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_818fm")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5frdt")
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="ActivationArea" to="." method="_on_activation_area_body_entered"]
+[connection signal="body_exited" from="ActivationArea" to="." method="_on_activation_area_body_exited"]

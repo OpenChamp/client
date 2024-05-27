@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://x10srxg18eg5"]
+
+[ext_resource type="Script" path="res://Effects/auto_projectile.gd" id="1_rrlto"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s8s0j"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_soxce"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_toew3"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_luq8l"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Arrow" type="StaticBody3D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_rrlto")
+
+[node name="Shaft" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.58563e-16, -2.62268e-08, 0.24, -0.24, -2.62268e-08, 0, 1.04907e-08, -0.6, -1.04907e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_s8s0j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(7.33705e-16, -1.74846e-08, 0.312, -0.384, -1.74846e-08, 1.76168e-23, 1.67852e-08, -0.4, -1.3638e-08, 0, 0, -0.765583)
+mesh = SubResource("PrismMesh_soxce")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 0, -0.0112842, -0.176729)
+shape = SubResource("CapsuleShape3D_toew3")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_luq8l")

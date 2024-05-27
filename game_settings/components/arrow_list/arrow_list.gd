@@ -6,9 +6,9 @@ signal option_selected(option_index: int)
 @export var options: PackedStringArray
 @export var option_ids: PackedInt32Array
 
-@onready var LeftBtn: Button = $HBox/LeftBtn
-@onready var OptionLabel: Label = $HBox/OptionLabel
-@onready var RightBtn: Button = $HBox/RightBtn
+@onready var left_btn: Button = $HBox/LeftBtn
+@onready var option_label: Label = $HBox/OptionLabel
+@onready var right_btn: Button = $HBox/RightBtn
 
 
 func _ready() -> void:
@@ -18,13 +18,13 @@ func _ready() -> void:
 	
 	super()
 	option_selected.connect(_on_option_selected)
-	LeftBtn.pressed.connect(_on_LeftBtn_pressed)
-	RightBtn.pressed.connect(_on_RightBtn_pressed)
+	left_btn.pressed.connect(_on_left_btn_pressed)
+	right_btn.pressed.connect(_on_right_btn_pressed)
 	
-	LeftBtn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(LeftBtn))
-	RightBtn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(RightBtn))
-	LeftBtn.focus_entered.connect(_on_AnyBtn_focus_entered)
-	RightBtn.focus_entered.connect(_on_AnyBtn_focus_entered)
+	left_btn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(left_btn))
+	right_btn.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(right_btn))
+	left_btn.focus_entered.connect(_on_AnyBtn_focus_entered)
+	right_btn.focus_entered.connect(_on_AnyBtn_focus_entered)
 
 
 func init_value() -> void:
@@ -47,7 +47,7 @@ func _on_option_selected(_option_index: int) -> void:
 func select(index: int, emit_selected: bool = true) -> void:
 	index = index % options.size()
 	
-	OptionLabel.text = options[index]
+	option_label.text = options[index]
 	
 	if not option_ids.is_empty():
 		setting_value = option_ids[index]
@@ -58,7 +58,7 @@ func select(index: int, emit_selected: bool = true) -> void:
 		option_selected.emit(index)
 
 
-func _on_LeftBtn_pressed() -> void:
+func _on_left_btn_pressed() -> void:
 	if option_ids.is_empty():
 		select(setting_value - 1)
 	else:
@@ -67,7 +67,7 @@ func _on_LeftBtn_pressed() -> void:
 	GGS.play_sfx(GGS.SFX.INTERACT)
 
 
-func _on_RightBtn_pressed() -> void:
+func _on_right_btn_pressed() -> void:
 	if option_ids.is_empty():
 		select(setting_value + 1)
 	else:

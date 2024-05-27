@@ -1,7 +1,7 @@
 @tool
 extends ggsUIComponent
 
-@onready var TextField: LineEdit = $TextField
+@onready var text_field: LineEdit = $TextField
 
 
 func _ready() -> void:
@@ -10,15 +10,15 @@ func _ready() -> void:
 		return
 	
 	super()
-	TextField.text_submitted.connect(_on_TextField_text_submitted)
+	text_field.text_submitted.connect(_on_text_field_text_submitted)
 
 
 func init_value() -> void:
 	super()
-	TextField.text = setting_value
+	text_field.text = setting_value
 
 
-func _on_TextField_text_submitted(submitted_text: String) -> void:
+func _on_text_field_text_submitted(submitted_text: String) -> void:
 	setting_value = submitted_text
 	GGS.play_sfx(GGS.SFX.INTERACT)
 	if apply_on_change:
@@ -29,4 +29,4 @@ func _on_TextField_text_submitted(submitted_text: String) -> void:
 
 func reset_setting() -> void:
 	super()
-	TextField.text = setting_value
+	text_field.text = setting_value

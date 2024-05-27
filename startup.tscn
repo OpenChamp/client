@@ -1,0 +1,132 @@
+[gd_scene load_steps=2 format=3 uid="uid://bve3msypuyiwq"]
+
+[ext_resource type="Script" path="res://startup.gd" id="1_fnbjw"]
+
+[node name="Startup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+script = ExtResource("1_fnbjw")
+
+[node name="ConnectionUI" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="StatusText" type="RichTextLabel" parent="ConnectionUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -577.5
+offset_top = -69.0
+offset_right = 575.5
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]Connecting.[/center]"
+
+[node name="AttemptsText" type="RichTextLabel" parent="ConnectionUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -574.5
+offset_top = -146.0
+offset_right = 577.5
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]Attempt: [/center]"
+
+[node name="ReconnectButton" type="Button" parent="ConnectionUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = 39.5
+offset_right = 44.5
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Reconnect"
+
+[node name="ExitButton" type="Button" parent="ConnectionUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.5
+offset_top = 79.5
+offset_right = 18.5
+offset_bottom = 110.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+
+[node name="HostButton" type="Button" parent="ConnectionUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Host Server"
+
+[node name="ReconnectTimer" type="Timer" parent="."]
+
+[node name="CheckupTimer" type="Timer" parent="."]
+
+[node name="Map" type="Node" parent="."]
+
+[node name="MapSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Maps/debug_map.tscn")
+spawn_path = NodePath("../Map")
+spawn_limit = 1
+
+[node name="ServerLogs" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -577.0
+offset_top = -326.0
+offset_right = -230.0
+offset_bottom = 321.0
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ServerLogs"]
+layout_mode = 2
+text = "This is a log"
+fit_content = true
+
+[connection signal="pressed" from="ConnectionUI/ReconnectButton" to="." method="_on_reconnect_button_pressed"]
+[connection signal="pressed" from="ConnectionUI/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="ConnectionUI/HostButton" to="." method="_on_host_pressed"]
+[connection signal="timeout" from="ReconnectTimer" to="." method="_on_reconnect_timer_timeout"]
+[connection signal="timeout" from="CheckupTimer" to="." method="_on_checkup_timer_timeout"]
