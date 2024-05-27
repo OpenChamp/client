@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Maps/debug_map.gd" id="1_oripi"]
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/ui.tscn" id="2_7bhhd"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/player.tscn" id="3_borkg"]
-[ext_resource type="Texture2D" uid="uid://537474m3a6kv" path="res://Environment/Textures/clover.jpg" id="4_wyhrk"]
+[ext_resource type="Texture2D" uid="uid://b16u04nhttam8" path="res://Environment/Textures/clover.jpg" id="4_wyhrk"]
 [ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://Environment/turret.tscn" id="5_2p22h"]
 [ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://Environment/nexus.tscn" id="6_l5kk0"]
 [ext_resource type="Script" path="res://Scripts/server_listener.gd" id="7_p6jd3"]
@@ -96,14 +96,13 @@ spawn_limit = 10
 [node name="ServerListener" type="Node" parent="."]
 script = ExtResource("7_p6jd3")
 
-[node name="MinionSpawner1" parent="." instance=ExtResource("8_dli2g")]
-spawn_path = NodePath("../Minions")
+[node name="MinionSpawner1" parent="." node_paths=PackedStringArray("spawn_path") instance=ExtResource("8_dli2g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
 team = 1
-spawn_position = Vector3(24, 0, 0)
+spawn_path = NodePath("../Minions")
 
 [node name="MinionSpawner2" parent="." instance=ExtResource("8_dli2g")]
-spawn_path = NodePath("../Minions")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
 team = 2
-spawn_position = Vector3(-24, 0, 0)
 wave_size = 4
 spawn_delay = 0.75
