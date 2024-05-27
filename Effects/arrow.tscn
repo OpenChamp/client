@@ -17,6 +17,8 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 [node name="Arrow" type="StaticBody3D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_rrlto")
 
 [node name="Shaft" type="MeshInstance3D" parent="."]
