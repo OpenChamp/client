@@ -8,6 +8,8 @@ extends Node3D
 
 const MoveMarker: PackedScene = preload("res://Effects/move_marker.tscn")
 
+var is_cam_centered : bool = false
+
 #@export var player := 1:
 	#set(id):
 		#player = id
@@ -62,30 +64,34 @@ func _process(delta):
 	if Config.in_config_settings:
 		return
 	
-	# Get Mouse Coords on screen
-	var mouse_pos = get_viewport().get_mouse_position()
-	var size = get_viewport().size
-	var cam_delta = Vector3(0, 0, 0)
-	var cam_moved = false
-	var edge_margin = Config.edge_margin
-	
-	# Edge Panning
-	if (mouse_pos.x <= edge_margin and mouse_pos.x >= 0) or Input.is_action_pressed("player_left"):
-		cam_delta += Vector3(-1,0,0)
-		cam_moved = true
-	if (mouse_pos.x >= size.x - edge_margin and mouse_pos.x <= size.x) or Input.is_action_pressed("player_right"):
-		cam_delta += Vector3(1,0,0)
-		cam_moved = true
-	if (mouse_pos.y <= edge_margin and mouse_pos.y >= 0) or Input.is_action_pressed("player_up"):
-		cam_delta += Vector3(0,0,-1)
-		cam_moved = true
-	if (mouse_pos.y >= size.y - edge_margin and mouse_pos.y <= size.y) or Input.is_action_pressed("player_down"):
-		cam_delta += Vector3(0,0,1)
-		cam_moved = true
-	
-	if cam_moved:
-		position += cam_delta.normalized() * delta * Config.cam_speed
-	
+	# If centered, blindly follow the champion
+	if (is_cam_centered):
+		server_listener.rpc_id(get_multiplayer_authority(), "MoveCamTo")
+	else:
+		# Get Mouse Coords on screen
+		var mouse_pos = get_viewport().get_mouse_position()
+		var size = get_viewport().size
+		var cam_delta = Vector3(0, 0, 0)
+		var cam_moved = false
+		var edge_margin = Config.edge_margin
+		
+		# Edge Panning
+		if (mouse_pos.x <= edge_margin and mouse_pos.x >= 0) or Input.is_action_pressed("player_left"):
+			cam_delta += Vector3(-1,0,0)
+			cam_moved = true
+		if (mouse_pos.x >= size.x - edge_margin and mouse_pos.x <= size.x) or Input.is_action_pressed("player_right"):
+			cam_delta += Vector3(1,0,0)
+			cam_moved = true
+		if (mouse_pos.y <= edge_margin and mouse_pos.y >= 0) or Input.is_action_pressed("player_up"):
+			cam_delta += Vector3(0,0,-1)
+			cam_moved = true
+		if (mouse_pos.y >= size.y - edge_margin and mouse_pos.y <= size.y) or Input.is_action_pressed("player_down"):
+			cam_delta += Vector3(0,0,1)
+			cam_moved = true
+		
+		if cam_moved:
+			position += cam_delta.normalized() * delta * Config.cam_speed
+		
 	# Zoom
 	if Input.is_action_just_pressed("player_zoomin"):
 		if spring_arm.spring_length > Config.min_zoom:
@@ -93,10 +99,14 @@ func _process(delta):
 	if Input.is_action_just_pressed("player_zoomout"):
 		if spring_arm.spring_length < Config.max_zoom:
 			spring_arm.spring_length +=1
-	# Recenter
-	if Input.is_action_just_pressed("player_cameraRecenter"):
-		position = Vector3(0,0,0)
-		
+	
+	# Recenter - Tap
+	if Input.is_action_pressed("player_camera_recenter"):
+		server_listener.rpc_id(get_multiplayer_authority(), "MoveCamTo")
+	# Recenter - Toggle
+	if Input.is_action_just_pressed("player_camera_recenter_toggle"):
+		is_cam_centered = !is_cam_centered
+	
 	# toggle fullscreen	
 	if Input.is_action_just_pressed("toggle_maximize"):
 		var window_mode = get_tree().root.mode
