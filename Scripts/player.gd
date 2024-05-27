@@ -1,10 +1,5 @@
 extends Node3D
 
-@export var edge_margin = 75
-
-@export var cam_speed = 15
-@export var min_zoom = 1
-@export var max_zoom = 25
 @export var cur_zoom: int
 
 @onready var spring_arm: SpringArm3D = $SpringArm3D
@@ -21,14 +16,15 @@ const MoveMarker: PackedScene = preload("res://Effects/move_marker.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	spring_arm.spring_length = max_zoom
+	spring_arm.spring_length = Config.max_zoom
+	Config.camera_property_changed.connect(_on_camera_setting_changed)
 
 func _input(event):
 	if event is InputEventMouseButton:
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			action(event)
-			
+
 func action(event):
 	var from = camera.project_ray_origin(event.position)
 	var to = from + camera.project_ray_normal(event.position) * 1000
@@ -59,16 +55,12 @@ func action(event):
 		
 
 func _process(delta):
-	# Handle the escape key (for now just close the game)
-	if Input.is_action_just_pressed("player_pause"):
-		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-		get_tree().quit()
-
 	# Get Mouse Coords on screen
 	var mouse_pos = get_viewport().get_mouse_position()
 	var size = get_viewport().size
 	var cam_delta = Vector3(0, 0, 0)
 	var cam_moved = false
+	var edge_margin = Config.edge_margin
 	
 	# Edge Panning
 	if (mouse_pos.x <= edge_margin and mouse_pos.x >= 0) or Input.is_action_pressed("player_left"):
@@ -85,14 +77,14 @@ func _process(delta):
 		cam_moved = true
 	
 	if cam_moved:
-		position += cam_delta.normalized() * delta * cam_speed
+		position += cam_delta.normalized() * delta * Config.cam_speed
 	
 	# Zoom
 	if Input.is_action_just_pressed("player_zoomin"):
-		if spring_arm.spring_length > min_zoom:
+		if spring_arm.spring_length > Config.min_zoom:
 			spring_arm.spring_length -=1
 	if Input.is_action_just_pressed("player_zoomout"):
-		if spring_arm.spring_length < max_zoom:
+		if spring_arm.spring_length < Config.max_zoom:
 			spring_arm.spring_length +=1
 	# Recenter
 	if Input.is_action_just_pressed("player_cameraRecenter"):
@@ -105,4 +97,6 @@ func _process(delta):
 			get_tree().root.mode = Window.MODE_WINDOWED
 		else:
 			get_tree().root.mode = Window.MODE_FULLSCREEN
-	
+
+func _on_camera_setting_changed():
+	spring_arm.spring_length = clamp(spring_arm.spring_length, Config.min_zoom, Config.max_zoom)
