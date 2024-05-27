@@ -43,6 +43,12 @@ func _process(delta):
 	# Recenter
 	if Input.is_action_just_pressed("player_cameraRecenter") && isPlayer:
 		position = Player.position
+	if Input.is_action_just_pressed("toggle_window_mode"):
+		var is_fullscreen = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
+		if is_fullscreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED) 
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN) 
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
