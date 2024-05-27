@@ -6,10 +6,10 @@ enum Lists {HLIST, VLIST}
 @export var option_ids: PackedInt32Array
 @export var active_list: Lists = Lists.HLIST
 
-var ActiveList: BoxContainer
+var active_list: BoxContainer
 
-@onready var HList: HBoxContainer = $HList
-@onready var VList: VBoxContainer = $VList
+@onready var h_list: HBoxContainer = $HList
+@onready var v_list: VBoxContainer = $VList
 @onready var btngrp: ButtonGroup = ButtonGroup.new()
 
 
@@ -19,12 +19,12 @@ func _ready() -> void:
 		return
 	
 	@warning_ignore("incompatible_ternary")
-	ActiveList = HList if active_list == Lists.HLIST else VList
+	active_list = h_list if active_list == Lists.HLIST else v_list
 	
 	super()
 	btngrp.pressed.connect(_on_pressed)
 	
-	for child in ActiveList.get_children():
+	for child in active_list.get_children():
 		child.button_group = btngrp
 		
 		child.mouse_entered.connect(_on_AnyBtn_mouse_entered.bind(child))
@@ -41,12 +41,12 @@ func init_value() -> void:
 
 
 func _set_button_pressed(btn_index: int, pressed: bool) -> void:
-	ActiveList.get_child(btn_index).button_pressed = pressed
+	active_list.get_child(btn_index).button_pressed = pressed
 
 
 func _get_child_index(target_child: BaseButton) -> int:
 	var i: int = 0
-	for child in ActiveList.get_children():
+	for child in active_list.get_children():
 		if child == target_child:
 			return i
 		
