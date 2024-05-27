@@ -1,15 +1,18 @@
 extends Node3D
 
-var target
 @export var damage: int
-var speed = 10
+var target: Node = null
+var speed: int = 10
+
 
 func _ready():
-	if !target:
+	if not target:
 		queue_free()
 
+
 func _process(delta):
-	if not multiplayer.is_server(): return
+	if not multiplayer.is_server():
+		return
 	if target == null or target.is_dead:
 		queue_free()
 		return
