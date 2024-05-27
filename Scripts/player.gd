@@ -21,6 +21,8 @@ const MoveMarker: PackedScene = preload("res://Effects/move_marker.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# For now close game when server dies
+	multiplayer.server_disconnected.connect(get_tree().quit)
 	spring_arm.spring_length = max_zoom
 
 func _input(event):
