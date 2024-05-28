@@ -113,13 +113,16 @@ spawn_limit = 10
 [node name="ServerListener" type="Node" parent="."]
 script = ExtResource("7_p6jd3")
 
-[node name="MinionSpawner1" parent="." node_paths=PackedStringArray("spawn_path") instance=ExtResource("8_dli2g")]
+[node name="BlueMinionSpawnerMid" parent="." node_paths=PackedStringArray("spawn_path", "patrol_path") instance=ExtResource("8_dli2g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
+team = 2
+spawn_path = NodePath("../Minions")
+patrol_path = NodePath("../MinionPathMid")
+
+[node name="RedMinionSpawnerMid" parent="." node_paths=PackedStringArray("spawn_path", "patrol_path") instance=ExtResource("8_dli2g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
 team = 1
 spawn_path = NodePath("../Minions")
+patrol_path = NodePath("../MinionPathMid")
 
-[node name="MinionSpawner2" parent="." instance=ExtResource("8_dli2g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
-team = 2
-wave_size = 4
-spawn_delay = 0.75
