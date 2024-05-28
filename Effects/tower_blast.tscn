@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bv1yffxbq46ix"]
+
+[ext_resource type="Script" path="res://Effects/auto_projectile.gd" id="1_xhh18"]
+[ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://Effects/Red_Glow.tres" id="2_ys6ir"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_toew3"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_luq8l"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_bpaa1"]
+
+[node name="Blast" type="StaticBody3D" groups=["Projectile"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0731745)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_xhh18")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 0, -0.0112842, -0.176729)
+shape = SubResource("CapsuleShape3D_toew3")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_luq8l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_ys6ir")
+mesh = SubResource("SphereMesh_bpaa1")
