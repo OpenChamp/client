@@ -8,6 +8,8 @@ extends Node3D
 
 const MoveMarker: PackedScene = preload ("res://effects/move_marker.tscn")
 
+var dragging = false
+
 #@export var player := 1:
 	#set(id):
 		#player = id
@@ -19,11 +21,22 @@ func _ready():
 	spring_arm.spring_length = Config.max_zoom
 	Config.camera_property_changed.connect(_on_camera_setting_changed)
 
+
 func _input(event):
 	if event is InputEventMouseButton:
-		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
-			player_action(event)
+			# Start dragging
+			if not dragging and event.is_pressed():
+				dragging = true
+	
+		# Stop dragging if mouse is released
+		if dragging and not event.is_pressed():
+			dragging = false
+		player_action(event)  # For single clicks
+	
+	if event is InputEventMouseMotion and dragging:
+		player_action(event)  # For dragging
+
 
 func get_target_position(pid: int) -> Vector3:
 	var champs = $"../Champions".get_children()
