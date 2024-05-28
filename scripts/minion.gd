@@ -29,7 +29,7 @@ func _ready():
 	)
 
 
-func _process(delta):
+func _physics_process(delta):
 	_update_healthbar(healthbar)
 	if not multiplayer.is_server():
 		return
