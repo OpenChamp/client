@@ -6,14 +6,12 @@ extends Node3D
 @onready var camera: Camera3D = $SpringArm3D/Camera3D
 @export var server_listener: Node
 
-const MoveMarker: PackedScene = preload("res://Effects/move_marker.tscn")
-
+const MoveMarker: PackedScene = preload ("res://Effects/move_marker.tscn")
 
 #@export var player := 1:
 	#set(id):
 		#player = id
 		#$MultiplayerSynchronizer.set_multiplayer_authority(id)
-
 
 func _ready():
 	# For now close game when server dies
@@ -21,23 +19,20 @@ func _ready():
 	spring_arm.spring_length = Config.max_zoom
 	Config.camera_property_changed.connect(_on_camera_setting_changed)
 
-
 func _input(event):
 	if event is InputEventMouseButton:
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
-			action(event)
+			player_action(event)
 
-
-func get_target_position(pid : int) -> Vector3:
+func get_target_position(pid: int) -> Vector3:
 	var champs = $"../Champions".get_children()
 	for child in champs:
 		if child.name == str(pid):
 			return child.position
 	return Vector3.ZERO
 
-
-func action(event):
+func player_action(event):
 	var from = camera.project_ray_origin(event.position)
 	var to = from + camera.project_ray_normal(event.position) * 1000
 	
@@ -48,7 +43,7 @@ func action(event):
 	if result and result.collider.is_in_group("ground"):
 		result.position.y += 1
 		var marker = MoveMarker.instantiate()
-		marker.position = result.position
+		marker.position = result.position + Vector3(0, 1, 0)
 		get_node("/root").add_child(marker)
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
 		#Player.MoveTo(result.position)
@@ -64,7 +59,6 @@ func action(event):
 		return
 	if result and result.collider is CharacterBody3D:
 		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.pid)
-
 
 func _process(delta):
 	# don't move the cam while changing the settings since that is annoying af
@@ -84,16 +78,16 @@ func _process(delta):
 		
 		# Edge Panning
 		if (mouse_pos.x <= edge_margin and mouse_pos.x >= 0) or Input.is_action_pressed("player_left"):
-			cam_delta += Vector3(-1,0,0)
+			cam_delta += Vector3( - 1, 0, 0)
 			cam_moved = true
 		if (mouse_pos.x >= size.x - edge_margin and mouse_pos.x <= size.x) or Input.is_action_pressed("player_right"):
-			cam_delta += Vector3(1,0,0)
+			cam_delta += Vector3(1, 0, 0)
 			cam_moved = true
 		if (mouse_pos.y <= edge_margin and mouse_pos.y >= 0) or Input.is_action_pressed("player_up"):
-			cam_delta += Vector3(0,0,-1)
+			cam_delta += Vector3(0, 0, -1)
 			cam_moved = true
 		if (mouse_pos.y >= size.y - edge_margin and mouse_pos.y <= size.y) or Input.is_action_pressed("player_down"):
-			cam_delta += Vector3(0,0,1)
+			cam_delta += Vector3(0, 0, 1)
 			cam_moved = true
 		
 		if cam_moved:
@@ -102,10 +96,10 @@ func _process(delta):
 	# Zoom
 	if Input.is_action_just_pressed("player_zoomin"):
 		if spring_arm.spring_length > Config.min_zoom:
-			spring_arm.spring_length -=1
+			spring_arm.spring_length -= 1
 	if Input.is_action_just_pressed("player_zoomout"):
 		if spring_arm.spring_length < Config.max_zoom:
-			spring_arm.spring_length +=1
+			spring_arm.spring_length += 1
 	
 	# Recenter - Tap
 	if Input.is_action_pressed("player_camera_recenter"):
@@ -121,7 +115,6 @@ func _process(delta):
 			get_tree().root.mode = Window.MODE_WINDOWED
 		else:
 			get_tree().root.mode = Window.MODE_FULLSCREEN
-
 
 func _on_camera_setting_changed():
 	spring_arm.spring_length = clamp(spring_arm.spring_length, Config.min_zoom, Config.max_zoom)

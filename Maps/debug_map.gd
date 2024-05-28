@@ -13,5 +13,5 @@ func _input(event):
 			$MinionSpawner1.spawn_wave()
 		# Single minion for team 2 on "]"
 		if event is InputEventKey and event.pressed and event.keycode == KEY_BRACKETRIGHT:
-			$MinionSpawner2.spawn_minion()
+			$MinionSpawner2.spawn_wave()
 ####################################################################################################
