@@ -6,12 +6,19 @@ extends Unit
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var healthbar: ProgressBar = $Healthbar
 
+var patrol_path: Node3D = null
+var path_array: Array[Marker3D] = []
+
 
 func _ready():
 	name = "minion_%d_%d" % [team, id]
 	activation_range = 10.0
 	speed = 3.0
 	max_health = 100.0
+	
+	for point in patrol_path.get_children():
+		path_array.append(point)
+	
 	setup(
 		nav_agent,
 		range_collider_activate,
