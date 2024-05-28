@@ -18,8 +18,8 @@ func _ready():
 		
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
-	$"../WorldNav/Nexus".game_over.connect(game_over)
-	$"../WorldNav/Nexus2".game_over.connect(game_over)
+	$"../WorldNav/BlueNexus".game_over.connect(game_over)
+	$"../WorldNav/RedNexus".game_over.connect(game_over)
 	for id in multiplayer.get_peers():
 		add_player(id)
 	
