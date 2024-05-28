@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 GGS="*res://addons/ggs/classes/global/ggs.tscn"
 Config="*res://Scripts/config.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [editor]
 
 run/main_run_args="-i"
