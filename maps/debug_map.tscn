@@ -125,4 +125,22 @@ team = 1
 spawn_path = NodePath("../Minions")
 patrol_path = NodePath("../MinionPathMid")
 
+[node name="MinionPathMid" type="Node3D" parent="."]
+
+[node name="Marker1" type="Marker3D" parent="MinionPathMid"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
+
+[node name="Marker2" type="Marker3D" parent="MinionPathMid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 4)
+
+[node name="Marker3" type="Marker3D" parent="MinionPathMid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
+
+[node name="Marker4" type="Marker3D" parent="MinionPathMid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
+
+[node name="Marker5" type="Marker3D" parent="MinionPathMid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -4)
+
+[node name="Marker6" type="Marker3D" parent="MinionPathMid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
