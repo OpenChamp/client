@@ -24,7 +24,6 @@ var is_dead: bool = false
 
 signal unit_died
 
-
 func setup(
 	nav_agent: NavigationAgent3D,
 	range_collider_activate: Area3D,
@@ -48,12 +47,10 @@ func setup(
 	if not multiplayer.is_server():
 		set_physics_process(false)
 
-
 func update_collision_radius(range_collider: Area3D, radius: float):
 	var collision_shape = CylinderShape3D.new()
 	collision_shape.radius = radius
 	range_collider.get_node("CollisionShape3D").shape = collision_shape
-
 
 func actor_setup(nav_agent: NavigationAgent3D):
 	# Wait for first physics frame so the NavigationServer can sync
@@ -63,17 +60,14 @@ func actor_setup(nav_agent: NavigationAgent3D):
 	else:
 		nav_agent.target_position = position
 
-
 func _update_healthbar(healthbar: ProgressBar):
 	healthbar.value = health
 	if health <= 0:
 		health = 0
 		die()
 
-
 func update_target_location(nav_agent: NavigationAgent3D, target_location: Vector3):
 	nav_agent.target_position = target_location
-
 
 func target_in_attack_range(collider: Area3D):
 	var bodies = collider.get_overlapping_bodies()
@@ -81,34 +75,27 @@ func target_in_attack_range(collider: Area3D):
 		return true
 	return false
 
-
 func attack(entity: CharacterBody3D, nav_agent: NavigationAgent3D):
 	target_entity = entity
 	nav_agent.set_target_position(target_entity.position)
 	is_attacking = true
 
-
 func take_damage(damage: float):
-	print_debug(damage)
 	var taken: float = armor / 100
 	taken = damage / (taken + 1)
-	print_debug(taken)
 	health -= taken
 	if health <= 0:
 		die()
 
-
 func die():
 	is_dead = true
 	self.queue_free()
-
 
 func init_auto_attack(attack_timer: Timer):
 	if attack_timeout > 0:
 		return
 	attack_timer.wait_time = attack_time
 	attack_timer.start()
-
 
 func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 	attack_timer.stop()
@@ -122,7 +109,6 @@ func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 	arrow.target = target_entity
 	arrow.damage = attack_damage
 	get_node("Projectiles").add_child(arrow, true)
-
 
 func move(nav_agent: NavigationAgent3D):
 	var current_location = global_transform.origin

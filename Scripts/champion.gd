@@ -11,7 +11,6 @@ extends Unit
 @export var max_mana: float = 300.0
 @export var mana: float = 300.0
 
-
 func _ready():
 	attack_range = 20.0
 	setup(
@@ -23,8 +22,7 @@ func _ready():
 		healthbar
 	)
 
-
-func _physics_process(delta):
+func _process(delta):
 	_update_healthbar(healthbar)
 	healthbar.show()
 	if not multiplayer.is_server():

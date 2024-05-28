@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://Environment/Scripts/turret.gd" id="1_6p426"]
 [ext_resource type="ArrayMesh" uid="uid://bs3i0h7050jhc" path="res://Environment/Models/turret.mesh" id="1_vckyp"]
-[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/player_stats/healthbar.tscn" id="2_h3doq"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/healthbar.tscn" id="2_h3doq"]
 [ext_resource type="ArrayMesh" uid="uid://dfsx34bcg0mc1" path="res://Environment/Models/crystal.mesh" id="2_ota7h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fd5j0"]
+size = Vector3(1, 2.59192, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5frdt"]
 properties/0/path = NodePath(".:position")
@@ -38,7 +39,7 @@ mesh = ExtResource("2_ota7h")
 [node name="Healthbar" parent="." instance=ExtResource("2_h3doq")]
 
 [node name="UnitCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(4.20202, 0, 0, 0, 1, 0, 0, 0, 4.21485, 0, 1.29596, 0)
 shape = SubResource("BoxShape3D_fd5j0")
 
 [node name="AttackArea" type="Area3D" parent="."]
