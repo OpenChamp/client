@@ -1,9 +1,18 @@
 id,de
-SETTINGS_TAB_DISPLAY,Bildschirm
-SETTING:FULLSCREEN,Vollbild
-SETTINGS_TAB_CAMERA,Kamera
-SETTING:CAMERA_SPEED_LABEL,Kamerageschwindigkeit:
-SETTING:CAMERA_EDGE_MARGIN_LABEL,Abstand zum Bildschirmrand:
-SETTING:CAMERA_MAX_ZOOM_LABEL,Maximales Zoomlevel:
-SETTINGS_MENU_CONFIRM,Betätigen
-SETTINGS_MENU_EXIT_GAME,Spiel verlassen
+SETTINGS_TAB_DISPLAY,"Bildschirm"
+SETTING:FULLSCREEN,"Vollbild"
+SETTINGS_TAB_CAMERA,"Kamera"
+SETTING:CAMERA_SPEED_LABEL,"Kamerageschwindigkeit:"
+SETTING:CAMERA_EDGE_MARGIN_LABEL,"Abstand zum Bildschirmrand:"
+SETTING:CAMERA_MAX_ZOOM_LABEL,"Maximales Zoomlevel:"
+SETTINGS_MENU_CONFIRM,"Betätigen"
+SETTINGS_MENU_EXIT_GAME,"Spiel verlassen"
+
+STARTUP:STATUS_CONNECTING,"Verbindung wird aufgebaut..."
+STARTUP:STATUS_CONNECT_CLIENT,"Verbindet als Client..."
+STARTUP:STATUS_CLIENT_FAILED,"Verbindung zum Server fehlgeschlagen"
+STARTUP:STATUS_CREATE_SERVER,"Server wird erstellt..."
+STARTUP:ATTEMPTS,"Versuche: %d"
+STARTUP:HOST_GAME,"Spiel hosten"
+STARTUP:RECONNECT,"erneut verbinden"
+STARTUP:EXIT,"Beenden"

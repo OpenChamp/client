@@ -57,3 +57,16 @@ This is followed by a conrete name of what they are for.
 
 * `SETTINGS_MENU_CONFIRM` the text on the settings confirm button
 * `SETTINGS_MENU_EXIT_GAME` the text on the exit game button
+
+## Startup
+
+* `STARTUP:STATUS_CONNECTING` The generic message displayed during connection establishment.
+* `STARTUP:STATUS_CONNECT_CLIENT` Displayed when connecting as Client to a different Server
+* `STARTUP:STATUS_CLIENT_FAILED` Displayed when the client connection failed
+* `STARTUP:STATUS_CREATE_SERVER` Displayed while the server is launching
+
+* `STARTUP:ATTEMPTS` Shows the number of tried attemps (needs to contain a `%d`)
+
+* `STARTUP:HOST_GAME` The host game button
+* `STARTUP:RECONNECT` A button to retry connecting
+* `STARTUP:EXIT` A button to exit the game
