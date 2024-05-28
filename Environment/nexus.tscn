@@ -5,8 +5,8 @@
 [ext_resource type="ArrayMesh" uid="uid://b7484sfrkl6oe" path="res://Environment/Models/nexus.mesh" id="2_2llp2"]
 [ext_resource type="ArrayMesh" path="res://Environment/Models/nexus_crystal.mesh" id="3_th5cc"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_fd5j0"]
-size = Vector3(1, 6.17969, 1)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mbwtb"]
+height = 3.56483
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5frdt"]
 properties/0/path = NodePath(".:position")
@@ -39,8 +39,8 @@ mesh = ExtResource("3_th5cc")
 [node name="Healthbar" parent="." instance=ExtResource("1_3dl01")]
 
 [node name="UnitCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(8.06324, 0, 0, 0, 1, 0, 0, 0, 8.09622, 0, 3.08984, 0)
-shape = SubResource("BoxShape3D_fd5j0")
+transform = Transform3D(8.06324, 0, 0, 0, 1, 0, 0, 0, 8.31186, 0, 2.03646, 0)
+shape = SubResource("CylinderShape3D_mbwtb")
 
 [node name="AttackArea" type="Area3D" parent="."]
 

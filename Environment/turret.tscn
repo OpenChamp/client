@@ -5,8 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/healthbar.tscn" id="2_h3doq"]
 [ext_resource type="ArrayMesh" uid="uid://dfsx34bcg0mc1" path="res://Environment/Models/crystal.mesh" id="2_ota7h"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_fd5j0"]
-size = Vector3(1, 2.59192, 1)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wg6lr"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5frdt"]
 properties/0/path = NodePath(".:position")
@@ -26,7 +25,7 @@ properties/4/spawn = true
 properties/4/replication_mode = 1
 
 [node name="Turret" type="CharacterBody3D" groups=["Objective", "Unit"]]
-collision_layer = 3
+collision_layer = 513
 script = ExtResource("1_6p426")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -39,10 +38,11 @@ mesh = ExtResource("2_ota7h")
 [node name="Healthbar" parent="." instance=ExtResource("2_h3doq")]
 
 [node name="UnitCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(4.20202, 0, 0, 0, 1, 0, 0, 0, 4.21485, 0, 1.29596, 0)
-shape = SubResource("BoxShape3D_fd5j0")
+transform = Transform3D(4.33213, 0, 0, 0, 1, 0, 0, 0, 4.3436, 0, 1.29596, 0)
+shape = SubResource("CylinderShape3D_wg6lr")
 
 [node name="AttackArea" type="Area3D" parent="."]
+collision_layer = 512
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
