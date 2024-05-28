@@ -13,6 +13,7 @@ signal camera_property_changed()
 @export var min_zoom = 1.0: set = set_min_zoom
 @export var max_zoom = 25.0: set = set_max_zoom
 
+@export var is_cam_centered : bool = false
 
 # Settings Keybinds
 func _input(e):
@@ -58,4 +59,9 @@ func set_min_zoom(new_value: float):
 
 func set_max_zoom(new_value: float):
 	max_zoom = new_value
+	camera_property_changed.emit()
+
+
+func set_cam_centered(new_value: bool):
+	is_cam_centered = new_value
 	camera_property_changed.emit()

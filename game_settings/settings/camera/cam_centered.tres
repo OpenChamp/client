@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cg5udbiy7yt0m"]
+
+[ext_resource type="Script" path="res://game_settings/settings/camera/cam_centered.gd" id="1_nsdlt"]
+
+[resource]
+resource_name = "cam_centered"
+script = ExtResource("1_nsdlt")
+current = false
+default = false
+name = "cam_centered"
+category = "camera"
+value_type = 1
+value_hint = 0
+value_hint_string = ""
