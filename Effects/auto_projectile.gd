@@ -6,7 +6,7 @@ var speed: int = 10
 
 
 func _ready():
-	if not target:
+	if multiplayer.is_server() and not target:
 		queue_free()
 
 

@@ -121,7 +121,7 @@ func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 	arrow.position = position
 	arrow.target = target_entity
 	arrow.damage = attack_damage
-	get_node("/root").add_child(arrow)
+	get_node("Projectiles").add_child(arrow, true)
 
 
 func move(nav_agent: NavigationAgent3D):
