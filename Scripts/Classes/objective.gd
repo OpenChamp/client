@@ -1,6 +1,5 @@
 class_name Objective extends Unit
 
-
 func setup(
 	_nav_agent: NavigationAgent3D,
 	_range_collider_activation: Area3D,
@@ -9,8 +8,10 @@ func setup(
 	attack_timer: Timer,
 	healthbar: ProgressBar
 ):
+	attack_range = 10;
+	attack_speed = 1.0
 	speed = 0.0
-	activation_range = 0.0
+	activation_range = 1.0
 	attack_timer.timeout.connect(finish_auto_attack.bind(attack_timer, range_collider_attack))
 	update_collision_radius(range_collider_attack, attack_range)
 	healthbar.max_value = max_health
@@ -23,6 +24,9 @@ func setup(
 	if not multiplayer.is_server():
 		set_physics_process(false)
 
+func _process(delta):
+	if attack_timeout > 0:
+		attack_timeout -=delta;
 
 func update_collision_radius(range_collider: Area3D, radius: float):
 	var collision_shape = CylinderShape3D.new()
@@ -64,10 +68,12 @@ func die():
 	self.queue_free()
 
 
-func init_auto_attack(attack_timer: Timer):
-	if attack_timeout > 0:
+func init_auto_attack():
+	if !multiplayer.is_server():
+		pass;
+	if attack_timeout > 0 and attack_timer.is_stopped():
 		return
-	attack_timer.wait_time = attack_time
+	attack_timer.wait_time = attack_speed
 	attack_timer.start()
 
 
@@ -78,8 +84,10 @@ func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 		return
 	attack_timeout = attack_speed
 	
-	var arrow = projectile.instantiate()
-	arrow.position = position
-	arrow.target = target_entity
-	arrow.damage = attack_damage
-	get_node("/root").add_child(arrow)
+	
+	var shot = projectile.instantiate()
+	shot.position = position
+	shot.target = target_entity
+	shot.damage = attack_damage
+	get_node("Projectiles").add_child(shot, true)
+	init_auto_attack()

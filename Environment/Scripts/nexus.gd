@@ -2,7 +2,6 @@ extends Objective
 
 @onready var range_collider_attack: Area3D = $AttackArea
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var attack_timer: Timer = $AttackTimer
 @onready var healthbar: ProgressBar = $Healthbar
 
 signal game_over(team)

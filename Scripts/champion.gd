@@ -4,7 +4,6 @@ extends Unit
 @onready var range_collider_activate: Area3D = $ActivationArea
 @onready var range_collider_attack: Area3D = $AttackArea
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var attack_timer: Timer = $AttackTimer
 @onready var healthbar: ProgressBar = $Healthbar
 
 @export var pid: int
@@ -37,7 +36,7 @@ func _process(delta):
 			is_attacking = false
 			return
 		if target_in_attack_range(range_collider_attack):
-			init_auto_attack(attack_timer)
+			init_auto_attack()
 		else:
 			if not target_entity == null:
 				update_target_location(nav_agent, target_entity.global_transform.origin)

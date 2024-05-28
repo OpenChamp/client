@@ -4,7 +4,6 @@ extends Unit
 @onready var range_collider_activate: Area3D = $ActivationArea
 @onready var range_collider_attack: Area3D = $AttackArea
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var attack_timer: Timer = $AttackTimer
 @onready var healthbar: ProgressBar = $Healthbar
 
 

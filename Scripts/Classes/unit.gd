@@ -18,6 +18,8 @@ class_name Unit extends CharacterBody3D
 # Targeting:
 @export var activation_range: float = 5.0
 var target_entity: Node = null
+# Timers:
+@onready var attack_timer: Timer = $AttackTimer
 # States:
 var is_attacking: bool = false
 var is_dead: bool = false
@@ -91,7 +93,7 @@ func die():
 	is_dead = true
 	self.queue_free()
 
-func init_auto_attack(attack_timer: Timer):
+func init_auto_attack():
 	if attack_timeout > 0:
 		return
 	attack_timer.wait_time = attack_time
