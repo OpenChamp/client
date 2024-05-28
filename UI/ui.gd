@@ -18,12 +18,9 @@ func _process(delta):
 			settings_menu.hide()
 		else:
 			settings_menu.show()
-<<<<<<< HEAD
-=======
 	
 	if stats:
 		check_stats()
->>>>>>> 5818c33 (Adjust so TestUI Doesn't Also Check Stats)
 
 func check_stats():
 	var pid = multiplayer.get_unique_id()
