@@ -10,7 +10,7 @@ extends Control
 @onready var cam_speed_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/cam_speed_slider
 @onready var edge_margin_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/edge_margin_slider
 @onready var max_zoom_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/max_zoom_slider
-@onready var cam_centered_toggle = $SplitContainer/PanelContainer/TabContainer/Camera/CamCenteredToggleBtn
+@onready var cam_centered_toggle = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/CamCenteredToggleBtn
 
 func _ready():
 	visibility_changed.connect(on_show)

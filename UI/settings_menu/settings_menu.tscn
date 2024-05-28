@@ -33,7 +33,6 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="SplitContainer/PanelContainer"]
 layout_mode = 2
-current_tab = 1
 
 [node name="SETTINGS_TAB_DISPLAY" type="BoxContainer" parent="SplitContainer/PanelContainer/TabContainer"]
 layout_mode = 2
@@ -126,15 +125,15 @@ metadata/_edit_initialized_ = true
 [node name="HSeparator3" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 
-[node name="cam_centered_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="cam_centered_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 text = "Camera Centered on Champion: "
 
-[node name="CamCenteredToggleBtn" type="CheckBox" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="CamCenteredToggleBtn" type="CheckBox" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 text = "Centered"
 
-[node name="HSeparator4" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="HSeparator4" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="SplitContainer"]
