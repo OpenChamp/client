@@ -9,7 +9,7 @@ script/source = "extends Control
 @export var connection_reset: int = 3
 @export var max_tries: int = 100
 
-const MapScene = preload(\"res://Maps/debug_map.tscn\")
+const MapScene = preload(\"res://maps/debug_map.tscn\")
 
 
 func _ready():
@@ -163,6 +163,6 @@ script = ExtResource("1_mnfxb")
 [node name="Map" type="Node3D" parent="."]
 
 [node name="MapSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Maps/debug_map.tscn")
+_spawnable_scenes = PackedStringArray("res://maps/debug_map.tscn")
 spawn_path = NodePath("../Map")
 spawn_limit = 1

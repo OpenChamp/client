@@ -73,6 +73,6 @@ replication_config = SubResource("SceneReplicationConfig_5frdt")
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Effects/tower_blast.tscn")
+_spawnable_scenes = PackedStringArray("res://effects/tower_blast.tscn")
 spawn_path = NodePath("../Projectiles")
 spawn_limit = 100

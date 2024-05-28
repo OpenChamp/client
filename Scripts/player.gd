@@ -6,7 +6,7 @@ extends Node3D
 @onready var camera: Camera3D = $SpringArm3D/Camera3D
 @export var server_listener: Node
 
-const MoveMarker: PackedScene = preload ("res://Effects/move_marker.tscn")
+const MoveMarker: PackedScene = preload ("res://effects/move_marker.tscn")
 
 #@export var player := 1:
 	#set(id):

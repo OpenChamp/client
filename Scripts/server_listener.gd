@@ -10,8 +10,7 @@ var death_timers = []
 @onready var spawn1 = $"../Spawn1"
 @onready var spawn2 = $"../Spawn2"
 
-const PlayerScene = preload("res://Characters/champion.tscn")
-
+const PlayerScene = preload ("res://characters/champion.tscn")
 
 func _ready():
 	if not multiplayer.is_server():
@@ -27,7 +26,6 @@ func _ready():
 	if not OS.has_feature("dedicated_server"):
 		add_player(1)
 
-
 @rpc("any_peer", "call_local")
 func move_to(pos: Vector3):
 	var peer_id = multiplayer.get_remote_sender_id()
@@ -38,7 +36,6 @@ func move_to(pos: Vector3):
 	character.is_attacking = false
 	character.target_entity = null
 	character.update_target_location(character.nav_agent, pos)
-
 
 @rpc("any_peer", "call_local")
 func target(name):
@@ -56,10 +53,8 @@ func target(name):
 	if target_entity and not target_entity.team == player.team:
 		player.is_attacking = true
 
-
 func game_over(team):
 	get_tree().quit()
-
 
 func add_player(client_id: int):
 	print("Player Connected: " + str(client_id))
@@ -77,12 +72,10 @@ func add_player(client_id: int):
 	players[client_id] = character
 	champions.add_child(character)
 
-
 func del_player(client_id: int):
 	if not champions.has_node(str(client_id)):
 		return
 	champions.get_node(str(client_id)).queue_free()
-
 
 func _exit_tree():
 	if not multiplayer.is_server():

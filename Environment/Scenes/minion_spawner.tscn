@@ -6,6 +6,6 @@
 script = ExtResource("1_ni6fh")
 
 [node name="MinionSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Characters/minion.tscn")
+_spawnable_scenes = PackedStringArray("res://characters/minion.tscn")
 
 [node name="SpawnTimer" type="Timer" parent="."]
