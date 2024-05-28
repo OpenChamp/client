@@ -125,13 +125,9 @@ metadata/_edit_initialized_ = true
 [node name="HSeparator3" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 
-[node name="cam_centered_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
-layout_mode = 2
-text = "Camera Centered on Champion: "
-
 [node name="CamCenteredToggleBtn" type="CheckBox" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
-text = "Centered"
+text = "SETTING:CAMERA_CENTERED"
 
 [node name="HSeparator4" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2

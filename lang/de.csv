@@ -5,6 +5,7 @@ SETTINGS_TAB_CAMERA,"Kamera"
 SETTING:CAMERA_SPEED_LABEL,"Kamerageschwindigkeit:"
 SETTING:CAMERA_EDGE_MARGIN_LABEL,"Abstand zum Bildschirmrand:"
 SETTING:CAMERA_MAX_ZOOM_LABEL,"Maximales Zoomlevel:"
+SETTING:CAMERA_CENTERED,"Kamera auf Spieler zentieren"
 SETTINGS_MENU_CONFIRM,"Betätigen"
 SETTINGS_MENU_EXIT_GAME,"Spiel verlassen"
 

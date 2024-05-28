@@ -5,6 +5,7 @@ SETTINGS_TAB_CAMERA,"camera"
 SETTING:CAMERA_SPEED_LABEL,"camera speed:"
 SETTING:CAMERA_EDGE_MARGIN_LABEL,"camera movement edge margin:"
 SETTING:CAMERA_MAX_ZOOM_LABEL,"maximum zoom out distance:"
+SETTING:CAMERA_CENTERED,"keep camera centered on player"
 SETTINGS_MENU_CONFIRM,"confirm"
 SETTINGS_MENU_EXIT_GAME,"exit game"
 

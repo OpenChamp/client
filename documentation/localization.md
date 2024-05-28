@@ -54,6 +54,7 @@ This is followed by a conrete name of what they are for.
 * `SETTING:CAMERA_SPEED_LABEL` the label above the camera speed slider
 * `SETTING:CAMERA_EDGE_MARGIN_LABEL` the label above the camera edge margin slider
 * `SETTING:CAMERA_MAX_ZOOM_LABEL` the label above the camera max zoom level
+* `SETTING:CAMERA_CENTERED` the text next to the toggle button to switch if the camera should stay centered on the player
 
 * `SETTINGS_MENU_CONFIRM` the text on the settings confirm button
 * `SETTINGS_MENU_EXIT_GAME` the text on the exit game button
