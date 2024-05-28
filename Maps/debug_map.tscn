@@ -70,11 +70,11 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
 team = 2
 
-[node name="Nexus" parent="WorldNav" instance=ExtResource("6_l5kk0")]
+[node name="RedNexus" parent="WorldNav" instance=ExtResource("6_l5kk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 0)
 team = 1
 
-[node name="Nexus2" parent="WorldNav" instance=ExtResource("6_l5kk0")]
+[node name="BlueNexus" parent="WorldNav" instance=ExtResource("6_l5kk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 0)
 team = 2
 
