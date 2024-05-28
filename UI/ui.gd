@@ -6,6 +6,7 @@ extends Control
 @onready var champion: CharacterBody3D = null;
 
 func _ready():
+	settings_menu.hide()
 	get_champion()
 
 func _process(delta):
@@ -17,8 +18,6 @@ func _process(delta):
 			settings_menu.hide()
 		else:
 			settings_menu.show()
-	
-	check_stats()
 
 func check_stats():
 	var pid = multiplayer.get_unique_id()

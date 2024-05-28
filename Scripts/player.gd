@@ -44,7 +44,7 @@ func player_action(event):
 	if result and result.collider.is_in_group("ground"):
 		result.position.y += 1
 		var marker = MoveMarker.instantiate()
-		marker.position = result.position + Vector3(0, 1, 0)
+		marker.position = result.position
 		get_node("/root").add_child(marker)
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
 		#Player.MoveTo(result.position)

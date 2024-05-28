@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3ge3nka634tb"]
+[gd_scene load_steps=16 format=3 uid="uid://b3ge3nka634tb"]
 
 [ext_resource type="PackedScene" uid="uid://dcc1r64ba6itj" path="res://ui/settings_menu/settings_menu.tscn" id="1_b1o7r"]
 [ext_resource type="Texture2D" uid="uid://b81v72jcbdlx0" path="res://ui/textures/placeholder.png" id="1_fukxk"]
@@ -7,6 +7,8 @@
 [ext_resource type="StyleBox" uid="uid://bnrxgjlw018mo" path="res://ui/resources/mana_fill.tres" id="4_bdhvv"]
 [ext_resource type="Script" path="res://ui/scripts/healthbar.gd" id="4_efjo8"]
 [ext_resource type="Script" path="res://ui/scripts/manabar.gd" id="7_8wwer"]
+[ext_resource type="Texture2D" uid="uid://cx7yukedj8i0l" path="res://ui/textures/ability_1.png" id="8_lnein"]
+[ext_resource type="Texture2D" uid="uid://bmt2hmdluhpyf" path="res://ui/textures/ability_up.png" id="9_wnjpv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrp2e"]
 bg_color = Color(0.121569, 0.435294, 0.494118, 1)
@@ -28,6 +30,27 @@ border_color = Color(0.121569, 0.435294, 0.494118, 1)
 corner_radius_top_left = 4
 corner_radius_bottom_right = 4
 
+[sub_resource type="Animation" id="Animation_bdbrj"]
+resource_name = "upgrade_ability"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Upgrade:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(5, -44), Vector2(5, -35), Vector2(5, -44)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ssvq5"]
+_data = {
+"upgrade_ability": SubResource("Animation_bdbrj")
+}
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wxhll"]
 border_width_left = 4
 border_width_top = 4
@@ -48,6 +71,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SettingsMenu" parent="." instance=ExtResource("1_b1o7r")]
+visible = false
 layout_mode = 1
 
 [node name="Player" type="Panel" parent="."]
@@ -250,6 +274,95 @@ theme_override_styles/fill = ExtResource("4_bdhvv")
 value = 67.0
 show_percentage = false
 script = ExtResource("7_8wwer")
+
+[node name="Ability1" type="Panel" parent="Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -247.0
+offset_top = -54.5
+offset_right = -197.0
+offset_bottom = -4.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AbilityIcon" type="TextureRect" parent="Main/Ability1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_lnein")
+
+[node name="Upgrade" type="TextureRect" parent="Main/Ability1"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -40.7536
+offset_right = 20.0
+offset_bottom = -0.753632
+grow_horizontal = 2
+texture = ExtResource("9_wnjpv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Main/Ability1"]
+libraries = {
+"": SubResource("AnimationLibrary_ssvq5")
+}
+playback_default_blend_time = 4096.0
+
+[node name="Ability2" type="Panel" parent="Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -193.0
+offset_top = -54.5
+offset_right = -143.0
+offset_bottom = -4.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Ability3" type="Panel" parent="Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.0
+offset_top = -54.5
+offset_right = -89.0
+offset_bottom = -4.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Ability4" type="Panel" parent="Main"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -54.5
+offset_right = -35.0
+offset_bottom = -4.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Minimap" type="Panel" parent="."]
 layout_mode = 1
