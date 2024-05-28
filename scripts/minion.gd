@@ -34,7 +34,8 @@ func _physics_process(delta):
 	if not multiplayer.is_server():
 		return
 	if target_entity == null:
-		update_target_location(nav_agent, global_transform.origin)
+		if not patrol_path == null:
+			update_target_location(nav_agent, get_closest_patrol_point())
 	else:
 		update_target_location(nav_agent, target_entity.global_transform.origin)
 	var current_location = global_transform.origin
@@ -44,6 +45,21 @@ func _physics_process(delta):
 	velocity = (target_location - current_location).normalized() * speed
 	look_at(target_location)
 	move_and_slide()
+
+
+func get_closest_patrol_point() -> Vector3:
+	if path_array.size() == 0:
+		return global_position
+	var closest_point: Vector3 = path_array[0].global_position
+	var distance: float
+	for point in path_array:
+		distance = global_position.distance_to(point.global_position)
+		if distance < 1:
+			path_array.remove_at(path_array.bsearch(point))
+			continue
+		if distance < global_position.distance_to(closest_point):
+			closest_point = point.global_position
+	return closest_point
 
 
 func _on_activation_area_body_entered(body):
