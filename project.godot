@@ -101,3 +101,7 @@ player_camera_recenter_toggle={
 
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://lang/en.en.translation", "res://lang/de.de.translation")
