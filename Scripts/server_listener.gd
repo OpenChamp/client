@@ -7,7 +7,6 @@ var death_timers = []
 
 # ENV
 @onready var champions = $"../Champions"
-@onready var player = $"../Players"
 @onready var spawn1 = $"../Spawn1"
 @onready var spawn2 = $"../Spawn2"
 

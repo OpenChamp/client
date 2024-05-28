@@ -98,7 +98,7 @@ func _process(delta):
 		
 		if cam_moved:
 			position += cam_delta.normalized() * delta * Config.cam_speed
-		
+	
 	# Zoom
 	if Input.is_action_just_pressed("player_zoomin"):
 		if spring_arm.spring_length > Config.min_zoom:
