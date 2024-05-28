@@ -27,6 +27,8 @@ func setup(
 		set_physics_process(false)
 
 func _process(delta):
+	if is_dead:
+		return
 	if attack_timeout > 0:
 		attack_timeout -= delta;
 
@@ -90,7 +92,7 @@ func set_target():
 	var bodies = $AttackArea.get_overlapping_bodies()
 	var target_found = false;
 	for body in bodies:
-		if body is CharacterBody3D and body.team != team and body.is_in_group("Champion") and !is_dead:
+		if body is CharacterBody3D and body.team != team and body.is_in_group("Champion"):
 			target_entity = body
 			target_found = true;
 			#if body == target_entity:
