@@ -32,6 +32,7 @@ func get_target_position(pid: int) -> Vector3:
 			return child.position
 	return Vector3.ZERO
 
+
 func player_action(event):
 	var from = camera.project_ray_origin(event.position)
 	var to = from + camera.project_ray_normal(event.position) * 1000
