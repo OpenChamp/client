@@ -79,11 +79,11 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldNav/World/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xmnii")
 
-[node name="Turret" parent="WorldNav" instance=ExtResource("5_2p22h")]
+[node name="RedTurret" parent="WorldNav" instance=ExtResource("5_2p22h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
 team = 1
 
-[node name="Turret2" parent="WorldNav" instance=ExtResource("5_2p22h")]
+[node name="BlueTurret" parent="WorldNav" instance=ExtResource("5_2p22h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
 team = 2
 
