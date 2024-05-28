@@ -27,6 +27,8 @@ func setup(
 		set_physics_process(false)
 
 func _process(delta):
+	if is_dead:
+		return
 	if attack_timeout > 0:
 		attack_timeout -= delta;
 
