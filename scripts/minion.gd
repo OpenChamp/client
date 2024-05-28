@@ -53,11 +53,11 @@ func get_closest_patrol_point() -> Vector3:
 	var closest_point: Vector3 = path_array[0].global_position
 	var distance: float
 	for point in path_array:
-		distance = global_position.distance_to(point.global_position)
+		distance = global_position.distance_squared_to(point.global_position)
 		if distance < 1:
 			path_array.remove_at(path_array.bsearch(point))
 			continue
-		if distance < global_position.distance_to(closest_point):
+		if distance < global_position.distance_squared_to(closest_point):
 			closest_point = point.global_position
 	return closest_point
 
