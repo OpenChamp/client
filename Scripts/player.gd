@@ -24,15 +24,16 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseButton:
+		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			# Start dragging
+			player_action(event)  # For single clicks
 			if not dragging and event.is_pressed():
 				dragging = true
 	
 		# Stop dragging if mouse is released
 		if dragging and not event.is_pressed():
 			dragging = false
-		player_action(event)  # For single clicks
 	
 	if event is InputEventMouseMotion and dragging:
 		player_action(event)  # For dragging
