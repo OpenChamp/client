@@ -1,16 +1,14 @@
 [gd_scene load_steps=18 format=3 uid="uid://cf3wfr4d5kn2s"]
 
-[ext_resource type="Script" path="res://Maps/debug_map.gd" id="1_oripi"]
-[ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/ui.tscn" id="2_7bhhd"]
-[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/player.tscn" id="3_borkg"]
-
-[ext_resource type="Shader" path="res://Environment/Shaders/sky.gdshader" id="4_6tbti"]
-[ext_resource type="Texture2D" uid="uid://c7ogld2vwwxkd" path="res://Environment/Textures/clover.jpg" id="4_wyhrk"]
-[ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://Environment/Scenes/turret.tscn" id="5_2p22h"]
-[ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://Environment/Scenes/nexus.tscn" id="6_l5kk0"]
-
-[ext_resource type="Script" path="res://Scripts/server_listener.gd" id="7_p6jd3"]
-[ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://Environment/Scenes/minion_spawner.tscn" id="8_dli2g"]
+[ext_resource type="Script" path="res://maps/debug_map.gd" id="1_oripi"]
+[ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://ui/ui.tscn" id="2_7bhhd"]
+[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="3_borkg"]
+[ext_resource type="Shader" path="res://environment/shaders/sky.gdshader" id="4_6tbti"]
+[ext_resource type="Texture2D" uid="uid://c7ogld2vwwxkd" path="res://environment/textures/clover.jpg" id="4_wyhrk"]
+[ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://environment/scenes/turret.tscn" id="5_2p22h"]
+[ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://environment/scenes/nexus.tscn" id="6_l5kk0"]
+[ext_resource type="Script" path="res://scripts/server_listener.gd" id="7_p6jd3"]
+[ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://environment/scenes/minion_spawner.tscn" id="8_dli2g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wm4pi"]
 shader = ExtResource("4_6tbti")

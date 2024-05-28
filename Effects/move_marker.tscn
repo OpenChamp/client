@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d0mug86g1buyj"]
 
-[ext_resource type="Script" path="res://Effects/move_marker.gd" id="1_52jh3"]
+[ext_resource type="Script" path="res://effects/move_marker.gd" id="1_52jh3"]
 
 [sub_resource type="Animation" id="Animation_oefca"]
 resource_name = "shrink_ring"

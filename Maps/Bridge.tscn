@@ -1,16 +1,16 @@
 [gd_scene load_steps=21 format=3 uid="uid://c6a05vhg3o3oj"]
 
-[ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/ui.tscn" id="1_3s4aj"]
-[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/player.tscn" id="2_45kod"]
-[ext_resource type="Texture2D" uid="uid://c7ogld2vwwxkd" path="res://Environment/Textures/clover.jpg" id="3_7vejb"]
-[ext_resource type="Shader" path="res://Environment/Shaders/sky.gdshader" id="3_db8s8"]
-[ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://Environment/Scenes/turret.tscn" id="4_6oopu"]
-[ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://Environment/Scenes/nexus.tscn" id="5_6s6mw"]
-[ext_resource type="Script" path="res://Scripts/server_listener.gd" id="6_n0qpn"]
-[ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://Environment/Scenes/minion_spawner.tscn" id="7_j6y1d"]
+[ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://ui/ui.tscn" id="1_xn2vp"]
+[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="2_kuu3h"]
+[ext_resource type="Shader" path="res://environment/shaders/sky.gdshader" id="3_34irr"]
+[ext_resource type="Texture2D" uid="uid://c7ogld2vwwxkd" path="res://environment/textures/clover.jpg" id="4_pom7h"]
+[ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://environment/scenes/turret.tscn" id="5_s4ax0"]
+[ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://environment/scenes/nexus.tscn" id="6_h5cqc"]
+[ext_resource type="Script" path="res://scripts/server_listener.gd" id="7_skvyn"]
+[ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://environment/scenes/minion_spawner.tscn" id="8_g2rme"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wlka2"]
-shader = ExtResource("3_db8s8")
+shader = ExtResource("3_34irr")
 shader_parameter/skyColor = Color(0.211765, 0.384314, 0.568627, 1)
 
 [sub_resource type="Sky" id="Sky_bk0si"]
@@ -43,7 +43,7 @@ _data = {
 point_count = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1c8m5"]
-albedo_texture = ExtResource("3_7vejb")
+albedo_texture = ExtResource("4_pom7h")
 normal_scale = -14.25
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_g6sru"]
@@ -61,9 +61,9 @@ size = Vector2(140, 10)
 
 [node name="Bridge" type="Node3D"]
 
-[node name="Ui" parent="." instance=ExtResource("1_3s4aj")]
+[node name="Ui" parent="." instance=ExtResource("1_xn2vp")]
 
-[node name="Player" parent="." instance=ExtResource("2_45kod")]
+[node name="Player" parent="." instance=ExtResource("2_kuu3h")]
 
 [node name="Sky" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_huu0f")
@@ -106,27 +106,27 @@ shape = SubResource("ConcavePolygonShape3D_i17tl")
 transform = Transform3D(1.00187, 0, 0, 0, -4.37933e-08, -1.00187, 0, 1.00187, -4.37933e-08, 0.185883, -5, 12.4963)
 mesh = SubResource("PlaneMesh_45p0s")
 
-[node name="Turret" parent="WorldNav" instance=ExtResource("4_6oopu")]
+[node name="Turret" parent="WorldNav" instance=ExtResource("5_s4ax0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
 team = 1
 
-[node name="Turret4" parent="WorldNav" instance=ExtResource("4_6oopu")]
+[node name="Turret4" parent="WorldNav" instance=ExtResource("5_s4ax0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 0)
 team = 1
 
-[node name="Turret2" parent="WorldNav" instance=ExtResource("4_6oopu")]
+[node name="Turret2" parent="WorldNav" instance=ExtResource("5_s4ax0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, 0)
 team = 2
 
-[node name="Turret3" parent="WorldNav" instance=ExtResource("4_6oopu")]
+[node name="Turret3" parent="WorldNav" instance=ExtResource("5_s4ax0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
 team = 2
 
-[node name="Nexus" parent="WorldNav" instance=ExtResource("5_6s6mw")]
+[node name="Nexus" parent="WorldNav" instance=ExtResource("6_h5cqc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 0)
 team = 1
 
-[node name="Nexus2" parent="WorldNav" instance=ExtResource("5_6s6mw")]
+[node name="Nexus2" parent="WorldNav" instance=ExtResource("6_h5cqc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, 0)
 team = 2
 
@@ -146,13 +146,13 @@ spawn_path = NodePath("../Champions")
 spawn_limit = 10
 
 [node name="ServerListener" type="Node" parent="."]
-script = ExtResource("6_n0qpn")
+script = ExtResource("7_skvyn")
 
-[node name="MinionSpawner1" parent="." instance=ExtResource("7_j6y1d")]
+[node name="MinionSpawner1" parent="." instance=ExtResource("8_g2rme")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
 team = 1
 
-[node name="MinionSpawner2" parent="." instance=ExtResource("7_j6y1d")]
+[node name="MinionSpawner2" parent="." instance=ExtResource("8_g2rme")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
 team = 2
 wave_size = 4

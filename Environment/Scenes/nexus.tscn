@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://5f6bj1u1ir3f"]
 
-[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/healthbar.tscn" id="1_3dl01"]
-[ext_resource type="Script" path="res://Environment/Scripts/nexus.gd" id="1_q8ip6"]
-[ext_resource type="ArrayMesh" uid="uid://b7484sfrkl6oe" path="res://Environment/Models/nexus.mesh" id="2_2llp2"]
-[ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://Effects/Red_Glow.tres" id="2_cxrmc"]
-[ext_resource type="PackedScene" uid="uid://bv1yffxbq46ix" path="res://Effects/tower_blast.tscn" id="2_sdx6r"]
-[ext_resource type="ArrayMesh" path="res://Environment/Models/nexus_crystal.mesh" id="3_th5cc"]
-[ext_resource type="Script" path="res://Environment/Scripts/Crystal_spin.gd" id="4_8p0p1"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/healthbar.tscn" id="1_3dl01"]
+[ext_resource type="Script" path="res://environment/scripts/nexus.gd" id="1_q8ip6"]
+[ext_resource type="ArrayMesh" uid="uid://b7484sfrkl6oe" path="res://environment/models/nexus.mesh" id="2_2llp2"]
+[ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://effects/Red_Glow.tres" id="2_cxrmc"]
+[ext_resource type="PackedScene" uid="uid://bv1yffxbq46ix" path="res://effects/tower_blast.tscn" id="2_sdx6r"]
+[ext_resource type="ArrayMesh" path="res://environment/models/nexus_crystal.mesh" id="3_th5cc"]
+[ext_resource type="Script" path="res://environment/scripts/Crystal_spin.gd" id="4_8p0p1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28yxk"]
 

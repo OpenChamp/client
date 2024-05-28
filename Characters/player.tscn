@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dt0fo48rp3ikk"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_5w15s"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_5w15s"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_55eo2"]
 
