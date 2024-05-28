@@ -1,4 +1,5 @@
 # Godot 4+ specific ignores
+.vscode/
 .godot/
 *.tmp
 *.import
