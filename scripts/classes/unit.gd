@@ -47,7 +47,7 @@ func setup(
 	elif team == 2:
 		mesh_instance.set_surface_override_material(0, load("res://environment/materials/red.material"))
 	if not multiplayer.is_server():
-		set_physics_process(false)
+		set_process(false)
 
 func update_collision_radius(range_collider: Area3D, radius: float):
 	var collision_shape = CylinderShape3D.new()
