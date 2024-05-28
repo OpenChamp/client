@@ -63,7 +63,13 @@ func get_closest_patrol_point() -> Vector3:
 
 
 func _on_activation_area_body_entered(body):
-	if target_entity == null or target_entity == self:
+	if not target_entity == null:
+		return
+	elif target_entity == self:
+		return
+	elif body.team == team:
+		return
+	else:
 		target_entity = body
 
 
