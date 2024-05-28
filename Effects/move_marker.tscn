@@ -1,23 +1,63 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0mug86g1buyj"]
+[gd_scene load_steps=8 format=3 uid="uid://d0mug86g1buyj"]
 
 [ext_resource type="Script" path="res://Effects/move_marker.gd" id="1_52jh3"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fvp73"]
-lifetime_randomness = 1.0
-direction = Vector3(1, 1, 1)
-initial_velocity_min = 3.0
+[sub_resource type="Animation" id="Animation_oefca"]
+resource_name = "shrink_ring"
+length = 0.5
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.5, 1, 0.01, 1, 0.01)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hlojs"]
+_data = {
+"shrink_ring": SubResource("Animation_oefca")
+}
+
+[sub_resource type="TorusMesh" id="TorusMesh_c5574"]
+inner_radius = 2.0
+outer_radius = 2.1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_avb0c"]
+direction = Vector3(0, 1, 0)
+spread = 9.804
+initial_velocity_min = 10.0
 initial_velocity_max = 10.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_753fa"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0apb0"]
+transparency = 1
+albedo_color = Color(0.027451, 1, 1, 0.0862745)
+emission_enabled = true
+emission = Color(0, 1, 0.670588, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2g8bl"]
+material = SubResource("StandardMaterial3D_0apb0")
+radius = 0.1
+height = 0.2
 
 [node name="MoveTo" type="Node3D"]
 script = ExtResource("1_52jh3")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Marker")
+libraries = {
+"": SubResource("AnimationLibrary_hlojs")
+}
+
+[node name="Marker" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.00999999, 0, 0, 0, 1, 0, 0, 0, 0.00999999, 0, 0, 0)
+mesh = SubResource("TorusMesh_c5574")
+
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 emitting = false
-amount = 25
+amount = 30
 lifetime = 0.5
-explosiveness = 1.0
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_fvp73")
-draw_pass_1 = SubResource("SphereMesh_753fa")
+one_shot = true
+explosiveness = 0.55
+randomness = 0.21
+process_material = SubResource("ParticleProcessMaterial_avb0c")
+draw_pass_1 = SubResource("SphereMesh_2g8bl")
