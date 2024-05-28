@@ -42,9 +42,8 @@ func _process(delta):
 	var target_location = nav_agent.get_next_path_position()
 	if current_location.distance_to(target_location) <= .1:
 		return
-	velocity = (target_location - current_location).normalized() * speed
+	nav_agent.velocity = (target_location - current_location).normalized() * speed
 	look_at(target_location)
-	move_and_slide()
 
 
 func get_closest_patrol_point() -> Vector3:
@@ -76,3 +75,8 @@ func _on_activation_area_body_entered(body):
 func _on_activation_area_body_exited(body):
 	if target_entity == body:
 		target_entity = null
+
+
+func _on_navigation_agent_3d_velocity_computed(safe_velocity):
+	velocity = safe_velocity
+	move_and_slide()

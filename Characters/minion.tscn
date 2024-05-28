@@ -35,6 +35,7 @@ collision_layer = 3
 script = ExtResource("1_scuc3")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -79,5 +80,6 @@ replication_config = SubResource("SceneReplicationConfig_5frdt")
 
 [node name="AttackTimer" type="Timer" parent="."]
 
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
 [connection signal="body_entered" from="ActivationArea" to="." method="_on_activation_area_body_entered"]
 [connection signal="body_exited" from="ActivationArea" to="." method="_on_activation_area_body_exited"]
