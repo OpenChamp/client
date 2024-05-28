@@ -26,7 +26,7 @@ var timeout = 3
 # Godot Default Listeners
 func _ready():
 	# UI
-	_set_status("Connecting...")
+	_set_status("STARTUP:STATUS_CONNECTING")
 	reconnect_button.hide()
 	exit_button.hide()
 	# Parse Args
@@ -40,7 +40,7 @@ func _ready():
 
 # Client Connection Functionality
 func setup_client(peer:ENetMultiplayerPeer):
-	_set_status("Connecting as Client...")
+	_set_status("STARTUP:STATUS_CONNECT_CLIENT")
 	_update_attempts()
 	print("Attempting connection to:" + address + ":" + str(port))
 	
@@ -48,7 +48,7 @@ func setup_client(peer:ENetMultiplayerPeer):
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		return false
 	elif peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTING:
-		_set_status("Connecting...")
+		_set_status("STARTUP:STATUS_CONNECTING")
 		multiplayer.multiplayer_peer = peer
 		$CheckupTimer.wait_time = 1
 		$CheckupTimer.start()
@@ -62,7 +62,7 @@ func client_success():
 
 
 func client_fail():
-	_set_status("Failed To Connect...")
+	_set_status("STARTUP:STATUS_CLIENT_FAILED")
 	multiplayer.multiplayer_peer.close()
 	attempts +=1
 	_update_attempts()
@@ -77,7 +77,7 @@ func client_fail():
 
 # Server Connection Functionality
 func setup_server(peer:ENetMultiplayerPeer):
-	_set_status("Creating Server...")
+	_set_status("STARTUP:STATUS_CREATE_SERVER")
 	
 	peer.create_server(port, 10)
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
@@ -104,7 +104,7 @@ func start(method: int):
 	if method == Start.CLIENT:
 		if not setup_client(peer):
 			if not $CheckupTimer.is_stopped():
-				_set_status("Connecting...")
+				_set_status("STARTUP:STATUS_CONNECTING")
 			else:
 				client_fail()
 		else:
@@ -176,9 +176,8 @@ func _on_checkup_timer_timeout():
 
 # Setters
 func _set_status(message:String):
-	var text = "[center]" + message + "[/center]"
-	status_text.text = text
+	status_text.text = "[center]" + tr(message) + "[/center]"
 
 
 func _update_attempts():
-	attempts_text.text = "[center]Attempts: " + str(attempts) + "[/center]"
+	attempts_text.text = "[center]" + (tr("STARTUP:ATTEMPTS") % attempts) + "[/center]"

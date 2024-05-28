@@ -33,26 +33,25 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="SplitContainer/PanelContainer"]
 layout_mode = 2
-current_tab = 1
 
-[node name="Display" type="BoxContainer" parent="SplitContainer/PanelContainer/TabContainer"]
+[node name="SETTINGS_TAB_DISPLAY" type="BoxContainer" parent="SplitContainer/PanelContainer/TabContainer"]
+layout_mode = 2
+vertical = true
+
+[node name="FullscreenToggleBtn" type="CheckBox" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_DISPLAY"]
+layout_mode = 2
+text = "SETTING:FULLSCREEN"
+
+[node name="SETTINGS_TAB_CAMERA" type="BoxContainer" parent="SplitContainer/PanelContainer/TabContainer"]
 visible = false
 layout_mode = 2
 vertical = true
 
-[node name="FullscreenToggleBtn" type="CheckBox" parent="SplitContainer/PanelContainer/TabContainer/Display"]
+[node name="cam_speed_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
-text = "Fullscreen"
+text = "SETTING:CAMERA_SPEED_LABEL"
 
-[node name="Camera" type="BoxContainer" parent="SplitContainer/PanelContainer/TabContainer"]
-layout_mode = 2
-vertical = true
-
-[node name="cam_speed_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
-layout_mode = 2
-text = "Camera Speed:"
-
-[node name="cam_speed_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="cam_speed_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -60,7 +59,7 @@ max_value = 30.0
 step = 0.25
 value = 15.0
 
-[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera/cam_speed_slider"]
+[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/cam_speed_slider"]
 layout_mode = 0
 offset_right = 28.0
 offset_bottom = 23.0
@@ -71,14 +70,14 @@ vertical_alignment = 1
 script = ExtResource("2_krd3l")
 metadata/_edit_initialized_ = true
 
-[node name="HSeparator" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="HSeparator" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 
-[node name="edge_margin_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="edge_margin_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
-text = "Camera movement edge margin:"
+text = "SETTING:CAMERA_EDGE_MARGIN_LABEL"
 
-[node name="edge_margin_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="edge_margin_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 15.0
@@ -86,7 +85,7 @@ max_value = 150.0
 value = 15.0
 rounded = true
 
-[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera/edge_margin_slider"]
+[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/edge_margin_slider"]
 layout_mode = 0
 offset_right = 28.0
 offset_bottom = 23.0
@@ -97,14 +96,14 @@ vertical_alignment = 1
 script = ExtResource("2_krd3l")
 metadata/_edit_initialized_ = true
 
-[node name="HSeparator2" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="HSeparator2" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 
-[node name="max_zoom_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="max_zoom_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
-text = "Maximum zoom out distance:"
+text = "SETTING:CAMERA_MAX_ZOOM_LABEL"
 
-[node name="max_zoom_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="max_zoom_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -112,7 +111,7 @@ step = 0.25
 value = 25.0
 exp_edit = true
 
-[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera/max_zoom_slider"]
+[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/max_zoom_slider"]
 layout_mode = 0
 offset_right = 28.0
 offset_bottom = 23.0
@@ -123,18 +122,14 @@ vertical_alignment = 1
 script = ExtResource("2_krd3l")
 metadata/_edit_initialized_ = true
 
-[node name="HSeparator3" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="HSeparator3" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 
-[node name="cam_centered_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="CamCenteredToggleBtn" type="CheckBox" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
-text = "Camera Centered on Champion: "
+text = "SETTING:CAMERA_CENTERED"
 
-[node name="CamCenteredToggleBtn" type="CheckBox" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
-layout_mode = 2
-text = "Centered"
-
-[node name="HSeparator4" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/Camera"]
+[node name="HSeparator4" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="SplitContainer"]
@@ -149,9 +144,9 @@ columns = 4
 [node name="ConfirmBtn" type="Button" parent="SplitContainer/PanelContainer2/GridContainer"]
 layout_mode = 2
 action_mode = 0
-text = "Confirm"
+text = "SETTINGS_MENU_CONFIRM"
 
 [node name="ExitBtn" type="Button" parent="SplitContainer/PanelContainer2/GridContainer"]
 layout_mode = 2
 action_mode = 0
-text = "Exit Game"
+text = "SETTINGS_MENU_EXIT_GAME"
