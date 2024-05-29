@@ -20,6 +20,12 @@ func _ready():
 	multiplayer.server_disconnected.connect(get_tree().quit)
 	spring_arm.spring_length = Config.max_zoom
 	Config.camera_property_changed.connect(_on_camera_setting_changed)
+	
+	if server_listener == null:
+		server_listener = get_parent();
+		while !server_listener.is_in_group("Map"):
+			server_listener = server_listener.get_parent();
+		server_listener = server_listener.get_node("ServerListener");
 
 
 func _input(event):
