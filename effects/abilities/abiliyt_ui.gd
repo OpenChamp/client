@@ -18,6 +18,7 @@ func _ready():
 	if aoe:
 		aoe.hide();
 
+
 func _process(delta):
 	if !isActivated:
 		return
@@ -55,7 +56,8 @@ func init():
 		gui.mesh.outer_radius = range + 0.2
 		aoe.show();
 	pass;
-	
+
+
 func exec(id: int):
 	isActivated = false;
 	gui.hide()
@@ -73,4 +75,3 @@ func exec(id: int):
 		pos = direction
 		type = 1;
 	server_listener.rpc_id(get_multiplayer_authority(), "spawn_ability", ability_name, type, pos, mana_cost, cooldown, id)
-	pass

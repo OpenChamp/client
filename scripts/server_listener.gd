@@ -10,9 +10,9 @@ var player_cooldowns = {}
 @onready var champions = $"../Champions"
 @onready var spawn1 = $"../Spawn1"
 @onready var spawn2 = $"../Spawn2"
-@onready var timer = $Timer
 
 const PlayerScene = preload ("res://characters/champion.tscn")
+
 
 func _ready():
 	if not multiplayer.is_server():
@@ -28,6 +28,7 @@ func _ready():
 	if not OS.has_feature("dedicated_server"):
 		add_player(1)
 
+
 @rpc("any_peer", "call_local")
 func move_to(pos: Vector3):
 	var peer_id = multiplayer.get_remote_sender_id()
@@ -38,6 +39,7 @@ func move_to(pos: Vector3):
 	character.is_attacking = false
 	character.target_entity = null
 	character.update_target_location(character.nav_agent, pos)
+
 
 @rpc("any_peer", "call_local")
 func target(name):
@@ -55,6 +57,7 @@ func target(name):
 	if target_entity and not target_entity.team == player.team:
 		player.is_attacking = true
 
+
 @rpc("any_peer", "call_local")
 func trigger_ability(n:int):
 	var peer_id = multiplayer.get_remote_sender_id()
@@ -63,7 +66,8 @@ func trigger_ability(n:int):
 		print_debug("Failed to find character")
 		return
 	player.trigger_ability(n)
-	
+
+
 @rpc("any_peer", "call_local")
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
 	var peer_id = multiplayer.get_remote_sender_id()
@@ -80,13 +84,18 @@ func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, c
 	player_cooldowns[peer_id][ab_id] = cooldown
 	player.mana -= ability_mana_cost
 	free_ability(cooldown, peer_id, ab_id)
+	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, player.position, player.team)
+
+
+@rpc("any_peer", "call_local")
+func spawn_local_effect(ability_name, ability_type, ability_pos, player_pos, player_team) -> void:
 	var ability = load("res://effects/abilities/"+ability_name+".tscn").instantiate();
 	if ability_type == 0:
 		ability.position = ability_pos
 	if ability_type == 1:
 		ability.direction = ability_pos
-		ability.position = player.position
-	ability.team = player.team
+		ability.position = player_pos
+	ability.team = player_team
 	$"../Abilities".add_child(ability);
 	
 
@@ -94,8 +103,10 @@ func free_ability(cooldown: float, peer_id: int, ab_id: int) -> void:
 	await get_tree().create_timer(cooldown).timeout
 	player_cooldowns[peer_id][ab_id] = 0
 
+
 func game_over(team):
 	get_tree().quit()
+
 
 func add_player(client_id: int):
 	print("Player Connected: " + str(client_id))
@@ -115,10 +126,12 @@ func add_player(client_id: int):
 	player_cooldowns[client_id] = cooldowns_dict
 	champions.add_child(character)
 
+
 func del_player(client_id: int):
 	if not champions.has_node(str(client_id)):
 		return
 	champions.get_node(str(client_id)).queue_free()
+
 
 func _exit_tree():
 	if not multiplayer.is_server():
