@@ -14,6 +14,8 @@ outer_radius = 5.2
 
 [node name="ArrowStorm" type="Node3D"]
 script = ExtResource("1_y8nrv")
+ability_name = "arrow_storm"
+isAoe = true
 
 [node name="gui" type="MeshInstance3D" parent="."]
 material_override = ExtResource("2_pk2sy")

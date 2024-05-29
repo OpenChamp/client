@@ -15,6 +15,7 @@ outer_radius = 5.2
 
 [node name="SkilledShot" type="Node3D"]
 script = ExtResource("1_f1581")
+ability_name = "skilled_shot"
 
 [node name="gui" type="MeshInstance3D" parent="."]
 material_override = ExtResource("2_6vwt0")
