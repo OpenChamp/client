@@ -37,6 +37,15 @@ func _input(event):
 	
 	if event is InputEventMouseMotion and dragging:
 		player_action(event)  # For dragging
+		
+	if Input.is_action_just_pressed("player_ability1"):
+		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 1)
+	if Input.is_action_just_pressed("player_ability2"):
+		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 2)
+	if Input.is_action_just_pressed("player_ability3"):
+		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 3)
+	if Input.is_action_just_pressed("player_ability4"):
+		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 4)
 
 
 func get_target_position(pid: int) -> Vector3:

@@ -6,6 +6,17 @@ extends Unit
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var healthbar: ProgressBar = $Healthbar
 
+@export var ability1_scene: PackedScene
+@export var ability2_scene: PackedScene
+@export var ability3_scene: PackedScene
+@export var ability4_scene: PackedScene
+
+var ability1
+var ability2
+var ability3
+var ability4
+
+
 @export var pid: int
 @export var max_mana: float = 300.0
 @export var mana: float = 300.0
@@ -20,6 +31,11 @@ func _ready():
 		attack_timer,
 		healthbar
 	)
+	
+	ability1 = ability1_scene.instantiate()
+	ability2 = ability2_scene.instantiate()
+	add_child(ability1, true)
+	add_child(ability2, true)
 
 func _process(delta):
 	_update_healthbar(healthbar)
@@ -49,3 +65,16 @@ func _process(delta):
 		move(nav_agent)
 	else:
 		move(nav_agent)
+
+
+func trigger_ability(n:int):
+	if n == 1:
+		ability1.trigger()
+	if n == 2:
+		ability2.trigger()
+	#if n == 3:
+		#ability3.trigger()
+	#if n == 4:
+		#ability4.trigger()
+	pass
+	

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6quc0ykjj58c"]
+
+[ext_resource type="Script" path="res://effects/abilities/skilled_shot.gd" id="1_qyhxl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fhs5f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l5ic2"]
+
+[node name="SkilledShot" type="Area3D"]
+collision_layer = 256
+script = ExtResource("1_qyhxl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_fhs5f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_l5ic2")

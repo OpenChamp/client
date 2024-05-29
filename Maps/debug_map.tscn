@@ -47,7 +47,7 @@ size = Vector2(70, 25)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xmnii"]
 data = PackedVector3Array(35, 0, 12.5, -35, 0, 12.5, 35, 0, -12.5, -35, 0, 12.5, -35, 0, -12.5, 35, 0, -12.5)
 
-[node name="DebugMap" type="Node3D"]
+[node name="DebugMap" type="Node3D" groups=["Map"]]
 process_priority = 1
 script = ExtResource("1_oripi")
 
@@ -100,6 +100,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
 
 [node name="Spawn2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
+
+[node name="Abilities" type="Node" parent="."]
 
 [node name="Champions" type="Node" parent="."]
 
