@@ -1,14 +1,14 @@
 [gd_scene load_steps=16 format=3 uid="uid://b3ge3nka634tb"]
 
 [ext_resource type="PackedScene" uid="uid://dcc1r64ba6itj" path="res://ui/settings_menu/settings_menu.tscn" id="1_b1o7r"]
-[ext_resource type="Texture2D" uid="uid://b81v72jcbdlx0" path="res://ui/textures/placeholder.png" id="1_fukxk"]
+[ext_resource type="Texture2D" uid="uid://dbbwj02sndsul" path="res://ui/textures/placeholder.png" id="1_fukxk"]
 [ext_resource type="StyleBox" uid="uid://hso35v0bmr2i" path="res://ui/resources/progressbar_back.tres" id="2_ocle2"]
 [ext_resource type="StyleBox" uid="uid://d1of2i6o3typo" path="res://ui/resources/health_fill.tres" id="3_sb1q7"]
 [ext_resource type="StyleBox" uid="uid://bnrxgjlw018mo" path="res://ui/resources/mana_fill.tres" id="4_bdhvv"]
 [ext_resource type="Script" path="res://ui/scripts/healthbar.gd" id="4_efjo8"]
 [ext_resource type="Script" path="res://ui/scripts/manabar.gd" id="7_8wwer"]
-[ext_resource type="Texture2D" uid="uid://cx7yukedj8i0l" path="res://ui/textures/ability_1.png" id="8_lnein"]
-[ext_resource type="Texture2D" uid="uid://bmt2hmdluhpyf" path="res://ui/textures/ability_up.png" id="9_wnjpv"]
+[ext_resource type="Texture2D" uid="uid://cqqm38vjxi8wk" path="res://ui/textures/ability_1.png" id="8_lnein"]
+[ext_resource type="Texture2D" uid="uid://bgkwkqd4mvss5" path="res://ui/textures/ability_up.png" id="9_wnjpv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrp2e"]
 bg_color = Color(0.121569, 0.435294, 0.494118, 1)
