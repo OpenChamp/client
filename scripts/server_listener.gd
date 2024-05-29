@@ -53,6 +53,37 @@ func target(name):
 	if target_entity and not target_entity.team == player.team:
 		player.is_attacking = true
 
+@rpc("any_peer", "call_local")
+func trigger_ability(n:int):
+	var peer_id = multiplayer.get_remote_sender_id()
+	var player = players[peer_id]
+	if not player:
+		print_debug("Failed to find character")
+		return
+	player.trigger_ability(n)
+	
+@rpc("any_peer", "call_local")
+func spawn_ability(args:Array):
+	var ability_name = args[0];
+	var ability_type = args[1]
+	var ability_pos = args[2];
+	var peer_id = multiplayer.get_remote_sender_id()
+	var player = players[peer_id]
+	if not player:
+		print_debug("Failed to find character")
+		return
+	var ability = load("res://effects/abilities/"+ability_name+".tscn").instantiate();
+	if ability_type == 0:
+		ability.position = ability_pos
+	if ability_type == 1:
+		ability.direction = ability_pos
+		ability.position = player.position
+	ability.team = player.team
+	$"../Abilities".add_child(ability);
+	
+	
+	
+
 func game_over(team):
 	get_tree().quit()
 
