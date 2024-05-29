@@ -18,6 +18,9 @@ func _process(delta):
 			settings_menu.hide()
 		else:
 			settings_menu.show()
+	
+	if stats:
+		check_stats()
 
 func check_stats():
 	var pid = multiplayer.get_unique_id()
