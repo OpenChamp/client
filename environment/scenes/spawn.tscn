@@ -41,7 +41,7 @@ height = 20.0
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cph78"]
 radius = 15.0
 
-[node name="Spawn" type="StaticBody3D"]
+[node name="Spawn" type="StaticBody3D" groups=["ground"]]
 
 [node name="Pillar1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 6, -4)
@@ -94,5 +94,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 11)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.09188, 0)
 mesh = SubResource("CylinderMesh_dxgib")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["ground"]]
 shape = SubResource("CylinderShape3D_cph78")
