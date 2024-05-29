@@ -4,11 +4,13 @@ var players = {}
 var team1 = Array()
 var team2 = Array()
 var death_timers = []
+var player_cooldowns = {}
 
 # ENV
 @onready var champions = $"../Champions"
 @onready var spawn1 = $"../Spawn1"
 @onready var spawn2 = $"../Spawn2"
+@onready var timer = $Timer
 
 const PlayerScene = preload ("res://characters/champion.tscn")
 
@@ -63,15 +65,21 @@ func trigger_ability(n:int):
 	player.trigger_ability(n)
 	
 @rpc("any_peer", "call_local")
-func spawn_ability(args:Array):
-	var ability_name = args[0];
-	var ability_type = args[1]
-	var ability_pos = args[2];
+func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
 	var peer_id = multiplayer.get_remote_sender_id()
 	var player = players[peer_id]
 	if not player:
 		print_debug("Failed to find character")
 		return
+	if player.mana < ability_mana_cost:
+		print("Not enough mana!")
+		return
+	if player_cooldowns[peer_id][ab_id] != 0:
+		print("This ability is on cooldown! Wait " + str(player_cooldowns[peer_id][ab_id]) + " seconds!")
+		return
+	player_cooldowns[peer_id][ab_id] = cooldown
+	player.mana -= ability_mana_cost
+	free_ability(cooldown, peer_id, ab_id)
 	var ability = load("res://effects/abilities/"+ability_name+".tscn").instantiate();
 	if ability_type == 0:
 		ability.position = ability_pos
@@ -81,8 +89,10 @@ func spawn_ability(args:Array):
 	ability.team = player.team
 	$"../Abilities".add_child(ability);
 	
-	
-	
+
+func free_ability(cooldown: float, peer_id: int, ab_id: int) -> void:
+	await get_tree().create_timer(cooldown).timeout
+	player_cooldowns[peer_id][ab_id] = 0
 
 func game_over(team):
 	get_tree().quit()
@@ -101,6 +111,8 @@ func add_player(client_id: int):
 	character.pid = client_id
 	character.name = str(client_id)
 	players[client_id] = character
+	var cooldowns_dict = {0: 0, 1: 0, 2: 0, 3: 0}
+	player_cooldowns[client_id] = cooldowns_dict
 	champions.add_child(character)
 
 func del_player(client_id: int):
