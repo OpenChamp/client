@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bv1yffxbq46ix"]
 
 [ext_resource type="Script" path="res://effects/auto_projectile.gd" id="1_xhh18"]
-[ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://effects/Red_Glow.tres" id="2_ys6ir"]
+[ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://effects/red_glow.tres" id="2_ys6ir"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_toew3"]
 

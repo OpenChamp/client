@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfipoor60ec0t"]
 
-[ext_resource type="Material" uid="uid://cuaa6qbd48sqi" path="res://environment/materials/Grass.material" id="1_a22fq"]
+[ext_resource type="Material" uid="uid://cuaa6qbd48sqi" path="res://environment/Materials/grass.material" id="1_a22fq"]
 
 [sub_resource type="QuadMesh" id="2"]
 
