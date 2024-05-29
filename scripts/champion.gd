@@ -34,8 +34,12 @@ func _ready():
 	
 	ability1 = ability1_scene.instantiate()
 	ability2 = ability2_scene.instantiate()
+	ability3 = ability3_scene.instantiate()
+	ability4 = ability4_scene.instantiate()
 	add_child(ability1, true)
 	add_child(ability2, true)
+	add_child(ability3, true)
+	add_child(ability4, true)
 
 func _process(delta):
 	_update_healthbar(healthbar)
@@ -72,9 +76,9 @@ func trigger_ability(n:int):
 		ability1.trigger()
 	if n == 2:
 		ability2.trigger()
-	#if n == 3:
-		#ability3.trigger()
-	#if n == 4:
-		#ability4.trigger()
+	if n == 3:
+		ability3.trigger()
+	if n == 4:
+		ability4.trigger()
 	pass
 	

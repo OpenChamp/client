@@ -38,6 +38,8 @@ collision_layer = 3
 script = ExtResource("1_8mps8")
 ability1_scene = ExtResource("2_g86sd")
 ability2_scene = ExtResource("3_qle6h")
+ability3_scene = ExtResource("2_g86sd")
+ability4_scene = ExtResource("3_qle6h")
 projectile = ExtResource("2_msikv")
 
 [node name="Dead" type="Control" parent="."]
