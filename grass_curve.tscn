@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://co35cw7i1opr1"]
 
-[ext_resource type="PackedScene" uid="uid://cfipoor60ec0t" path="res://Environment/Grass.tscn" id="1_sg32i"]
+[ext_resource type="PackedScene" uid="uid://cfipoor60ec0t" path="res://environment/scenes/grass.tscn" id="1_sg32i"]
 
 [node name="GrassCurve" type="StaticBody3D"]
 

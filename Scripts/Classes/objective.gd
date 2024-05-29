@@ -1,5 +1,7 @@
 class_name Objective extends Unit
 
+@onready var target_ray: MeshInstance3D = $TargetRay
+@export var cast_time: float = 0.1
 func setup(
 	_nav_agent: NavigationAgent3D,
 	_range_collider_activation: Area3D,
@@ -18,26 +20,26 @@ func setup(
 	health = max_health
 	_update_healthbar(healthbar)
 	if team == 1:
-		mesh_instance.get_node("Crystal").set_surface_override_material(0, load("res://Environment/Materials/blue.material"))
+		mesh_instance.get_node("Crystal").set_surface_override_material(0, load("res://environment/materials/blue.material"))
 	elif team == 2:
-		mesh_instance.get_node("Crystal").set_surface_override_material(0, load("res://Environment/Materials/red.material"))
+		mesh_instance.get_node("Crystal").set_surface_override_material(0, load("res://environment/materials/red.material"))
 
 func _process(delta):
+	if is_dead:
+		return
 	if attack_timeout > 0:
-		attack_timeout -=delta;
+		attack_timeout -= delta;
 
 func update_collision_radius(range_collider: Area3D, radius: float):
 	var collision_shape = CylinderShape3D.new()
 	collision_shape.radius = radius
 	range_collider.get_node("CollisionShape3D").shape = collision_shape
 
-
 func _update_healthbar(healthbar: ProgressBar):
 	healthbar.value = health
 	if health <= 0:
 		health = 0
 		die()
-
 
 func target_in_attack_range(collider: Area3D):
 	var bodies = collider.get_overlapping_bodies()
@@ -46,11 +48,9 @@ func target_in_attack_range(collider: Area3D):
 			return true
 	return false
 
-
 func attack(entity: CharacterBody3D, _nav_agent: NavigationAgent3D):
 	target_entity = entity
 	is_attacking = true
-
 
 func take_damage(damage: float):
 	print_debug(damage)
@@ -61,19 +61,16 @@ func take_damage(damage: float):
 	if health <= 0:
 		die()
 
-
 func die():
 	self.queue_free()
 
-
 func init_auto_attack():
 	if !multiplayer.is_server():
-		pass;
+		pass ;
 	if attack_timeout > 0 and attack_timer.is_stopped():
 		return
-	attack_timer.wait_time = attack_speed
+	attack_timer.wait_time = cast_time
 	attack_timer.start()
-
 
 func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 	attack_timer.stop()
@@ -82,10 +79,43 @@ func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 		return
 	attack_timeout = attack_speed
 	
-	
 	var shot = projectile.instantiate()
 	shot.position = position
 	shot.target = target_entity
 	shot.damage = attack_damage
 	get_node("Projectiles").add_child(shot, true)
 	init_auto_attack()
+
+func set_target():
+	var bodies = $AttackArea.get_overlapping_bodies()
+	var target_found = false;
+	for body in bodies:
+		if body is CharacterBody3D and body.team != team and body.is_in_group("Champion"):
+			target_entity = body
+			target_found = true;
+			#if body == target_entity:
+				#target_found = true;
+				#return;
+			#elif body.team:
+				#target_entity = body
+				#target_found = true;
+	if !target_found:
+		target_entity = null;
+		target_ray.hide()
+	else:
+		show_target_ray()
+
+func show_target_ray():
+	target_ray.show()
+	var mid = (target_entity.position + position) / 2
+	var dis = position.distance_to(target_entity.position);
+	var dir = (target_entity.position - position).normalized()
+	target_ray.global_position = mid;
+	
+	var basis = Basis()
+	basis = basis.looking_at(dir, Vector3.UP)
+	target_ray.global_transform = Transform3D(basis, mid)
+
+	# Set the mesh's scale to match the distance
+	var scale = Vector3(1, dis / 2, 1) # Assuming the cylinder's height is 2 units
+	target_ray.scale = scale

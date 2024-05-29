@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://x10srxg18eg5"]
 
-[ext_resource type="Script" path="res://Effects/auto_projectile.gd" id="1_rrlto"]
+[ext_resource type="Script" path="res://effects/auto_projectile.gd" id="1_rrlto"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_s8s0j"]
 

@@ -43,9 +43,9 @@ func setup(
 	health = max_health
 	_update_healthbar(healthbar)
 	if team == 1:
-		mesh_instance.set_surface_override_material(0, load("res://Environment/Materials/blue.material"))
+		mesh_instance.set_surface_override_material(0, load("res://environment/materials/blue.material"))
 	elif team == 2:
-		mesh_instance.set_surface_override_material(0, load("res://Environment/Materials/red.material"))
+		mesh_instance.set_surface_override_material(0, load("res://environment/materials/red.material"))
 	if not multiplayer.is_server():
 		set_physics_process(false)
 
@@ -112,9 +112,17 @@ func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 	arrow.damage = attack_damage
 	get_node("Projectiles").add_child(arrow, true)
 
+#func turn_face(target, rotationSpeed, delta):
+	#var global_pos = global_transform.origin
+	#var wtransform = global_transform.looking_at(Vector3(target.global_transform.origin.x,global_pos.y,target.global_transform.origin.z),Vector3(0,1,0))
+	#var wrotation = Quat(global_transform.basis).slerp(Quat(wtransform.basis), rotationSpeed*delta)
+	#turret.global_transform = Transform(Basis(wrotation), turret.global_transform.origin)
+	
 func move(nav_agent: NavigationAgent3D):
 	var current_location = global_transform.origin
 	var target_location = nav_agent.get_next_path_position()
+	# Check if target is looking at target
+	
 	if current_location.distance_to(target_location) <= .1:
 		return
 	velocity = (target_location - current_location).normalized() * speed

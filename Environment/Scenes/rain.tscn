@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b504mv66lw6gu"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fy7h3"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+scale_min = 0.0
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_gkb5a"]
+
+[node name="Rain" type="GPUParticles3D"]
+visibility_aabb = AABB(-4, -2.59705, -4, 8, 8, 8)
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_fy7h3")
+draw_pass_1 = SubResource("RibbonTrailMesh_gkb5a")

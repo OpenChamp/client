@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccnpxwrivnu02"]
+[gd_scene load_steps=11 format=3 uid="uid://ccnpxwrivnu02"]
 
-[ext_resource type="Script" path="res://Scripts/champion.gd" id="1_yl4rv"]
-[ext_resource type="PackedScene" uid="uid://x10srxg18eg5" path="res://Effects/arrow.tscn" id="2_7k1hj"]
-[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://UI/healthbar.tscn" id="3_yrm0u"]
+[ext_resource type="Script" path="res://scripts/champion.gd" id="1_8mps8"]
+[ext_resource type="PackedScene" uid="uid://d28xkvb7ggvur" path="res://effects/abilities/arrow_storm_ui.tscn" id="2_g86sd"]
+[ext_resource type="PackedScene" uid="uid://x10srxg18eg5" path="res://effects/arrow.tscn" id="2_msikv"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/healthbar.tscn" id="3_1kjdw"]
+[ext_resource type="PackedScene" uid="uid://b63tjkqwwkg72" path="res://effects/abilities/skilled_shot_ui.tscn" id="3_qle6h"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_am47k"]
 
@@ -33,8 +35,10 @@ properties/4/replication_mode = 1
 
 [node name="Champion" type="CharacterBody3D" groups=["Champion", "Unit"]]
 collision_layer = 3
-script = ExtResource("1_yl4rv")
-projectile = ExtResource("2_7k1hj")
+script = ExtResource("1_8mps8")
+ability1_scene = ExtResource("2_g86sd")
+ability2_scene = ExtResource("3_qle6h")
+projectile = ExtResource("2_msikv")
 
 [node name="Dead" type="Control" parent="."]
 layout_mode = 3
@@ -62,7 +66,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.15, -0.5)
 mesh = SubResource("SphereMesh_iaiu6")
 skeleton = NodePath(".")
 
-[node name="Healthbar" parent="." instance=ExtResource("3_yrm0u")]
+[node name="Healthbar" parent="." instance=ExtResource("3_1kjdw")]
 
 [node name="ChampionCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -90,7 +94,7 @@ replication_config = SubResource("SceneReplicationConfig_5frdt")
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Effects/arrow.tscn")
+_spawnable_scenes = PackedStringArray("res://effects/arrow.tscn")
 spawn_path = NodePath("../Projectiles")
 spawn_limit = 100
 

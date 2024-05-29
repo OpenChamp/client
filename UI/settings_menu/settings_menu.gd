@@ -4,13 +4,13 @@ extends Control
 @onready var ExitBtn = $SplitContainer/PanelContainer2/GridContainer/ExitBtn
 
 # display setting element
-@onready var fullscreen_toggle = $SplitContainer/PanelContainer/TabContainer/Display/FullscreenToggleBtn
+@onready var fullscreen_toggle = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_DISPLAY/FullscreenToggleBtn
 
 # camera setting elements
-@onready var cam_speed_slider = $SplitContainer/PanelContainer/TabContainer/Camera/cam_speed_slider
-@onready var edge_margin_slider = $SplitContainer/PanelContainer/TabContainer/Camera/edge_margin_slider
-@onready var max_zoom_slider = $SplitContainer/PanelContainer/TabContainer/Camera/max_zoom_slider
-
+@onready var cam_speed_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/cam_speed_slider
+@onready var edge_margin_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/edge_margin_slider
+@onready var max_zoom_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/max_zoom_slider
+@onready var cam_centered_toggle = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/CamCenteredToggleBtn
 
 func _ready():
 	visibility_changed.connect(on_show)
@@ -30,6 +30,7 @@ func on_show():
 	edge_margin_slider.value = Config.edge_margin
 	max_zoom_slider.value = Config.max_zoom
 	max_zoom_slider.min_value = Config.min_zoom + 1
+	cam_centered_toggle.button_pressed = Config.is_cam_centered
 
 
 func _on_game_close_pressed():
@@ -63,6 +64,9 @@ func _apply_setting(setting: ggsSetting):
 		"max_zoom":
 			new_value = max_zoom_slider.value
 			Config.max_zoom = new_value
+		"cam_centered":
+			new_value = cam_centered_toggle.button_pressed
+			Config.is_cam_centered = new_value
 		_ :
 			pass
 	

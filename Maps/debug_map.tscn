@@ -1,24 +1,27 @@
-[gd_scene load_steps=16 format=3 uid="uid://cf3wfr4d5kn2s"]
+[gd_scene load_steps=20 format=3 uid="uid://cf3wfr4d5kn2s"]
 
-[ext_resource type="Script" path="res://Maps/debug_map.gd" id="1_oripi"]
-[ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://UI/ui.tscn" id="2_7bhhd"]
-[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://Characters/player.tscn" id="3_borkg"]
-[ext_resource type="Texture2D" uid="uid://c7ogld2vwwxkd" path="res://Environment/Textures/clover.jpg" id="4_wyhrk"]
-[ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://Environment/turret.tscn" id="5_2p22h"]
-[ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://Environment/nexus.tscn" id="6_l5kk0"]
-[ext_resource type="Script" path="res://Scripts/server_listener.gd" id="7_p6jd3"]
-[ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://Environment/minion_spawner.tscn" id="8_dli2g"]
+[ext_resource type="Script" path="res://maps/debug_map.gd" id="1_oripi"]
+[ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://ui/ui.tscn" id="2_7bhhd"]
+[ext_resource type="PackedScene" uid="uid://b3ge3nka634tb" path="res://ui/TestUI.tscn" id="2_qghmg"]
+[ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="3_borkg"]
+[ext_resource type="Script" path="res://ui/ui.gd" id="3_nbhaq"]
+[ext_resource type="Shader" path="res://environment/shaders/sky.gdshader" id="4_6tbti"]
+[ext_resource type="Texture2D" uid="uid://c7ogld2vwwxkd" path="res://environment/textures/clover.jpg" id="4_wyhrk"]
+[ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://environment/scenes/turret.tscn" id="5_2p22h"]
+[ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://environment/scenes/nexus.tscn" id="6_l5kk0"]
+[ext_resource type="Script" path="res://scripts/server_listener.gd" id="7_p6jd3"]
+[ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://environment/scenes/minion_spawner.tscn" id="8_dli2g"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qewsh"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wm4pi"]
+shader = ExtResource("4_6tbti")
+shader_parameter/skyColor = Color(0.211765, 0.372549, 0.568627, 1)
 
-[sub_resource type="Sky" id="Sky_bk0si"]
-sky_material = SubResource("ProceduralSkyMaterial_qewsh")
+[sub_resource type="Sky" id="Sky_i5h36"]
+sky_material = SubResource("ShaderMaterial_wm4pi")
 
 [sub_resource type="Environment" id="Environment_bcyjk"]
 background_mode = 2
-sky = SubResource("Sky_bk0si")
+sky = SubResource("Sky_i5h36")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -26,6 +29,13 @@ glow_enabled = true
 vertices = PackedVector3Array(-26.8201, 0.749061, 0, -18.8201, 0.499061, 0, -18.5701, 0.499061, -1.5, -27.5701, 0.749061, -2.5, -34.5701, 0.499061, -12, -34.5701, 0.749061, -2.25, -33.0701, 0.749061, -3.75, -27.5701, 0.749061, -2.5, -18.5701, 0.499061, -1.5, -17.5701, 0.499061, -2.5, -15.8201, 0.499061, -12, -34.5701, 0.499061, -12, -29.5701, 0.749061, -4, -34.5701, 0.499061, -12, -33.0701, 0.749061, -3.75, -29.5701, 0.749061, -4, -17.5701, 0.499061, -2.5, -15.8201, 0.499061, -2.75, -15.8201, 0.499061, -12, -14.8201, 0.499061, 2.75, -15.8201, 0.499061, 2.75, -15.8201, 0.499061, 12, -15.8201, 0.499061, -12, -15.8201, 0.499061, -2.75, -14.8201, 0.499061, -2.75, 15.9299, 0.499061, 12, 15.9299, 0.499061, 2.75, 14.4299, 0.499061, 2.5, 14.4299, 0.499061, -2.5, 15.9299, 0.499061, -2.75, 15.9299, 0.499061, -12, -13.5701, 0.499061, 1.75, -14.8201, 0.499061, 2.75, -15.8201, 0.499061, 12, 15.9299, 0.499061, 12, 14.4299, 0.499061, 2.5, 13.4299, 0.499061, 1.5, -13.5701, 0.499061, 1.75, 13.4299, 0.499061, 1.5, 13.1799, 0.499061, -0.75, -13.3201, 0.499061, -1.25, -15.8201, 0.499061, -12, -14.8201, 0.499061, -2.75, -13.3201, 0.499061, -1.25, 13.1799, 0.499061, -0.75, 14.4299, 0.499061, -2.5, 15.9299, 0.499061, -12, 32.4299, 0.749061, -4, 34.6799, 0.749061, -2, 34.6799, 0.499061, -12, 18.6799, 0.499061, -1.25, 18.6799, 0.499061, 0, 26.9299, 0.749061, 0, 17.9299, 0.499061, -2.25, 18.6799, 0.499061, -1.25, 26.9299, 0.749061, 0, 27.9299, 0.749061, -3, 29.6799, 0.749061, -4, 32.4299, 0.749061, -4, 34.6799, 0.499061, -12, 15.9299, 0.499061, -12, 15.9299, 0.499061, -2.75, 17.9299, 0.499061, -2.25, 27.9299, 0.749061, -3, 29.6799, 0.749061, -4, 34.6799, 0.499061, -12, -32.3201, 0.499061, -0.5, -32.3201, 0.499061, 0.5, -31.5701, 0.499061, 1.25, -30.3201, 0.499061, -1.25, -31.5701, 0.499061, -1.25, -32.3201, 0.499061, -0.5, -31.5701, 0.499061, 1.25, -30.3201, 0.499061, 1.25, -29.5701, 0.499061, 0.25, 29.6799, 0.499061, -0.5, 29.6799, 0.499061, 0.5, 30.4299, 0.499061, 1.25, 31.6799, 0.499061, -1.25, 30.4299, 0.499061, -1.25, 29.6799, 0.499061, -0.5, 30.4299, 0.499061, 1.25, 31.6799, 0.499061, 1.25, 32.4299, 0.499061, 0.25, -16.3201, 0.499061, -0.25, -16.0701, 0.499061, 0.5, -15.5701, 0.499061, 0.25, -15.8201, 0.499061, -0.5, 15.6799, 0.499061, -0.25, 15.9299, 0.499061, 0.5, 16.4299, 0.499061, 0.25, 16.1799, 0.499061, -0.5, -16.3201, 5.24906, -0.25, -16.3201, 5.24906, 0.25, -15.8201, 5.24906, 0.25, -15.8201, 5.24906, -0.25, 15.6799, 5.24906, -0.25, 15.6799, 5.24906, 0.25, 16.1799, 5.24906, 0.25, 16.1799, 5.24906, -0.25, -18.5701, 0.499061, 1.5, -18.8201, 0.499061, 0, -26.8201, 0.749061, 0, -27.5701, 0.749061, 2.5, -33.0701, 0.749061, 3.75, -34.5701, 0.749061, 2.25, -34.5701, 0.499061, 12, -17.5701, 0.499061, 2.5, -18.5701, 0.499061, 1.5, -27.5701, 0.749061, 2.5, -29.5701, 0.749061, 4, -34.5701, 0.499061, 12, -15.8201, 0.499061, 12, -29.5701, 0.749061, 4, -33.0701, 0.749061, 3.75, -34.5701, 0.499061, 12, -15.8201, 0.499061, 12, -15.8201, 0.499061, 2.75, -17.5701, 0.499061, 2.5, 34.6799, 0.499061, 12, 34.6799, 0.749061, 2, 32.4299, 0.749061, 4, 26.9299, 0.749061, 0, 18.6799, 0.499061, 0, 18.6799, 0.499061, 1.25, 26.9299, 0.749061, 0, 18.6799, 0.499061, 1.25, 17.9299, 0.499061, 2.25, 27.9299, 0.749061, 3, 27.2632, 0.999061, 1, 34.6799, 0.499061, 12, 32.4299, 0.749061, 4, 29.6799, 0.749061, 4, 17.9299, 0.499061, 2.25, 15.9299, 0.499061, 2.75, 15.9299, 0.499061, 12, 34.6799, 0.499061, 12, 29.6799, 0.749061, 4, 27.9299, 0.749061, 3)
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 12), PackedInt32Array(9, 12, 10), PackedInt32Array(10, 12, 11), PackedInt32Array(15, 14, 13), PackedInt32Array(18, 17, 16), PackedInt32Array(21, 20, 19), PackedInt32Array(24, 23, 22), PackedInt32Array(27, 26, 25), PackedInt32Array(30, 29, 28), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 36), PackedInt32Array(33, 36, 35), PackedInt32Array(33, 35, 34), PackedInt32Array(39, 38, 40), PackedInt32Array(40, 38, 37), PackedInt32Array(42, 41, 43), PackedInt32Array(43, 41, 44), PackedInt32Array(44, 41, 45), PackedInt32Array(45, 41, 46), PackedInt32Array(49, 48, 47), PackedInt32Array(52, 51, 50), PackedInt32Array(54, 53, 55), PackedInt32Array(55, 53, 56), PackedInt32Array(59, 58, 57), PackedInt32Array(61, 60, 62), PackedInt32Array(62, 60, 63), PackedInt32Array(63, 60, 64), PackedInt32Array(64, 60, 65), PackedInt32Array(68, 67, 66), PackedInt32Array(70, 69, 71), PackedInt32Array(71, 69, 74), PackedInt32Array(71, 74, 73), PackedInt32Array(71, 73, 72), PackedInt32Array(77, 76, 75), PackedInt32Array(79, 78, 80), PackedInt32Array(80, 78, 83), PackedInt32Array(80, 83, 82), PackedInt32Array(80, 82, 81), PackedInt32Array(87, 86, 84), PackedInt32Array(84, 86, 85), PackedInt32Array(91, 90, 88), PackedInt32Array(88, 90, 89), PackedInt32Array(95, 94, 92), PackedInt32Array(92, 94, 93), PackedInt32Array(99, 98, 96), PackedInt32Array(96, 98, 97), PackedInt32Array(101, 100, 102), PackedInt32Array(102, 100, 103), PackedInt32Array(106, 105, 104), PackedInt32Array(108, 107, 109), PackedInt32Array(109, 107, 110), PackedInt32Array(110, 107, 112), PackedInt32Array(110, 112, 111), PackedInt32Array(113, 115, 114), PackedInt32Array(118, 117, 116), PackedInt32Array(121, 120, 119), PackedInt32Array(124, 123, 122), PackedInt32Array(125, 129, 126), PackedInt32Array(126, 129, 127), PackedInt32Array(127, 129, 128), PackedInt32Array(132, 131, 130), PackedInt32Array(134, 133, 135), PackedInt32Array(135, 133, 138), PackedInt32Array(135, 138, 137), PackedInt32Array(135, 137, 136)]
 geometry_parsed_geometry_type = 2
+
+[sub_resource type="Curve3D" id="Curve3D_2jcaq"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, -30, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgkju"]
 albedo_texture = ExtResource("4_wyhrk")
@@ -37,11 +47,15 @@ size = Vector2(70, 25)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xmnii"]
 data = PackedVector3Array(35, 0, 12.5, -35, 0, 12.5, 35, 0, -12.5, -35, 0, 12.5, -35, 0, -12.5, 35, 0, -12.5)
 
-[node name="DebugMap" type="Node3D"]
+[node name="DebugMap" type="Node3D" groups=["Map"]]
 process_priority = 1
 script = ExtResource("1_oripi")
 
+[node name="TestUi" parent="." instance=ExtResource("2_qghmg")]
+script = ExtResource("3_nbhaq")
+
 [node name="Ui" parent="." instance=ExtResource("2_7bhhd")]
+visible = false
 
 [node name="Player" parent="." node_paths=PackedStringArray("server_listener") instance=ExtResource("3_borkg")]
 server_listener = NodePath("../ServerListener")
@@ -51,6 +65,9 @@ environment = SubResource("Environment_bcyjk")
 
 [node name="WorldNav" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_vdgac")
+
+[node name="MidPath" type="Path3D" parent="WorldNav" groups=["Path"]]
+curve = SubResource("Curve3D_2jcaq")
 
 [node name="World" type="MeshInstance3D" parent="WorldNav" groups=["ground"]]
 material_override = SubResource("StandardMaterial3D_mgkju")
@@ -84,12 +101,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
 [node name="Spawn2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
 
+[node name="Abilities" type="Node" parent="."]
+
 [node name="Champions" type="Node" parent="."]
 
 [node name="Minions" type="Node" parent="."]
 
 [node name="ChampionSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Characters/champion.tscn")
+_spawnable_scenes = PackedStringArray("res://characters/champion.tscn")
 spawn_path = NodePath("../Champions")
 spawn_limit = 10
 

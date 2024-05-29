@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5myoag2x3jj5"]
+
+[ext_resource type="Script" path="res://effects/abilities/arrow_storm.gd" id="1_lvbrm"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_osux5"]
+emission_shape_scale = Vector3(5, 1, 5)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, -20, 0)
+spread = 0.0
+initial_velocity_min = 12.0
+initial_velocity_max = 12.0
+gravity = Vector3(0, 0, 0)
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0ffmr"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_35dfd"]
+size = Vector3(5, 2, 5)
+
+[node name="ArrowStorm" type="Area3D"]
+script = ExtResource("1_lvbrm")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+emitting = false
+amount = 50
+lifetime = 2.5
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_osux5")
+draw_pass_1 = SubResource("CylinderMesh_0ffmr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_35dfd")

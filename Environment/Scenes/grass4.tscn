@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmd66wi07m8mt"]
 
-[ext_resource type="Material" uid="uid://cuaa6qbd48sqi" path="res://Environment/Materials/Grass.material" id="1"]
-[ext_resource type="MultiMesh" uid="uid://khyrrmx7dw0j" path="res://Environment/grassmultimesh.tres" id="2"]
+[ext_resource type="Material" uid="uid://cuaa6qbd48sqi" path="res://environment/materials/Grass.material" id="1"]
+[ext_resource type="MultiMesh" uid="uid://khyrrmx7dw0j" path="res://environment/models/grassmultimesh.tres" id="2"]
 
 [node name="grass4" type="Node3D"]
 

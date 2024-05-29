@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://kqv21ursy1cb"]
 
-[ext_resource type="Script" path="res://Environment/Scripts/minion_spawner.gd" id="1_ni6fh"]
+[ext_resource type="Script" path="res://environment/scripts/minion_spawner.gd" id="1_ni6fh"]
 
 [node name="MeshInstance3D" type="Node3D"]
 script = ExtResource("1_ni6fh")
 
 [node name="MinionSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Characters/minion.tscn")
+_spawnable_scenes = PackedStringArray("res://characters/minion.tscn")
 
 [node name="SpawnTimer" type="Timer" parent="."]

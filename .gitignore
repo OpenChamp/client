@@ -6,6 +6,7 @@
 *.exe
 *.pck
 *.zip
+lang/*.translation
 
 # Linux exports
 OpenChamp
