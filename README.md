@@ -16,4 +16,4 @@
 
 Contributions are always welcome!
 
-I'll be working on contributing guidelines in the future, once I have a stable foundation to be built on.
+See CONTRIBUTING.md for basic guidelines.
