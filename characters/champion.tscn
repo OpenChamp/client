@@ -3,12 +3,21 @@
 [ext_resource type="Script" path="res://scripts/champion.gd" id="1_8mps8"]
 [ext_resource type="PackedScene" uid="uid://d28xkvb7ggvur" path="res://effects/abilities/arrow_storm_ui.tscn" id="2_g86sd"]
 [ext_resource type="PackedScene" uid="uid://x10srxg18eg5" path="res://effects/arrow.tscn" id="2_msikv"]
+<<<<<<< HEAD
 <<<<<<< HEAD:characters/champion.tscn
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/player_stats/healthbar.tscn" id="3_1kjdw"]
 =======
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/healthbar.tscn" id="3_1kjdw"]
 [ext_resource type="PackedScene" uid="uid://b63tjkqwwkg72" path="res://effects/abilities/skilled_shot_ui.tscn" id="3_qle6h"]
 >>>>>>> 40935ef (Add Abilities):Characters/champion.tscn
+=======
+<<<<<<< HEAD:Characters/champion.tscn
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/healthbar.tscn" id="3_1kjdw"]
+[ext_resource type="PackedScene" uid="uid://b63tjkqwwkg72" path="res://effects/abilities/skilled_shot_ui.tscn" id="3_qle6h"]
+=======
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/player_stats/healthbar.tscn" id="3_1kjdw"]
+>>>>>>> 5d95293 (Filepath fix):characters/champion.tscn
+>>>>>>> 9b3fd8b (Filepath fix)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_am47k"]
 
