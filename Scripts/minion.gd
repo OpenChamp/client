@@ -81,4 +81,5 @@ func _on_activation_area_body_exited(body):
 func _on_navigation_agent_3d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
 	move_and_slide()
-	look_at(nav_agent.get_next_path_position())
+	# TODO: throws a ton of errors for now, needs to be fixed
+	#look_at(nav_agent.get_next_path_position())
