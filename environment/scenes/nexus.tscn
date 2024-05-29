@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://effects/red_glow.tres" id="2_cxrmc"]
 [ext_resource type="PackedScene" uid="uid://bv1yffxbq46ix" path="res://effects/tower_blast.tscn" id="2_sdx6r"]
 [ext_resource type="ArrayMesh" path="res://environment/models/nexus_crystal.mesh" id="3_th5cc"]
-[ext_resource type="Script" path="res://environment/scripts/crystal_spin.gd" id="4_8p0p1"]
+[ext_resource type="Script" path="res://environment/scripts/crystal_spin.gd" id="6_3414g"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28yxk"]
 
@@ -45,7 +45,7 @@ mesh = ExtResource("2_2llp2")
 
 [node name="Crystal" type="MeshInstance3D" parent="MeshInstance3D"]
 mesh = ExtResource("3_th5cc")
-script = ExtResource("4_8p0p1")
+script = ExtResource("6_3414g")
 
 [node name="Healthbar" parent="." instance=ExtResource("1_3dl01")]
 
