@@ -37,15 +37,6 @@ func _input(event):
 	
 	if event is InputEventMouseMotion and dragging:
 		player_action(event)  # For dragging
-		
-	if Input.is_action_just_pressed("player_ability1"):
-		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 1)
-	if Input.is_action_just_pressed("player_ability2"):
-		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 2)
-	if Input.is_action_just_pressed("player_ability3"):
-		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 3)
-	if Input.is_action_just_pressed("player_ability4"):
-		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 4)
 
 
 func get_target_position(pid: int) -> Vector3:
@@ -85,6 +76,23 @@ func player_action(event):
 		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.pid)
 
 func _process(delta):
+	camera_movement_handler(delta)  # Responsible for all camera-related movement
+	
+	detect_ability_use()  # Listens for ability use, prevents double activation
+
+
+func detect_ability_use() -> void:
+	if Input.is_action_just_pressed("player_ability1"):
+		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 1)
+	if Input.is_action_just_pressed("player_ability2"):
+		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 2)
+	if Input.is_action_just_pressed("player_ability3"):
+		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 3)
+	if Input.is_action_just_pressed("player_ability4"):
+		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 4)
+
+
+func camera_movement_handler(delta) -> void:
 	# don't move the cam while changing the settings since that is annoying af
 	if Config.in_config_settings:
 		return
@@ -139,6 +147,7 @@ func _process(delta):
 			get_tree().root.mode = Window.MODE_WINDOWED
 		else:
 			get_tree().root.mode = Window.MODE_FULLSCREEN
+
 
 func _on_camera_setting_changed():
 	spring_arm.spring_length = clamp(spring_arm.spring_length, Config.min_zoom, Config.max_zoom)
