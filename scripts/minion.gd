@@ -42,6 +42,7 @@ func _physics_process(delta):
 	else:
 		update_target_location(nav_agent, target_entity.global_transform.origin)
 	var current_location = global_transform.origin
+	var target_location = nav_agent.get_next_path_position()
 	if current_location.distance_to(target_location) <= .1:
 		return
 	nav_agent.velocity = (target_location - current_location).normalized() * speed
