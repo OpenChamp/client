@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6a05vhg3o3oj"]
+[gd_scene load_steps=22 format=3 uid="uid://c6a05vhg3o3oj"]
 
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://ui/ui.tscn" id="1_xn2vp"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="2_kuu3h"]
 [ext_resource type="Shader" path="res://environment/shaders/sky.gdshader" id="3_34irr"]
+[ext_resource type="PackedScene" uid="uid://duutg8pxe8i06" path="res://environment/scenes/spawn.tscn" id="4_8m1k4"]
 [ext_resource type="Texture2D" uid="uid://dattc7ewkmdor" path="res://environment/textures/clover.jpg" id="4_pom7h"]
 [ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://environment/scenes/turret.tscn" id="5_s4ax0"]
 [ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://environment/scenes/nexus.tscn" id="6_h5cqc"]
@@ -71,8 +72,12 @@ environment = SubResource("Environment_huu0f")
 [node name="WorldNav" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_uui8v")
 
+[node name="Spawn" parent="WorldNav" instance=ExtResource("4_8m1k4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81, 0, 0)
+
 [node name="Spawn1" type="Area3D" parent="WorldNav"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81, -1, 0)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldNav/Spawn1"]
 mesh = SubResource("CylinderMesh_lirm3")

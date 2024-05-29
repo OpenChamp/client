@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://080886f0q41"]
+
+[ext_resource type="Texture2D" uid="uid://lcxe1r4e5k1x" path="res://environment/textures/wood1.jpg" id="1_slot4"]
+[ext_resource type="Texture2D" uid="uid://payokbrj8kj7" path="res://environment/textures/tree.tga" id="2_2pw7t"]
+[ext_resource type="Texture2D" uid="uid://b7c4gufxcua8k" path="res://environment/textures/tree_normal.tga" id="3_k2pfh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i6lkm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wbjfk"]
+noise = SubResource("FastNoiseLite_i6lkm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_he57x"]
+albedo_texture = ExtResource("1_slot4")
+roughness_texture = SubResource("NoiseTexture2D_wbjfk")
+uv1_scale = Vector3(15, 15, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4oeu8"]
+material = SubResource("StandardMaterial3D_he57x")
+size = Vector3(4, 0.2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s1rft"]
+albedo_texture = ExtResource("2_2pw7t")
+normal_enabled = true
+normal_texture = ExtResource("3_k2pfh")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gd53h"]
+material = SubResource("StandardMaterial3D_s1rft")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.0
+
+[node name="Shop" type="Node3D"]
+
+[node name="Counter" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_4oeu8")
+
+[node name="LeftLeg" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87797, 0.42584, 0.727759)
+mesh = SubResource("CylinderMesh_gd53h")
+
+[node name="LeftLeg2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87797, 0.42584, -0.81681)
+mesh = SubResource("CylinderMesh_gd53h")
+
+[node name="LeftLeg3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85511, 0.42584, -0.842561)
+mesh = SubResource("CylinderMesh_gd53h")
+
+[node name="LeftLeg4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85511, 0.42584, 0.782559)
+mesh = SubResource("CylinderMesh_gd53h")

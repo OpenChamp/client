@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://duutg8pxe8i06"]
+
+[ext_resource type="Texture2D" uid="uid://ddvk02l04kuix" path="res://environment/textures/brick.png" id="1_msyqs"]
+[ext_resource type="Texture2D" uid="uid://bri5b63rbs3g5" path="res://environment/textures/marble.jpg" id="1_rx04f"]
+[ext_resource type="Texture2D" uid="uid://5ysqn5c4gpvh" path="res://environment/textures/brick_normal.png" id="2_34bny"]
+[ext_resource type="PackedScene" uid="uid://080886f0q41" path="res://environment/scenes/shop.tscn" id="3_qxtlb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8avrb"]
+albedo_texture = ExtResource("1_rx04f")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_o1no5"]
+material = SubResource("StandardMaterial3D_8avrb")
+top_radius = 1.5
+bottom_radius = 1.5
+height = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya24c"]
+albedo_texture = ExtResource("1_msyqs")
+normal_enabled = true
+normal_texture = ExtResource("2_34bny")
+uv1_scale = Vector3(12, 12, 12)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5w4ws"]
+material = SubResource("StandardMaterial3D_ya24c")
+top_radius = 15.0
+bottom_radius = 15.0
+
+[node name="Spawn" type="Node3D"]
+
+[node name="Pillar1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 6, -4)
+mesh = SubResource("CylinderMesh_o1no5")
+skeleton = NodePath("../Floor")
+
+[node name="Pillar2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6, -11)
+mesh = SubResource("CylinderMesh_o1no5")
+skeleton = NodePath("../Floor")
+
+[node name="Pillar6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 6, 11)
+mesh = SubResource("CylinderMesh_o1no5")
+skeleton = NodePath("../Floor")
+
+[node name="Pillar3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 6, -13)
+mesh = SubResource("CylinderMesh_o1no5")
+skeleton = NodePath("../Floor")
+
+[node name="Pillar4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6, -10)
+mesh = SubResource("CylinderMesh_o1no5")
+skeleton = NodePath("../Floor")
+
+[node name="Pillar7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 8, 2, 10)
+mesh = SubResource("CylinderMesh_o1no5")
+skeleton = NodePath("../Floor")
+
+[node name="Pillar8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 4, 2, 12)
+mesh = SubResource("CylinderMesh_o1no5")
+skeleton = NodePath("../Floor")
+
+[node name="Pillar5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 6, 4)
+mesh = SubResource("CylinderMesh_o1no5")
+skeleton = NodePath("../Floor")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_5w4ws")
+
+[node name="Shop" parent="." instance=ExtResource("3_qxtlb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 11)
