@@ -23,8 +23,6 @@ func setup(
 		mesh_instance.get_node("Crystal").set_surface_override_material(0, load("res://environment/materials/blue.material"))
 	elif team == 2:
 		mesh_instance.get_node("Crystal").set_surface_override_material(0, load("res://environment/materials/red.material"))
-	if not multiplayer.is_server():
-		set_physics_process(false)
 
 func _process(delta):
 	if is_dead:
