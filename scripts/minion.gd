@@ -16,9 +16,6 @@ func _ready():
 	speed = 3.0
 	max_health = 100.0
 	
-	for point in patrol_path.get_children():
-		path_array.append(point)
-	
 	setup(
 		nav_agent,
 		range_collider_activate,
@@ -27,6 +24,12 @@ func _ready():
 		attack_timer,
 		healthbar
 	)
+
+	if not multiplayer.is_server():
+		return
+	
+	for point in patrol_path.get_children():
+		path_array.append(point)
 
 
 func _physics_process(delta):
