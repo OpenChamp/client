@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://duutg8pxe8i06"]
+[gd_scene load_steps=12 format=3 uid="uid://duutg8pxe8i06"]
 
-[ext_resource type="Texture2D" uid="uid://ddvk02l04kuix" path="res://environment/textures/brick.png" id="1_msyqs"]
-[ext_resource type="Texture2D" uid="uid://bri5b63rbs3g5" path="res://environment/textures/marble.jpg" id="1_rx04f"]
-[ext_resource type="Texture2D" uid="uid://5ysqn5c4gpvh" path="res://environment/textures/brick_normal.png" id="2_34bny"]
+[ext_resource type="Texture2D" uid="uid://c7iwwm0ldkiwd" path="res://environment/textures/brick.png" id="1_msyqs"]
+[ext_resource type="Texture2D" uid="uid://cykohk7nu7vv0" path="res://environment/textures/marble.jpg" id="1_rx04f"]
+[ext_resource type="Texture2D" uid="uid://co74nlqbe4av5" path="res://environment/textures/brick_normal.png" id="2_34bny"]
 [ext_resource type="PackedScene" uid="uid://080886f0q41" path="res://environment/scenes/shop.tscn" id="3_qxtlb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8avrb"]
@@ -24,8 +24,24 @@ uv1_scale = Vector3(12, 12, 12)
 material = SubResource("StandardMaterial3D_ya24c")
 top_radius = 15.0
 bottom_radius = 15.0
+height = 0.01
 
-[node name="Spawn" type="Node3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g8t4j"]
+albedo_texture = ExtResource("1_msyqs")
+normal_enabled = true
+normal_texture = ExtResource("2_34bny")
+uv1_scale = Vector3(18.085, 18.085, 18.085)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dxgib"]
+material = SubResource("StandardMaterial3D_g8t4j")
+top_radius = 15.0
+bottom_radius = 15.0
+height = 20.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cph78"]
+radius = 15.0
+
+[node name="Spawn" type="StaticBody3D"]
 
 [node name="Pillar1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 6, -4)
@@ -68,7 +84,15 @@ mesh = SubResource("CylinderMesh_o1no5")
 skeleton = NodePath("../Floor")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.917215, 0)
 mesh = SubResource("CylinderMesh_5w4ws")
 
 [node name="Shop" parent="." instance=ExtResource("3_qxtlb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 11)
+
+[node name="Under" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.09188, 0)
+mesh = SubResource("CylinderMesh_dxgib")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_cph78")
