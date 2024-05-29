@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bv1yffxbq46ix" path="res://effects/tower_blast.tscn" id="2_lnw6l"]
 [ext_resource type="ArrayMesh" uid="uid://dfsx34bcg0mc1" path="res://environment/models/crystal.mesh" id="2_ota7h"]
 [ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://effects/red_glow.tres" id="3_vg8kb"]
-[ext_resource type="Script" path="res://environment/scripts/Crystal_spin.gd" id="6_liwdn"]
+[ext_resource type="Script" path="res://environment/scripts/crystal_spin.gd" id="6_liwdn"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gjad5"]
 

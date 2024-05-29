@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://5f6bj1u1ir3f"]
+[gd_scene load_steps=11 format=3 uid="uid://5f6bj1u1ir3f"]
 
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/healthbar.tscn" id="1_3dl01"]
 [ext_resource type="Script" path="res://environment/scripts/nexus.gd" id="1_q8ip6"]
@@ -6,41 +6,9 @@
 [ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://effects/red_glow.tres" id="2_cxrmc"]
 [ext_resource type="PackedScene" uid="uid://bv1yffxbq46ix" path="res://effects/tower_blast.tscn" id="2_sdx6r"]
 [ext_resource type="ArrayMesh" path="res://environment/models/nexus_crystal.mesh" id="3_th5cc"]
-[ext_resource type="Script" path="res://environment/scripts/Crystal_spin.gd" id="4_8p0p1"]
+[ext_resource type="Script" path="res://environment/scripts/crystal_spin.gd" id="4_8p0p1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28yxk"]
-
-[sub_resource type="Curve" id="Curve_idqig"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_44231"]
-curve = SubResource("Curve_idqig")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v41p1"]
-lifetime_randomness = 1.0
-inherit_velocity_ratio = 0.53
-spread = 180.0
-initial_velocity_max = 2.0
-gravity = Vector3(0, 0, 0)
-scale_max = 4.0
-scale_curve = SubResource("CurveTexture_44231")
-hue_variation_min = -1.0
-hue_variation_max = 1.0
-anim_speed_min = 1.0
-anim_speed_max = 10.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdcqp"]
-emission_enabled = true
-emission = Color(1, 0, 0, 1)
-emission_energy_multiplier = 16.0
-uv1_scale = Vector3(5.725, 5.725, 5.725)
-uv2_scale = Vector3(10.07, 10.07, 10.07)
-distance_fade_mode = 1
-distance_fade_max_distance = 5.0
-
-[sub_resource type="PointMesh" id="PointMesh_rcsoa"]
-material = SubResource("StandardMaterial3D_sdcqp")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mbwtb"]
 height = 3.56483
@@ -78,15 +46,6 @@ mesh = ExtResource("2_2llp2")
 [node name="Crystal" type="MeshInstance3D" parent="MeshInstance3D"]
 mesh = ExtResource("3_th5cc")
 script = ExtResource("4_8p0p1")
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="MeshInstance3D/Crystal"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.126544, 4.42625, 0)
-amount = 7678
-lifetime = 3.0
-explosiveness = 0.5
-visibility_aabb = AABB(-1.97013, -2.53363, -1.9496, 3.94025, 5.06727, 3.8992)
-process_material = SubResource("ParticleProcessMaterial_v41p1")
-draw_pass_1 = SubResource("PointMesh_rcsoa")
 
 [node name="Healthbar" parent="." instance=ExtResource("1_3dl01")]
 

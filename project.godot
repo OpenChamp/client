@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 GGS="*res://addons/ggs/classes/global/ggs.tscn"
 Config="*res://scripts/config.gd"
-Utility="*res://scripts/utility.gd"
 
 [display]
 
