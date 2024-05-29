@@ -8,6 +8,7 @@ extends Node3D
 @export var spawn_delay: float = .5
 @export var auto_spawn: bool = false
 @export var spawn_path: Node = null
+@export var patrol_path: Node3D = null
 
 # For some reason setting the _spawnable_scenes on MultiplayerSpawner during
 # runtime doesn't work properly so we are stuck with this constant for now
@@ -28,7 +29,7 @@ func _ready():
 		spawner.spawn_path = get_parent().find_child("Minions").get_path()
 	else:
 		spawner.spawn_path = spawn_path.get_path()
-		
+	
 	set_auto_spawn(auto_spawn)
 
 func set_auto_spawn(enabled: bool=true):
@@ -45,6 +46,7 @@ func spawn_minion():
 	minion.id = id
 	minion.team = team
 	minion.position = position
+	minion.patrol_path = patrol_path
 	get_node(spawner.spawn_path).add_child(minion)
 	max_ids[team] += 1
 
