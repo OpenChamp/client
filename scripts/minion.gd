@@ -32,7 +32,7 @@ func _ready():
 		path_array.append(point)
 
 
-func _physics_process(delta):
+func _process(delta):
 	_update_healthbar(healthbar)
 	if not multiplayer.is_server():
 		return
