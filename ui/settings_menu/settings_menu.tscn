@@ -132,6 +132,32 @@ text = "SETTING:CAMERA_CENTERED"
 [node name="HSeparator4" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
 
+[node name="cam_pan_sesitivity_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
+layout_mode = 2
+text = "SETTING:CAMERA_PAN_SENSITIVITY_LABEL"
+
+[node name="cam_pan_sesitivity_slider" type="HSlider" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 0.1
+step = 0.001
+value = 0.1
+
+[node name="SliderLabel" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/cam_pan_sesitivity_slider"]
+layout_mode = 0
+offset_right = 28.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_krd3l")
+metadata/_edit_initialized_ = true
+
+[node name="HSeparator5" type="HSeparator" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
+layout_mode = 2
+
 [node name="PanelContainer2" type="PanelContainer" parent="SplitContainer"]
 layout_mode = 2
 script = SubResource("GDScript_gmak4")

@@ -8,9 +8,10 @@ extends Node3D
 
 const MoveMarker: PackedScene = preload ("res://effects/move_marker.tscn")
 
-var initial_mouse_position = Vector2.ZERO
-var is_middle_mouse_dragging = false
-var right_mouse_dragging = false
+var camera_target_position := Vector3.ZERO
+var initial_mouse_position := Vector2.ZERO
+var is_middle_mouse_dragging := false
+var right_mouse_dragging := false
 
 #@export var player := 1:
 	#set(id):
@@ -93,7 +94,7 @@ func player_action(event):
 		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.pid)
 		
 func center_camera(playerid):
-	position = get_target_position(playerid)
+	camera_target_position = get_target_position(playerid)
 
 func _process(delta):
 	camera_movement_handler(delta)  # Responsible for all camera-related movement
@@ -119,7 +120,7 @@ func camera_movement_handler(delta) -> void:
 	
 	# If centered, blindly follow the champion
 	if (Config.is_cam_centered):
-		position = get_target_position(multiplayer.get_unique_id())
+		camera_target_position = get_target_position(multiplayer.get_unique_id())
 	else:
 		# Get Mouse Coords on screen
 		var mouse_pos = get_viewport().get_mouse_position()
@@ -146,11 +147,11 @@ func camera_movement_handler(delta) -> void:
 		if is_middle_mouse_dragging:
 			var current_mouse_position = get_viewport().get_mouse_position()
 			var mouse_delta = current_mouse_position - initial_mouse_position
-			cam_delta += Vector3(mouse_delta.x, 0, mouse_delta.y) # * Config.middle_mouse_sensitivity
+			cam_delta += Vector3(mouse_delta.x, 0, mouse_delta.y) * Config.cam_pan_sensitivity
 		
 		# Apply camera movement
 		if cam_delta != Vector3.ZERO:
-			position += cam_delta.normalized() * delta * Config.cam_speed
+			camera_target_position += cam_delta
 	
 	# Zoom
 	if Input.is_action_just_pressed("player_zoomin"):
@@ -162,7 +163,7 @@ func camera_movement_handler(delta) -> void:
 	
 	# Recenter - Tap
 	if Input.is_action_pressed("player_camera_recenter"):
-		position = get_target_position(multiplayer.get_unique_id())
+		camera_target_position = get_target_position(multiplayer.get_unique_id())
 	# Recenter - Toggle
 	if Input.is_action_just_pressed("player_camera_recenter_toggle"):
 		Config.set_cam_centered(!Config.is_cam_centered)
@@ -174,6 +175,9 @@ func camera_movement_handler(delta) -> void:
 			get_tree().root.mode = Window.MODE_WINDOWED
 		else:
 			get_tree().root.mode = Window.MODE_FULLSCREEN
+	
+	# update the camera position using lerp
+	position = position.lerp(camera_target_position, delta * Config.cam_speed)
 
 
 func _on_camera_setting_changed():
