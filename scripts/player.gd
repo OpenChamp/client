@@ -129,7 +129,7 @@ func camera_movement_handler() -> void:
 	else:
 		# Get Mouse Coords on screen
 		var current_mouse_position = get_viewport().get_mouse_position()
-		var size = get_viewport().size
+		var size = get_viewport().get_visible_rect().size
 		var cam_delta = Vector3(0, 0, 0)
 		var edge_margin = Config.edge_margin
 		
