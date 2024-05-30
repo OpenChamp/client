@@ -97,9 +97,14 @@ func center_camera(playerid):
 	camera_target_position = get_target_position(playerid)
 
 func _process(delta):
-	camera_movement_handler(delta)  # Responsible for all camera-related movement
+	# handle all the camera-related input
+	camera_movement_handler()
 	
-	detect_ability_use()  # Listens for ability use, prevents double activation
+	# check input for ability uses
+	detect_ability_use()
+	
+	# update the camera position using lerp
+	position = position.lerp(camera_target_position, delta * Config.cam_speed)
 
 
 func detect_ability_use() -> void:
@@ -113,7 +118,7 @@ func detect_ability_use() -> void:
 		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 4)
 
 
-func camera_movement_handler(delta) -> void:
+func camera_movement_handler() -> void:
 	# don't move the cam while changing the settings since that is annoying af
 	if Config.in_config_settings:
 		return
@@ -123,20 +128,20 @@ func camera_movement_handler(delta) -> void:
 		camera_target_position = get_target_position(multiplayer.get_unique_id())
 	else:
 		# Get Mouse Coords on screen
-		var mouse_pos = get_viewport().get_mouse_position()
+		var current_mouse_position = get_viewport().get_mouse_position()
 		var size = get_viewport().size
 		var cam_delta = Vector3(0, 0, 0)
 		var edge_margin = Config.edge_margin
 		
 		# Edge Panning
-		if mouse_pos.x <= edge_margin:
+		if current_mouse_position.x <= edge_margin:
 			cam_delta.x -= 1
-		elif mouse_pos.x >= size.x - edge_margin:
+		elif current_mouse_position.x >= size.x - edge_margin:
 			cam_delta.x += 1
 
-		if mouse_pos.y <= edge_margin:
+		if current_mouse_position.y <= edge_margin:
 			cam_delta.z -= 1
-		elif mouse_pos.y >= size.y - edge_margin:
+		elif current_mouse_position.y >= size.y - edge_margin:
 			cam_delta.z += 1
 		
 		# Keyboard input
@@ -145,7 +150,6 @@ func camera_movement_handler(delta) -> void:
 		
 		# Middle mouse dragging
 		if is_middle_mouse_dragging:
-			var current_mouse_position = get_viewport().get_mouse_position()
 			var mouse_delta = current_mouse_position - initial_mouse_position
 			cam_delta += Vector3(mouse_delta.x, 0, mouse_delta.y) * Config.cam_pan_sensitivity
 		
@@ -167,17 +171,6 @@ func camera_movement_handler(delta) -> void:
 	# Recenter - Toggle
 	if Input.is_action_just_pressed("player_camera_recenter_toggle"):
 		Config.set_cam_centered(!Config.is_cam_centered)
-	
-	# toggle fullscreen
-	if Input.is_action_just_pressed("toggle_maximize"):
-		var window_mode = get_tree().root.mode
-		if window_mode == Window.MODE_FULLSCREEN or window_mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
-			get_tree().root.mode = Window.MODE_WINDOWED
-		else:
-			get_tree().root.mode = Window.MODE_FULLSCREEN
-	
-	# update the camera position using lerp
-	position = position.lerp(camera_target_position, delta * Config.cam_speed)
 
 
 func _on_camera_setting_changed():
