@@ -9,6 +9,7 @@ signal camera_property_changed()
 
 @export var edge_margin = 75: set = set_edge_margin
 @export var cam_speed: float = 15.0: set = set_cam_speed
+@export var cam_pan_sensitivity: float = 0.01: set = set_cam_pan_sesitivity
 
 @export var min_zoom = 1.0: set = set_min_zoom
 @export var max_zoom = 25.0: set = set_max_zoom
@@ -49,6 +50,11 @@ func set_edge_margin(new_value: int):
 
 func set_cam_speed(new_value: float):
 	cam_speed = new_value
+	camera_property_changed.emit()
+
+
+func set_cam_pan_sesitivity(new_value: float):
+	cam_pan_sensitivity = new_value
 	camera_property_changed.emit()
 
 

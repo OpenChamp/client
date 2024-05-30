@@ -11,6 +11,7 @@ extends Control
 @onready var edge_margin_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/edge_margin_slider
 @onready var max_zoom_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/max_zoom_slider
 @onready var cam_centered_toggle = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/CamCenteredToggleBtn
+@onready var cam_pan_sesitivity_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/cam_pan_sesitivity_slider
 
 func _ready():
 	visibility_changed.connect(on_show)
@@ -27,6 +28,7 @@ func on_show():
 	fullscreen_toggle.button_pressed = Config.is_fullscreen
 	
 	cam_speed_slider.value = Config.cam_speed
+	cam_pan_sesitivity_slider.value = Config.cam_pan_sensitivity
 	edge_margin_slider.value = Config.edge_margin
 	max_zoom_slider.value = Config.max_zoom
 	max_zoom_slider.min_value = Config.min_zoom + 1
@@ -67,6 +69,9 @@ func _apply_setting(setting: ggsSetting):
 		"cam_centered":
 			new_value = cam_centered_toggle.button_pressed
 			Config.is_cam_centered = new_value
+		"cam_pan_sensitivity":
+			new_value = cam_pan_sesitivity_slider.value
+			Config.cam_pan_sensitivity = new_value
 		_ :
 			pass
 	

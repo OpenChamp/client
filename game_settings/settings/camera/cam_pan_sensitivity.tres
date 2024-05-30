@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dheemgninfe2s"]
+
+[ext_resource type="Script" path="res://game_settings/settings/camera/cam_pan_sensitivity.gd" id="1_gsbaq"]
+
+[resource]
+resource_name = "cam_pan_sensitivity"
+script = ExtResource("1_gsbaq")
+current = 0.01
+default = 0.01
+name = "cam_pan_sensitivity"
+category = "camera"
+value_type = 3
+value_hint = 0
+value_hint_string = ""
