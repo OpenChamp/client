@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://duutg8pxe8i06"]
 
-[ext_resource type="Texture2D" uid="uid://c7iwwm0ldkiwd" path="res://environment/textures/brick.png" id="1_msyqs"]
-[ext_resource type="Texture2D" uid="uid://cykohk7nu7vv0" path="res://environment/textures/marble.jpg" id="1_rx04f"]
-[ext_resource type="Texture2D" uid="uid://co74nlqbe4av5" path="res://environment/textures/brick_normal.png" id="2_34bny"]
+[ext_resource type="Texture2D" uid="uid://ddvk02l04kuix" path="res://environment/textures/brick.png" id="1_msyqs"]
+[ext_resource type="Texture2D" uid="uid://bri5b63rbs3g5" path="res://environment/textures/marble.jpg" id="1_rx04f"]
+[ext_resource type="Texture2D" uid="uid://5ysqn5c4gpvh" path="res://environment/textures/brick_normal.png" id="2_34bny"]
 [ext_resource type="PackedScene" uid="uid://080886f0q41" path="res://environment/scenes/shop.tscn" id="3_qxtlb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8avrb"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://5f6bj1u1ir3f"]
+[gd_scene load_steps=12 format=3 uid="uid://5f6bj1u1ir3f"]
 
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/healthbar.tscn" id="1_3dl01"]
 [ext_resource type="Script" path="res://environment/scripts/nexus.gd" id="1_q8ip6"]
@@ -10,8 +10,12 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28yxk"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2bqaj"]
+height = 2.5
+radius = 1.1
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mbwtb"]
-height = 3.56483
+height = 3.5
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5frdt"]
 properties/0/path = NodePath(".:position")
@@ -48,6 +52,12 @@ mesh = ExtResource("3_th5cc")
 script = ExtResource("6_3414g")
 
 [node name="Healthbar" parent="." instance=ExtResource("1_3dl01")]
+
+[node name="NavmeshCollider" type="StaticBody3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.36093, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavmeshCollider"]
+shape = SubResource("CylinderShape3D_2bqaj")
 
 [node name="UnitCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, -5.27555, 0)
