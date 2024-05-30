@@ -2,7 +2,7 @@ extends Control
 
 @onready var settings_menu = $SettingsMenu
 @onready var champions = $"../Champions"
-@onready var stats = $CenterContainer/PlayerStatInterface
+@onready var stats = $Main/StatsInterface
 @onready var champion: CharacterBody3D = null;
 
 func _ready():
@@ -28,7 +28,6 @@ func check_stats():
 		if child.name == str(pid):
 			stats.update_health(child.health, child.max_health)
 			stats.update_mana(child.mana, child.max_mana)
-			# stats.update_xp() I'll leave this for when an xp system is made
 			return
 	stats.update_health(0) # If you can't find the champ they're probably dead
 
