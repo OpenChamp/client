@@ -8,7 +8,9 @@ extends Node3D
 
 const MoveMarker: PackedScene = preload ("res://effects/move_marker.tscn")
 
-var dragging = false
+var initial_mouse_position = Vector2.ZERO
+var is_middle_mouse_dragging = false
+var right_mouse_dragging = false
 
 #@export var player := 1:
 	#set(id):
@@ -36,14 +38,21 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			# Start dragging
 			player_action(event)  # For single clicks
-			if not dragging and event.is_pressed():
-				dragging = true
-	
+			if not right_mouse_dragging and event.is_pressed():
+				right_mouse_dragging = true
+		
+		if event.button_index == MOUSE_BUTTON_MIDDLE:
+			if event.pressed:
+				initial_mouse_position = event.position
+				is_middle_mouse_dragging = true
+			else:
+				is_middle_mouse_dragging = false
+		
 		# Stop dragging if mouse is released
-		if dragging and not event.is_pressed():
-			dragging = false
+		if right_mouse_dragging and not event.is_pressed():
+			right_mouse_dragging = false
 	
-	if event is InputEventMouseMotion and dragging:
+	if event is InputEventMouseMotion and right_mouse_dragging:
 		player_action(event)  # For dragging
 
 
@@ -116,24 +125,31 @@ func camera_movement_handler(delta) -> void:
 		var mouse_pos = get_viewport().get_mouse_position()
 		var size = get_viewport().size
 		var cam_delta = Vector3(0, 0, 0)
-		var cam_moved = false
 		var edge_margin = Config.edge_margin
 		
 		# Edge Panning
-		if (mouse_pos.x <= edge_margin and mouse_pos.x >= 0) or Input.is_action_pressed("player_left"):
-			cam_delta += Vector3( - 1, 0, 0)
-			cam_moved = true
-		if (mouse_pos.x >= size.x - edge_margin and mouse_pos.x <= size.x) or Input.is_action_pressed("player_right"):
-			cam_delta += Vector3(1, 0, 0)
-			cam_moved = true
-		if (mouse_pos.y <= edge_margin and mouse_pos.y >= 0) or Input.is_action_pressed("player_up"):
-			cam_delta += Vector3(0, 0, -1)
-			cam_moved = true
-		if (mouse_pos.y >= size.y - edge_margin and mouse_pos.y <= size.y) or Input.is_action_pressed("player_down"):
-			cam_delta += Vector3(0, 0, 1)
-			cam_moved = true
+		if mouse_pos.x <= edge_margin:
+			cam_delta.x -= 1
+		elif mouse_pos.x >= size.x - edge_margin:
+			cam_delta.x += 1
+
+		if mouse_pos.y <= edge_margin:
+			cam_delta.z -= 1
+		elif mouse_pos.y >= size.y - edge_margin:
+			cam_delta.z += 1
 		
-		if cam_moved:
+		# Keyboard input
+		cam_delta.x += Input.get_action_strength("player_right") - Input.get_action_strength("player_left")
+		cam_delta.z += Input.get_action_strength("player_down") - Input.get_action_strength("player_up")
+		
+		# Middle mouse dragging
+		if is_middle_mouse_dragging:
+			var current_mouse_position = get_viewport().get_mouse_position()
+			var mouse_delta = current_mouse_position - initial_mouse_position
+			cam_delta += Vector3(mouse_delta.x, 0, mouse_delta.y) # * Config.middle_mouse_sensitivity
+		
+		# Apply camera movement
+		if cam_delta != Vector3.ZERO:
 			position += cam_delta.normalized() * delta * Config.cam_speed
 	
 	# Zoom
