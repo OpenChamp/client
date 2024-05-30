@@ -47,7 +47,7 @@ func spawn_minion():
 	minion.team = team
 	minion.position = position
 	minion.patrol_path = patrol_path
-	get_node(spawner.spawn_path).add_child(minion)
+	get_node(spawner.spawn_path).add_child(minion, true)
 	max_ids[team] += 1
 
 func spawn_wave():

@@ -15,7 +15,7 @@ func _ready():
 	activation_range = 10.0
 	speed = 3.0
 	max_health = 100.0
-	
+	attack_timeout = 1.0;
 	setup(
 		nav_agent,
 		range_collider_activate,
@@ -36,11 +36,16 @@ func _process(delta):
 	_update_healthbar(healthbar)
 	if not multiplayer.is_server():
 		return
+	if attack_timeout > 0:
+		attack_timeout -= delta;
 	if target_entity == null:
 		if not patrol_path == null:
 			update_target_location(nav_agent, get_closest_patrol_point())
 	else:
 		update_target_location(nav_agent, target_entity.global_transform.origin)
+	if target_entity and target_in_attack_range(range_collider_attack):
+		init_auto_attack()
+		return;
 	var current_location = global_transform.origin
 	var target_location = nav_agent.get_next_path_position()
 	if current_location.distance_to(target_location) <= .1:

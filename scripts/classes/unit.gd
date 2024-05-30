@@ -96,6 +96,8 @@ func die():
 func init_auto_attack():
 	if attack_timeout > 0:
 		return
+	if !attack_timer.is_stopped():
+		return;
 	attack_timer.wait_time = attack_time
 	attack_timer.start()
 
@@ -106,11 +108,16 @@ func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 		return
 	attack_timeout = attack_speed
 	
-	var arrow = projectile.instantiate()
-	arrow.position = position
-	arrow.target = target_entity
-	arrow.damage = attack_damage
-	get_node("Projectiles").add_child(arrow, true)
+	if projectile:
+		var arrow = projectile.instantiate()
+		arrow.position = position
+		arrow.target = target_entity
+		arrow.damage = attack_damage
+		get_node("Projectiles").add_child(arrow, true)
+	else:
+		# Melee Attack
+		target_entity.take_damage(attack_damage)
+
 
 #func turn_face(target, rotationSpeed, delta):
 	#var global_pos = global_transform.origin
