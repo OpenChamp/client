@@ -20,6 +20,14 @@ func _ready():
 	multiplayer.server_disconnected.connect(get_tree().quit)
 	spring_arm.spring_length = Config.max_zoom
 	Config.camera_property_changed.connect(_on_camera_setting_changed)
+	
+	center_camera.call_deferred(multiplayer.get_unique_id())
+	
+	if server_listener == null:
+		server_listener = get_parent();
+		while !server_listener.is_in_group("Map"):
+			server_listener = server_listener.get_parent();
+		server_listener = server_listener.get_node("ServerListener");
 
 
 func _input(event):
@@ -74,6 +82,9 @@ func player_action(event):
 		return
 	if result and result.collider is CharacterBody3D:
 		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.pid)
+		
+func center_camera(playerid):
+	position = get_target_position(playerid)
 
 func _process(delta):
 	camera_movement_handler(delta)  # Responsible for all camera-related movement

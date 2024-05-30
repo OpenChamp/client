@@ -10,8 +10,8 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gjad5"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_wg6lr"]
-height = 1.0
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_te2n1"]
+radius = 0.6
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fmh56"]
 radius = 5.0
@@ -54,9 +54,11 @@ script = ExtResource("6_om0h8")
 
 [node name="Healthbar" parent="." instance=ExtResource("2_h3doq")]
 
-[node name="UnitCollider" type="CollisionShape3D" parent="."]
+[node name="NavmeshCollider" type="StaticBody3D" parent="."]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.36093, 0)
-shape = SubResource("CylinderShape3D_wg6lr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavmeshCollider"]
+shape = SubResource("CylinderShape3D_te2n1")
 
 [node name="AttackArea" type="Area3D" parent="."]
 collision_layer = 512
@@ -76,3 +78,7 @@ replication_config = SubResource("SceneReplicationConfig_5frdt")
 _spawnable_scenes = PackedStringArray("res://effects/tower_blast.tscn")
 spawn_path = NodePath("../Projectiles")
 spawn_limit = 100
+
+[node name="UnitCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.36093, 0)
+shape = SubResource("CylinderShape3D_te2n1")

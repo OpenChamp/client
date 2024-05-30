@@ -10,7 +10,7 @@ enum Start {
 # Network
 @onready var address = "127.0.0.1"
 @onready var port = 10000
-
+@onready var server_map = "bridge"
 @onready var status_text = $ConnectionUI/StatusText
 @onready var attempts_text = $ConnectionUI/AttemptsText
 
@@ -94,7 +94,7 @@ func server_fail():
 func server_success():
 	print("Server Started, beginning initialization")
 	$ConnectionUI.hide()
-	change_map(load("res://maps/debug_map.tscn"))
+	change_map(load("res://maps/"+server_map+".tscn"))
 
 
 # Custom Functions
@@ -126,7 +126,9 @@ func change_map(scene: PackedScene):
 	for child in map.get_children():
 		map.remove_child(child)
 		child.queue_free()
-	map.add_child(scene.instantiate())
+	var new_map = scene.instantiate()
+	new_map.add_to_group("Map")
+	map.add_child(new_map)
 
 
 func parse_args():
