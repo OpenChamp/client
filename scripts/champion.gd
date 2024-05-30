@@ -75,10 +75,10 @@ func trigger_ability(n:int):
 	if n == 1:
 		ability1.trigger(n)
 	if n == 2:
-		ability2.trigger()
+		ability2.trigger(n)
 	if n == 3:
-		ability3.trigger()
+		ability3.trigger(n)
 	if n == 4:
-		ability4.trigger()
+		ability4.trigger(n)
 	pass
 	
