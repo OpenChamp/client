@@ -4,7 +4,7 @@ class Item extends Node:
 	@export var texture_id: String
 
 	@export var gold_cost: int = 0
-	@export var components: Array = []
+	@export var components: Array[String] = []
 
 	@export var health_max: int = 0
 	@export var health_regen: int = 0
@@ -19,7 +19,7 @@ class Item extends Node:
 		if not json_data_object:
 			push_error("Item: No data object provided.")
 			return
-        
+		
 		if not json_data_object.has("id"):
 			push_error("Item: No name provided.")
 			return
