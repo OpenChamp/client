@@ -77,6 +77,13 @@ func target_in_attack_range(collider: Area3D):
 		return true
 	return false
 
+func search_for_target(collider: Area3D):
+	var bodies = collider.get_overlapping_bodies()
+	for body in bodies:
+		if body.team != team:
+			target_entity = body
+			return;
+
 func attack(entity: CharacterBody3D, nav_agent: NavigationAgent3D):
 	target_entity = entity
 	nav_agent.set_target_position(target_entity.position)

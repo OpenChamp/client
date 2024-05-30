@@ -38,14 +38,15 @@ func _process(delta):
 		return
 	if attack_timeout > 0:
 		attack_timeout -= delta;
-	if target_entity == null:
+	if !target_entity == null:
+		if target_in_attack_range(range_collider_attack):
+			init_auto_attack()
+			return;
+		else:
+			update_target_location(nav_agent, target_entity.global_transform.origin)
+	else:
 		if not patrol_path == null:
 			update_target_location(nav_agent, get_closest_patrol_point())
-	else:
-		update_target_location(nav_agent, target_entity.global_transform.origin)
-	if target_entity and target_in_attack_range(range_collider_attack):
-		init_auto_attack()
-		return;
 	var current_location = global_transform.origin
 	var target_location = nav_agent.get_next_path_position()
 	if current_location.distance_to(target_location) <= .1:
@@ -82,6 +83,7 @@ func _on_activation_area_body_entered(body):
 func _on_activation_area_body_exited(body):
 	if target_entity == body:
 		target_entity = null
+	search_for_target(range_collider_activate)
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity):

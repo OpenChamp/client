@@ -39,6 +39,8 @@ func set_auto_spawn(enabled: bool=true):
 		spawn_timer.stop()
 
 func spawn_minion():
+	if not multiplayer.is_server():
+		return;
 	if not max_ids.has(team):
 		max_ids[team] = 0
 	var id: int = max_ids.get(team)
