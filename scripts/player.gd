@@ -110,12 +110,16 @@ func detect_ability_use() -> void:
 	var pid = multiplayer.get_unique_id()
 	if Input.is_action_just_pressed("player_ability1"):
 		get_champion(pid).trigger_ability(1)
+        return
 	if Input.is_action_just_pressed("player_ability2"):
 		get_champion(pid).trigger_ability(2)
+        return
 	if Input.is_action_just_pressed("player_ability3"):
 		get_champion(pid).trigger_ability(3)
+        return
 	if Input.is_action_just_pressed("player_ability4"):
 		get_champion(pid).trigger_ability(4)
+        return
 
 
 func camera_movement_handler() -> void:
