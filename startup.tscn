@@ -105,7 +105,7 @@ text = "STARTUP:HOST_GAME"
 [node name="Map" type="Node" parent="."]
 
 [node name="MapSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://maps/debug_map.tscn")
+_spawnable_scenes = PackedStringArray("res://maps/debug_map.tscn", "res://maps/bridge.tscn")
 spawn_path = NodePath("../Map")
 spawn_limit = 1
 

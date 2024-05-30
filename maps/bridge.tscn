@@ -48,7 +48,7 @@ uv1_scale = Vector3(40, 3, 1)
 material = SubResource("StandardMaterial3D_li7hf")
 size = Vector2(160, 10)
 
-[node name="Bridge" type="Node3D"]
+[node name="Bridge" type="Node3D" groups=["Map"]]
 
 [node name="TestUi" parent="." instance=ExtResource("1_mabnn")]
 
