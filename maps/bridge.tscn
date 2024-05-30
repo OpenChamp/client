@@ -1,5 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6a05vhg3o3oj"]
+[gd_scene load_steps=21 format=3 uid="uid://c6a05vhg3o3oj"]
 
+[ext_resource type="Script" path="res://maps/bridge.gd" id="1_hsjmj"]
 [ext_resource type="PackedScene" uid="uid://b3ge3nka634tb" path="res://ui/test_ui.tscn" id="1_mabnn"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="2_kuu3h"]
 [ext_resource type="PackedScene" uid="uid://duutg8pxe8i06" path="res://environment/scenes/spawn.tscn" id="4_8m1k4"]
@@ -49,6 +50,7 @@ material = SubResource("StandardMaterial3D_li7hf")
 size = Vector2(160, 10)
 
 [node name="Bridge" type="Node3D" groups=["Map"]]
+script = ExtResource("1_hsjmj")
 
 [node name="TestUi" parent="." instance=ExtResource("1_mabnn")]
 
@@ -122,22 +124,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81, 2, 0)
 
 [node name="Minions" type="Node" parent="."]
 
+[node name="Abilities" type="Node" parent="."]
+
 [node name="ChampionSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://characters/champion.tscn")
 spawn_path = NodePath("../Champions")
 spawn_limit = 10
 
+[node name="AbilitySpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://effects/abilities/arrow_storm.tscn", "res://effects/abilities/skilled_shot.tscn")
+spawn_path = NodePath("../Abilities")
+spawn_limit = 999
+
 [node name="ServerListener" type="Node" parent="."]
 script = ExtResource("7_skvyn")
 
-[node name="MinionSpawner1" parent="." instance=ExtResource("8_g2rme")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0)
+[node name="BlueMinionSpawnerMid" parent="." node_paths=PackedStringArray("spawn_path", "patrol_path") instance=ExtResource("8_g2rme")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 1, 0)
 team = 1
+spawn_path = NodePath("../Minions")
+patrol_path = NodePath("../MinionPathMid")
 
-[node name="MinionSpawner2" parent="." instance=ExtResource("8_g2rme")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
+[node name="RedMinionSpawnerMid" parent="." node_paths=PackedStringArray("spawn_path", "patrol_path") instance=ExtResource("8_g2rme")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53, 1, 0)
 team = 2
-wave_size = 4
-spawn_delay = 0.75
+spawn_path = NodePath("../Minions")
+patrol_path = NodePath("../MinionPathMid")
 
-[node name="Abilities" type="Node" parent="."]
+[node name="MinionPathMid" type="Node3D" parent="."]
+
+[node name="Marker1" type="Marker3D" parent="MinionPathMid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53, 0, 0)
+
+[node name="Marker2" type="Marker3D" parent="MinionPathMid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 0, 0)
+
+[node name="MinionSpawnTimer" type="Timer" parent="."]
