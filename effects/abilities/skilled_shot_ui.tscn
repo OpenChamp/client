@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b63tjkqwwkg72"]
 
-[ext_resource type="Script" path="res://effects/abilities/abiliyt_ui.gd" id="1_nvluw"]
+[ext_resource type="Script" path="res://effects/abilities/ability_ui.gd" id="1_f1581"]
 [ext_resource type="Material" uid="uid://e4si4k1uumhk" path="res://environment/materials/blue.material" id="2_6vwt0"]
 [ext_resource type="Material" uid="uid://bh0u27jrv7c2t" path="res://environment/materials/red.material" id="3_fegdg"]
 
@@ -14,7 +14,7 @@ inner_radius = 5.0
 outer_radius = 5.2
 
 [node name="SkilledShot" type="Node3D"]
-script = ExtResource("1_nvluw")
+script = ExtResource("1_f1581")
 ability_name = "skilled_shot"
 
 [node name="gui" type="MeshInstance3D" parent="."]

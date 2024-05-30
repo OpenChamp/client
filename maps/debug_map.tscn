@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="3_borkg"]
 [ext_resource type="Script" path="res://ui/ui.gd" id="3_nbhaq"]
 [ext_resource type="Shader" path="res://environment/shaders/sky.gdshader" id="4_6tbti"]
-[ext_resource type="Texture2D" uid="uid://cfke40lio3aei" path="res://environment/textures/clover.jpg" id="4_wyhrk"]
+[ext_resource type="Texture2D" uid="uid://d4jdravgc2j7o" path="res://environment/textures/clover.jpg" id="4_wyhrk"]
 [ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://environment/scenes/turret.tscn" id="5_2p22h"]
 [ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://environment/scenes/nexus.tscn" id="6_l5kk0"]
 [ext_resource type="Script" path="res://scripts/server_listener.gd" id="7_p6jd3"]

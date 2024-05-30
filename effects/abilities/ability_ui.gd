@@ -6,6 +6,8 @@ extends ability
 @export var isAoe:bool
 @export var aoe_radius = 5
 @export var ability:PackedScene = preload("res://effects/abilities/arrow_storm.tscn")
+@export var mana_cost:float = 10.0
+@export var cooldown:float = 2
 
 @onready var gui = $gui;
 @onready var aoe = $aoe;
@@ -15,6 +17,7 @@ func _ready():
 	gui.hide();
 	if aoe:
 		aoe.hide();
+
 
 func _process(delta):
 	if !isActivated:
@@ -38,11 +41,11 @@ func _process(delta):
 		gui.mesh.size.y = distance
 		gui.look_at(mouse_pos)
 
-func trigger():
+func trigger(n:int):
 	if !isActivated:
 		init()
 	else:
-		exec()
+		exec(n)
 
 func init():
 	isActivated = true;
@@ -53,8 +56,9 @@ func init():
 		gui.mesh.outer_radius = range + 0.2
 		aoe.show();
 	pass;
-	
-func exec():
+
+
+func exec(id: int):
 	isActivated = false;
 	gui.hide()
 	aoe.hide()
@@ -70,5 +74,4 @@ func exec():
 	else:
 		pos = direction
 		type = 1;
-	server_listener.rpc_id(get_multiplayer_authority(), "spawn_ability", [ability_name, type, pos])
-	pass
+	server_listener.rpc_id(get_multiplayer_authority(), "spawn_ability", ability_name, type, pos, mana_cost, cooldown, id)
