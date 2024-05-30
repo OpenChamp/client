@@ -25,11 +25,17 @@ func _ready():
 	spawn_timer.timeout.connect(spawn_wave)
 	
 	# Searches for "Minions" node in parent if spawn_path isn't set
-	if spawner.spawn_path.is_empty() and spawn_path == null:
-		spawner.spawn_path = get_parent().find_child("Minions").get_path()
-	else:
-		spawner.spawn_path = spawn_path.get_path()
-	
+	if spawner.spawn_path.is_empty():
+		if spawn_path == null or not str(spawn_path).ends_with("Minions/" + str(team)):
+			var minions_node: Node = get_parent().find_child("Minions")
+			var minions_team = minions_node.find_child(str(team))
+			if minions_team == null:
+				minions_team = Node.new()
+				minions_team.name = str(team)
+				minions_node.add_child(minions_team)
+			spawner.spawn_path = minions_team.get_path()
+		else:
+			spawner.spawn_path = spawn_path.get_path()
 	set_auto_spawn(auto_spawn)
 
 func set_auto_spawn(enabled: bool=true):
@@ -40,7 +46,7 @@ func set_auto_spawn(enabled: bool=true):
 
 func spawn_minion():
 	if not multiplayer.is_server():
-		return;
+		return
 	if not max_ids.has(team):
 		max_ids[team] = 0
 	var id: int = max_ids.get(team)
