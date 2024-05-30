@@ -11,15 +11,12 @@ extends Unit
 @export var ability3_scene: PackedScene
 @export var ability4_scene: PackedScene
 
-var ability1
-var ability2
-var ability3
-var ability4
-
+var abilities : Array[Node] = []
 
 @export var pid: int
 @export var max_mana: float = 300.0
 @export var mana: float = 300.0
+
 
 func _ready():
 	attack_range = 20.0
@@ -32,14 +29,15 @@ func _ready():
 		healthbar
 	)
 	
-	ability1 = ability1_scene.instantiate()
-	ability2 = ability2_scene.instantiate()
-	ability3 = ability3_scene.instantiate()
-	ability4 = ability4_scene.instantiate()
-	add_child(ability1, true)
-	add_child(ability2, true)
-	add_child(ability3, true)
-	add_child(ability4, true)
+	
+	abilities.append(ability1_scene.instantiate())
+	abilities.append(ability2_scene.instantiate())
+	abilities.append(ability3_scene.instantiate())
+	abilities.append(ability4_scene.instantiate())
+	
+	for _ability in abilities:
+		add_child(_ability, true)
+
 
 func _process(delta):
 	_update_healthbar(healthbar)
@@ -72,13 +70,4 @@ func _process(delta):
 
 
 func trigger_ability(n:int):
-	if n == 1:
-		ability1.trigger(n)
-	if n == 2:
-		ability2.trigger(n)
-	if n == 3:
-		ability3.trigger(n)
-	if n == 4:
-		ability4.trigger(n)
-	pass
-	
+	abilities[n-1].trigger(n)
