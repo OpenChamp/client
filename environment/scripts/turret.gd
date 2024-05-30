@@ -23,6 +23,8 @@ func _ready():
 
 
 func _process(delta):
+	if is_dead:
+		return;
 	_update_healthbar(healthbar)
 	set_target()
 	if attack_timeout > 0:

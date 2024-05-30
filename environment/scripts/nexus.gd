@@ -19,6 +19,8 @@ func _ready():
 
 
 func _process(delta):
+	if is_dead:
+		return
 	_update_healthbar(healthbar)
 	set_target()
 	if attack_timeout > 0:
@@ -45,3 +47,4 @@ var target_priority:Dictionary = {
 func die():
 	is_dead = true
 	mesh_instance.get_node("Crystal").hide()
+
