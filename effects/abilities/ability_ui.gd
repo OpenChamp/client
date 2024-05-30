@@ -54,18 +54,14 @@ func init():
 		# Set GUI to range
 		gui.mesh.inner_radius = range
 		gui.mesh.outer_radius = range + 0.2
-		aoe.show();
-	pass;
+		aoe.show()
 
 
 func exec(id: int):
 	isActivated = false;
 	gui.hide()
 	aoe.hide()
-	var server_listener = self;
-	while !server_listener.is_in_group("Map"):
-		server_listener = server_listener.get_parent()
-	server_listener = server_listener.get_node("ServerListener");
+	var server_listener = get_server_listener();
 	var pos:Vector3;
 	var type:int;
 	if isAoe:
@@ -75,3 +71,10 @@ func exec(id: int):
 		pos = direction
 		type = 1;
 	server_listener.rpc_id(get_multiplayer_authority(), "spawn_ability", ability_name, type, pos, mana_cost, cooldown, id)
+
+
+func get_server_listener() -> Node:
+	var server_listener = self
+	while !server_listener.is_in_group("Map"):
+		server_listener = server_listener.get_parent()
+	return server_listener.get_node("ServerListener");
