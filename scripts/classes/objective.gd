@@ -77,7 +77,10 @@ func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 	var shot = projectile.instantiate()
 	shot.position = position
 	shot.target = target_entity
-	shot.damage = attack_damage
+	if !shot.target.is_in_group("Champion"):
+		shot.damage = attack_damage/10  # Reduced damage to non-champs
+	else:
+		shot.damage = attack_damage
 	get_node("Projectiles").add_child(shot, true)
 	init_auto_attack()
 
@@ -85,15 +88,9 @@ func set_target():
 	var bodies = $AttackArea.get_overlapping_bodies()
 	var target_found = false;
 	for body in bodies:
-		if body is CharacterBody3D and body.team != team and body.is_in_group("Champion"):
+		if body is CharacterBody3D and body.team != team:
 			target_entity = body
-			target_found = true;
-			#if body == target_entity:
-				#target_found = true;
-				#return;
-			#elif body.team:
-				#target_entity = body
-				#target_found = true;
+			target_found = true
 	if !target_found:
 		target_entity = null;
 		target_ray.hide()
