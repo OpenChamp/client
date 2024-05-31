@@ -10,6 +10,7 @@ func _ready():
 	get_champion()
 
 func _process(delta):
+	if multiplayer.is_server(): return;
 	if !champion:
 		get_champion()
 	# Handle the player pause action, which opens the settings page

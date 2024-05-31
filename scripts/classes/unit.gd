@@ -51,6 +51,8 @@ func setup(
 	healthbar.max_value = max_health
 	health = max_health
 	_update_healthbar(healthbar)
+	if multiplayer.is_server():
+		return;
 	if team == 1:
 		mesh_instance.set_surface_override_material(0, load("res://environment/materials/blue.material"))
 	elif team == 2:
