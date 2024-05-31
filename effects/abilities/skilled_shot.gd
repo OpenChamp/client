@@ -17,7 +17,7 @@ func _process(delta):
 	position = position + direction * delta
 	var bodies = get_overlapping_bodies()
 	for body in bodies:
-		if body is CharacterBody3D && body.team != team:
+		if body is CharacterBody3D && body.team != team and !body.is_in_group("Objective"):
 			body.take_damage(damage)
 			queue_free()
 	if lifetime <0:
