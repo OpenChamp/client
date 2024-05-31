@@ -37,9 +37,6 @@ func update_collision_radius(range_collider: Area3D, radius: float):
 
 func _update_healthbar(healthbar: ProgressBar):
 	healthbar.value = health
-	if health <= 0:
-		health = 0
-		die()
 
 func target_in_attack_range(collider: Area3D):
 	var bodies = collider.get_overlapping_bodies()
@@ -53,10 +50,8 @@ func attack(entity: CharacterBody3D, _nav_agent: NavigationAgent3D):
 	is_attacking = true
 
 func take_damage(damage: float):
-	print_debug(damage)
 	var taken: float = armor / 100
 	taken = damage / (taken + 1)
-	print_debug(taken)
 	health -= taken
 	if health <= 0:
 		die()
