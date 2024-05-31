@@ -61,12 +61,12 @@ func _process(delta):
 			else:
 				target_entity = null
 				is_attacking = false
-			move(nav_agent)
+			move(nav_agent, delta)
 	elif not target_entity == null:
 		update_target_location(nav_agent, target_entity.global_transform.origin)
-		move(nav_agent)
+		move(nav_agent, delta)
 	else:
-		move(nav_agent)
+		move(nav_agent, delta)
 
 
 func trigger_ability(n:int):
