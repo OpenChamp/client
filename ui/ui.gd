@@ -27,9 +27,10 @@ func check_stats():
 	for child in champions.get_children():
 		if child.name == str(pid):
 			stats.update_health(child.health, child.max_health)
-			stats.update_mana(child.mana, child.max_mana)
+			stats.update_mana(child.get_mana(), child.get_max_mana())
 			return
 	stats.update_health(0) # If you can't find the champ they're probably dead
+
 
 func get_champion():
 	var id = multiplayer.get_unique_id()
