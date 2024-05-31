@@ -14,8 +14,8 @@ extends Unit
 var abilities : Array[Node] = []
 
 @export var pid: int
-@export var max_mana: float = 300.0
-@export var mana: float = 300.0
+@export var _max_mana: float = 300.0
+@export var _mana: float = 300.0
 
 
 func _ready():
@@ -71,3 +71,17 @@ func _process(delta):
 
 func trigger_ability(n:int):
 	abilities[n-1].trigger(n)
+
+
+@rpc("authority", "call_local")
+func set_mana(cost: int) -> void:
+	_mana -= cost
+	print("ABILITY USED, remaining MANA: " + str(_mana))
+
+
+func get_mana() -> int:
+	return _mana
+
+
+func get_max_mana() -> int:
+	return _max_mana
