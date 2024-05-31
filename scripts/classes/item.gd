@@ -1,7 +1,4 @@
-class_name Item extends Node
-
-@export var id: String
-@export var texture_id: String
+class_name Item extends Object
 
 @export var gold_cost: int = 0
 @export var components: Array[String] = []
@@ -15,6 +12,19 @@ class_name Item extends Node
 @export var attack_speed: int = 0
 @export var movement_speed: int = 0
 
+
+var id: Identifier
+var texture_id: Identifier
+
+
+func get_id() -> Identifier:
+	return id
+
+
+func get_texture_id() -> Identifier:
+	return texture_id
+
+
 func _init(json_data_object: Dictionary):
 	if not json_data_object:
 		push_error("Item: No data object provided.")
@@ -24,13 +34,17 @@ func _init(json_data_object: Dictionary):
 		push_error("Item: No name provided.")
 		return
 
-	id = json_data_object["id"]
+	id = Identifier.from_string(json_data_object["id"])
+
+	if Registries.has_item(id):
+		push_error("Item (%s): Item already exists in item registry." % id)
+		return
 
 	if not json_data_object.has("texture"):
 		push_error("Item (%s): No texture provided." % id)
 		return
 	
-	texture_id = json_data_object["texture"]
+	texture_id = Identifier.from_string(json_data_object["texture"])
 	
 	if not json_data_object.has("recipe"):
 		push_error("Item (%s): No recipe provided." % id)
