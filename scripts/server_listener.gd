@@ -45,6 +45,7 @@ func move_to(pos: Vector3):
 func target(name):
 	var peer_id = multiplayer.get_remote_sender_id()
 	var player = players[peer_id]
+	var character = champions.get_node(str(peer_id))
 	if not player:
 		print_debug("Failed to find character")
 		return
@@ -55,6 +56,7 @@ func target(name):
 	var target_entity = get_parent().find_child(str(name), true, false)
 	player.target_entity = target_entity
 	if target_entity and not target_entity.team == player.team:
+		character.update_target_location(character.nav_agent, character.position)
 		player.is_attacking = true
 
 

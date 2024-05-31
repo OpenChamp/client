@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt0fo48rp3ikk"]
+[gd_scene load_steps=5 format=3 uid="uid://dt0fo48rp3ikk"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_5w15s"]
 
@@ -6,6 +6,10 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1uteu"]
 albedo_color = Color(0.247059, 0.878431, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8p5mm"]
+height = 5.0
+radius = 10.0
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_5w15s")
@@ -19,3 +23,7 @@ collision_mask = 0
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("TorusMesh_55eo2")
 surface_material_override/0 = SubResource("StandardMaterial3D_1uteu")
+
+[node name="AttackMoveCast" type="ShapeCast3D" parent="."]
+shape = SubResource("CylinderShape3D_8p5mm")
+target_position = Vector3(0, 0, 0)
