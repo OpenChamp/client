@@ -8,6 +8,8 @@ class_name Unit extends CharacterBody3D
 @export var max_health: float = 400.0
 @export var health: float = max_health
 @export var armor: float = 20.0
+@export var magic_resist:float = 20.0
+@export var overheal: float = 0;
 # Offensive Stats:
 @export var attack_damage: float = 60.0
 @export var attack_speed: float = .75
@@ -25,17 +27,22 @@ var target_entity: Node = null
 # States:
 var is_attacking: bool = false
 var is_dead: bool = false
-
+# Signals:
 signal unit_died
+# UI:
+@onready var healthbar: ProgressBar = $Healthbar
+
 
 func setup(
 	nav_agent: NavigationAgent3D,
 	range_collider_activate: Area3D,
 	range_collider_attack: Area3D,
 	mesh_instance: MeshInstance3D,
-	attack_timer: Timer,
-	healthbar: ProgressBar
+	attack_timer_node: Timer,
+	healthbar_node: ProgressBar
 ):
+	healthbar = healthbar_node
+	attack_timer = attack_timer_node
 	attack_timer.timeout.connect(finish_auto_attack.bind(attack_timer, range_collider_attack))
 	update_collision_radius(range_collider_activate, activation_range)
 	update_collision_radius(range_collider_attack, attack_range)
@@ -65,8 +72,8 @@ func actor_setup(nav_agent: NavigationAgent3D):
 		nav_agent.target_position = position
 
 
-func _update_healthbar(healthbar: ProgressBar):
-	healthbar.value = health
+func _update_healthbar(node: ProgressBar):
+	node.value = health
 	if health <= 0:
 		health = 0
 		die()
@@ -96,15 +103,6 @@ func attack(entity: CharacterBody3D, nav_agent: NavigationAgent3D):
 	nav_agent.set_target_position(target_entity.position)
 	is_attacking = true
 
-
-func take_damage(damage: float):
-	var taken: float = armor / 100
-	taken = damage / (taken + 1)
-	health -= taken
-	if health <= 0:
-		die()
-
-
 func die():
 	is_dead = true
 	self.queue_free()
@@ -119,8 +117,8 @@ func init_auto_attack():
 	attack_timer.start()
 
 
-func finish_auto_attack(attack_timer: Timer, collider: Area3D):
-	attack_timer.stop()
+func finish_auto_attack(timer: Timer, collider: Area3D):
+	timer.stop()
 	#Check if target is still in range
 	if not target_in_attack_range(collider):
 		return
@@ -136,14 +134,6 @@ func finish_auto_attack(attack_timer: Timer, collider: Area3D):
 		# Melee Attack
 		target_entity.take_damage(attack_damage)
 
-
-#func turn_face(target, rotationSpeed, delta):
-	#var global_pos = global_transform.origin
-	#var wtransform = global_transform.looking_at(Vector3(target.global_transform.origin.x,global_pos.y,target.global_transform.origin.z),Vector3(0,1,0))
-	#var wrotation = Quat(global_transform.basis).slerp(Quat(wtransform.basis), rotationSpeed*delta)
-	#turret.global_transform = Transform(Basis(wrotation), turret.global_transform.origin)
-
-
 func move(nav_agent: NavigationAgent3D, delta: float):
 	var current_location = global_transform.origin
 	var target_location = nav_agent.get_next_path_position()
@@ -155,3 +145,35 @@ func move(nav_agent: NavigationAgent3D, delta: float):
 	velocity = direction.normalized() * speed * delta
 	rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), turn_speed * delta)
 	move_and_slide()
+
+# Combat
+
+func take_damage(damage: float):
+	var taken: float = armor / 100
+	taken = damage / (taken + 1)
+	health -= taken
+	_update_healthbar(healthbar)
+	if health <= 0:
+		die()
+
+func heal(amount:float, keep_extra:bool = false):
+	health += amount
+	if health > max_health and not keep_extra:
+		health = max_health
+	else:
+		overheal = health - max_health
+		health = max_health
+	_update_healthbar(healthbar)
+
+# Setters
+
+func set_health(total):
+	health = total;
+
+# Getters
+
+func get_health_max() -> int:
+	return max_health
+
+func get_health() -> int:
+	return health

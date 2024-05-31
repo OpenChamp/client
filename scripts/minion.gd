@@ -4,7 +4,7 @@ extends Unit
 @onready var range_collider_activate: Area3D = $ActivationArea
 @onready var range_collider_attack: Area3D = $AttackArea
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var healthbar: ProgressBar = $Healthbar
+@onready var healthbar_node: ProgressBar = $Healthbar
 
 var patrol_path: Node3D = null
 var path_array: Array[Marker3D] = []
@@ -23,7 +23,7 @@ func _ready():
 		range_collider_attack,
 		mesh_instance,
 		attack_timer,
-		healthbar
+		healthbar_node
 	)
 
 	if not multiplayer.is_server():
@@ -33,10 +33,10 @@ func _ready():
 		path_array.append(point)
 
 
-func _process(delta):
-	_update_healthbar(healthbar)
+func _physics_process(delta):
 	if not multiplayer.is_server():
 		return
+		
 	if attack_timeout > 0:
 		attack_timeout -= delta
 	if target_entity == null:
