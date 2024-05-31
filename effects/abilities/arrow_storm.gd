@@ -22,7 +22,7 @@ func _process(delta):
 		ticktime_left = ticktime
 		var bodies = get_overlapping_bodies()
 		for body in bodies:
-			if body is CharacterBody3D && body.team != team:
+			if body is CharacterBody3D && body.team != team and !body.is_in_group("Objective"):
 				body.take_damage(damage)
 	if !p.emitting:
 		queue_free()

@@ -71,27 +71,36 @@ func player_action(event):
 	var space = get_world_3d().direct_space_state
 	var params = PhysicsRayQueryParameters3D.create(from, to)
 	var result = space.intersect_ray(params)
+	if !result: return
 	# Move
-	if result and result.collider.is_in_group("ground"):
+	if result.collider.is_in_group("ground"):
+		_player_action_move(result)
+	# Attack
+	_player_action_attack(result)
+
+
+func _player_action_attack(result):
+	var collider_groups = result.collider.get_groups()
+	for group in collider_groups:
+		if group not in ["Objective", "Minion", "Champion"]: continue
+		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
+		break
+	# To account for hitting Navmeshes, we check the parent of the target as well
+	var parent_collider_groups = result.collider.get_parent().get_groups()
+	for group in parent_collider_groups:
+		if group not in ["Objective", "Minion", "Champion"]: continue
+		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.get_parent().name)
+		break
+
+
+func _player_action_move(result):
 		result.position.y += 1
 		var marker = MoveMarker.instantiate()
 		marker.position = result.position
 		get_node("/root").add_child(marker)
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
-		#Player.MoveTo(result.position)
-	# Attack
-	if result and result.collider.is_in_group("Objective"):
-		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
-		return
-	if result and result.collider.is_in_group("Minion"):
-		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
-		return
-	if result and result.collider.is_in_group("Champion"):
-		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
-		return
-	if result and result.collider is CharacterBody3D:
-		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.pid)
-		
+
+
 func center_camera(playerid):
 	camera_target_position = get_target_position(playerid)
 
