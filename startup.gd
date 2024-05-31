@@ -79,8 +79,8 @@ func client_fail():
 func setup_server(peer:ENetMultiplayerPeer):
 	_set_status("STARTUP:STATUS_CREATE_SERVER")
 	
-	peer.create_server(port, 10)
-	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
+	var err = peer.create_server(port, 10)
+	if err != Error.OK:
 		print("Server failed to start")
 		return false
 	return true
