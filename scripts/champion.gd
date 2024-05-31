@@ -38,6 +38,8 @@ func _ready():
 	for _ability in abilities:
 		add_child(_ability, true)
 
+	can_respawn = true
+
 
 func _process(delta):
 	_update_healthbar(healthbar)
