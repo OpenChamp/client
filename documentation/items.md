@@ -16,7 +16,7 @@ The item data is specified using a json file containing all items.
             "id": "basic_sword",
             "texture": "item/sword.png",
             "recipe": {
-                "gold": 500,
+                "gold_cost": 500,
                 "components": []
             },
             "stats": {
