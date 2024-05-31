@@ -38,10 +38,13 @@ func _input(event):
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			# Start dragging
-			player_action(event)  # For single clicks
-			if not right_mouse_dragging and event.is_pressed():
+			player_action(event, not right_mouse_dragging)  # For single clicks
+			if event.is_pressed and not right_mouse_dragging:
 				right_mouse_dragging = true
-		
+			elif right_mouse_dragging:
+				right_mouse_dragging = false
+			
+
 		if event.button_index == MOUSE_BUTTON_MIDDLE:
 			if event.pressed:
 				initial_mouse_position = event.position
@@ -50,8 +53,6 @@ func _input(event):
 				is_middle_mouse_dragging = false
 		
 		# Stop dragging if mouse is released
-		if right_mouse_dragging and not event.is_pressed():
-			right_mouse_dragging = false
 	
 	if event is InputEventMouseMotion and right_mouse_dragging:
 		player_action(event)  # For dragging
@@ -64,7 +65,7 @@ func get_target_position(pid: int) -> Vector3:
 	return Vector3.ZERO
 
 
-func player_action(event):
+func player_action(event, play_marker : bool = false, attack_move : bool = false):
 	var from = camera.project_ray_origin(event.position)
 	var to = from + camera.project_ray_normal(event.position) * 1000
 	
@@ -74,7 +75,7 @@ func player_action(event):
 	if !result: return
 	# Move
 	if result.collider.is_in_group("ground"):
-		_player_action_move(result)
+		_player_action_move(result, play_marker)
 	# Attack
 	_player_action_attack(result)
 
@@ -93,11 +94,12 @@ func _player_action_attack(result):
 		break
 
 
-func _player_action_move(result):
+func _player_action_move(result, play_marker : bool):
 		result.position.y += 1
-		var marker = MoveMarker.instantiate()
-		marker.position = result.position
-		get_node("/root").add_child(marker)
+		if play_marker:
+			var marker = MoveMarker.instantiate()
+			marker.position = result.position
+			get_node("/root").add_child(marker)
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
 
 
