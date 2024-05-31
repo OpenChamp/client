@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GGS="*res://addons/ggs/classes/global/ggs.tscn"
 Config="*res://scripts/global/config.gd"
 Registries="*res://scripts/global/registries.gd"
+DynamicAssetLoader="*res://scripts/global/dynamic_asset_loader.gd"
 
 [display]
 

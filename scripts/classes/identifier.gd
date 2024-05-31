@@ -4,6 +4,10 @@ class_name Identifier extends Object
 @export var name: String
 
 
+func _to_string():
+    return group + ":" + name
+
+
 func _init(_group: String, _name: String):
     if _group == "":
         _group = "openchamp"
