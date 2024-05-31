@@ -22,14 +22,13 @@ func _process(delta):
 	if stats:
 		check_stats()
 
+
 func check_stats():
-	var pid = multiplayer.get_unique_id()
-	for child in champions.get_children():
-		if child.name == str(pid):
-			stats.update_health(child.health, child.max_health)
-			stats.update_mana(child.mana, child.max_mana)
-			return
+	if champion:
+		stats.update_health(champion.health, champion.max_health)
+		stats.update_mana(champion.get_mana(), champion.get_max_mana())
 	stats.update_health(0) # If you can't find the champ they're probably dead
+
 
 func get_champion():
 	var id = multiplayer.get_unique_id()

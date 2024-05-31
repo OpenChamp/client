@@ -65,15 +65,15 @@ func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, c
 	if not player:
 		print_debug("Failed to find character")
 		return
-	if player.mana < ability_mana_cost:
+	if player.get_mana() < ability_mana_cost:
 		print("Not enough mana!")
 		return
 	if player_cooldowns[peer_id][ab_id-1] != 0:
 		print("This ability is on cooldown! Wait " + str(cooldown) + " seconds!")
 		return
 	player_cooldowns[peer_id][ab_id-1] = cooldown
-	player.mana -= ability_mana_cost
 	free_ability(cooldown, peer_id, ab_id-1)
+	player.rpc_id(peer_id, "set_mana", ability_mana_cost)
 	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, player.position, player.team)
 
 

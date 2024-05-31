@@ -1,10 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://cf3wfr4d5kn2s"]
+[gd_scene load_steps=18 format=3 uid="uid://cf3wfr4d5kn2s"]
 
 [ext_resource type="Script" path="res://maps/debug_map.gd" id="1_oripi"]
-[ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://ui/ui.tscn" id="2_7bhhd"]
 [ext_resource type="PackedScene" uid="uid://b3ge3nka634tb" path="res://ui/test_ui.tscn" id="2_qghmg"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="3_borkg"]
-[ext_resource type="Script" path="res://ui/ui.gd" id="3_nbhaq"]
 [ext_resource type="Shader" path="res://environment/shaders/sky.gdshader" id="4_6tbti"]
 [ext_resource type="Texture2D" uid="uid://d4jdravgc2j7o" path="res://environment/textures/clover.jpg" id="4_wyhrk"]
 [ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://environment/scenes/turret.tscn" id="5_2p22h"]
@@ -52,10 +50,6 @@ process_priority = 1
 script = ExtResource("1_oripi")
 
 [node name="TestUi" parent="." instance=ExtResource("2_qghmg")]
-script = ExtResource("3_nbhaq")
-
-[node name="Ui" parent="." instance=ExtResource("2_7bhhd")]
-visible = false
 
 [node name="Player" parent="." node_paths=PackedStringArray("server_listener") instance=ExtResource("3_borkg")]
 server_listener = NodePath("../ServerListener")
