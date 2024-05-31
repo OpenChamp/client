@@ -42,17 +42,17 @@ func move_to(pos: Vector3):
 
 
 @rpc("any_peer", "call_local")
-func target(name):
+func target(target_name):
 	var peer_id = multiplayer.get_remote_sender_id()
 	var player = players[peer_id]
 	if not player:
 		print_debug("Failed to find character")
 		return
 	# Dont Kill Yourself
-	if str(name) == str(player.name):
+	if str(target_name) == str(player.name):
 		print_debug("That's you ya idjit") # :O
 		return
-	var target_entity = get_parent().find_child(str(name), true, false)
+	var target_entity = get_parent().find_child(str(target_name), true, false)
 	player.target_entity = target_entity
 	if target_entity and not target_entity.team == player.team:
 		player.is_attacking = true
@@ -79,14 +79,14 @@ func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, c
 
 @rpc("any_peer", "call_local")
 func spawn_local_effect(ability_name, ability_type, ability_pos, player_pos, player_team) -> void:
-	var ability = load("res://effects/abilities/"+ability_name+".tscn").instantiate();
+	var ability_scene = load("res://effects/abilities/"+ability_name+".tscn").instantiate();
 	if ability_type == 0:
-		ability.position = ability_pos
+		ability_scene.position = ability_pos
 	if ability_type == 1:
-		ability.direction = ability_pos
+		ability_scene.direction = ability_pos
 		ability.position = player_pos
-	ability.team = player_team
-	$"../Abilities".add_child(ability);
+	ability_scene.team = player_team
+	$"../Abilities".add_child(ability_scene);
 	
 
 func free_ability(cooldown: float, peer_id: int, ab_id: int) -> void:
@@ -95,6 +95,7 @@ func free_ability(cooldown: float, peer_id: int, ab_id: int) -> void:
 
 
 func game_over(team):
+	print(str(team) + " Lost");
 	get_tree().quit()
 
 
