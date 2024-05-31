@@ -3,7 +3,7 @@ class_name Unit extends CharacterBody3D
 # General Stats:
 @export var id: int
 @export var team: int
-@export var speed: float = 250.0
+@export var speed: float = 500.0
 # Defensive Stats:
 @export var max_health: float = 400.0
 @export var health: float = max_health
