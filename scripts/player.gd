@@ -11,7 +11,8 @@ const MoveMarker: PackedScene = preload ("res://effects/move_marker.tscn")
 var camera_target_position := Vector3.ZERO
 var initial_mouse_position := Vector2.ZERO
 var is_middle_mouse_dragging := false
-var right_mouse_dragging := false
+var is_right_mouse_dragging := false
+var is_left_mouse_dragging := false
 
 #@export var player := 1:
 	#set(id):
@@ -35,14 +36,21 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseButton:
+
+		if event.button_index == MOUSE_BUTTON_LEFT and not is_right_mouse_dragging:
+			player_action(event, not is_left_mouse_dragging, true)
+			if event.is_pressed and not is_left_mouse_dragging:
+				is_left_mouse_dragging = true
+			else:
+				is_left_mouse_dragging = false
 		# Right click to move
-		if event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.button_index == MOUSE_BUTTON_RIGHT and not is_left_mouse_dragging:
 			# Start dragging
-			player_action(event, not right_mouse_dragging)  # For single clicks
-			if event.is_pressed and not right_mouse_dragging:
-				right_mouse_dragging = true
-			elif right_mouse_dragging:
-				right_mouse_dragging = false
+			player_action(event, not is_right_mouse_dragging)  # For single clicks
+			if event.is_pressed and not is_right_mouse_dragging:
+				is_right_mouse_dragging = true
+			else:
+				is_right_mouse_dragging = false
 			
 
 		if event.button_index == MOUSE_BUTTON_MIDDLE:
@@ -54,8 +62,13 @@ func _input(event):
 		
 		# Stop dragging if mouse is released
 	
-	if event is InputEventMouseMotion and right_mouse_dragging:
-		player_action(event)  # For dragging
+	if event is InputEventMouseMotion:
+		if is_left_mouse_dragging:
+			player_action(event, false, true)
+			return
+		if is_right_mouse_dragging:
+			player_action(event, false)
+			return
 
 
 func get_target_position(pid: int) -> Vector3:
@@ -75,7 +88,7 @@ func player_action(event, play_marker : bool = false, attack_move : bool = false
 	if !result: return
 	# Move
 	if result.collider.is_in_group("ground"):
-		_player_action_move(result, play_marker)
+		_player_action_move(result, play_marker, attack_move)
 	# Attack
 	_player_action_attack(result)
 
@@ -94,11 +107,12 @@ func _player_action_attack(result):
 		break
 
 
-func _player_action_move(result, play_marker : bool):
+func _player_action_move(result, play_marker : bool, attack_move : bool):
 		result.position.y += 1
 		if play_marker:
 			var marker = MoveMarker.instantiate()
 			marker.position = result.position
+			marker.attack_move = attack_move
 			get_node("/root").add_child(marker)
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
 

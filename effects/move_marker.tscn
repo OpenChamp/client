@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0mug86g1buyj"]
+[gd_scene load_steps=9 format=3 uid="uid://d0mug86g1buyj"]
 
 [ext_resource type="Script" path="res://effects/move_marker.gd" id="1_52jh3"]
 
@@ -21,6 +21,9 @@ _data = {
 [sub_resource type="TorusMesh" id="TorusMesh_c5574"]
 inner_radius = 2.0
 outer_radius = 2.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52wpm"]
+resource_local_to_scene = true
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_avb0c"]
 direction = Vector3(0, 1, 0)
@@ -50,6 +53,7 @@ libraries = {
 
 [node name="Marker" type="MeshInstance3D" parent="."]
 mesh = SubResource("TorusMesh_c5574")
+surface_material_override/0 = SubResource("StandardMaterial3D_52wpm")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 emitting = false
