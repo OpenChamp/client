@@ -1,12 +1,12 @@
 [gd_scene load_steps=17 format=3 uid="uid://doinef5oh5gsj"]
 
-[ext_resource type="Script" path="res://Maps/debug_map_5v5.gd" id="1_l8b87"]
+[ext_resource type="Script" path="res://maps/debug_map_5v5.gd" id="1_l8b87"]
 [ext_resource type="PackedScene" uid="uid://ckkjiabom6ntl" path="res://ui/ui.tscn" id="2_d5dg6"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="3_2bxli"]
-[ext_resource type="Texture2D" uid="uid://5qjknjorstl8" path="res://Environment/Textures/clover.jpg" id="4_usgu1"]
+[ext_resource type="Texture2D" uid="uid://5qjknjorstl8" path="res://environment/textures/clover.jpg" id="4_usgu1"]
 [ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://environment/scenes/turret.tscn" id="5_cnpfx"]
 [ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://environment/scenes/nexus.tscn" id="6_kl37w"]
-[ext_resource type="Script" path="res://Scripts/server_listener.gd" id="7_lacll"]
+[ext_resource type="Script" path="res://scripts/server_listener.gd" id="7_lacll"]
 [ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://environment/scenes/minion_spawner.tscn" id="8_ywsbm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qewsh"]

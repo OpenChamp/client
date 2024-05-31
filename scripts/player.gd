@@ -58,10 +58,9 @@ func _input(event):
 
 
 func get_target_position(pid: int) -> Vector3:
-	var champs = $"../Champions".get_children()
-	for child in champs:
-		if child.name == str(pid):
-			return child.position
+	var champ = get_champion(pid)
+	if champ:
+		return champ.position
 	return Vector3.ZERO
 
 
@@ -108,14 +107,19 @@ func _process(delta):
 
 
 func detect_ability_use() -> void:
+	var pid = multiplayer.get_unique_id()
 	if Input.is_action_just_pressed("player_ability1"):
-		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 1)
+		get_champion(pid).trigger_ability(1)
+        return
 	if Input.is_action_just_pressed("player_ability2"):
-		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 2)
+		get_champion(pid).trigger_ability(2)
+        return
 	if Input.is_action_just_pressed("player_ability3"):
-		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 3)
+		get_champion(pid).trigger_ability(3)
+        return
 	if Input.is_action_just_pressed("player_ability4"):
-		server_listener.rpc_id(get_multiplayer_authority(), "trigger_ability", 4)
+		get_champion(pid).trigger_ability(4)
+        return
 
 
 func camera_movement_handler() -> void:
@@ -171,6 +175,14 @@ func camera_movement_handler() -> void:
 	# Recenter - Toggle
 	if Input.is_action_just_pressed("player_camera_recenter_toggle"):
 		Config.set_cam_centered(!Config.is_cam_centered)
+
+
+func get_champion(pid: int) -> Node:
+	var champs = $"../Champions".get_children()
+	for child in champs:
+		if child.name == str(pid):
+			return child
+	return null
 
 
 func _on_camera_setting_changed():

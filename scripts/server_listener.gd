@@ -59,16 +59,6 @@ func target(name):
 
 
 @rpc("any_peer", "call_local")
-func trigger_ability(n:int):
-	var peer_id = multiplayer.get_remote_sender_id()
-	var player = players[peer_id]
-	if not player:
-		print_debug("Failed to find character")
-		return
-	player.trigger_ability(n)
-
-
-@rpc("any_peer", "call_local")
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
 	var peer_id = multiplayer.get_remote_sender_id()
 	var player = players[peer_id]
@@ -78,12 +68,12 @@ func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, c
 	if player.mana < ability_mana_cost:
 		print("Not enough mana!")
 		return
-	if player_cooldowns[peer_id][ab_id] != 0:
-		print("This ability is on cooldown! Wait " + str(player_cooldowns[peer_id][ab_id]) + " seconds!")
+	if player_cooldowns[peer_id][ab_id-1] != 0:
+		print("This ability is on cooldown! Wait " + str(cooldown) + " seconds!")
 		return
-	player_cooldowns[peer_id][ab_id] = cooldown
+	player_cooldowns[peer_id][ab_id-1] = cooldown
 	player.mana -= ability_mana_cost
-	free_ability(cooldown, peer_id, ab_id)
+	free_ability(cooldown, peer_id, ab_id-1)
 	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, player.position, player.team)
 
 
@@ -122,8 +112,8 @@ func add_player(client_id: int):
 	character.pid = client_id
 	character.name = str(client_id)
 	players[client_id] = character
-	var cooldowns_dict = {0: 0, 1: 0, 2: 0, 3: 0}
-	player_cooldowns[client_id] = cooldowns_dict
+	var cooldowns = [0, 0, 0, 0]
+	player_cooldowns[client_id] = cooldowns
 	champions.add_child(character)
 
 
