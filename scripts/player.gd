@@ -81,18 +81,13 @@ func player_action(event):
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
 		#Player.MoveTo(result.position)
 	# Attack
-	if result and result.collider.is_in_group("Objective"):
+	if !result: return
+	var collider_groups = result.collider.get_groups()
+	for group in collider_groups:
+		if group not in ["Objective", "Minion", "Champion"]: continue
 		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
-		return
-	if result and result.collider.is_in_group("Minion"):
-		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
-		return
-	if result and result.collider.is_in_group("Champion"):
-		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.name)
-		return
-	if result and result.collider is CharacterBody3D:
-		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.pid)
-		
+		break
+
 func center_camera(playerid):
 	camera_target_position = get_target_position(playerid)
 
