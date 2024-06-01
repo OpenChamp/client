@@ -28,6 +28,7 @@ func check_stats():
 	if champion:
 		stats.update_health(champion.health, champion.max_health)
 		stats.update_mana(champion.get_mana(), champion.get_max_mana())
+		return
 	stats.update_health(0) # If you can't find the champ they're probably dead
 
 
@@ -35,6 +36,6 @@ func get_champion():
 	var id = multiplayer.get_unique_id()
 	var champs = $"../Champions".get_children()
 	for champ in champs:
-		if champ.pid == id:
+		if str(champ.name) == str(id):
 			champion = champ
 			print("LETS GO!");

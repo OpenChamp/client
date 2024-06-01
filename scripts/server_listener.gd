@@ -84,7 +84,7 @@ func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, c
 		return
 	player_cooldowns[peer_id][ab_id-1] = cooldown
 	free_ability(cooldown, peer_id, ab_id-1)
-	champion.rpc_id(peer_id, "set_mana", ability_mana_cost)
+	champion.rpc_id(peer_id, "use_mana", ability_mana_cost)
 	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, champion.position, champion.team)
 
 
@@ -95,7 +95,7 @@ func spawn_local_effect(ability_name, ability_type, ability_pos, player_pos, pla
 		ability_scene.position = ability_pos
 	if ability_type == 1:
 		ability_scene.direction = ability_pos
-		ability.position = player_pos
+		ability_scene.position = player_pos
 	ability_scene.team = player_team
 	$"../Abilities".add_child(ability_scene);
 	
