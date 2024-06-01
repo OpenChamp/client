@@ -159,7 +159,7 @@ func server_remove_player(id: int):
 	# Remove from Players
 	for i in range(Players.size()):
 		if Players[i].peer_id == id:
-			Players.remove(i)
+			Players.remove_at(i)
 			break
 	pass ;
 # JWTs
