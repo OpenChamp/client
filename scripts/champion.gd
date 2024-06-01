@@ -14,6 +14,7 @@ extends Unit
 var abilities : Array[Node] = []
 
 @export var pid: int
+@export var nametag: String
 
 @export var max_mana: float = 300.0
 @export var mana: float = 300.0
