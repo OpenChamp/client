@@ -58,7 +58,7 @@ func spawn_minion():
 	get_node(spawner.spawn_path).add_child(minion, true)
 	max_ids[team] += 1
 
-func spawn_wave():
-	for i in wave_size:
+func spawn_wave(size = wave_size):
+	for i in size:
 		spawn_minion()
 		await get_tree().create_timer(spawn_delay).timeout
