@@ -28,6 +28,7 @@ var target_entity: Node = null
 var is_attacking: bool = false
 var is_dead: bool = false
 # Signals:
+var can_respawn: bool = false # Only players or super special units
 signal unit_died
 # UI:
 @onready var healthbar: ProgressBar = $Healthbar
@@ -112,7 +113,9 @@ func attack(entity: CharacterBody3D, nav_agent: NavigationAgent3D):
 
 func die():
 	is_dead = true
-	self.queue_free()
+
+	if !can_respawn:
+		self.queue_free()
 
 
 func init_auto_attack():
