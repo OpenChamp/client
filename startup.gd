@@ -15,7 +15,7 @@ enum Start {
 @onready var max_players = 2
 @onready var tickrate = 30
 @onready var server_map = "bridge"
-var jwt:String
+var jwt: String
 # UI
 @onready var status_text = $ConnectionUI/StatusText
 @onready var attempts_text = $ConnectionUI/AttemptsText
@@ -27,7 +27,7 @@ var max_attempts = 3
 var attempts = 0
 var timeout = 3
 # Server Vars
-var Players:Array = [];
+var Players: Array = [];
 func _ready():
 	# UI
 	_set_status("STARTUP:STATUS_CONNECTING")
@@ -140,6 +140,11 @@ func server_update():
 		timer.stop()
 		timer.timeout.disconnect(server_update)
 		timer.queue_free()
+		# prevent new users from joining
+		multiplayer.multiplayer_peer.refuse_new_connections = true
+		# disconnect the signals
+		multiplayer.multiplayer_peer.disconnect("peer_connected", server_add_player)
+		multiplayer.multiplayer_peer.disconnect("peer_disconnected", server_remove_player)
 		#Change Map
 		print(Players)
 		change_map(load("res://maps/" + server_map + ".tscn"), Players)
@@ -150,7 +155,13 @@ func server_add_player(id: int):
 	rpc_id.call_deferred(id, "get_jwt")
 	
 func server_remove_player(id: int):
-	pass;
+	print("Player disconnected: " + str(id))
+	# Remove from Players
+	for i in range(Players.size()):
+		if Players[i].peer_id == id:
+			Players.remove(i)
+			break
+	pass ;
 # JWTs
 @rpc("authority", "call_local")
 func get_jwt():
@@ -167,15 +178,15 @@ func set_jwt(token: String):
 		var peer_id = multiplayer.get_remote_sender_id()
 		user = {
 			'id': '0', # Local user, no user in DB
-			'peer': peer_id,
+			'peer_id': peer_id,
 			'name': "Player",
-			'champ': "Archer"
+			'champ': "archer",
+			'team': 0
 		}
 	else:
 		# Fetch from the api server
 		user = await fetch_user(token)
 	Players.append(user);
-	
 
 func fetch_user(token: String):
 	var headers
@@ -212,23 +223,23 @@ func parse_args():
 			# Process as command
 			# Server
 			if args[i] == "-S":
-				address = args[i] + 1
+				address = args[i + 1]
 			# Port
 			if args[i] == "-P":
-				port = args[i] + 1
+				port = args[i + 1]
 			# Map
 			if args[i] == "-M":
-				server_map = args[i] + 1
+				server_map = args[i + 1]
 			# Tickrate
 			if args[i] == "-T":
-				Engine.physics_ticks_per_second = args[i] + 1
+				Engine.physics_ticks_per_second = args[i + 1]
 			# Players (Max)
 			if args[i] == "-PL":
-				max_players = args[i] + 1
+				max_players = args[i + 1]
 				pass
 			# token
 			if args[i] == "-t":
-				jwt = args[i] + 1
+				jwt = args[i + 1]
 
 # Event Listeners
 func _on_reconnect_timer_timeout():
