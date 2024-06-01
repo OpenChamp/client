@@ -72,7 +72,6 @@ func target(target_name):
 	if target_entity and not target_entity.team == champion.team:
 		champion.is_attacking = true
 
-
 @rpc("any_peer", "call_local")
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
 	var peer_id = multiplayer.get_remote_sender_id()
