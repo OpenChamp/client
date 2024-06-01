@@ -1,5 +1,6 @@
 extends Node
 
+@export var connected_players:Array
 var players = {}
 var team1 = Array()
 var team2 = Array()
