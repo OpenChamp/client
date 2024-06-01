@@ -32,11 +32,9 @@ func _ready():
 	for point in patrol_path.get_children():
 		path_array.append(point)
 
-
 func _physics_process(delta):
 	if not multiplayer.is_server():
 		return
-		
 	if attack_timeout > 0:
 		attack_timeout -= delta
 	if target_entity == null:

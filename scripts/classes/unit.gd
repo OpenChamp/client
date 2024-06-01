@@ -33,6 +33,11 @@ signal unit_died
 @onready var healthbar: ProgressBar = $Healthbar
 
 
+func _process(delta):
+	if multiplayer.is_server():
+		return;
+	_update_healthbar(healthbar)
+
 func setup(
 	nav_agent: NavigationAgent3D,
 	range_collider_activate: Area3D,
@@ -154,7 +159,6 @@ func take_damage(damage: float):
 	var taken: float = armor / 100
 	taken = damage / (taken + 1)
 	health -= taken
-	_update_healthbar(healthbar)
 	if health <= 0:
 		die()
 
@@ -165,7 +169,6 @@ func heal(amount:float, keep_extra:bool = false):
 	else:
 		overheal = health - max_health
 		health = max_health
-	_update_healthbar(healthbar)
 
 # Setters
 

@@ -20,8 +20,10 @@ var abilities : Array[Node] = []
 @export var mana: float = 300.0
 
 
+
 func _ready():
 	attack_range = 20.0
+	speed = 1000.0
 	setup(
 		nav_agent,
 		range_collider_activate,
@@ -43,7 +45,7 @@ func _ready():
 
 func _process(delta):
 	if not multiplayer.is_server(): return
-
+	_update_healthbar(healthbar)
 	if attack_timeout > 0:
 		attack_timeout -= delta;
 
