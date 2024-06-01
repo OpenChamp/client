@@ -168,15 +168,26 @@ func _load_asset_group(pack: String, group: String):
 	group_dir.list_dir_begin()
 	var asset_type = group_dir.get_next()
 	while asset_type != "":
+		if not group_dir.current_is_dir():
+			asset_type = group_dir.get_next()
+			continue
+
+		# check if it is a shared asset type
 		match asset_type:
-			"textures":
-				_load_textures(pack, group)
-			"lang":
-				_load_lang(pack, group)
-			"patchdata":
-				_cache_patchdata(pack, group)
 			"_":
-				print("Unknown asset (" + asset_type + ") in " + pack + "/" + group)
+				pass
+	
+		# skip loadingclient side files in headless mode	
+		if DisplayServer.get_name() != "headless":
+			match asset_type:
+				"textures":
+					_load_textures(pack, group)
+				"lang":
+					_load_lang(pack, group)
+				"patchdata":
+					_cache_patchdata(pack, group)
+				"_":
+					print("Unknown asset (" + asset_type + ") in " + pack + "/" + group)
 		
 		asset_type = group_dir.get_next()
 

@@ -1,15 +1,47 @@
-class_name Objective extends Unit
+class_name Objective extends StaticBody3D
+
+# General Stats:
+@export var id: int
+@export var team: int
+@export var speed: float = 500.0
+# Defensive Stats:
+@export var max_health: float = 400.0
+@export var health: float = max_health
+@export var armor: float = 20.0
+# Offensive Stats:
+@export var attack_damage: float = 60.0
+@export var attack_speed: float = .75
+@export var attack_timeout: float = 0.0
+@export var attack_range: float = 3.0
+@export var attack_time: float = 0.1
+@export var projectile: PackedScene = null
+# Targeting:
+@export var activation_range: float = 5.0
+var target_entity: Node = null
+# Timers:
+@onready var attack_timer: Timer = $AttackTimer
+# States:
+var is_attacking: bool = false
+var is_dead: bool = false
+# Signals:
+signal objective_died
+# UI:
+@onready var healthbar: ProgressBar = $Healthbar
 
 @onready var target_ray: MeshInstance3D = $TargetRay
 @export var cast_time: float = 0.1
+
+
 func setup(
 	_nav_agent: NavigationAgent3D,
 	_range_collider_activation: Area3D,
 	range_collider_attack: Area3D,
 	mesh_instance: MeshInstance3D,
-	attack_timer: Timer,
-	healthbar: ProgressBar
+	attack_timer_node: Timer,
+	healthbar_node: ProgressBar
 ):
+	healthbar = healthbar_node
+	attack_timer = attack_timer_node
 	attack_range = 10;
 	attack_speed = 1.0
 	speed = 0.0
@@ -19,6 +51,8 @@ func setup(
 	healthbar.max_value = max_health
 	health = max_health
 	_update_healthbar(healthbar)
+	if multiplayer.is_server():
+		return;
 	if team == 1:
 		mesh_instance.get_node("Crystal").set_surface_override_material(0, load("res://environment/materials/blue.material"))
 	elif team == 2:
@@ -35,8 +69,8 @@ func update_collision_radius(range_collider: Area3D, radius: float):
 	collision_shape.radius = radius
 	range_collider.get_node("CollisionShape3D").shape = collision_shape
 
-func _update_healthbar(healthbar: ProgressBar):
-	healthbar.value = health
+func _update_healthbar(node: ProgressBar):
+	node.value = health
 
 func target_in_attack_range(collider: Area3D):
 	var bodies = collider.get_overlapping_bodies()

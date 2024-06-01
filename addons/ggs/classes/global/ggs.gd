@@ -30,6 +30,8 @@ var FSD #!1
 
 
 func _ready() -> void:
+	if OS.has_feature("dedicated_server"):
+		return;
 	thread_current.start(_update_save_file)
 	
 	if Engine.is_editor_hint():

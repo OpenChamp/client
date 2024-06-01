@@ -34,7 +34,7 @@ properties/4/path = NodePath(".:health")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
-[node name="Nexus" type="CharacterBody3D" groups=["Objective", "Unit"]]
+[node name="Nexus" type="StaticBody3D" groups=["Objective", "Unit"]]
 collision_layer = 3
 script = ExtResource("1_q8ip6")
 projectile = ExtResource("2_sdx6r")
