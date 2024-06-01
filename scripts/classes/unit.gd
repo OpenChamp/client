@@ -132,7 +132,7 @@ func finish_auto_attack(timer: Timer, collider: Area3D):
 	#Check if target is still in range
 	if not target_in_attack_range(collider):
 		return
-	attack_timeout = attack_speed
+	attack_timeout = 1/attack_speed
 	
 	if projectile:
 		var arrow = projectile.instantiate()
