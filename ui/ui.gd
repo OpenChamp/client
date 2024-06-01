@@ -26,7 +26,7 @@ func _process(delta):
 
 func check_stats():
 	if champion:
-		stats.update_health(champion.health, champion.max_health)
+		stats.update_health(champion.get_health(), champion.get_health_max())
 		stats.update_mana(champion.get_mana(), champion.get_max_mana())
 		return
 	stats.update_health(0) # If you can't find the champ they're probably dead
