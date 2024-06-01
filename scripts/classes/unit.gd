@@ -25,6 +25,7 @@ var target_entity: Node = null
 # States:
 var is_attacking: bool = false
 var is_dead: bool = false
+var can_respawn: bool = false # Only players or super special units
 
 signal unit_died
 
@@ -107,7 +108,9 @@ func take_damage(damage: float):
 
 func die():
 	is_dead = true
-	self.queue_free()
+
+	if !can_respawn:
+		self.queue_free()
 
 
 func init_auto_attack():
