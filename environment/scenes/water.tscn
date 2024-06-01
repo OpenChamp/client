@@ -29,6 +29,7 @@ bump_strength = 1.5
 noise = SubResource("FastNoiseLite_v7irx")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_at8a5"]
+noise_type = 3
 seed = 100
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ue23w"]
