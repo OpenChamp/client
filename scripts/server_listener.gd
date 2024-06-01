@@ -113,13 +113,18 @@ func game_over(team):
 func add_player(player: Dictionary):
 	print(player);
 	print("Player Connected: " + str(player.peer_id))
+	if str(player.peer_id) == "0":
+		return
+		
 	var champion = champion_scenes[player.champ].instantiate()
 	# If player is not registered
 	if player.team == 0:
 		if team1.size() > team2.size():
 			player.team = 2
+			team2.append(player)
 		else:
 			player.team = 1
+			team1.append(player)
 	# setup champion
 	champion.team = player.team
 	champion.name = str(player.peer_id)
@@ -146,7 +151,7 @@ func respawn(champion:CharacterBody3D):
 	champion.show()
 
 func get_champion(id:int):
-	var champion = players[id]
+	var champion = players.get(id)
 	if not champion:
 		print_debug("Failed to find character")
 		return false
