@@ -182,4 +182,4 @@ func _set_status(message:String):
 
 
 func _update_attempts():
-	attempts_text.text = "[center]" + (tr("STARTUP:ATTEMPTS %s") % attempts) + "[/center]"
+	attempts_text.text = "[center]" + tr("STARTUP:ATTEMPTS") % attempts + "[/center]"
