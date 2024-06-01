@@ -55,41 +55,29 @@ func get_champs():
 
 @rpc("any_peer", "call_local")
 func move_to(pos: Vector3):
-	var peer_id = multiplayer.get_remote_sender_id()
-	var character = champions.get_node(str(peer_id))
-	if not character:
-		print("Failed to find character")
-		return
-	character.is_attacking = false
-	character.target_entity = null
-	character.update_target_location(character.nav_agent, pos)
-
+	var champion = get_champion(multiplayer.get_remote_sender_id())
+	champion.is_attacking = false
+	champion.target_entity = null
+	champion.update_target_location(champion.nav_agent, pos)
 
 @rpc("any_peer", "call_local")
 func target(target_name):
-	var peer_id = multiplayer.get_remote_sender_id()
-	var player = players[peer_id]
-	if not player:
-		print_debug("Failed to find character")
-		return
+	var champion = get_champion(multiplayer.get_remote_sender_id())
 	# Dont Kill Yourself
-	if str(target_name) == str(player.name):
+	if str(target_name) == str(champion.name):
 		print_debug("That's you ya idjit") # :O
 		return
 	var target_entity = get_parent().find_child(str(target_name), true, false)
-	player.target_entity = target_entity
-	if target_entity and not target_entity.team == player.team:
-		player.is_attacking = true
+	champion.target_entity = target_entity
+	if target_entity and not target_entity.team == champion.team:
+		champion.is_attacking = true
 
 
 @rpc("any_peer", "call_local")
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
 	var peer_id = multiplayer.get_remote_sender_id()
-	var player = players[peer_id]
-	if not player:
-		print_debug("Failed to find character")
-		return
-	if player.get_mana() < ability_mana_cost:
+	var champion = get_champion(peer_id)
+	if champion.get_mana() < ability_mana_cost:
 		print("Not enough mana!")
 		return
 	if player_cooldowns[peer_id][ab_id-1] != 0:
@@ -97,8 +85,8 @@ func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, c
 		return
 	player_cooldowns[peer_id][ab_id-1] = cooldown
 	free_ability(cooldown, peer_id, ab_id-1)
-	player.rpc_id(peer_id, "set_mana", ability_mana_cost)
-	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, player.position, player.team)
+	champion.rpc_id(peer_id, "set_mana", ability_mana_cost)
+	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, champion.position, champion.team)
 
 
 @rpc("any_peer", "call_local")
@@ -142,6 +130,7 @@ func add_player(player: Dictionary):
 	champion.position = get_node("../Spawn"+str(player.team)).position
 	player_cooldowns[player.peer_id] = [0, 0, 0, 0]
 	champion.hide()
+	players[player.peer_id] = champion;
 	champions.add_child(champion)
 	respawn(champion)
 
@@ -157,7 +146,13 @@ func respawn(champion:CharacterBody3D):
 	champion.position = get_node("../Spawn"+str(champion .team)).position + Vector3(x, 0, z)
 	champion.show()
 
-
+func get_champion(id:int):
+	var champion = players[id]
+	if not champion:
+		print_debug("Failed to find character")
+		return false
+	return champion
+	
 func _exit_tree():
 	if not multiplayer.is_server():
 		return
