@@ -1,17 +1,16 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6a05vhg3o3oj"]
+[gd_scene load_steps=25 format=3 uid="uid://c6a05vhg3o3oj"]
 
 [ext_resource type="Script" path="res://maps/bridge.gd" id="1_hsjmj"]
 [ext_resource type="PackedScene" uid="uid://b3ge3nka634tb" path="res://ui/test_ui.tscn" id="1_mabnn"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="2_kuu3h"]
 [ext_resource type="PackedScene" uid="uid://duutg8pxe8i06" path="res://environment/scenes/spawn.tscn" id="4_8m1k4"]
-[ext_resource type="Texture2D" uid="uid://dattc7ewkmdor" path="res://environment/textures/clover.jpg" id="4_pom7h"]
-[ext_resource type="Texture2D" uid="uid://ddvk02l04kuix" path="res://environment/textures/brick.png" id="5_3qktd"]
+[ext_resource type="Texture2D" uid="uid://5qjknjorstl8" path="res://environment/textures/clover.jpg" id="4_pom7h"]
+[ext_resource type="Texture2D" uid="uid://c7iwwm0ldkiwd" path="res://environment/textures/brick.png" id="5_3qktd"]
 [ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://environment/scenes/turret.tscn" id="5_s4ax0"]
 [ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://environment/scenes/nexus.tscn" id="6_h5cqc"]
-[ext_resource type="Texture2D" uid="uid://5ysqn5c4gpvh" path="res://environment/textures/brick_normal.png" id="6_vf8is"]
+[ext_resource type="Texture2D" uid="uid://co74nlqbe4av5" path="res://environment/textures/brick_normal.png" id="6_vf8is"]
 [ext_resource type="Script" path="res://scripts/server_listener.gd" id="7_skvyn"]
 [ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://environment/scenes/minion_spawner.tscn" id="8_g2rme"]
-[ext_resource type="PackedScene" uid="uid://cyi1mqcov25v4" path="res://environment/scenes/water.tscn" id="8_gy7pg"]
 
 [sub_resource type="Environment" id="Environment_vdwvj"]
 
@@ -48,6 +47,118 @@ uv1_scale = Vector3(40, 3, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_45p0s"]
 material = SubResource("StandardMaterial3D_li7hf")
 size = Vector2(160, 10)
+
+[sub_resource type="Shader" id="Shader_3fm56"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.2.2.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_always,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+uniform float point_size : hint_range(0,128);
+uniform float roughness : hint_range(0,1);
+uniform sampler2D texture_metallic : hint_default_white,filter_linear_mipmap,repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+uniform float specular;
+uniform float metallic;
+uniform sampler2D texture_refraction : filter_linear_mipmap,repeat_enable;
+uniform float refraction : hint_range(-16,16);
+uniform vec4 refraction_texture_channel;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear_mipmap;uniform sampler2D texture_normal : hint_roughness_normal,filter_linear_mipmap,repeat_enable;
+uniform float normal_scale : hint_range(-16,16);
+varying vec3 uv1_triplanar_pos;
+uniform float uv1_blend_sharpness;
+varying vec3 uv1_power_normal;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+
+
+void vertex() {
+	vec3 normal = MODEL_NORMAL_MATRIX * NORMAL;
+	TANGENT = vec3(0.0,0.0,-1.0) * abs(normal.x);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(normal.y);
+	TANGENT+= vec3(1.0,0.0,0.0) * abs(normal.z);
+	TANGENT = inverse(MODEL_NORMAL_MATRIX) * normalize(TANGENT);
+	BINORMAL = vec3(0.0,1.0,0.0) * abs(normal.x);
+	BINORMAL+= vec3(0.0,0.0,-1.0) * abs(normal.y);
+	BINORMAL+= vec3(0.0,1.0,0.0) * abs(normal.z);
+	BINORMAL = inverse(MODEL_NORMAL_MATRIX) * normalize(BINORMAL);
+	uv1_power_normal=pow(abs(normal),vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0f)).xyz * uv1_scale + uv1_offset + TIME * 0.05;
+	uv1_power_normal/=dot(uv1_power_normal,vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0,-1.0, 1.0);
+}
+
+
+
+
+vec4 triplanar_texture(sampler2D p_sampler,vec3 p_weights,vec3 p_triplanar_pos) {
+	vec4 samp=vec4(0.0);
+	samp+= texture(p_sampler,p_triplanar_pos.xy) * p_weights.z;
+	samp+= texture(p_sampler,p_triplanar_pos.xz) * p_weights.y;
+	samp+= texture(p_sampler,p_triplanar_pos.zy * vec2(-1.0,1.0)) * p_weights.x;
+	return samp;
+}
+
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo,uv1_power_normal,uv1_triplanar_pos);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	float metallic_tex = dot(triplanar_texture(texture_metallic,uv1_power_normal,uv1_triplanar_pos),metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness,uv1_power_normal,uv1_triplanar_pos),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	SPECULAR = specular;
+	NORMAL_MAP = triplanar_texture(texture_normal,uv1_power_normal,uv1_triplanar_pos).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+	vec3 unpacked_normal = NORMAL_MAP;
+	unpacked_normal.xy = unpacked_normal.xy * 2.0 - 1.0;
+	unpacked_normal.z = sqrt(max(0.0, 1.0 - dot(unpacked_normal.xy, unpacked_normal.xy)));
+	vec3 ref_normal = normalize( mix(NORMAL,TANGENT * unpacked_normal.x + BINORMAL * unpacked_normal.y + NORMAL * unpacked_normal.z,NORMAL_MAP_DEPTH) );
+	vec2 ref_ofs = SCREEN_UV - ref_normal.xy * dot(triplanar_texture(texture_refraction,uv1_power_normal,uv1_triplanar_pos),refraction_texture_channel) * refraction;
+	float ref_amount = 1.0 - albedo.a * albedo_tex.a;
+	EMISSION += textureLod(screen_texture,ref_ofs,ROUGHNESS * 8.0).rgb * ref_amount * EXPOSURE;
+	ALBEDO *= 1.0 - ref_amount;
+	ALPHA = 1.0;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mc5eq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7plso"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_mc5eq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2e7gi"]
+render_priority = 0
+shader = SubResource("Shader_3fm56")
+shader_parameter/albedo = Color(0.117647, 0.662745, 0.831373, 0.619608)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.1
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/refraction = 0.05
+shader_parameter/refraction_texture_channel = null
+shader_parameter/normal_scale = 1.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.04, 0.04, 0.04)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_refraction = SubResource("NoiseTexture2D_7plso")
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_7plso")
+
+[sub_resource type="BoxMesh" id="BoxMesh_u6c71"]
+material = SubResource("ShaderMaterial_2e7gi")
+size = Vector3(500, 1, 300)
 
 [node name="Bridge" type="Node3D" groups=["Map"]]
 script = ExtResource("1_hsjmj")
@@ -111,8 +222,9 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, 0)
 team = 2
 
-[node name="Water" parent="WorldNav" instance=ExtResource("8_gy7pg")]
-transform = Transform3D(525.762, 0, 0, 0, 0.99559, 0, 0, 0, 292.637, 0, -5, -99)
+[node name="Water" type="MeshInstance3D" parent="WorldNav"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.31275, -98.1216)
+mesh = SubResource("BoxMesh_u6c71")
 
 [node name="Spawn1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 0, 0)
