@@ -10,6 +10,7 @@ var patrol_path: Node3D = null
 var path_array: Array[Marker3D] = []
 var enemies_in_range: Array[Node3D] = []
 
+
 func _ready():
 	name = "minion_%d_%d" % [team, id]
 	activation_range = 10.0
@@ -27,11 +28,32 @@ func _ready():
 		healthbar_node
 	)
 
+	if not multiplayer.is_server():
+		return
+	
+	for point in patrol_path.get_children():
+		path_array.append(point)
+
 func _physics_process(delta):
 	if not multiplayer.is_server():
 		return
-	# Get Next State
-	
+	if attack_timeout > 0:
+		attack_timeout -= delta
+	if target_entity == null:
+		target_entity = get_closest_enemy()
+	if not target_entity == null:
+		if target_in_attack_range(range_collider_attack):
+			init_auto_attack()
+			return
+		else:
+			update_target_location(nav_agent, target_entity.global_position)
+	else:
+		if not patrol_path == null:
+			update_target_location(nav_agent, get_closest_patrol_point())
+	var target_location = nav_agent.get_next_path_position()
+	if global_position.distance_to(target_location) <= .1:
+		return
+	nav_agent.velocity = (target_location - global_position).normalized() * speed
 
 
 func get_closest_patrol_point() -> Vector3:
