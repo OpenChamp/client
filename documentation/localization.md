@@ -1,37 +1,24 @@
 # Localization
 
-Translations are handled using godots translation system.
-All of the string translations are in the lang dir.
-Each language has their own translation csv file.
+Translations are handled using godots translation system using the asset packs as an abtraction layer.
+All of the string translations are in the assets repository in the lang dir.
+Each locale has their own translation json file.
 This should prevent merge conflicts caused by translation updates.
-
-For more general information about the translation files check out the [godot documentation on importing translations](https://docs.godotengine.org/en/3.1/getting_started/workflow/assets/importing_translations.html).
-Make sure you have LF as the line ending like everywhere in godot.
 
 ## Adding translation keys
 
 All translation keys ***MUST*** be added to the english locale since that is the fallback language.
 In addition to that all translation key have to be listed below.
 This is important so that people who want to translate to a new langauge have more context of the texts purpose to better translate it.
-It also is easier for the developers to just look up an item here than to scroll to the english csv file.
+It also is easier for the developers to just look up an item here than to scroll to the english json file.
 
 ## Adding a new translation
 
-If you want to translate the contents to a new langauge just add a csv file with named with the locale (eg. `en.csv` or `jp.csv`) and translate the keys as needed.
-You can find a list of valid locale values [in the godot documentation](https://docs.godotengine.org/en/3.1/tutorials/i18n/locales.html#doc-locales).
-After the comma between the rows there must not be a space.
-So `MYSTRING,"some text"` is okay but `MYSTRING, "some text"` is not.
-This is especially important for the top row.
-Please escape the translated text.
-This way you can use a comma inside of it.
-
-In general each csv file should only contain one language.
-However they may contain the language variants in the same file to make organization a bit easier.
-So de and en are separate files but en_us and en_uk may both be in the same en file.
-
-To make the translation avaible you have to open godot and go to `project settings -> Localization -> Add... -> select lang/new_lang.new_lang.translation`
-It's important to select the .translation file not the csv here.
-The csv automatically gets imported into godot.
+**All translations are now managed in the asstes repository**
+The translation files use a json format now.
+If you want to translate the contents to a new langauge just add a json file with named with the locale (eg. `es.json` or `de_de.json`) and translate the keys as needed.
+You can find a list of valid locale values [in the godot documentation](https://docs.godotengine.org/en/4.2/tutorials/i18n/locales.html#doc-locales).
+The translations get automatically imported during runtime, there is no need to import them in godot directly.
 
 ## Testing the translation
 
