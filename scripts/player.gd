@@ -33,7 +33,6 @@ func _ready():
 			server_listener = server_listener.get_parent();
 		server_listener = server_listener.get_node("ServerListener");
 
-
 func _input(event):
 	if event is InputEventMouseButton:
 
@@ -46,12 +45,11 @@ func _input(event):
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT and not is_left_mouse_dragging:
 			# Start dragging
-			player_action(event, not is_right_mouse_dragging)  # For single clicks
+			player_action(event, not is_right_mouse_dragging) # For single clicks
 			if event.is_pressed and not is_right_mouse_dragging:
 				is_right_mouse_dragging = true
 			else:
 				is_right_mouse_dragging = false
-			
 
 		if event.button_index == MOUSE_BUTTON_MIDDLE:
 			if event.pressed:
@@ -70,15 +68,13 @@ func _input(event):
 			player_action(event, false)
 			return
 
-
 func get_target_position(pid: int) -> Vector3:
 	var champ = get_champion(pid)
 	if champ:
 		return champ.position
 	return Vector3.ZERO
 
-
-func player_action(event, play_marker : bool = false, attack_move : bool = false):
+func player_action(event, play_marker: bool=false, attack_move: bool=false):
 	var from = camera.project_ray_origin(event.position)
 	var to = from + camera.project_ray_normal(event.position) * 1000
 	
@@ -91,7 +87,6 @@ func player_action(event, play_marker : bool = false, attack_move : bool = false
 		_player_action_move(result, play_marker, attack_move)
 	# Attack
 	_player_action_attack(result)
-
 
 func _player_action_attack(result):
 	var collider_groups = result.collider.get_groups()
@@ -106,8 +101,7 @@ func _player_action_attack(result):
 		server_listener.rpc_id(get_multiplayer_authority(), "target", result.collider.get_parent().name)
 		break
 
-
-func _player_action_move(result, play_marker : bool, attack_move : bool):
+func _player_action_move(result, play_marker: bool, attack_move: bool):
 		result.position.y += 1
 		if play_marker:
 			var marker = MoveMarker.instantiate()
@@ -116,11 +110,11 @@ func _player_action_move(result, play_marker : bool, attack_move : bool):
 			get_node("/root").add_child(marker)
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
 
-
 func center_camera(playerid):
 	camera_target_position = get_target_position(playerid)
 
 func _process(delta):
+	if multiplayer.is_server(): return ;
 	# handle all the camera-related input
 	camera_movement_handler()
 	
@@ -129,7 +123,6 @@ func _process(delta):
 	
 	# update the camera position using lerp
 	position = position.lerp(camera_target_position, delta * Config.cam_speed)
-
 
 func detect_ability_use() -> void:
 	var pid = multiplayer.get_unique_id()
@@ -145,7 +138,6 @@ func detect_ability_use() -> void:
 	if Input.is_action_just_pressed("player_ability4"):
 		get_champion(pid).trigger_ability(4)
 		return
-
 
 func camera_movement_handler() -> void:
 	# don't move the cam while changing the settings since that is annoying af
@@ -201,14 +193,12 @@ func camera_movement_handler() -> void:
 	if Input.is_action_just_pressed("player_camera_recenter_toggle"):
 		Config.set_cam_centered(!Config.is_cam_centered)
 
-
 func get_champion(pid: int) -> Node:
 	var champs = $"../Champions".get_children()
 	for child in champs:
 		if child.name == str(pid):
 			return child
 	return null
-
 
 func _on_camera_setting_changed():
 	spring_arm.spring_length = clamp(spring_arm.spring_length, Config.min_zoom, Config.max_zoom)

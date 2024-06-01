@@ -33,7 +33,7 @@ properties/4/path = NodePath(".:health")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
-[node name="Turret" type="CharacterBody3D" groups=["Objective", "Unit"]]
+[node name="Turret" type="StaticBody3D" groups=["Objective", "Unit"]]
 collision_layer = 513
 script = ExtResource("1_6p426")
 projectile = ExtResource("2_lnw6l")

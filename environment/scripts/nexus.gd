@@ -2,7 +2,7 @@ extends Objective
 
 @onready var range_collider_attack: Area3D = $AttackArea
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var healthbar: ProgressBar = $Healthbar
+@onready var healthbar_node: ProgressBar = $Healthbar
 
 signal game_over(team)
 
@@ -14,7 +14,7 @@ func _ready():
 		range_collider_attack,
 		mesh_instance,
 		attack_timer,
-		healthbar
+		healthbar_node
 	)
 
 
