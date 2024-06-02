@@ -1,1 +1,1 @@
-OpenChampServer.console.exe -s
+build\\OpenChampServer.console.exe -s
