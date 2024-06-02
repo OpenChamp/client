@@ -77,19 +77,6 @@ func trigger_ability(n:int):
 	abilities[n-1].trigger(n)
 
 
-@rpc("authority", "call_local")
-func use_mana(cost: int) -> void:
-	mana -= cost
-
-
-func get_mana() -> int:
-	return mana
-
-
-func get_max_mana() -> int:
-	return max_mana
-
-
 func die():
 	super()
 	var server_listener = $"../../ServerListener"
