@@ -19,8 +19,6 @@ var abilities : Array[Node] = []
 @export var max_mana: float = 300.0
 @export var mana: float = 300.0
 
-
-
 func _ready():
 	attack_range = 20.0
 	speed = 1000.0
@@ -82,11 +80,17 @@ func trigger_ability(n:int):
 @rpc("authority", "call_local")
 func use_mana(cost: int) -> void:
 	mana -= cost
-	print("ABILITY USED, remaining MANA: " + str(mana))
 
 
 func get_mana() -> int:
 	return mana
 
+
 func get_max_mana() -> int:
 	return max_mana
+
+
+func die():
+	super()
+	var server_listener = $"../../ServerListener"
+	server_listener.rpc_id(multiplayer.get_unique_id(), "respawn", self)

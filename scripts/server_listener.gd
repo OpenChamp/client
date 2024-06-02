@@ -84,7 +84,7 @@ func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, c
 		return
 	player_cooldowns[peer_id][ab_id-1] = cooldown
 	free_ability(cooldown, peer_id, ab_id-1)
-	champion.rpc_id(peer_id, "set_mana", ability_mana_cost)
+	champion.rpc_id(peer_id, "use_mana", ability_mana_cost)
 	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, champion.position, champion.team)
 
 
@@ -95,7 +95,7 @@ func spawn_local_effect(ability_name, ability_type, ability_pos, player_pos, pla
 		ability_scene.position = ability_pos
 	if ability_type == 1:
 		ability_scene.direction = ability_pos
-		ability.position = player_pos
+		ability_scene.position = player_pos
 	ability_scene.team = player_team
 	$"../Abilities".add_child(ability_scene);
 	
@@ -113,13 +113,18 @@ func game_over(team):
 func add_player(player: Dictionary):
 	print(player);
 	print("Player Connected: " + str(player.peer_id))
+	if str(player.peer_id) == "0":
+		return
+		
 	var champion = champion_scenes[player.champ].instantiate()
 	# If player is not registered
 	if player.team == 0:
 		if team1.size() > team2.size():
 			player.team = 2
+			team2.append(player)
 		else:
 			player.team = 1
+			team1.append(player)
 	# setup champion
 	champion.team = player.team
 	champion.name = str(player.peer_id)
@@ -133,20 +138,27 @@ func add_player(player: Dictionary):
 	champions.add_child(champion)
 	respawn(champion)
 
+
 func del_player(client_id: int):
 	if not champions.has_node(str(client_id)):
 		return
 	champions.get_node(str(client_id)).queue_free()
 
+
+@rpc("any_peer", "call_local")
 func respawn(champion:CharacterBody3D):
 	var rand = RandomNumberGenerator.new()
 	var x = rand.randf_range(0, 5)
 	var z = rand.randf_range(0, 5)
 	champion.position = get_node("../Spawn"+str(champion .team)).position + Vector3(x, 0, z)
+	champion.set_health(champion.get_health_max())
+	champion.is_dead = false
 	champion.show()
+	champion.rpc_id(champion.pid, "respawn")
+
 
 func get_champion(id:int):
-	var champion = players[id]
+	var champion = players.get(id)
 	if not champion:
 		print_debug("Failed to find character")
 		return false

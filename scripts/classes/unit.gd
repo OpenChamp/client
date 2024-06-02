@@ -82,9 +82,6 @@ func actor_setup(nav_agent: NavigationAgent3D):
 
 func _update_healthbar(node: ProgressBar):
 	node.value = health
-	if health <= 0:
-		health = 0
-		die()
 
 
 func update_target_location(nav_agent: NavigationAgent3D, target_location: Vector3):
@@ -163,6 +160,7 @@ func take_damage(damage: float):
 	taken = damage / (taken + 1)
 	health -= taken
 	if health <= 0:
+		health = 0
 		die()
 
 func heal(amount:float, keep_extra:bool = false):
