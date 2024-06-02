@@ -94,9 +94,3 @@ func die():
 	super()
 	var server_listener = $"../../ServerListener"
 	server_listener.rpc_id(multiplayer.get_unique_id(), "respawn", self)
-
-
-@rpc("authority", "call_remote")
-func respawn() -> void:
-	is_dead = false
-	set_health(get_health_max())
