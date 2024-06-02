@@ -16,10 +16,10 @@ jobs:
           fail-on-cache-miss: true
           key: godot_4_2_2_stable_rev2
 
+      - name: Create the expor templates directory
+        run: New-Item -ItemType Directory -Path $env:APPDATA/Godot/export_templates -Force
       - name: Move the templates
-        run: |
-          New-Item -ItemType Directory -Path %APPDATA%/Roaming/Godot/export_templates -Force
-          Move-Item -Path godot/export_templates/4.2.2.stable -Destination %APPDATA%/Roaming/Godot/export_templates/4.2.2.stable -Recurse
+        run: Move-Item -Path godot/export_templates/4.2.2.stable -Destination $env:APPDATA/Godot/export_templates/
 
       - name: Create the build directory
         run: mkdir build
@@ -33,5 +33,5 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: linux_builds
+          name: win64_builds
           path: build
