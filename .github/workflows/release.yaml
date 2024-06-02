@@ -1,0 +1,46 @@
+on: 
+  push:
+    branches:
+      - main
+      - alpha
+
+jobs:
+  cache_godot:
+    uses: ./.github/workflows/cache_godot.yaml
+    secrets: inherit
+  
+  compile_linux:
+    needs: cache_godot
+    uses: ./.github/workflows/compile_linux.yaml
+    secrets: inherit
+
+  create_release:
+    needs: [ compile_linux ]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+      
+      - name: Bump version and push tag
+        id: bump
+        uses: anothrNick/github-tag-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          TAG_CONTEXT: branch
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: linux_builds
+          path: build
+
+      - name: Create the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.bump.outputs.new_tag }}
+          generate_release_notes: true
+          files: |
+            build/*
+            LICENSE

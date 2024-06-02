@@ -1,0 +1,38 @@
+on:
+  workflow_call:
+
+jobs:
+  linux_compile:
+    name: "Compile for Linux"
+    runs-on: "ubuntu-24.04"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: godot
+          enableCrossOsArchive: true
+          fail-on-cache-miss: true
+          key: godot_4_2_2_stable
+
+      - name: Create templates symlink
+        run: ln -s $(pwd)/godot/export_templates/4.2.2.stable ~/.local/share/godot/export_templates/4.2.2.stable
+
+      - name: Compile Client For Linux amd64
+        run: ./godot/godot_linux --headless --export-release 'Client Linux/X11 amd64' project.godot
+
+      - name: Compile Server For Linux amd64
+        run: ./godot/godot_linux --headless --export-release 'Server Linux/X11 amd64' project.godot
+
+      - name: Compile Client For Linux aarch64
+        run: ./godot/godot_linux --headless --export-release 'Client Linux/X11 aarch64' project.godot
+
+      - name: Compile Server For Linux aarch64
+        run: ./godot/godot_linux --headless --export-release 'Server Linux/X11 aarch64' project.godot
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux_builds
+          path: build
