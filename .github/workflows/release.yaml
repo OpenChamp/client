@@ -14,8 +14,18 @@ jobs:
     uses: ./.github/workflows/compile_linux.yaml
     secrets: inherit
 
+  compile_mac:
+    needs: cache_godot
+    uses: ./.github/workflows/compile_mac.yaml
+    secrets: inherit
+
+  compile_windows:
+    needs: cache_godot
+    uses: ./.github/workflows/compile_windows.yaml
+    secrets: inherit
+
   create_release:
-    needs: [ compile_linux ]
+    needs: [ compile_linux, compile_mac, compile_windows]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -28,6 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
+          DEFAULT_BUMP: patch
           TAG_CONTEXT: branch
 
       - name: Download build artifacts

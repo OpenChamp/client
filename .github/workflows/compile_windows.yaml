@@ -1,0 +1,32 @@
+on:
+  workflow_call:
+
+jobs:
+  win64_compile:
+    name: "Compile for Windows 64bit"
+    runs-on: "windows-latest"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: godot
+          enableCrossOsArchive: true
+          fail-on-cache-miss: true
+          key: godot_4_2_2_stable_rev2
+
+      - name: Create the build directory
+        run: mkdir build
+
+      - name: Compile Client Windows
+        run: ./godot/godot_win64_console.exe --headless --export-release 'Client Windows' project.godot
+
+      - name: Compile Server Windows
+        run: ./godot/godot_win64_console.exe --headless --export-release 'Server Windows' project.godot
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux_builds
+          path: build
