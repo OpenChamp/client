@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget unzip sha256sum
+          sudo apt-get install -y wget unzip
 
       - name: download and extract godot linux executable
         if: steps.cache.outputs.cache-hit != 'true'
