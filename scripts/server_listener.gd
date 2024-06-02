@@ -76,7 +76,7 @@ func target(target_name):
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
 	var peer_id = multiplayer.get_remote_sender_id()
 	var champion = get_champion(peer_id)
-	if champion.get_mana() < ability_mana_cost:
+	if champion.mana < ability_mana_cost:
 		print("Not enough mana!")
 		return
 	if player_cooldowns[peer_id][ab_id-1] != 0:
@@ -84,7 +84,8 @@ func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, c
 		return
 	player_cooldowns[peer_id][ab_id-1] = cooldown
 	free_ability(cooldown, peer_id, ab_id-1)
-	champion.rpc_id(peer_id, "use_mana", ability_mana_cost)
+	champion.mana -= ability_mana_cost
+	print(champion.mana)
 	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, champion.position, champion.team)
 
 
