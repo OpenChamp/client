@@ -1,0 +1,37 @@
+on:
+  workflow_call:
+
+jobs:
+  mac_compile:
+    name: "Compile for MacOS"
+    runs-on: "macos-latest"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: godot
+          enableCrossOsArchive: true
+          fail-on-cache-miss: true
+          key: godot_4_2_2_stable_rev2
+
+      - name: Create templates symlink
+        run: |
+          mkdir -p "$HOME/Library/Application Support/Godot/export_templates"
+          ln -s "$(pwd)/godot/export_templates/4.2.2.stable" "$HOME/Library/Application Support/Godot/export_templates/4.2.2.stable"
+
+      - name: Create the build directory
+        run: mkdir build
+
+      - name: Compile Client For MacOS
+        run: ./godot/Godot.app/Contents/MacOS/Godot --headless --export-release 'Client macOS' project.godot
+
+      - name: Compile Server For MacOS
+        run: ./godot/Godot.app/Contents/MacOS/Godot --headless --export-release 'Server macOS' project.godot
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac_builds
+          path: build

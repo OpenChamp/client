@@ -1,0 +1,55 @@
+on:
+  workflow_call:
+
+jobs:
+  cache_godot:
+    name: "Setup Godot Cache"
+    runs-on: "ubuntu-24.04"
+    steps:
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: godot
+          enableCrossOsArchive: true
+          key: godot_4_2_2_stable_rev2
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+
+      - name: download and extract godot linux executable
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          wget https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_linux.x86_64.zip
+          unzip Godot_v4.2.2-stable_linux.x86_64.zip
+          mkdir godot
+          mv Godot_v4.2.2-stable_linux.x86_64 godot/godot_linux
+          chmod +x godot/godot_linux
+
+      - name: download and extract godot windows executable
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          wget https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_win64.exe.zip
+          unzip Godot_v4.2.2-stable_win64.exe.zip
+          mv Godot_v4.2.2-stable_win64.exe godot/godot_win64.exe
+          mv Godot_v4.2.2-stable_win64_console.exe godot/godot_win64_console.exe
+
+      - name: download and extract godot mac executable
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          wget https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_macos.universal.zip
+          unzip Godot_v4.2.2-stable_macos.universal.zip
+          mv Godot.app godot/Godot.app
+
+      - name: download and extract godot templates
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          wget https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_export_templates.tpz
+          unzip Godot_v4.2.2-stable_export_templates.tpz
+          mkdir godot/export_templates
+          mv templates godot/export_templates/4.2.2.stable
+
+      
+        
