@@ -2,7 +2,7 @@
 extends ggsUIComponent
 
 @onready var spin_box: SpinBox = $SpinBox
-@onready var field: line_edit = spin_box.get_line_edit()
+@onready var field: LineEdit = spin_box.get_line_edit()
 
 
 func _ready() -> void:

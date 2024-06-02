@@ -1,2 +1,2 @@
 #!/bin/bash
-./OpenChampServer.$(uname -p) -s
+./build/OpenChampServer.$(uname -p) -s

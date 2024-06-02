@@ -8,12 +8,8 @@
 *.zip
 lang/*.translation
 
-# Linux exports
-OpenChamp
-OpenChamp.sh
-OpenChamp.x86_64
-OpenChamp.arm64
-OpenChampServer
-OpenChampServer.sh
-OpenChampServer.x86_64
-OpenChampServer.arm64
+# exports
+build/
+
+# game install dir
+godot/

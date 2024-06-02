@@ -11,6 +11,27 @@
 
  Thanks!
 
+## Setup
+
+To start working on this project you will need the godot editor.
+You can get the latest version from [https://godotengine.org/](https://godotengine.org/).
+At the moment we use godot 4.2 without C# support.
+
+## Running the game
+
+To properly run the game you will need the default assets in your user directory.
+In the future the launcher will handle this, but for now this has to be done manually.
+
+The content has to be placed in `user://external/`
+That is the dirictory where the [assets repository](https://github.com/OpenChamp/default_assets) has to be cloned to.
+You could also create a new directory there and extract the contents of the [latest release](https://github.com/OpenChamp/default_assets/releases/latest) there.
+This will result in `user://external/default_assets/openchamp/...`
+
+The user prefix is in the following location:
+
+* Windows: `%APPDATA%\Godot\app_userdata\openchamp`
+* macOS: `~/Library/Application Support/Godot/app_userdata/openchamp`
+* Linux: `~/.local/share/godot/app_userdata/openchamp`
  
 ## Contributing
 
