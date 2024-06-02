@@ -35,6 +35,7 @@ func _ready():
 		server_listener = server_listener.get_node("ServerListener");
 
 func _input(event):
+	if multiplayer.is_server(): return;
 	if event is InputEventMouseButton:
 
 		if event.button_index == MOUSE_BUTTON_LEFT and not is_right_mouse_dragging:
