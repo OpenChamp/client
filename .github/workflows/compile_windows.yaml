@@ -19,7 +19,7 @@ jobs:
       - name: Move the templates
         run: |
           New-Item -ItemType Directory -Path %APPDATA%/Roaming/Godot/export_templates -Force
-          Move-Item -Path $(pwd)/godot/export_templates/4.2.2.stable -Destination %APPDATA%/Roaming/Godot/export_templates/4.2.2.stable -Recurse
+          Move-Item -Path godot/export_templates/4.2.2.stable -Destination %APPDATA%/Roaming/Godot/export_templates/4.2.2.stable -Recurse
 
       - name: Create the build directory
         run: mkdir build
