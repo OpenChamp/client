@@ -138,17 +138,22 @@ func add_player(player: Dictionary):
 	champions.add_child(champion)
 	respawn(champion)
 
+
 func del_player(client_id: int):
 	if not champions.has_node(str(client_id)):
 		return
 	champions.get_node(str(client_id)).queue_free()
 
+
+@rpc("any_peer", "call_local")
 func respawn(champion:CharacterBody3D):
 	var rand = RandomNumberGenerator.new()
 	var x = rand.randf_range(0, 5)
 	var z = rand.randf_range(0, 5)
 	champion.position = get_node("../Spawn"+str(champion .team)).position + Vector3(x, 0, z)
 	champion.show()
+	champion.rpc_id(champion.pid, "respawn")
+
 
 func get_champion(id:int):
 	var champion = players.get(id)
