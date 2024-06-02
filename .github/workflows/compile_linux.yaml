@@ -17,7 +17,9 @@ jobs:
           key: godot_4_2_2_stable
 
       - name: Create templates symlink
-        run: ln -s $(pwd)/godot/export_templates/4.2.2.stable ~/.local/share/godot/export_templates/4.2.2.stable
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates
+          ln -s $(pwd)/godot/export_templates/4.2.2.stable ~/.local/share/godot/export_templates/4.2.2.stable
 
       - name: Compile Client For Linux amd64
         run: ./godot/godot_linux --headless --export-release 'Client Linux/X11 amd64' project.godot
