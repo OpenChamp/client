@@ -122,7 +122,7 @@ func _try_attack_move(target_position: Vector3, play_marker : bool = false):
 		for i in attack_move_cast.get_collision_count():
 			var collider = attack_move_cast.get_collider(i)
 			if collider == null: continue
-			if not collider is Unit and not collider is Objective: continue
+			if not "health" in collider: continue
 			if collider.team == get_champion(multiplayer.get_unique_id()).team: continue
 			if closest_enemy == null:
 				closest_enemy = collider
