@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://brf36706aplp7"]
+
+[ext_resource type="FontFile" uid="uid://cbu4rfqdshk5s" path="res://ui/fonts/AlfaSlabOne-Regular.ttf" id="1_wi52b"]
+
+[resource]
+default_font = ExtResource("1_wi52b")
+default_font_size = 13

@@ -1,34 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://b3ge3nka634tb"]
+[gd_scene load_steps=24 format=3 uid="uid://b3ge3nka634tb"]
 
 [ext_resource type="PackedScene" uid="uid://dcc1r64ba6itj" path="res://ui/settings_menu/settings_menu.tscn" id="1_b1o7r"]
-[ext_resource type="Texture2D" uid="uid://d2ngs2fufawtw" path="res://ui/textures/placeholder.png" id="1_fukxk"]
-[ext_resource type="Script" path="res://ui/ui.gd" id="1_xuheh"]
+[ext_resource type="Texture2D" uid="uid://yt43e4ftyoj0" path="res://ui/textures/placeholder.png" id="1_fukxk"]
 [ext_resource type="StyleBox" uid="uid://hso35v0bmr2i" path="res://ui/resources/progressbar_back.tres" id="2_ocle2"]
 [ext_resource type="StyleBox" uid="uid://d1of2i6o3typo" path="res://ui/resources/health_fill.tres" id="3_sb1q7"]
 [ext_resource type="StyleBox" uid="uid://bnrxgjlw018mo" path="res://ui/resources/mana_fill.tres" id="4_bdhvv"]
 [ext_resource type="Script" path="res://ui/player_stats/player_stat_interface.gd" id="4_kvve8"]
-[ext_resource type="Texture2D" uid="uid://dtrcury64bnfg" path="res://ui/textures/ability_1.png" id="8_lnein"]
-[ext_resource type="Texture2D" uid="uid://dksavouh265s0" path="res://ui/textures/ability_up.png" id="9_wnjpv"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrp2e"]
-bg_color = Color(0.121569, 0.435294, 0.494118, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n4drl"]
-texture = ExtResource("1_fukxk")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xdde"]
-bg_color = Color(0.703808, 0.703808, 0.703808, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.121569, 0.435294, 0.494118, 1)
-corner_radius_top_left = 4
-corner_radius_bottom_right = 4
+[ext_resource type="Texture2D" uid="uid://8yqknrlwb8xk" path="res://ui/textures/ability_1.png" id="8_lnein"]
+[ext_resource type="Texture2D" uid="uid://d0v3w2d2u4p6a" path="res://ui/textures/ability_up.png" id="9_wnjpv"]
+[ext_resource type="FontFile" uid="uid://cbu4rfqdshk5s" path="res://ui/fonts/AlfaSlabOne-Regular.ttf" id="10_6dx6a"]
+[ext_resource type="Theme" uid="uid://brf36706aplp7" path="res://ui/default_theme.tres" id="10_amt63"]
+[ext_resource type="Texture2D" uid="uid://62pnt33in71r" path="res://ui/Full_HD_10.png" id="11_32wpr"]
 
 [sub_resource type="Animation" id="Animation_bdbrj"]
 resource_name = "upgrade_ability"
@@ -52,15 +34,92 @@ _data = {
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wxhll"]
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+bg_color = Color(0.147672, 0.147672, 0.147672, 1)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
 border_color = Color(0.121569, 0.435294, 0.494118, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+corner_radius_top_left = 21
+corner_radius_top_right = 21
+corner_radius_bottom_right = 21
+corner_radius_bottom_left = 21
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htlwm"]
+bg_color = Color(0.341176, 0.537255, 0.607843, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_color = Color(0, 0, 0, 0.392157)
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0xeg"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98131, 0.672165, 1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nd5bo"]
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0862745, 0.8, 0.8, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n4drl"]
+texture = ExtResource("1_fukxk")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78qky"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0.8, 0.8, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_em60j"]
+bg_color = Color(0, 0.8, 0.8, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5t84y"]
+bg_color = Color(0, 0.8, 0.8, 1)
+border_width_right = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3n8s"]
+bg_color = Color(0, 0.8, 0.8, 1)
+border_width_left = 2
+border_width_right = 2
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ceapj"]
+bg_color = Color(0.2484, 0.2484, 0.2484, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="TestUi" type="Control"]
 layout_mode = 3
@@ -69,46 +128,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_xuheh")
 
 [node name="SettingsMenu" parent="." instance=ExtResource("1_b1o7r")]
 visible = false
 layout_mode = 1
 
-[node name="Player" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -108.0
-offset_right = 113.0
-offset_bottom = -10.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_jrp2e")
-
-[node name="Portrait" type="Panel" parent="Player"]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 101.0
-offset_bottom = 96.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_n4drl")
-
-[node name="Level" type="Panel" parent="Player"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = -24.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_0xdde")
-
 [node name="Main" type="Panel" parent="."]
+visible = false
+z_index = 1
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -118,6 +145,7 @@ anchor_bottom = 1.0
 offset_left = -253.5
 offset_top = -117.0
 offset_right = 253.5
+offset_bottom = -22.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -247,36 +275,6 @@ grow_vertical = 2
 [node name="StatsInterface" type="Node" parent="Main"]
 script = ExtResource("4_kvve8")
 
-[node name="HealthBar" type="ProgressBar" parent="Main"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -58.0
-offset_right = 330.0
-offset_bottom = -31.0
-grow_vertical = 0
-theme_override_styles/background = ExtResource("2_ocle2")
-theme_override_styles/fill = ExtResource("3_sb1q7")
-value = 28.0
-show_percentage = false
-
-[node name="ManaBar" type="ProgressBar" parent="Main"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -29.0
-offset_right = 330.0
-offset_bottom = -2.0
-grow_vertical = 0
-theme_override_styles/background = ExtResource("2_ocle2")
-theme_override_styles/fill = ExtResource("4_bdhvv")
-value = 67.0
-show_percentage = false
-
 [node name="Ability1" type="Panel" parent="Main"]
 layout_mode = 1
 anchors_preset = 8
@@ -368,27 +366,109 @@ grow_vertical = 2
 
 [node name="Minimap" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -180.0
-offset_top = -180.0
-grow_horizontal = 0
-grow_vertical = 0
+offset_left = 13.0
+offset_top = 13.0
+offset_right = 180.0
+offset_bottom = 180.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxhll")
 
 [node name="GameStats" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -215.0
+offset_top = 13.0
+offset_right = 213.0
+offset_bottom = 33.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_htlwm")
+
+[node name="Money" type="RichTextLabel" parent="GameStats"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 1.0
+offset_right = 90.0
+offset_bottom = 23.0
+theme_override_colors/default_color = Color(0.807843, 0.705882, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("10_6dx6a")
+theme_override_font_sizes/normal_font_size = 12
+text = "25"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="TimeElapsed" type="RichTextLabel" parent="GameStats"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 1.0
+offset_right = 167.0
+offset_bottom = 23.0
+theme = ExtResource("10_amt63")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("10_6dx6a")
+text = "09:59
+"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Score" type="RichTextLabel" parent="GameStats"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -9.0
+offset_right = 27.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_amt63")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("10_6dx6a")
+bbcode_enabled = true
+text = "[center][color=#337cee]2[/color] vs [color=#af0101]4[/color][/center]"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="KDA" type="RichTextLabel" parent="GameStats"]
+layout_mode = 1
+anchors_preset = 6
 anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-offset_left = -338.0
-offset_bottom = 42.0
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -9.0
+offset_right = -76.0
+offset_bottom = 13.0
 grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("10_amt63")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("10_6dx6a")
+text = "1/0/0"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="CS" type="RichTextLabel" parent="GameStats"]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 1.0
+offset_right = 440.0
+offset_bottom = 23.0
+theme = ExtResource("10_amt63")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("10_6dx6a")
+text = "56"
+scroll_active = false
+autowrap_mode = 0
 
 [node name="AlliedPlayers" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -402,6 +482,7 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="OpposingPlayers" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -413,3 +494,209 @@ offset_top = -262.0
 offset_bottom = -222.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+z_index = -1
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("11_32wpr")
+expand_mode = 2
+
+[node name="ChampionUI" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.336
+anchor_top = 0.867
+anchor_right = 0.733
+anchor_bottom = 1.0
+offset_left = -0.0800171
+offset_top = -0.240051
+offset_right = -0.240051
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Passive" type="Panel" parent="ChampionUI"]
+z_index = 2
+layout_mode = 0
+offset_top = 61.0
+offset_right = 22.0
+offset_bottom = 83.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_u0xeg")
+
+[node name="Level" type="Panel" parent="ChampionUI"]
+z_index = 2
+layout_mode = 0
+offset_left = 60.0
+offset_top = 58.0
+offset_right = 85.0
+offset_bottom = 83.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nd5bo")
+
+[node name="Portrait2" type="Panel" parent="ChampionUI"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 74.0
+offset_bottom = 80.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_n4drl")
+
+[node name="PortraitBorder" type="Panel" parent="ChampionUI/Portrait2"]
+z_index = 1
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 72.0
+offset_bottom = 78.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_78qky")
+
+[node name="HealthMana" type="Panel" parent="ChampionUI"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 43.0
+offset_right = 338.0
+offset_bottom = 83.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_em60j")
+
+[node name="HealthBar2" type="ProgressBar" parent="ChampionUI/HealthMana"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -34.0
+offset_right = 252.0
+offset_bottom = -21.0
+grow_vertical = 0
+theme_override_styles/background = ExtResource("2_ocle2")
+theme_override_styles/fill = ExtResource("3_sb1q7")
+value = 28.0
+show_percentage = false
+
+[node name="ManaBar2" type="ProgressBar" parent="ChampionUI/HealthMana"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -17.0
+offset_right = 252.0
+offset_bottom = -4.0
+grow_vertical = 0
+theme_override_styles/background = ExtResource("2_ocle2")
+theme_override_styles/fill = ExtResource("4_bdhvv")
+value = 67.0
+show_percentage = false
+
+[node name="Items" type="Panel" parent="ChampionUI"]
+layout_mode = 0
+offset_left = 335.0
+offset_top = 15.0
+offset_right = 447.0
+offset_bottom = 83.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5t84y")
+
+[node name="UsableItems" type="Panel" parent="ChampionUI/Items"]
+layout_mode = 0
+offset_right = 29.0
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g3n8s")
+
+[node name="ItemBoxD" type="Panel" parent="ChampionUI/Items/UsableItems"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 7.0
+offset_right = 26.0
+offset_bottom = 28.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ceapj")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ChampionUI/Items/UsableItems/ItemBoxD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -13.0
+offset_right = 4.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 10
+text = "D"
+scroll_active = false
+
+[node name="ItemBoxF" type="Panel" parent="ChampionUI/Items/UsableItems"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 37.0
+offset_right = 26.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ceapj")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ChampionUI/Items/UsableItems/ItemBoxF"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -13.0
+offset_right = 5.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 10
+text = "F
+"
+scroll_active = false
+
+[node name="ItemBox1" type="Panel" parent="ChampionUI/Items"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 10.0
+offset_right = 56.0
+offset_bottom = 31.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ceapj")
+
+[node name="ItemBox2" type="Panel" parent="ChampionUI/Items"]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 10.0
+offset_right = 81.0
+offset_bottom = 31.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ceapj")
+
+[node name="ItemBox3" type="Panel" parent="ChampionUI/Items"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 10.0
+offset_right = 106.0
+offset_bottom = 31.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ceapj")
+
+[node name="ItemBox4" type="Panel" parent="ChampionUI/Items"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 35.0
+offset_right = 106.0
+offset_bottom = 56.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ceapj")
+
+[node name="ItemBox5" type="Panel" parent="ChampionUI/Items"]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 35.0
+offset_right = 81.0
+offset_bottom = 56.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ceapj")
+
+[node name="ItemBox6" type="Panel" parent="ChampionUI/Items"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 35.0
+offset_right = 56.0
+offset_bottom = 56.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ceapj")
