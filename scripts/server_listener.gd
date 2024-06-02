@@ -151,6 +151,8 @@ func respawn(champion:CharacterBody3D):
 	var x = rand.randf_range(0, 5)
 	var z = rand.randf_range(0, 5)
 	champion.position = get_node("../Spawn"+str(champion .team)).position + Vector3(x, 0, z)
+	champion.set_health(champion.get_health_max())
+	champion.is_dead = false
 	champion.show()
 	champion.rpc_id(champion.pid, "respawn")
 
