@@ -14,7 +14,7 @@ jobs:
           path: godot
           enableCrossOsArchive: true
           fail-on-cache-miss: true
-          key: godot_4_2_2_stable
+          key: godot_4_2_2_stable_rev2
 
       - name: Create templates symlink
         run: |
