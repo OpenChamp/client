@@ -18,8 +18,8 @@ jobs:
 
       - name: Create templates symlink
         run: |
-          mkdir -p '$HOME/Library/Application Support/Godot/export_templates'
-          ln -s $(pwd)/godot/export_templates/4.2.2.stable '$HOME/Library/Application Support/Godot/export_templates/4.2.2.stable'
+          mkdir -p "$HOME/Library/Application Support/Godot/export_templates"
+          ln -s "$(pwd)/godot/export_templates/4.2.2.stable" "$HOME/Library/Application Support/Godot/export_templates/4.2.2.stable"
 
       - name: Create the build directory
         run: mkdir build
