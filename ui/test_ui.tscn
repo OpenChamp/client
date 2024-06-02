@@ -1,11 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://b3ge3nka634tb"]
+[gd_scene load_steps=26 format=3 uid="uid://b3ge3nka634tb"]
 
+[ext_resource type="Script" path="res://ui/ui.gd" id="1_21aey"]
 [ext_resource type="PackedScene" uid="uid://dcc1r64ba6itj" path="res://ui/settings_menu/settings_menu.tscn" id="1_b1o7r"]
 [ext_resource type="Texture2D" uid="uid://yt43e4ftyoj0" path="res://ui/textures/placeholder.png" id="1_fukxk"]
 [ext_resource type="StyleBox" uid="uid://hso35v0bmr2i" path="res://ui/resources/progressbar_back.tres" id="2_ocle2"]
 [ext_resource type="StyleBox" uid="uid://d1of2i6o3typo" path="res://ui/resources/health_fill.tres" id="3_sb1q7"]
 [ext_resource type="StyleBox" uid="uid://bnrxgjlw018mo" path="res://ui/resources/mana_fill.tres" id="4_bdhvv"]
 [ext_resource type="Script" path="res://ui/player_stats/player_stat_interface.gd" id="4_kvve8"]
+[ext_resource type="Script" path="res://ui/TimeElapsed.gd" id="7_81ipw"]
 [ext_resource type="Texture2D" uid="uid://8yqknrlwb8xk" path="res://ui/textures/ability_1.png" id="8_lnein"]
 [ext_resource type="Texture2D" uid="uid://d0v3w2d2u4p6a" path="res://ui/textures/ability_up.png" id="9_wnjpv"]
 [ext_resource type="FontFile" uid="uid://cbu4rfqdshk5s" path="res://ui/fonts/AlfaSlabOne-Regular.ttf" id="10_6dx6a"]
@@ -128,10 +130,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_21aey")
 
 [node name="SettingsMenu" parent="." instance=ExtResource("1_b1o7r")]
-visible = false
 layout_mode = 1
+
+[node name="StatsInterface" type="Node" parent="."]
+script = ExtResource("4_kvve8")
 
 [node name="Main" type="Panel" parent="."]
 visible = false
@@ -272,9 +277,6 @@ offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StatsInterface" type="Node" parent="Main"]
-script = ExtResource("4_kvve8")
-
 [node name="Ability1" type="Panel" parent="Main"]
 layout_mode = 1
 anchors_preset = 8
@@ -412,6 +414,7 @@ text = "09:59
 "
 scroll_active = false
 autowrap_mode = 0
+script = ExtResource("7_81ipw")
 
 [node name="Score" type="RichTextLabel" parent="GameStats"]
 layout_mode = 1
@@ -558,7 +561,7 @@ offset_right = 338.0
 offset_bottom = 83.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_em60j")
 
-[node name="HealthBar2" type="ProgressBar" parent="ChampionUI/HealthMana"]
+[node name="HealthBar" type="ProgressBar" parent="ChampionUI/HealthMana"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -573,7 +576,7 @@ theme_override_styles/fill = ExtResource("3_sb1q7")
 value = 28.0
 show_percentage = false
 
-[node name="ManaBar2" type="ProgressBar" parent="ChampionUI/HealthMana"]
+[node name="ManaBar" type="ProgressBar" parent="ChampionUI/HealthMana"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
