@@ -14,6 +14,7 @@ jobs:
           key: godot_4_2_2_stable
 
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip

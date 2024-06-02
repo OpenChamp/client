@@ -21,6 +21,9 @@ jobs:
           mkdir -p ~/.local/share/godot/export_templates
           ln -s $(pwd)/godot/export_templates/4.2.2.stable ~/.local/share/godot/export_templates/4.2.2.stable
 
+      - name: Create the build directory
+        run: mkdir build
+
       - name: Compile Client For Linux amd64
         run: ./godot/godot_linux --headless --export-release 'Client Linux/X11 amd64' project.godot
 
