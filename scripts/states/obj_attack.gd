@@ -38,7 +38,6 @@ func set_target(entity):
 			if priorities[body.get_groups()[0]]:
 				if priorities[body.get_groups()[0]] > highest_priority:
 					target_entity = body;
-					target_entity.free
 	if !target_entity:
 		change.emit("obj_scan");
 	else:
