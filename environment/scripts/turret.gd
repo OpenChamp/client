@@ -25,6 +25,10 @@ func _ready():
 func _process(delta):
 	if is_dead:
 		return;
+	if health < 0:
+		_update_healthbar(healthbar)
+		die();
+		return;
 	_update_healthbar(healthbar)
 	set_target()
 	if attack_timeout > 0:
@@ -37,3 +41,5 @@ func _process(delta):
 func die():
 	is_dead = true
 	mesh_instance.get_node("Crystal").hide()
+	$MeshInstance3D/CrystalExplode.explode();
+
