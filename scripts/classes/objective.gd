@@ -87,11 +87,6 @@ func take_damage(damage: float):
 	var taken: float = armor / 100
 	taken = damage / (taken + 1)
 	health -= taken
-	if health <= 0:
-		die()
-
-func die():
-	self.queue_free()
 
 func init_auto_attack():
 	if !multiplayer.is_server():
