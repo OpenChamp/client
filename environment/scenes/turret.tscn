@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjjv3488swmh2"]
+[gd_scene load_steps=13 format=3 uid="uid://cjjv3488swmh2"]
 
 [ext_resource type="Script" path="res://environment/scripts/turret.gd" id="1_6p426"]
 [ext_resource type="ArrayMesh" uid="uid://bs3i0h7050jhc" path="res://environment/models/turret.mesh" id="1_vckyp"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bv1yffxbq46ix" path="res://effects/tower_blast.tscn" id="2_lnw6l"]
 [ext_resource type="ArrayMesh" uid="uid://dfsx34bcg0mc1" path="res://environment/models/crystal.mesh" id="2_ota7h"]
 [ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://effects/red_glow.tres" id="3_vg8kb"]
+[ext_resource type="PackedScene" uid="uid://claa703t77k8w" path="res://effects/crystal_explode.tscn" id="5_8bvoy"]
 [ext_resource type="Script" path="res://environment/scripts/crystal_spin.gd" id="6_om0h8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gjad5"]
@@ -47,6 +48,9 @@ mesh = SubResource("CapsuleMesh_gjad5")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 mesh = ExtResource("1_vckyp")
+
+[node name="CrystalExplode" parent="MeshInstance3D" instance=ExtResource("5_8bvoy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76394, 0)
 
 [node name="Crystal" type="MeshInstance3D" parent="MeshInstance3D"]
 mesh = ExtResource("2_ota7h")
