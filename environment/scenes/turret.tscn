@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjjv3488swmh2"]
+[gd_scene load_steps=17 format=3 uid="uid://cjjv3488swmh2"]
 
 [ext_resource type="Script" path="res://environment/scripts/turret.gd" id="1_6p426"]
 [ext_resource type="ArrayMesh" uid="uid://bs3i0h7050jhc" path="res://environment/models/turret.mesh" id="1_vckyp"]
@@ -6,8 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://bv1yffxbq46ix" path="res://effects/tower_blast.tscn" id="2_lnw6l"]
 [ext_resource type="ArrayMesh" uid="uid://dfsx34bcg0mc1" path="res://environment/models/crystal.mesh" id="2_ota7h"]
 [ext_resource type="Material" uid="uid://bovn7x34hbpks" path="res://effects/red_glow.tres" id="3_vg8kb"]
-[ext_resource type="PackedScene" uid="uid://claa703t77k8w" path="res://effects/crystal_explode.tscn" id="5_8bvoy"]
+[ext_resource type="PackedScene" uid="uid://cy5tox8freods" path="res://effects/crystal_explode.tscn" id="5_8bvoy"]
 [ext_resource type="Script" path="res://environment/scripts/crystal_spin.gd" id="6_om0h8"]
+[ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="8_bkjyw"]
+[ext_resource type="Script" path="res://scripts/states/obj_scan.gd" id="9_f808b"]
+[ext_resource type="Script" path="res://scripts/states/obj_attack.gd" id="10_acupl"]
+[ext_resource type="Script" path="res://scripts/states/obj_dead.gd" id="11_h6urx"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gjad5"]
 
@@ -86,3 +90,16 @@ spawn_limit = 100
 [node name="UnitCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.36093, 0)
 shape = SubResource("CylinderShape3D_te2n1")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("8_bkjyw")
+initial_state = NodePath("obj_scan")
+
+[node name="obj_scan" type="Node" parent="StateMachine"]
+script = ExtResource("9_f808b")
+
+[node name="obj_attack" type="Node" parent="StateMachine"]
+script = ExtResource("10_acupl")
+
+[node name="obj_dead" type="Node" parent="StateMachine"]
+script = ExtResource("11_h6urx")

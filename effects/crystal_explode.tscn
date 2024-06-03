@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://claa703t77k8w"]
+[gd_scene load_steps=22 format=3 uid="uid://cy5tox8freods"]
 
 [ext_resource type="Script" path="res://effects/crystal_explode.gd" id="1_10lc6"]
 [ext_resource type="AudioStream" uid="uid://ol8paxph2eyj" path="res://environment/audio/NenadSimic - Muffled Distant Explosion.wav" id="2_l84sd"]
