@@ -2,7 +2,7 @@ extends Control
 
 @onready var settings_menu = $SettingsMenu
 @onready var champions = $"../Champions"
-@onready var stats = $Main/StatsInterface
+@onready var stats = $StatsInterface
 @onready var champion: CharacterBody3D = null;
 
 func _ready():
