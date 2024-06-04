@@ -154,8 +154,7 @@ func camera_movement_handler() -> void:
 			cam_delta += Vector3(mouse_delta.x, 0, mouse_delta.y) * Config.cam_pan_sensitivity
 		
 		# Apply camera movement
-		if cam_delta != Vector3.ZERO:
-			camera_target_position += cam_delta
+		camera_target_position += cam_delta
 	
 	# Zoom
 	if Input.is_action_just_pressed("player_zoomin"):
