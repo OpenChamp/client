@@ -27,9 +27,11 @@ var target_entity: Node = null
 # States:
 var is_attacking: bool = false
 var is_dead: bool = false
+var server_pos: Vector3 = position;
 # Signals:
 var can_respawn: bool = false # Only players or super special units
 signal unit_died
+signal died
 # UI:
 @onready var healthbar: ProgressBar = $Healthbar
 
@@ -110,7 +112,8 @@ func attack(entity: CharacterBody3D, nav_agent: NavigationAgent3D):
 
 func die():
 	is_dead = true
-
+	unit_died.emit();
+	died.emit();
 	if !can_respawn:
 		self.queue_free()
 
