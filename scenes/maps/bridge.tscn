@@ -25,9 +25,6 @@ adjustment_brightness = 0.01
 
 [node name="Map" type="Node3D" groups=["Map"]]
 script = ExtResource("1_uy26l")
-waveTimes = null
-waveSize = null
-connected_players = null
 
 [node name="World" type="NavigationRegion3D" parent="."]
 
