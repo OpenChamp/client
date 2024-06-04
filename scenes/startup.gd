@@ -207,7 +207,6 @@ func server_fail():
 # Custom Functions
 func change_map(scene: PackedScene, Players):
 	var map = $Map
-	print(map)
 	# Clean out everything
 	for child in map.get_children():
 		map.remove_child(child)
