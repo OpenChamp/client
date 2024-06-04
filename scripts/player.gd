@@ -155,7 +155,7 @@ func _process(delta):
 	detect_ability_use()
 	
 	# update the camera position using lerp
-	position = position.lerp(camera_target_position, delta * Config.cam_speed)
+	position = position.lerp(camera_target_position, 5 * delta)
 
 func detect_ability_use() -> void:
 	var pid = multiplayer.get_unique_id()
@@ -208,8 +208,7 @@ func camera_movement_handler() -> void:
 			cam_delta += Vector3(mouse_delta.x, 0, mouse_delta.y) * Config.cam_pan_sensitivity
 		
 		# Apply camera movement
-		if cam_delta != Vector3.ZERO:
-			camera_target_position += cam_delta
+		camera_target_position += cam_delta * get_process_delta_time() * Config.cam_speed
 	
 	# Zoom
 	if Input.is_action_just_pressed("player_zoomin"):
