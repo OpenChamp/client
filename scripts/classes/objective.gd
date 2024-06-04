@@ -25,6 +25,7 @@ var is_attacking: bool = false
 var is_dead: bool = false
 # Signals:
 signal objective_died
+signal died
 # UI:
 @onready var healthbar: ProgressBar = $Healthbar
 
