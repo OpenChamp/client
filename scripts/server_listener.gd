@@ -1,6 +1,6 @@
 extends Node
 
-@export var connected_players:Array
+@export var connected_players: Array
 var players = {}
 var team1 = Array()
 var team2 = Array()
@@ -12,7 +12,7 @@ var player_cooldowns = {}
 @onready var spawn1 = $"../Spawn1"
 @onready var spawn2 = $"../Spawn2"
 
-var champion_scenes:Dictionary = {};
+var champion_scenes: Dictionary = {};
 
 const PlayerScene = preload ("res://characters/champion.tscn")
 
@@ -29,7 +29,7 @@ func _ready():
 		# Preload all champions
 	for player in connected_players:
 		if !champion_scenes.has(player.champ):
-			champion_scenes[player.champ] = await load("res://characters/" + player.champ + ".tscn")
+			champion_scenes[player.champ] = load("res://characters/" + player.champ + ".tscn")
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
 	$"../WorldNav/BlueNexus".game_over.connect(game_over)
@@ -46,19 +46,18 @@ func _ready():
 			'team': 0
 		})
 
-
 func get_champs():
-	var dir = await DirAccess.open("res://characters/")
+	var dir = DirAccess.open("res://characters/")
 	var files = dir.get_files();
 	return files
-
 
 @rpc("any_peer", "call_local")
 func move_to(pos: Vector3):
 	var champion = get_champion(multiplayer.get_remote_sender_id())
-	champion.is_attacking = false
-	champion.target_entity = null
-	champion.update_target_location(champion.nav_agent, pos)
+	#champion.is_attacking = false
+	#champion.target_entity = null
+	#champion.update_target_location(champion.nav_agent, pos)
+	champion.get_node("StateMachine").change_state("Move", pos);
 
 @rpc("any_peer", "call_local")
 func target(target_name):
@@ -67,10 +66,8 @@ func target(target_name):
 	if str(target_name) == str(champion.name):
 		print_debug("That's you ya idjit") # :O
 		return
-	var target_entity = get_parent().find_child(str(target_name), true, false)
-	champion.target_entity = target_entity
-	if target_entity and not target_entity.team == champion.team:
-		champion.is_attacking = true
+	
+	champion.set_attack(target_name);
 
 @rpc("any_peer", "call_local")
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
@@ -79,19 +76,34 @@ func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, c
 	if champion.mana < ability_mana_cost:
 		print("Not enough mana!")
 		return
-	if player_cooldowns[peer_id][ab_id-1] != 0:
+	if player_cooldowns[peer_id][ab_id - 1] != 0:
 		print("This ability is on cooldown! Wait " + str(cooldown) + " seconds!")
 		return
-	player_cooldowns[peer_id][ab_id-1] = cooldown
-	free_ability(cooldown, peer_id, ab_id-1)
+	player_cooldowns[peer_id][ab_id - 1] = cooldown
+	free_ability(cooldown, peer_id, ab_id - 1)
 	champion.mana -= ability_mana_cost
 	print(champion.mana)
-	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, champion.position, champion.team)
+	# Custom Ability Handlers
+	if ability_name == "blink":
+		var tmp_pos: Vector3 = champion.position;
+		champion.position = ability_pos
+		if champion.nav_agent.target_position == ability_pos:
+			champion.nav_agent.target_position = champion.global_position;
+		else:
+			champion.server_pos = champion.nav_agent.get_next_path_position();
+		ability_pos = tmp_pos;
+	
+	spawn_local_effect(ability_name, ability_type, ability_pos, champion.global_position, champion.team)
 
-
-@rpc("any_peer", "call_local")
 func spawn_local_effect(ability_name, ability_type, ability_pos, player_pos, player_team) -> void:
-	var ability_scene = load("res://effects/abilities/"+ability_name+".tscn").instantiate();
+	var ability_scene = load("res://effects/abilities/" + ability_name + ".tscn").instantiate();
+	if ability_name == "blink":
+		var ability_scene2 = load("res://effects/abilities/" + ability_name + ".tscn").instantiate();
+		ability_scene2.position = player_pos
+		ability_scene.position = ability_pos
+		$"../Abilities".add_child(ability_scene)
+		$"../Abilities".add_child(ability_scene2)
+		return ;
 	if ability_type == 0:
 		ability_scene.position = ability_pos
 	if ability_type == 1:
@@ -99,17 +111,14 @@ func spawn_local_effect(ability_name, ability_type, ability_pos, player_pos, pla
 		ability_scene.position = player_pos
 	ability_scene.team = player_team
 	$"../Abilities".add_child(ability_scene);
-	
 
 func free_ability(cooldown: float, peer_id: int, ab_id: int) -> void:
 	await get_tree().create_timer(cooldown).timeout
 	player_cooldowns[peer_id][ab_id] = 0
 
-
 func game_over(team):
 	print(str(team) + " Lost");
 	get_tree().quit()
-
 
 func add_player(player: Dictionary):
 	print(player);
@@ -139,15 +148,13 @@ func add_player(player: Dictionary):
 	champions.add_child(champion)
 	respawn(champion)
 
-
 func del_player(client_id: int):
 	if not champions.has_node(str(client_id)):
 		return
 	champions.get_node(str(client_id)).queue_free()
 
-
 @rpc("any_peer", "call_local")
-func respawn(champion:CharacterBody3D):
+func respawn(champion: CharacterBody3D):
 	var rand = RandomNumberGenerator.new()
 	var x = rand.randf_range(0, 5)
 	var z = rand.randf_range(0, 5)
@@ -157,8 +164,7 @@ func respawn(champion:CharacterBody3D):
 	champion.show()
 	champion.rpc_id(champion.pid, "respawn")
 
-
-func get_champion(id:int):
+func get_champion(id: int):
 	var champion = players.get(id)
 	if not champion:
 		print_debug("Failed to find character")
