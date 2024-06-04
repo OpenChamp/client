@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ocn37vjn0pmi"]
+
+[ext_resource type="Texture2D" uid="uid://3gvyt604hm4d" path="res://assets/textures/brick.png" id="1_nhd0u"]
+[ext_resource type="Texture2D" uid="uid://dva82ns2dkuav" path="res://assets/textures/brick_normal.png" id="2_lhqbq"]
+
+[resource]
+albedo_texture = ExtResource("1_nhd0u")
+normal_enabled = true
+normal_texture = ExtResource("2_lhqbq")
+uv1_scale = Vector3(20, 3, 3)
