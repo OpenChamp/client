@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4bic2be1o8im"]
+
+[ext_resource type="Script" path="res://effects/abilities/ability_instant.gd" id="1_6jiwh"]
+[ext_resource type="Material" uid="uid://e4si4k1uumhk" path="res://environment/materials/blue.material" id="2_q4wax"]
+[ext_resource type="Material" uid="uid://bh0u27jrv7c2t" path="res://environment/materials/red.material" id="3_gsdc6"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_rcu0g"]
+inner_radius = 10.0
+outer_radius = 10.25
+
+[sub_resource type="TorusMesh" id="TorusMesh_nff5l"]
+inner_radius = 2.0
+outer_radius = 2.2
+
+[sub_resource type="Animation" id="Animation_awuq4"]
+resource_name = "Target Loc"
+loop_mode = 1
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("aoe")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.5, 1, 0.2, 1, 0.2, 1, 1, 1, 1, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_llmgt"]
+_data = {
+"Target Loc": SubResource("Animation_awuq4")
+}
+
+[node name="Blink" type="Node3D"]
+script = ExtResource("1_6jiwh")
+ability_name = "blink"
+
+[node name="gui" type="MeshInstance3D" parent="."]
+visible = false
+material_override = ExtResource("2_q4wax")
+mesh = SubResource("TorusMesh_rcu0g")
+
+[node name="aoe" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.224774, 0, 0, 0, 1, 0, 0, 0, 0.224774, 0, 0, 0)
+visible = false
+material_override = ExtResource("3_gsdc6")
+mesh = SubResource("TorusMesh_nff5l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_llmgt")
+}

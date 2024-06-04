@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://di840sj5kgb6u"]
+
+[ext_resource type="Script" path="res://effects/abilities/blink.gd" id="1_p41xe"]
+
+[sub_resource type="Curve" id="Curve_t1qmr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.485507, 0.901099), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3hcjn"]
+curve = SubResource("Curve_t1qmr")
+
+[sub_resource type="Curve" id="Curve_yrqtg"]
+_data = [Vector2(0, 0.098901), 0.0, 0.0, 0, 0, Vector2(0.253623, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jvoij"]
+curve = SubResource("Curve_yrqtg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_duvi7"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 5, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_jvoij")
+color = Color(0.392157, 0.298039, 0.247059, 1)
+alpha_curve = SubResource("CurveTexture_3hcjn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqlqm"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_y1t6n"]
+material = SubResource("StandardMaterial3D_xqlqm")
+radial_segments = 8
+rings = 4
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i5aq5"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Blink" type="Area3D"]
+script = ExtResource("1_p41xe")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 30
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_duvi7")
+draw_pass_1 = SubResource("SphereMesh_y1t6n")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_i5aq5")
