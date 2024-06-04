@@ -13,7 +13,8 @@ config_version=5
 config/name="OpenChamp"
 run/main_scene="res://init.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/image="res://assets/textures/openchamp.png"
+config/icon="res://assets/textures/openchamp.png"
 
 [display]
 
@@ -24,4 +25,8 @@ window/stretch/aspect="expand"
 
 [editor]
 
-run/main_run_args="-i"
+run/main_run_args="-S 127.0.0.1 -P10000"
+
+[physics]
+
+common/physics_ticks_per_second=30
