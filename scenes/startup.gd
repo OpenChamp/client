@@ -23,6 +23,8 @@ var jwt: String
 @onready var host_button = $ConnectionUI/Background/HostButton
 # Server Vars
 var Players: Array = [];
+# Used for when the API fails
+var isTeamOne = true;
 
 func _ready():
 	# UI
@@ -174,6 +176,10 @@ func get_jwt():
 func set_jwt(token: String):
 	var user = {};
 	if token == "":
+		var team = 1
+		if !isTeamOne:
+			team = 2
+		isTeamOne = !isTeamOne
 		# Give the user random data
 		var peer_id = multiplayer.get_remote_sender_id()
 		user = {
@@ -181,7 +187,7 @@ func set_jwt(token: String):
 			'peer_id': peer_id,
 			'name': "Player",
 			'champ': "archer",
-			'team': 0
+			'team': team
 		}
 	else:
 		# Fetch from the api server
@@ -215,6 +221,7 @@ func change_map(scene: PackedScene, players):
 	new_map.add_to_group("Map")
 	new_map.connected_players = players
 	map.add_child(new_map)
+	rpc("map_loaded")
 
 func parse_args():
 	for i in args.size():
@@ -254,3 +261,7 @@ func exit_click():
 # Setters
 func _set_status(message: String):
 	status_text.text = "[center]" + tr(message) + "[/center]"
+
+@rpc("authority")
+func map_loaded():
+	$ConnectionUI.hide();
