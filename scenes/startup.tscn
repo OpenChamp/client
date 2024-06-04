@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnqxjb0txibfq"]
+[gd_scene load_steps=9 format=3 uid="uid://bnqxjb0txibfq"]
 
 [ext_resource type="Script" path="res://scenes/startup.gd" id="1_7agtl"]
 [ext_resource type="Texture2D" uid="uid://bmlevf2jcw558" path="res://assets/textures/openchamp.png" id="2_yrij0"]
 [ext_resource type="Shader" path="res://assets/shaders/fog.gdshader" id="3_b4cv1"]
 [ext_resource type="Theme" uid="uid://e507d8q4wvpm" path="res://assets/themes/default_theme.tres" id="4_h7jrb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0dm2"]
+bg_color = Color(0.0475577, 0.0475577, 0.0475576, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8c74d"]
 
@@ -28,6 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_h7jrb")
 
 [node name="Background" type="Panel" parent="ConnectionUI"]
 layout_mode = 1
@@ -36,6 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l0dm2")
 
 [node name="Logo" type="TextureRect" parent="ConnectionUI/Background"]
 layout_mode = 1
@@ -54,6 +59,7 @@ texture = ExtResource("2_yrij0")
 
 [node name="Fog" type="ColorRect" parent="ConnectionUI/Background"]
 material = SubResource("ShaderMaterial_syct3")
+layout_mode = 0
 offset_top = 2.0
 offset_right = 1278.0
 offset_bottom = 720.0

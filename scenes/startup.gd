@@ -88,12 +88,12 @@ func check_client_connection():
 	
 	if multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		client_fail();
-		return;
-	client_success();
+	elif multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+		client_success();
+	return;
 
 func client_success():
-	print("Connected!")
-	$ConnectionUI.hide()
+	_set_status("Ready!")
 
 func client_fail():
 	_set_status("STARTUP:STATUS_CLIENT_FAILED")
@@ -189,7 +189,7 @@ func set_jwt(token: String):
 	Players.append(user);
 
 func fetch_user(token: String):
-	var headers
+	var headers = {}
 	headers["Authorization"] = "Bearer " + token
 	var response = HTTPRequest.new()
 	response.request("GET", api_server + "/user", headers)
@@ -205,7 +205,7 @@ func server_fail():
 	get_tree().quit()
 
 # Custom Functions
-func change_map(scene: PackedScene, Players):
+func change_map(scene: PackedScene, players):
 	var map = $Map
 	# Clean out everything
 	for child in map.get_children():
@@ -213,7 +213,7 @@ func change_map(scene: PackedScene, Players):
 		child.queue_free()
 	var new_map = scene.instantiate()
 	new_map.add_to_group("Map")
-	new_map.get_node("ServerListener").connected_players = Players
+	new_map.get_node("ServerListener").connected_players = players
 	map.add_child(new_map)
 
 func parse_args():
@@ -242,6 +242,12 @@ func parse_args():
 
 # Event Listeners
 func host_click():
+	client_fail();
+	var timer = get_node("WaitTimer")
+	if timer is Timer:
+		timer.stop()
+		timer.timeout.disconnect(check_client_connection)
+		timer.queue_free()
 	start(Start.SERVER)
 	
 func reconnect_click():
