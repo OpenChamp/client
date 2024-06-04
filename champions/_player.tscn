@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmm8cpo860dfq"]
+
+[ext_resource type="Script" path="res://champions/_player.gd" id="1_cqicv"]
+[ext_resource type="Texture2D" uid="uid://bmlevf2jcw558" path="res://assets/textures/openchamp.png" id="1_mop06"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s24me"]
+transparency = 1
+albedo_texture = ExtResource("1_mop06")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_olfk2"]
+material = SubResource("StandardMaterial3D_s24me")
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_cqicv")
+
+[node name="Indicator" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_olfk2")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0)
+collision_mask = 0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
