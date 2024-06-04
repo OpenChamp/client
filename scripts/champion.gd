@@ -22,6 +22,7 @@ var abilities : Array[Node] = []
 func _ready():
 	attack_range = 20.0
 	speed = 1000.0
+	healthbar_node.size = Vector2(100, 15)
 	setup(
 		nav_agent,
 		range_collider_activate,

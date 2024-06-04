@@ -17,6 +17,7 @@ func _ready():
 	speed = 3.0
 	max_health = 100.0
 	attack_timeout = 1.0
+	healthbar_node.size = Vector2(35, 5)
 	setup(
 		nav_agent,
 		range_collider_activate,

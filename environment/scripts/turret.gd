@@ -12,6 +12,7 @@ var target_priority: Dictionary = {
 }
 
 func _ready():
+	healthbar_node.size = Vector2(140, 20)
 	setup(
 		null,
 		$AttackArea,
