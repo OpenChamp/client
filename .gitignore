@@ -1,3 +1,15 @@
 # Godot 4+ specific ignores
 .godot/
 android/
+*.tmp
+*.import
+*.exe
+*.pck
+*.zip
+lang/*.translation
+
+# exports
+build/
+
+# game install dir
+godot/
