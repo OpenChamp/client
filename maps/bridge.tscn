@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://b3ge3nka634tb" path="res://ui/test_ui.tscn" id="1_mabnn"]
 [ext_resource type="PackedScene" uid="uid://dt0fo48rp3ikk" path="res://characters/player.tscn" id="2_kuu3h"]
 [ext_resource type="PackedScene" uid="uid://duutg8pxe8i06" path="res://environment/scenes/spawn.tscn" id="4_8m1k4"]
-[ext_resource type="Texture2D" uid="uid://u84le0crina1" path="res://environment/textures/clover.jpg" id="4_pom7h"]
-[ext_resource type="Texture2D" uid="uid://dew5g8lwogam6" path="res://environment/textures/brick.png" id="5_3qktd"]
+[ext_resource type="Texture2D" uid="uid://hshm5tpji5yl" path="res://environment/textures/clover.jpg" id="4_pom7h"]
+[ext_resource type="Texture2D" uid="uid://bvjookomrebmb" path="res://environment/textures/brick.png" id="5_3qktd"]
 [ext_resource type="PackedScene" uid="uid://cjjv3488swmh2" path="res://environment/scenes/turret.tscn" id="5_s4ax0"]
 [ext_resource type="PackedScene" uid="uid://5f6bj1u1ir3f" path="res://environment/scenes/nexus.tscn" id="6_h5cqc"]
-[ext_resource type="Texture2D" uid="uid://7sfu43sombxo" path="res://environment/textures/brick_normal.png" id="6_vf8is"]
+[ext_resource type="Texture2D" uid="uid://jffeme8dxhfq" path="res://environment/textures/brick_normal.png" id="6_vf8is"]
 [ext_resource type="Script" path="res://scripts/server_listener.gd" id="7_skvyn"]
 [ext_resource type="PackedScene" uid="uid://kqv21ursy1cb" path="res://environment/scenes/minion_spawner.tscn" id="8_g2rme"]
 [ext_resource type="PackedScene" uid="uid://cyi1mqcov25v4" path="res://environment/scenes/water.tscn" id="8_gy7pg"]
@@ -132,9 +132,9 @@ spawn_path = NodePath("../Champions")
 spawn_limit = 10
 
 [node name="AbilitySpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://effects/abilities/arrow_storm.tscn", "res://effects/abilities/skilled_shot.tscn")
+_spawnable_scenes = PackedStringArray("res://effects/abilities/arrow_storm.tscn", "res://effects/abilities/blink.tscn", "res://effects/abilities/skilled_shot.tscn")
 spawn_path = NodePath("../Abilities")
-spawn_limit = 999
+spawn_limit = 999999
 
 [node name="ServerListener" type="Node" parent="."]
 script = ExtResource("7_skvyn")
