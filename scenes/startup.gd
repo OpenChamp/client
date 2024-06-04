@@ -146,7 +146,7 @@ func server_update():
 		multiplayer.multiplayer_peer.disconnect("peer_disconnected", server_remove_player)
 		#Change Map
 		print(Players)
-		change_map(load("res://maps/" + server_map + ".tscn"), Players)
+		change_map(load("res://scenes/maps/" + server_map + ".tscn"), Players)
 
 func server_add_player(id: int):
 	print("Player connected: " + str(id))
@@ -213,7 +213,7 @@ func change_map(scene: PackedScene, players):
 		child.queue_free()
 	var new_map = scene.instantiate()
 	new_map.add_to_group("Map")
-	new_map.get_node("ServerListener").connected_players = players
+	new_map.connected_players = players
 	map.add_child(new_map)
 
 func parse_args():
@@ -243,11 +243,6 @@ func parse_args():
 # Event Listeners
 func host_click():
 	client_fail();
-	var timer = get_node("WaitTimer")
-	if timer is Timer:
-		timer.stop()
-		timer.timeout.disconnect(check_client_connection)
-		timer.queue_free()
 	start(Start.SERVER)
 	
 func reconnect_click():
