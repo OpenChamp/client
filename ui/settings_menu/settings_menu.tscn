@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcc1r64ba6itj"]
+[gd_scene load_steps=4 format=3 uid="uid://i6xgxqy83a2u"]
 
 [ext_resource type="Script" path="res://ui/settings_menu/settings_menu.gd" id="1_g0wed"]
 [ext_resource type="Script" path="res://addons/sliderlabel/sliderlabel.gd" id="2_krd3l"]
@@ -33,10 +33,12 @@ size_flags_vertical = 3
 
 [node name="TabContainer" type="TabContainer" parent="SplitContainer/PanelContainer"]
 layout_mode = 2
+current_tab = 0
 
 [node name="SETTINGS_TAB_DISPLAY" type="BoxContainer" parent="SplitContainer/PanelContainer/TabContainer"]
 layout_mode = 2
 vertical = true
+metadata/_tab_index = 0
 
 [node name="FullscreenToggleBtn" type="CheckBox" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_DISPLAY"]
 layout_mode = 2
@@ -46,6 +48,7 @@ text = "SETTING:FULLSCREEN"
 visible = false
 layout_mode = 2
 vertical = true
+metadata/_tab_index = 1
 
 [node name="cam_speed_label" type="Label" parent="SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA"]
 layout_mode = 2
