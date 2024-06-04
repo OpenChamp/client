@@ -21,6 +21,7 @@ GGS="*res://addons/ggs/classes/global/ggs.tscn"
 Config="*res://scripts/global/config.gd"
 Registries="*res://scripts/global/registries.gd"
 DynamicAssetLoader="*res://scripts/global/dynamic_asset_loader.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [display]
 
@@ -36,7 +37,7 @@ export/convert_text_resources_to_binary=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ggs/plugin.cfg")
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/ggs/plugin.cfg")
 
 [filesystem]
 
