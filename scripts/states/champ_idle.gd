@@ -1,18 +1,14 @@
 extends State
-class_name obj_dead
-
+class_name _champ_idle
 
 func enter(entity, args):
-	entity.is_dead = true;
-	entity.died.emit();
-	$"../../MeshInstance3D/Crystal".hide();
-	$"../../MeshInstance3D/CrystalExplode".explode();
 	pass
 
 func exit(entity):
 	pass;
 
 func update(entity, _delta):
+	entity._update_healthbar(entity.healthbar);
 	pass;
 
 func update_tick(entity, _delta):

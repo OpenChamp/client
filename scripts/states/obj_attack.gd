@@ -10,10 +10,12 @@ var priorities = {
 var target_entity: CharacterBody3D = null;
 var ticks_per_attack: int = 20;
 var ticks_since_attack: int = 0;
+var entity_backup
 
-func enter(entity):
+func enter(entity, _args):
 	range_collider = entity.get_node("AttackArea");
 	max_range = range_collider.get_node("CollisionShape3D").shape.radius
+	entity_backup = entity;
 	set_target(entity)
 	pass
 
@@ -26,11 +28,15 @@ func update(entity, _delta):
 func update_tick(entity, _delta):
 	super(entity, _delta);
 	# Only Attack Characterbodies
-	if ticks_since_attack <= 0:
+	if ticks_since_attack <= 0 && target_entity != null:
 		try_attack(entity, target_entity)
 	ticks_since_attack -= 1
 
 func set_target(entity):
+	if target_entity:
+		target_entity.unit_died.disconnect(set_target);
+	if !entity:
+		entity = entity_backup;
 	var bodies = range_collider.get_overlapping_bodies()
 	var highest_priority = 0;
 	for body in bodies:
@@ -38,6 +44,7 @@ func set_target(entity):
 			if priorities[body.get_groups()[0]]:
 				if priorities[body.get_groups()[0]] > highest_priority:
 					target_entity = body;
+					target_entity.unit_died.connect(set_target)
 	if !target_entity:
 		change.emit("obj_scan");
 	else:

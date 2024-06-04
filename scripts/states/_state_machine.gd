@@ -12,7 +12,7 @@ func _ready():
 			state.change.connect(change_state)
 			
 	if initial_state:
-		initial_state.enter(entity);
+		initial_state.enter(entity, null);
 		current_state = initial_state
 	
 func _process(delta):
@@ -23,15 +23,17 @@ func _physics_process(delta):
 	current_state.update_tick(entity, delta)
 	
 
-func change_state(new_state_name):
-	print("Changing to " + new_state_name);
+func change_state(new_state_name, args=null):
 	var new_state = states[new_state_name]
+	
 	if not new_state:
 		return;
-	if current_state == new_state:
-		return;
 	
-	current_state.exit(entity);
-	new_state.enter(entity);
-	current_state = new_state;
+	elif current_state == new_state:
+		current_state.manipulate(entity, args);
+	
+	else:
+		current_state.exit(entity);
+		new_state.enter(entity, args);
+		current_state = new_state;
 	

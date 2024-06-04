@@ -1,10 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://crlcdvw8udtyt"]
+[gd_scene load_steps=16 format=3 uid="uid://crlcdvw8udtyt"]
 
 [ext_resource type="Script" path="res://scripts/champion.gd" id="1_p4at5"]
 [ext_resource type="PackedScene" uid="uid://d28xkvb7ggvur" path="res://effects/abilities/arrow_storm_ui.tscn" id="2_3787u"]
 [ext_resource type="PackedScene" uid="uid://b63tjkqwwkg72" path="res://effects/abilities/skilled_shot_ui.tscn" id="3_y33gr"]
 [ext_resource type="PackedScene" uid="uid://x10srxg18eg5" path="res://effects/arrow.tscn" id="4_8txp2"]
+[ext_resource type="PackedScene" uid="uid://d4bic2be1o8im" path="res://effects/abilities/blink_ui.tscn" id="4_qhomu"]
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/healthbar.tscn" id="5_v04rk"]
+[ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="6_ehn3v"]
+[ext_resource type="Script" path="res://scripts/states/champ_idle.gd" id="7_ap6ha"]
+[ext_resource type="Script" path="res://scripts/states/champ_move.gd" id="8_tnmlc"]
+[ext_resource type="Script" path="res://scripts/states/champ_attack.gd" id="9_esayb"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_am47k"]
 
@@ -38,8 +43,9 @@ collision_layer = 3
 script = ExtResource("1_p4at5")
 ability1_scene = ExtResource("2_3787u")
 ability2_scene = ExtResource("3_y33gr")
-ability3_scene = ExtResource("2_3787u")
+ability3_scene = ExtResource("4_qhomu")
 ability4_scene = ExtResource("3_y33gr")
+attack_speed = 200.0
 projectile = ExtResource("4_8txp2")
 
 [node name="Dead" type="Control" parent="."]
@@ -96,9 +102,24 @@ replication_config = SubResource("SceneReplicationConfig_5frdt")
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://effects/arrow.tscn")
+_spawnable_scenes = PackedStringArray("res://effects/arrow.tscn", "")
 spawn_path = NodePath("../Projectiles")
 spawn_limit = 100
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_ehn3v")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("7_ap6ha")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource("8_tnmlc")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("9_esayb")
+
+[node name="AttackMove" type="Node" parent="StateMachine"]
 
 [connection signal="body_entered" from="ActivationArea" to="." method="_on_activation_area_body_entered"]
 [connection signal="body_exited" from="ActivationArea" to="." method="_on_activation_area_body_exited"]

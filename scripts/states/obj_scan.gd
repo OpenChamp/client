@@ -7,7 +7,7 @@ var priorities = {
 	"champion": 1
 }
 var team
-func enter(entity):
+func enter(entity, _args):
 	range_collider = entity.get_node("AttackArea");
 	team = entity.team
 	range_collider.body_entered.connect(check_entity)
