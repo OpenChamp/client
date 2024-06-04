@@ -1,15 +1,14 @@
-extends Node3D
+extends Map
 
 var GameStartTimer = Timer.new()
 @export var waveTimes = 10
 @export var waveSize = 6
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not multiplayer.is_server():
-		return;
+	super();
 	GameStartTimer.wait_time = 10;
 	GameStartTimer.one_shot = true
-	GameStartTimer.timeout.connect(start);
+	#GameStartTimer.timeout.connect(start);
 	add_child(GameStartTimer)
 	GameStartTimer.start()
 
