@@ -11,7 +11,7 @@ func _ready():
 			states[state.name] = state
 			state.change.connect(change_state)
 			
-	if initial_state:
+	if !initial_state == null:
 		initial_state.enter(entity);
 		current_state = initial_state
 	
@@ -31,6 +31,7 @@ func change_state(new_state_name, args=null):
 	if not new_state:
 		return;
 	if current_state == new_state:
+		current_state.modify(entity, args);
 		return;
 	
 	current_state.exit(entity);
