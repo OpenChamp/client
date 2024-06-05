@@ -18,7 +18,7 @@ signal camera_property_changed()
 
 # Settings Keybinds
 func _input(e):
-	if Input.is_action_just_pressed("toggle_maximize"):
+	if e.is_action("toggle_maximize"):
 		toggle_fullscreen()
 
 func set_fullscreen_mode(new_value):

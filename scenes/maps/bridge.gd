@@ -1,4 +1,4 @@
-extends Map
+extends Open_Map
 
 var GameStartTimer = Timer.new()
 @export var waveTimes = 10
