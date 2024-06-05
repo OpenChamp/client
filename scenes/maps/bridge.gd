@@ -1,4 +1,5 @@
-extends Open_Map
+extends MapNode
+class_name MapBridge
 
 var GameStartTimer = Timer.new()
 @export var waveTimes = 10
