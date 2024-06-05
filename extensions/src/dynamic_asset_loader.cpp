@@ -19,6 +19,7 @@ DynamicAssetLoader::~DynamicAssetLoader() {}
 
 void DynamicAssetLoader::dump_asset_map() {
     for ( const auto& [key, value] : asset_map ) {
-        printf("%s: %s", key, value);
+        
+        printf("%s: %s", key.ascii().get_data(), value.ascii().get_data());
     }
 }

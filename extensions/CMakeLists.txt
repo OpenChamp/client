@@ -17,6 +17,7 @@ endif()
 set(SOURCES
     src/register_types.cpp
     src/identifier.cpp
+	src/dynamic_asset_loader.cpp
 )
 include_directories(include)
 
