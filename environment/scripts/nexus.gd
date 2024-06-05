@@ -8,6 +8,7 @@ signal game_over(team)
 
 
 func _ready():
+	healthbar_node.size = Vector2(200, 25)
 	setup(
 		null,
 		$AttackArea,
