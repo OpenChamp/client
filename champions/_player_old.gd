@@ -23,7 +23,7 @@ var is_left_mouse_dragging := false
 func _ready():
 	# For now close game when server dies
 	multiplayer.server_disconnected.connect(get_tree().quit)
-	spring_arm.spring_length = Config.max_zoom
+	spring_arm.spring_length = Config.camera_settings.max_zoom
 	Config.camera_property_changed.connect(_on_camera_setting_changed)
 	
 	center_camera.call_deferred(multiplayer.get_unique_id())
@@ -37,12 +37,12 @@ func _input(event):
 	if multiplayer.is_server(): return;
 	if event is InputEventMouseButton:
 		
-		if event.button_index == MOUSE_BUTTON_LEFT and not is_right_mouse_dragging:
-			player_action(event, not is_left_mouse_dragging, true)
-			if event.is_pressed and not is_left_mouse_dragging:
-				is_left_mouse_dragging = true
-			else:
-				is_left_mouse_dragging = false
+		# if event.button_index == MOUSE_BUTTON_LEFT and not is_right_mouse_dragging:
+		# 	player_action(event, not is_left_mouse_dragging, true)
+		# 	if event.is_pressed and not is_left_mouse_dragging:
+		# 		is_left_mouse_dragging = true
+		# 	else:
+		# 		is_left_mouse_dragging = false
 		# Right click to move
 		if event.button_index == MOUSE_BUTTON_RIGHT and not is_left_mouse_dragging:
 			# Start dragging
@@ -52,12 +52,12 @@ func _input(event):
 			else:
 				is_right_mouse_dragging = false
 
-		if event.button_index == MOUSE_BUTTON_MIDDLE:
-			if event.pressed:
-				initial_mouse_position = event.position
-				is_middle_mouse_dragging = true
-			else:
-				is_middle_mouse_dragging = false
+		# if event.button_index == MOUSE_BUTTON_MIDDLE:
+		# 	if event.pressed:
+		# 		initial_mouse_position = event.position
+		# 		is_middle_mouse_dragging = true
+		# 	else:
+		# 		is_middle_mouse_dragging = false
 		
 		# Stop dragging if mouse is released
 	
@@ -154,7 +154,7 @@ func _process(delta):
 	detect_ability_use()
 	
 	# update the camera position using lerp
-	position = position.lerp(camera_target_position, delta * Config.cam_speed)
+	position = position.lerp(camera_target_position, delta * Config.camera_settings.cam_speed)
 
 func detect_ability_use() -> void:
 	var pid = multiplayer.get_unique_id()
@@ -173,18 +173,18 @@ func detect_ability_use() -> void:
 
 func camera_movement_handler() -> void:
 	# don't move the cam while changing the settings since that is annoying af
-	if Config.in_config_settings:
+	if Config.in_focued_menu:
 		return
 	
 	# If centered, blindly follow the champion
-	if (Config.is_cam_centered):
+	if (Config.camera_settings.is_cam_centered):
 		camera_target_position = get_target_position(multiplayer.get_unique_id())
 	else:
 		# Get Mouse Coords on screen
 		var current_mouse_position = get_viewport().get_mouse_position()
 		var size = get_viewport().get_visible_rect().size
 		var cam_delta = Vector3(0, 0, 0)
-		var edge_margin = Config.edge_margin
+		var edge_margin = Config.camera_settings.edge_margin
 		
 		# Edge Panning
 		if current_mouse_position.x <= edge_margin:
@@ -223,7 +223,7 @@ func camera_movement_handler() -> void:
 		camera_target_position = get_target_position(multiplayer.get_unique_id())
 	# Recenter - Toggle
 	if Input.is_action_just_pressed("player_camera_recenter_toggle"):
-		Config.set_cam_centered(!Config.is_cam_centered)
+		Config.camera_settings.is_cam_centered = (!Config.camera_settings.is_cam_centered)
 
 func get_champion(pid: int) -> Node:
 	var champs = $"../Champions".get_children()
