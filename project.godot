@@ -32,6 +32,10 @@ window/stretch/aspect="expand"
 
 run/main_run_args="-S 127.0.0.1 -P10000"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gpu_trail/plugin.cfg", "res://addons/sliderlabel/plugin.cfg")
+
 [global_group]
 
 Champion="A player character"
