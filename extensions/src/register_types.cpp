@@ -1,6 +1,7 @@
 #include "register_types.hpp"
 
 #include "identifier.hpp"
+#include "dynamic_asset_loader.hpp"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -14,6 +15,7 @@ void initialize_openchamp_module(ModuleInitializationLevel p_level) {
 	}
 
 	ClassDB::register_class<Identifier>();
+	ClassDB::register_class<DynamicAssetLoader>();
 }
 
 void uninitialize_openchamp_module(ModuleInitializationLevel p_level) {
