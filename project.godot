@@ -127,3 +127,7 @@ player_ability4={
 [physics]
 
 common/physics_ticks_per_second=30
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

@@ -10,9 +10,9 @@ jobs:
       matrix:
         export_type:
           - macOS
-          - Windows
-          - "Linux/X11 amd64"
-          - "Linux/X11 aarch64"
+          - "Windows (amd64)"
+          - "Linux (amd64)"
+          - "Linux (arm64)"
         include:
           - export_type: macOS
             os: macos-latest
