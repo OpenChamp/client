@@ -13,6 +13,7 @@ extends Control
 @onready var cam_centered_toggle = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/CamCenteredToggleBtn
 @onready var cam_pan_sesitivity_slider = $SplitContainer/PanelContainer/TabContainer/SETTINGS_TAB_CAMERA/cam_pan_sesitivity_slider
 
+
 func _ready():
 	visibility_changed.connect(on_show)
 	
@@ -21,18 +22,18 @@ func _ready():
 
 
 func on_show():
-	Config.in_config_settings = visible
+	Config.in_focued_menu = visible
 	if not visible:
 		return
 	
-	fullscreen_toggle.button_pressed = Config.is_fullscreen
+	fullscreen_toggle.button_pressed = Config.graphics_settings.is_fullscreen
 	
-	cam_speed_slider.value = Config.cam_speed
-	cam_pan_sesitivity_slider.value = Config.cam_pan_sensitivity
-	edge_margin_slider.value = Config.edge_margin
-	max_zoom_slider.value = Config.max_zoom
-	max_zoom_slider.min_value = Config.min_zoom + 1
-	cam_centered_toggle.button_pressed = Config.is_cam_centered
+	cam_speed_slider.value = Config.camera_settings.cam_speed
+	cam_pan_sesitivity_slider.value = Config.camera_settings.cam_pan_sensitivity
+	edge_margin_slider.value = Config.camera_settings.edge_margin
+	max_zoom_slider.value = Config.camera_settings.max_zoom
+	max_zoom_slider.min_value = Config.camera_settings.min_zoom + 1
+	cam_centered_toggle.button_pressed = Config.camera_settings.is_cam_centered
 
 
 func _on_game_close_pressed():
@@ -41,38 +42,23 @@ func _on_game_close_pressed():
 
 
 func _on_confirm_changes():
-	var all_settings = GGS.get_all_settings()
-	for setting_str in all_settings:
-		var setting: ggsSetting = load(setting_str)
-		_apply_setting(setting)
-		
-	hide()
+	# camera settings
+	var new_camera_settings = CameraSettings.new()
 
+	new_camera_settings.is_cam_centered = cam_centered_toggle.button_pressed
+	new_camera_settings.cam_speed = cam_speed_slider.value
+	new_camera_settings.edge_margin = edge_margin_slider.value
+	new_camera_settings.max_zoom = max_zoom_slider.value
+	new_camera_settings.cam_pan_sensitivity = cam_pan_sesitivity_slider.value
 
-func _apply_setting(setting: ggsSetting):
-	var new_value;
-	match setting.name:
-		# display options
-		"fullscreen":
-			new_value = fullscreen_toggle.button_pressed
-			Config.is_fullscreen = new_value
-		# camera options:
-		"cam_speed":
-			new_value = cam_speed_slider.value
-			Config.cam_speed = new_value
-		"edge_margin":
-			new_value = edge_margin_slider.value
-			Config.edge_margin = new_value
-		"max_zoom":
-			new_value = max_zoom_slider.value
-			Config.max_zoom = new_value
-		"cam_centered":
-			new_value = cam_centered_toggle.button_pressed
-			Config.is_cam_centered = new_value
-		"cam_pan_sensitivity":
-			new_value = cam_pan_sesitivity_slider.value
-			Config.cam_pan_sensitivity = new_value
-		_ :
-			pass
+	Config.change_camera_settings(new_camera_settings)
 	
-	setting.set_current(new_value)
+	# graphics settings
+	var new_graphics_settings = GraphicsSettings.new()
+
+	new_graphics_settings.is_fullscreen = fullscreen_toggle.button_pressed
+
+	Config.change_graphics_settings(new_graphics_settings)
+	
+	# hide the settings menu
+	hide()
