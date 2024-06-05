@@ -19,17 +19,17 @@ jobs:
             godot_executable: "Godot.app/Contents/MacOS/Godot"
             name: "macos"
 
-          - export_type: Windows
+          - export_type: "Windows (amd64)"
             os: windows-latest
             godot_executable: "godot_win64_console.exe"
             name: "windows"
 
-          - export_type: "Linux/X11 amd64"
+          - export_type: "Linux (amd64)"
             os: ubuntu-24.04
             godot_executable: "godot_linux"
             name: "linux_amd64"
 
-          - export_type: "Linux/X11 aarch64"
+          - export_type: "Linux (arm64)"
             os: ubuntu-24.04
             godot_executable: "godot_linux"
             name: "linux_aarch64"
