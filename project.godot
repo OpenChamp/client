@@ -32,6 +32,10 @@ window/stretch/aspect="expand"
 
 run/main_run_args="-S 127.0.0.1 -P10000"
 
+[global_group]
+
+Champion="A player character"
+
 [input]
 
 player_left={
