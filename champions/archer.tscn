@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1nsyky2g8lra"]
+[gd_scene load_steps=9 format=3 uid="uid://d1nsyky2g8lra"]
 
 [ext_resource type="Script" path="res://champions/archer.gd" id="1_wx3mr"]
+[ext_resource type="PackedScene" uid="uid://df1t330pbg8ah" path="res://scenes/projectiles/arrow.tscn" id="2_freyh"]
+[ext_resource type="PackedScene" path="res://ui/player_stats/healthbar.tscn" id="3_j02nq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3ihw"]
 albedo_color = Color(0.133333, 0.482353, 0.654902, 1)
@@ -8,21 +10,24 @@ albedo_color = Color(0.133333, 0.482353, 0.654902, 1)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rtcy3"]
 material = SubResource("StandardMaterial3D_y3ihw")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7uv"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qi17u"]
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7wmmw"]
-properties/0/path = NodePath(".:position")
+properties/0/path = NodePath(".:rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
+properties/1/path = NodePath(".:id")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath(".:id")
+properties/2/path = NodePath(".:position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7uv"]
-
-[node name="Archer" type="CharacterBody3D"]
+[node name="Archer" type="CharacterBody3D" groups=["Champion"]]
 script = ExtResource("1_wx3mr")
+projectile_scene = ExtResource("2_freyh")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -30,9 +35,45 @@ script = ExtResource("1_wx3mr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_rtcy3")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_7wmmw")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="ChampionCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ig7uv")
+
+[node name="Healthbar" parent="." instance=ExtResource("3_j02nq")]
+
+[node name="RangeCollider" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RangeCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_qi17u")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="Windup" type="Timer" parent="Timers"]
+process_callback = 0
+one_shot = true
+
+[node name="AACooldown" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="AbilityCooldown1" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="AbilityCooldown2" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="AbilityCooldown3" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="AbilityCooldown4" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/projectiles/arrow.tscn")
+spawn_path = NodePath("../Projectiles")
+spawn_limit = 999
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7wmmw")

@@ -10,8 +10,9 @@
 [ext_resource type="Material" uid="uid://s5xpeagwcf7q" path="res://assets/materials/banner_red.tres" id="10_tqyyo"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_21owx"]
-vertices = PackedVector3Array(-99.5, 0.5, -12, -99.5, 0.5, 12, 99.5, 0.5, 12, 99.5, 0.5, -12)
+vertices = PackedVector3Array(-99.5, 0.02, -12, -99.5, 0.02, 12, 99.5, 0.02, 12, 99.5, 0.02, -12)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_height = 0.01
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_xef2s"]
 material = ExtResource("1_d3gqr")

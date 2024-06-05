@@ -13,4 +13,20 @@ func _ready():
 		'attack_damage': 59,
 		'attack_windup': 21, 
 		'attack_range': 300,
+		'move_speed': 210
 	})
+	healthbar.size = Vector2(100, 15)
+	global_position = server_position
+	
+func _process(delta):
+	super(delta);
+	_update_healthbar(healthbar)
+
+func _physics_process(delta: float):
+	super(delta);
+	
+
+func die():
+	super()
+	var server_listener = $"../../ServerListener"
+	server_listener.rpc_id(multiplayer.get_unique_id(), "respawn", self)

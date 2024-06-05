@@ -21,7 +21,7 @@ uniform float character_push_strength = 1.0;
 varying float debug_wind;
 
 void vertex() {
-	
+
 	vec3 world_vert = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 
 	vec2 normalized_wind_direction = normalize(wind_horizontal_direction);
@@ -36,11 +36,11 @@ void vertex() {
 	// if we used it directly in vertex space, rotated blades of grass wouldn't behave properly
 	vec2 vert_space_horizontal_dir = (inverse(MODEL_MATRIX) * vec4(wind_horizontal_direction, 0.0,0.0)).xy;
 	vert_space_horizontal_dir = normalize(vert_space_horizontal_dir);
-	
+
 	vec3 bump_wind = vec3(
 		wind_noise_intensity * vert_space_horizontal_dir.x,
 		1.0 - wind_noise_intensity,
-		wind_noise_intensity * vert_space_horizontal_dir.y 
+		wind_noise_intensity * vert_space_horizontal_dir.y
 	);
 	normalize(bump_wind);
 	bump_wind *= vec3(
@@ -49,12 +49,12 @@ void vertex() {
 		wind_strength
 	);
 	VERTEX += bump_wind * displacement_affect;
-	
+
 	// At the moment the blades are pushed away in a perfectly circular manner.
 	// We could distort the distance to the character based on a noise, to break a bit the
 	// circular shape. We could distort the falloff by sampling in a noise based on the xz coordinates.
 	// The task is left to the reader
-	
+
 	vec3 dir_to_character = character_position - MODEL_MATRIX[3].xyz;
 	// uncomment the following line to have a horizontal only character push
 //	dir_to_character.y = 0.0;
@@ -70,7 +70,7 @@ void vertex() {
 	float falloff_curve = texture(character_distance_falloff_curve, vec2(falloff)).x;
 	// direction to character is inverted because we want to point away from it
 	VERTEX += normalize(-dir_to_character) * falloff_curve * character_push_strength * displacement_affect;
-	
+
 }
 
 void fragment() {

@@ -21,35 +21,41 @@ class_name Unit
 @export var attack_time: float = 0.1
 @export var critical_chance: float = 0.0
 @export var critical_damage: float = 100
-@export var projectile: PackedScene = null
 # Targeting:
 @export var activation_range: float = 5.0
 # Rotation:
 @export var turn_speed: float = 15.0
+# AI:
 var target_entity: Node = null
-
+var is_aggressive: bool = false
+var is_patrolling: bool = false
+var can_respawn: bool = false;
+@onready var nav_agent :NavigationAgent3D = $NavigationAgent3D
+# Signals
 signal died
-# Timers:
-#@onready var attack_timer: Timer = $AttackTimer
-## States:
-#var is_attacking: bool = false
-#var is_dead: bool = false
-## Signals:
-#var can_respawn: bool = false # Only players or super special units
-#signal unit_died
-## UI:
-#@onready var healthbar: ProgressBar = $Healthbar
-#
-#
-#func _process(delta):
-	#if multiplayer.is_server():
-		#return;
-	#_update_healthbar(healthbar)
-#
+# UI
+@export var projectile_scene: PackedScene = null
+@onready var range_collider = $RangeCollider
+@onready var healthbar = $Healthbar
+
+func _process(delta):
+	_update_healthbar(healthbar)
+
+func _physics_process(delta: float):
+	move(delta);
+
 func setup(default_stats:Dictionary):
 	for key in default_stats.keys():
 		self[key] = default_stats[key]
+	# Set Range
+	if !range_collider == null:
+		set_range()
 	
+# Setters
+func set_range(new_range=null):
+	if new_range==null:
+		new_range = attack_range;
+	range_collider.get_child(0).shape.radius = new_range
 #func setup(
 	#nav_agent: NavigationAgent3D,
 	#range_collider_activate: Area3D,
@@ -91,13 +97,13 @@ func setup(default_stats:Dictionary):
 		#nav_agent.target_position = position
 #
 #
-#func _update_healthbar(node: ProgressBar):
-	#node.value = health
-#
-#
-#func update_target_location(nav_agent: NavigationAgent3D, target_location: Vector3):
-	#nav_agent.target_position = target_location
-	#
+
+# Movement
+func update_target_location(target_location: Vector3):
+	print("Target Location Updated");
+	is_aggressive = false
+	target_entity = null
+	nav_agent.target_position = target_location
 #
 #func target_in_attack_range(collider: Area3D):
 	#var bodies = collider.get_overlapping_bodies()
@@ -152,45 +158,36 @@ func setup(default_stats:Dictionary):
 		## Melee Attack
 		#target_entity.take_damage(attack_damage)
 #
-#func move(nav_agent: NavigationAgent3D, delta: float):
-	#var current_location = global_transform.origin
-	#var target_location = nav_agent.get_next_path_position()
-	## Check if target is looking at target
-	#
-	#if current_location.distance_to(target_location) <= .1:
-		#return
-	#var direction = target_location - current_location
-	#velocity = direction.normalized() * speed * delta
-	#rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), turn_speed * delta)
-	#move_and_slide()
-#
+func move(delta: float):
+	var target_location = nav_agent.get_next_path_position()
+	if global_position.distance_to(target_location) <= .1:
+		return
+	var current_location = global_position
+	var direction = target_location - current_location
+	velocity = direction.normalized() * move_speed * delta
+	rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), turn_speed * delta)
+	move_and_slide()
+
 ## Combat
-#
-#func take_damage(damage: float):
-	#var taken: float = armor / 100
-	#taken = damage / (taken + 1)
-	#health -= taken
-	#if health <= 0:
-		#health = 0
-		#die()
-#
-#func heal(amount:float, keep_extra:bool = false):
-	#health += amount
-	#if health > max_health and not keep_extra:
-		#health = max_health
-	#else:
-		#overheal = health - max_health
-		#health = max_health
-#
-## Setters
-#
-#func set_health(total):
-	#health = total;
-#
-## Getters
-#
-#func get_health_max() -> int:
-	#return max_health
-#
-#func get_health() -> int:
-	#return health
+func take_damage(damage: float):
+	var taken: float = armor / 100
+	taken = damage / (taken + 1)
+	health -= taken
+	if health <= 0:
+		health = 0
+		die()
+
+func heal(amount:float, keep_extra:bool = false):
+	health += amount
+	if health > max_health and not keep_extra:
+		health = max_health
+	else:
+		overheal = health - max_health
+		health = max_health
+
+func die():
+	get_tree().quit()
+
+# UI
+func _update_healthbar(node: ProgressBar):
+	node.value = health

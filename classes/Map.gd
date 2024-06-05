@@ -5,7 +5,7 @@ class_name MapNode
 
 @export var champion_container: Node
 
-var Players = {}
+var Champions = {}
 var Spawns = []
 
 var player_cooldowns = {}
@@ -15,8 +15,8 @@ func _ready():
 		client_setup()
 		return ;
 	# Get both team spawns
-	Spawns.append(get_node("Spawn1").position)
-	Spawns.append(get_node("Spawn2").position)
+	Spawns.append(get_node("Spawn1").global_position)
+	Spawns.append(get_node("Spawn2").global_position)
 	# Spawn all the Champions
 	for player in connected_players:
 		var champ = load("res://champions/" + player["champ"].to_lower() + ".tscn").instantiate()
@@ -25,8 +25,9 @@ func _ready():
 		champ.nametag = player["name"]
 		champ.team = player["team"]
 		champ.position = Spawns[champ.team-1]
+		champ.server_position = champ.position
 		champion_container.add_child(champ)
-		Players[player['peer_id']] = player
+		Champions[player['peer_id']] = champ
 		pass ;
 		
 func _process_delta(_delta):
@@ -51,10 +52,10 @@ func register_player():
 
 @rpc("any_peer", "call_local")
 func move_to(pos: Vector3):
+	print("Trying to move");
+	print(pos);
 	var champion = get_champion(multiplayer.get_remote_sender_id())
-	champion.is_attacking = false
-	champion.target_entity = null
-	champion.update_target_location(champion.nav_agent, pos)
+	champion.update_target_location(pos);
 
 @rpc("any_peer", "call_local")
 func target(target_name):
@@ -64,9 +65,7 @@ func target(target_name):
 		print_debug("That's you ya idjit") # :O
 		return
 	var target_entity = get_parent().find_child(str(target_name), true, false)
-	champion.target_entity = target_entity
-	if target_entity and not target_entity.team == champion.team:
-		champion.is_attacking = true
+	champion.change_state("Attack", target_entity)
 
 @rpc("any_peer", "call_local")
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
@@ -112,7 +111,7 @@ func free_ability(cooldown: float, peer_id: int, ab_id: int) -> void:
 	player_cooldowns[peer_id][ab_id] = 0
 
 func get_champion(id:int):
-	var champion = Players.get(id)
+	var champion = Champions.get(id)
 	if not champion:
 		print_debug("Failed to find character")
 		return false

@@ -14,7 +14,7 @@ const MoveMarker: PackedScene = preload ("res://scenes/effects/move_marker.tscn"
 var initial_mouse_position := Vector2.ZERO
 # Camera Settings
 var camera_target_position := Vector3.ZERO
-var is_middle_mouse_dragging bool = false
+var is_middle_mouse_dragging : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,7 +22,6 @@ func _ready():
 	while !server.is_in_group("Map"):
 		server = server.get_parent()
 	# Get your champion
-	var champions = server.get_node("Champions").get_children()
 	server.get_node("Champions").child_entered_tree.connect(champion_spawned)
 	# Set our camera as main
 	spring_arm.spring_length = Config.max_zoom
