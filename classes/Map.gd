@@ -1,6 +1,5 @@
 extends Node
-class_name Open_Map
-
+class_name MapNode
 
 @export var connected_players: Array
 
@@ -8,6 +7,8 @@ class_name Open_Map
 
 var Players = {}
 var Spawns = []
+
+var player_cooldowns = {}
 
 func _ready():
 	if not multiplayer.is_server():
@@ -25,6 +26,7 @@ func _ready():
 		champ.team = player["team"]
 		champ.position = Spawns[champ.team-1]
 		champion_container.add_child(champ)
+		Players[player['peer_id']] = player
 		pass ;
 		
 func _process_delta(_delta):
@@ -45,3 +47,73 @@ func client_ready():
 @rpc("any_peer")
 func register_player():
 	var peer_id = multiplayer.get_remote_sender_id()
+
+
+@rpc("any_peer", "call_local")
+func move_to(pos: Vector3):
+	var champion = get_champion(multiplayer.get_remote_sender_id())
+	champion.is_attacking = false
+	champion.target_entity = null
+	champion.update_target_location(champion.nav_agent, pos)
+
+@rpc("any_peer", "call_local")
+func target(target_name):
+	var champion = get_champion(multiplayer.get_remote_sender_id())
+	# Dont Kill Yourself
+	if str(target_name) == str(champion.name):
+		print_debug("That's you ya idjit") # :O
+		return
+	var target_entity = get_parent().find_child(str(target_name), true, false)
+	champion.target_entity = target_entity
+	if target_entity and not target_entity.team == champion.team:
+		champion.is_attacking = true
+
+@rpc("any_peer", "call_local")
+func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
+	var peer_id = multiplayer.get_remote_sender_id()
+	var champion = get_champion(peer_id)
+	if champion.mana < ability_mana_cost:
+		print("Not enough mana!")
+		return
+	if player_cooldowns[peer_id][ab_id-1] != 0:
+		print("This ability is on cooldown! Wait " + str(cooldown) + " seconds!")
+		return
+	player_cooldowns[peer_id][ab_id-1] = cooldown
+	free_ability(cooldown, peer_id, ab_id-1)
+	champion.mana -= ability_mana_cost
+	print(champion.mana)
+	rpc_id(peer_id, "spawn_local_effect", ability_name, ability_type, ability_pos, champion.position, champion.team)
+
+
+@rpc("any_peer", "call_local")
+func spawn_local_effect(ability_name, ability_type, ability_pos, player_pos, player_team) -> void:
+	var ability_scene = load("res://effects/abilities/"+ability_name+".tscn").instantiate();
+	if ability_type == 0:
+		ability_scene.position = ability_pos
+	if ability_type == 1:
+		ability_scene.direction = ability_pos
+		ability_scene.position = player_pos
+	ability_scene.team = player_team
+	$"../Abilities".add_child(ability_scene);
+	
+@rpc("any_peer", "call_local")
+func respawn(champion:CharacterBody3D):
+	var rand = RandomNumberGenerator.new()
+	var x = rand.randf_range(0, 5)
+	var z = rand.randf_range(0, 5)
+	champion.position = get_node("../Spawn"+str(champion .team)).position + Vector3(x, 0, z)
+	champion.set_health(champion.get_health_max())
+	champion.is_dead = false
+	champion.show()
+	champion.rpc_id(champion.pid, "respawn")
+
+func free_ability(cooldown: float, peer_id: int, ab_id: int) -> void:
+	await get_tree().create_timer(cooldown).timeout
+	player_cooldowns[peer_id][ab_id] = 0
+
+func get_champion(id:int):
+	var champion = Players.get(id)
+	if not champion:
+		print_debug("Failed to find character")
+		return false
+	return champion

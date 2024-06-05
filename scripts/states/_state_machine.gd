@@ -16,6 +16,8 @@ func _ready():
 		current_state = initial_state
 	
 func _process(delta):
+	if current_state == null:
+		return;
 	current_state.update(entity, delta);
 	
 func _physics_process(delta):

@@ -1,3 +1,66 @@
-[gd_scene format=3 uid="uid://dfx0x36tdrj5r"]
+[gd_scene load_steps=9 format=3 uid="uid://d0mug86g1buyj"]
 
-[node name="MoveMarker" type="Node3D"]
+[ext_resource type="Script" path="res://scenes/effects/move_marker.gd" id="1_52jh3"]
+
+[sub_resource type="Animation" id="Animation_oefca"]
+resource_name = "shrink_ring"
+length = 0.5
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.5, 1, 0.01, 1, 0.01)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hlojs"]
+_data = {
+"shrink_ring": SubResource("Animation_oefca")
+}
+
+[sub_resource type="TorusMesh" id="TorusMesh_c5574"]
+inner_radius = 2.0
+outer_radius = 2.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52wpm"]
+resource_local_to_scene = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_avb0c"]
+direction = Vector3(0, 1, 0)
+spread = 9.804
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0apb0"]
+transparency = 1
+albedo_color = Color(0.027451, 1, 1, 0.0862745)
+emission_enabled = true
+emission = Color(0, 1, 0.670588, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2g8bl"]
+material = SubResource("StandardMaterial3D_0apb0")
+radius = 0.1
+height = 0.2
+
+[node name="MoveTo" type="Node3D"]
+script = ExtResource("1_52jh3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Marker")
+libraries = {
+"": SubResource("AnimationLibrary_hlojs")
+}
+
+[node name="Marker" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_c5574")
+surface_material_override/0 = SubResource("StandardMaterial3D_52wpm")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.55
+randomness = 0.21
+process_material = SubResource("ParticleProcessMaterial_avb0c")
+draw_pass_1 = SubResource("SphereMesh_2g8bl")
