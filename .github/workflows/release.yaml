@@ -49,7 +49,7 @@ jobs:
       - name: Download the export artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: game_exports
+          name: game_exports
           path: build
 
       - name: Create the release
