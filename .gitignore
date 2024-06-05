@@ -13,3 +13,11 @@ build/
 
 # game install dir
 godot/
+
+# extensions stuff
+bin/*.so
+bin/*.dll
+bin/*.framework
+
+extensions/build*
+extensions/cross_compile_stuff/*
