@@ -1,0 +1,64 @@
+on:
+  workflow_call:
+
+jobs:
+  cache_godot:
+    name: "Setup Godot Cache"
+    runs-on: "ubuntu-24.04"
+    env:
+      GODOT_VERSION: '4.3-beta1'
+      GODOT_REPO: 'godotengine/godot-builds'
+    steps:
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: godot
+          enableCrossOsArchive: true
+          key: godot_4_3_0_beta1_rev1
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+
+      - name: download and extract godot linux executable
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          wget https://github.com/${{ env.GODOT_REPO }}/releases/download/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}_linux.x86_64.zip
+          unzip Godot_v${{ env.GODOT_VERSION }}_linux.x86_64.zip
+          mkdir godot
+          mv Godot_v${{ env.GODOT_VERSION }}_linux.x86_64 godot/godot_linux
+          chmod +x godot/godot_linux
+
+      - name: download and extract godot windows executable
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          wget https://github.com/${{ env.GODOT_REPO }}/releases/download/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}_win64.exe.zip
+          unzip Godot_v${{ env.GODOT_VERSION }}_win64.exe.zip
+          mv Godot_v${{ env.GODOT_VERSION }}_win64.exe godot/godot_win64.exe
+          mv Godot_v${{ env.GODOT_VERSION }}_win64_console.exe godot/godot_win64_console.exe
+
+      - name: download and extract godot mac executable
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          wget https://github.com/${{ env.GODOT_REPO }}/releases/download/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}_macos.universal.zip
+          unzip Godot_v${{ env.GODOT_VERSION }}_macos.universal.zip
+          mv Godot.app godot/Godot.app
+
+      - name: download and extract godot templates
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          wget https://github.com/${{ env.GODOT_REPO }}/releases/download/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}_export_templates.tpz
+          unzip Godot_v${{ env.GODOT_VERSION }}_export_templates.tpz
+          mkdir godot/export_templates
+          mv templates godot/export_templates/4.3.beta1
+
+      - name: generate api bindings
+        run: godot/godot_linux --headless --dump-extension-api extension_api.json
+
+      - name: create an artifact with the api bindings
+        uses: actions/upload-artifact@v4
+        with:
+          name: gd_extension_api
+          path: extension_api.json

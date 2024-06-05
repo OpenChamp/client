@@ -1,0 +1,110 @@
+on:
+  workflow_call:
+
+jobs:
+  export_game:
+    env:
+      EXPORT_TEMPLATE_VERSION: '4.3.beta1'
+    strategy:
+      fail-fast: false
+      matrix:
+        export_type:
+          - macOS
+          - Windows
+          - "Linux/X11 amd64"
+          - "Linux/X11 aarch64"
+        include:
+          - export_type: macOS
+            os: macos-latest
+            godot_executable: "Godot.app/Contents/MacOS/Godot"
+            name: "macos"
+
+          - export_type: Windows
+            os: windows-latest
+            godot_executable: "godot_win64_console.exe"
+            name: "windows"
+
+          - export_type: "Linux/X11 amd64"
+            os: ubuntu-24.04
+            godot_executable: "godot_linux"
+            name: "linux_amd64"
+
+          - export_type: "Linux/X11 aarch64"
+            os: ubuntu-24.04
+            godot_executable: "godot_linux"
+            name: "linux_aarch64"
+
+    name: "Export Game ${{ matrix.export_type }}"
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: godot
+          enableCrossOsArchive: true
+          fail-on-cache-miss: true
+          key: godot_4_3_0_beta1_rev1
+
+      - name: Retreive extensions artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: extensions
+          path: bin
+
+      - name: Create templates symlink (linux)
+        if: runner.os == 'Linux'
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates
+          ln -s $(pwd)/godot/export_templates/${{ env.EXPORT_TEMPLATE_VERSION }} ~/.local/share/godot/export_templates/${{ env.EXPORT_TEMPLATE_VERSION }}
+
+      - name: Create templates symlink (macos)
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p "$HOME/Library/Application Support/Godot/export_templates"
+          ln -s "$(pwd)/godot/export_templates/${{ env.EXPORT_TEMPLATE_VERSION }}" "$HOME/Library/Application Support/Godot/export_templates/${{ env.EXPORT_TEMPLATE_VERSION }}"
+
+      - name: Move the export templates (windows)
+        if: runner.os == 'Windows'
+        run: |
+          New-Item -ItemType Directory -Path $env:APPDATA/Godot/export_templates -Force
+          Move-Item -Path godot/export_templates/${{ env.EXPORT_TEMPLATE_VERSION }} -Destination $env:APPDATA/Godot/export_templates/
+
+      - name: Create the build directory
+        run: mkdir build
+
+      - name: Export Client For Linux amd64
+        run: ./godot/${{ matrix.godot_executable }} --headless --export-release 'Client ${{ matrix.export_type }}' project.godot
+
+      - name: Export Server For Linux amd64
+        run: ./godot/${{ matrix.godot_executable }} --headless --export-release 'Server ${{ matrix.export_type }}' project.godot
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: game_export_${{ matrix.name }}
+          path: build
+
+  combine_export_artifacts:
+    name: "Combine Export Binaries"
+    runs-on: "ubuntu-24.04"
+    needs: export_game
+    steps:
+      - name: Download the export artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: game_export_*
+          path: _build
+
+      - name: properly place the export artifacts
+        run: |
+          mkdir -p build
+          cp _build/*/* build
+
+      - name: Publish extension artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: game_exports
+          path: build

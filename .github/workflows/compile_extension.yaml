@@ -1,0 +1,85 @@
+on:
+  workflow_call:
+
+jobs:
+  compile_extensions:
+    strategy:
+      fail-fast: false
+      matrix:
+        build_mode: [ debug, release ]
+        os: [ ubuntu-24.04, windows-latest, macos-latest ]
+        arch: [ native, aarch64 ]
+        exclude:
+          - os: windows-latest
+            arch: aarch64
+          - os: macos-latest
+            arch: aarch64
+
+    name: "extension ${{ matrix.os }} ${{ matrix.build_mode }} ${{ matrix.arch }}"
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: install ninja
+        run: pip install ninja
+
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: |
+            extensions/godot-cpp
+            extensions/build
+          save-always: true
+          key: extension_cache_${{ matrix.os }}_${{ matrix.build_mode }}_${{ matrix.arch }}_4_3_0_beta1
+
+      - name: get submodules if cache miss
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: git submodule update --init --recursive
+
+      - name: get the api artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: gd_extension_api
+          path: .
+
+      - name: Compile the extension
+        run: python ./extensions/scripts/compile.py --target_arch=${{ matrix.arch }} --build_dir=extensions/build --mode=${{ matrix.build_mode }} --api_file=./extension_api.json
+
+      - name: Upload extension artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension_${{ matrix.os }}_${{ matrix.build_mode }}_${{ matrix.arch }}
+          path: |
+            bin/*.dll
+            bin/*.dll.a
+            bin/*.dylib
+            bin/**.framework
+            bin/*.so
+
+  combine_extension_artifacts:
+    name: "Combine Extension Binaries"
+    runs-on: "ubuntu-24.04"
+    needs: compile_extensions
+    steps:
+      - name: Retrieve extension artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: extension_*
+          path: _bin
+
+      - name: Combine extension artifacts
+        run: |
+          mkdir -p bin
+          cp _bin/*/* bin
+
+      - name: Publish extension artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: extensions
+          path: bin
+

@@ -1,0 +1,64 @@
+on: 
+  push:
+    branches:
+      - main
+      - alpha
+      - 4.3_update
+
+jobs:
+  cache_godot:
+    uses: ./.github/workflows/cache_godot.yaml
+    secrets: inherit
+  
+  compile_extensions:
+    needs: cache_godot
+    uses: ./.github/workflows/compile_extension.yaml
+    secrets: inherit
+
+  export_game:
+    needs: [ cache_godot, compile_extensions ]
+    uses: ./.github/workflows/export_game.yaml
+    secrets: inherit
+
+  create_release:
+    needs: [ export_game ]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+      
+      - name: Bump version and push tag
+        id: bump
+        uses: anothrNick/github-tag-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          DEFAULT_BUMP: patch
+          TAG_CONTEXT: branch
+
+      - name: Download extension artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: extensions
+          path: bin
+
+      - name: create an extensions build archive
+        run: zip -r extension.zip bin
+
+      - name: Download the export artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: game_exports
+          path: build
+
+      - name: Create the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.bump.outputs.new_tag }}
+          generate_release_notes: true
+          prerelease: ${{ github.ref_name == '4.3_update' }}
+          files: |
+            extension.zip
+            build/*
+            LICENSE
