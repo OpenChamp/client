@@ -18,8 +18,7 @@ public:
 	DynamicAssetLoader();
 	~DynamicAssetLoader();
 
-	String get_group() const;
-	String get_name() const;
+	void dump_asset_map();
 };
 
 } //namespace godot

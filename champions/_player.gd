@@ -14,7 +14,7 @@ const MoveMarker: PackedScene = preload ("res://scenes/effects/move_marker.tscn"
 var initial_mouse_position := Vector2.ZERO
 # Camera Settings
 var camera_target_position := Vector3.ZERO
-
+var is_middle_mouse_dragging bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,7 +45,7 @@ func champion_spawned(entity):
 
 func camera_movement_handler() -> void:
 	# don't move the cam while changing the settings since that is annoying af
-	if Config.in_config_settings:
+	if Config.in_focued_menu:
 		return
 	
 	# If centered, blindly follow the champion

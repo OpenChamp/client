@@ -204,7 +204,7 @@ func camera_movement_handler() -> void:
 		# Middle mouse dragging
 		if is_middle_mouse_dragging:
 			var mouse_delta = current_mouse_position - initial_mouse_position
-			cam_delta += Vector3(mouse_delta.x, 0, mouse_delta.y) * Config.cam_pan_sensitivity
+			cam_delta += Vector3(mouse_delta.x, 0, mouse_delta.y) * Config.camera_settings.cam_pan_sensitivity
 		
 		# Apply camera movement
 		if cam_delta != Vector3.ZERO:
@@ -212,10 +212,10 @@ func camera_movement_handler() -> void:
 	
 	# Zoom
 	if Input.is_action_just_pressed("player_zoomin"):
-		if spring_arm.spring_length > Config.min_zoom:
+		if spring_arm.spring_length > Config.camera_settings.min_zoom:
 			spring_arm.spring_length -= 1
 	if Input.is_action_just_pressed("player_zoomout"):
-		if spring_arm.spring_length < Config.max_zoom:
+		if spring_arm.spring_length < Config.camera_settings.max_zoom:
 			spring_arm.spring_length += 1
 	
 	# Recenter - Tap
