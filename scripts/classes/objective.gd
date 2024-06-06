@@ -27,6 +27,7 @@ var is_dead: bool = false
 signal objective_died
 # UI:
 @onready var healthbar: ProgressBar = $Healthbar
+@onready var dmg_popup_template = preload("res://ui/DamagePopup.tscn")
 
 @onready var target_ray: MeshInstance3D = $TargetRay
 @export var cast_time: float = 0.1
@@ -86,6 +87,12 @@ func attack(entity: CharacterBody3D, _nav_agent: NavigationAgent3D):
 func take_damage(damage: float):
 	var taken: float = armor / 100
 	taken = damage / (taken + 1)
+
+	if taken > 0:
+		var popup = dmg_popup_template.instantiate()
+		add_child(popup, true)
+		popup.play(str(int(taken)))
+
 	health -= taken
 
 func init_auto_attack():

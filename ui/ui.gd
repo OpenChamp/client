@@ -9,7 +9,7 @@ func _ready():
 	settings_menu.hide()
 	get_champion()
 
-func _process(delta):
+func _process(_delta):
 	if multiplayer.is_server(): return;
 	if !champion:
 		get_champion()

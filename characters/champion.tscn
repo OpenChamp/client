@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccnpxwrivnu02"]
+[gd_scene load_steps=12 format=3 uid="uid://ccnpxwrivnu02"]
 
 [ext_resource type="Script" path="res://scripts/champion.gd" id="1_8mps8"]
 [ext_resource type="PackedScene" uid="uid://d28xkvb7ggvur" path="res://effects/abilities/arrow_storm_ui.tscn" id="2_g86sd"]
 [ext_resource type="PackedScene" uid="uid://x10srxg18eg5" path="res://effects/arrow.tscn" id="2_msikv"]
 [ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/healthbar.tscn" id="3_1kjdw"]
 [ext_resource type="PackedScene" uid="uid://b63tjkqwwkg72" path="res://effects/abilities/skilled_shot_ui.tscn" id="3_qle6h"]
+[ext_resource type="Script" path="res://ui/scripts/DamagePopup.gd" id="6_yx6fo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_am47k"]
 
@@ -102,6 +103,9 @@ replication_config = SubResource("SceneReplicationConfig_5frdt")
 _spawnable_scenes = PackedStringArray("res://effects/arrow.tscn")
 spawn_path = NodePath("../Projectiles")
 spawn_limit = 100
+
+[node name="DamagePopup" type="Node2D" parent="."]
+script = ExtResource("6_yx6fo")
 
 [connection signal="body_entered" from="ActivationArea" to="." method="_on_activation_area_body_entered"]
 [connection signal="body_exited" from="ActivationArea" to="." method="_on_activation_area_body_exited"]

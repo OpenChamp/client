@@ -1,6 +1,6 @@
 extends ability
 
-@export var range:float = 15.0
+@export var max_range:float = 15.0
 @export var isActivated = false
 @export var ability_name:String
 @export var isAoe:bool
@@ -30,8 +30,8 @@ func _process(delta):
 	
 	if isAoe:
 	# Check if distance > length
-		if distance > range:
-			var new_position = global_transform.origin + direction.normalized() * range
+		if distance > max_range:
+			var new_position = global_transform.origin + direction.normalized() * max_range
 			aoe.global_transform.origin = new_position
 		else:
 			# Move Directly to mousepos
@@ -52,8 +52,8 @@ func init():
 	gui.show()
 	if isAoe:
 		# Set GUI to range
-		gui.mesh.inner_radius = range
-		gui.mesh.outer_radius = range + 0.2
+		gui.mesh.inner_radius = max_range
+		gui.mesh.outer_radius = max_range + 0.2
 		aoe.show()
 
 

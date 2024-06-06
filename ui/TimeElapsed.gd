@@ -13,7 +13,7 @@ func _physics_process(delta):
 
 func set_time(t:int):
 	var sec = t % 60
-	var min = (t-sec)/60
-	if min < 10:
-		min = "0" + str(min)
-	text = str(min) + ":" + str(sec)
+	var mins = int(t - sec)/60
+	if mins < 10:
+		mins = "0" + str(mins)
+	text = str(mins) + ":" + str(sec)

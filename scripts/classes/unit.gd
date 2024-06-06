@@ -32,6 +32,7 @@ var can_respawn: bool = false # Only players or super special units
 signal unit_died
 # UI:
 @onready var healthbar: ProgressBar = $Healthbar
+@onready var dmg_popup_template = preload("res://ui/DamagePopup.tscn")
 
 
 func _process(delta):
@@ -154,10 +155,15 @@ func move(nav_agent: NavigationAgent3D, delta: float):
 	move_and_slide()
 
 # Combat
-
 func take_damage(damage: float):
 	var taken: float = armor / 100
 	taken = damage / (taken + 1)
+
+	if taken > 0:
+		var popup = dmg_popup_template.instantiate()
+		add_child(popup, true)
+		popup.play(str(int(taken)))
+
 	health -= taken
 	if health <= 0:
 		health = 0
@@ -179,7 +185,7 @@ func set_health(total):
 # Getters
 
 func get_health_max() -> int:
-	return max_health
+	return int(max_health)
 
 func get_health() -> int:
-	return health
+	return int(health)
