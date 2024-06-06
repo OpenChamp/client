@@ -185,7 +185,7 @@ func set_health(total):
 # Getters
 
 func get_health_max() -> int:
-	return max_health
+	return int(max_health)
 
 func get_health() -> int:
-	return health
+	return int(health)

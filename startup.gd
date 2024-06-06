@@ -205,7 +205,7 @@ func server_fail():
 	get_tree().quit()
 
 # Custom Functions
-func change_map(scene: PackedScene, Players):
+func change_map(scene: PackedScene, players):
 	var map = $Map
 	print(map)
 	# Clean out everything
@@ -214,7 +214,7 @@ func change_map(scene: PackedScene, Players):
 		child.queue_free()
 	var new_map = scene.instantiate()
 	new_map.add_to_group("Map")
-	new_map.get_node("ServerListener").connected_players = Players
+	new_map.get_node("ServerListener").connected_players = players
 	map.add_child(new_map)
 
 func parse_args():

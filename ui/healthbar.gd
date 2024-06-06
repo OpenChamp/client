@@ -16,7 +16,6 @@ func _process(_delta):
 
 		if camera:
 			var screen_pos = camera.unproject_position(parent.position)
-			var screen_size = viewport.get_visible_rect().size
 			var bar_pos = Vector2(screen_pos.x - 0.5 * size.x, screen_pos.y - 50)
 			# Adjust the offset (e.g., -50) to position the health bar above the player
 			# You might need to tweak this value based on your game's camera settings
