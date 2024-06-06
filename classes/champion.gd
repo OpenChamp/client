@@ -20,3 +20,7 @@ func _process(delta):
 
 func _physics_process(delta: float) -> void:
 	super(delta);
+
+@rpc("authority", "call_local")
+func change_state(new, args):
+	$StateMachine.change_state(new, args);

@@ -19,16 +19,17 @@ func _ready():
 	Spawns.append(get_node("Spawn2").global_position)
 	# Spawn all the Champions
 	for player in connected_players:
-		var champ = load("res://champions/" + player["champ"].to_lower() + ".tscn").instantiate()
+		#var champ = load("res://champions/" + player["champ"].to_lower() + ".tscn").instantiate()
+		var champ = load("res://champions/dummy.tscn").instantiate()
 		champ.name = str(player["peer_id"])
 		champ.id = player["peer_id"]
 		champ.nametag = player["name"]
 		champ.team = player["team"]
 		champ.position = Spawns[champ.team-1]
-		champ.server_position = champ.position
+		champ.server_position = champ.position;
 		champion_container.add_child(champ)
+		champ.look_at(Vector3(0,0,0))
 		Champions[player['peer_id']] = champ
-		pass ;
 		
 func _process_delta(_delta):
 	pass ;
@@ -52,11 +53,8 @@ func register_player():
 
 @rpc("any_peer", "call_local")
 func move_to(pos: Vector3):
-	print("Trying to move");
-	print(pos);
 	var champion = get_champion(multiplayer.get_remote_sender_id())
-	champion.update_target_location(pos);
-
+	champion.change_state.rpc("Moving", pos);
 @rpc("any_peer", "call_local")
 func target(target_name):
 	var champion = get_champion(multiplayer.get_remote_sender_id())

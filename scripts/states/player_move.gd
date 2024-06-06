@@ -11,14 +11,17 @@ func update(entity, delta):
 	super(entity, delta);
 	# Client only
 	if entity.global_position != entity.server_position:
-		entity.global_position = entity.server_position
-		entity.global_position = entity.global_position.lerp(entity.server_position, delta)
+		var lrp = delta * 8
+		var lerp = entity.global_position.lerp(entity.server_position, lrp)
+		print(lrp);
+		entity.global_position = lerp
 	pass;
 
 func update_tick(entity, delta):
 	# Server Only
 	super(entity, delta);
 	var current_location = entity.global_position
+	entity.server_position = entity.global_position;
 	var target_location = entity.nav_agent.get_next_path_position()
 	# Check if target is looking at target
 	
@@ -28,7 +31,6 @@ func update_tick(entity, delta):
 	entity.velocity = direction.normalized() * entity.move_speed * delta
 	entity.rotation.y = lerp_angle(entity.rotation.y, atan2(-direction.x, -direction.z), entity.turn_speed * delta)
 	entity.move_and_slide()
-	entity.server_position = entity.global_position;
 	pass;
 	
 func modify(entity, args):

@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://dcl2rt2anrp2t"]
+
+[ext_resource type="Script" path="res://champions/dummy.gd" id="1_dclwc"]
+[ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="3_5ph6s"]
+[ext_resource type="PackedScene" path="res://ui/player_stats/healthbar.tscn" id="3_6j13w"]
+[ext_resource type="Script" path="res://scripts/states/player_idle.gd" id="4_d2sxx"]
+[ext_resource type="Script" path="res://scripts/states/player_move.gd" id="5_4mcnx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3ihw"]
+albedo_color = Color(0.133333, 0.482353, 0.654902, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rtcy3"]
+material = SubResource("StandardMaterial3D_y3ihw")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7uv"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qi17u"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7wmmw"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:id")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:mana")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:health")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:server_position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[node name="Dummy" type="CharacterBody3D" groups=["Champion"]]
+script = ExtResource("1_dclwc")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_rtcy3")
+
+[node name="ChampionCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ig7uv")
+
+[node name="Healthbar" parent="." instance=ExtResource("3_6j13w")]
+
+[node name="RangeCollider" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RangeCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_qi17u")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="Windup" type="Timer" parent="Timers"]
+process_callback = 0
+one_shot = true
+
+[node name="AACooldown" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="AbilityCooldown1" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="AbilityCooldown2" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="AbilityCooldown3" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="AbilityCooldown4" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/projectiles/arrow.tscn")
+spawn_path = NodePath("../Projectiles")
+spawn_limit = 999
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7wmmw")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_5ph6s")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_d2sxx")
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("5_4mcnx")
