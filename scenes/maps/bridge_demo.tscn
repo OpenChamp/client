@@ -1,0 +1,115 @@
+[gd_scene load_steps=13 format=3 uid="uid://ceb4v7n2sbkyq"]
+
+[ext_resource type="PackedScene" uid="uid://df4v753aaj2e7" path="res://scenes/environment/water.tscn" id="1_p8xur"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_glou8"]
+
+[sub_resource type="Sky" id="Sky_w164l"]
+sky_material = SubResource("PhysicalSkyMaterial_glou8")
+
+[sub_resource type="Environment" id="Environment_qjopm"]
+background_mode = 2
+sky = SubResource("Sky_w164l")
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_density = 0.0115
+volumetric_fog_temporal_reprojection_enabled = false
+volumetric_fog_temporal_reprojection_amount = 0.81
+adjustment_brightness = 0.01
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ygblk"]
+size = Vector2(180, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_402x1"]
+size = Vector2(180, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h02pj"]
+size = Vector3(20, 4, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pybd4"]
+size = Vector3(10, 20, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lsv6c"]
+size = Vector3(20, 2, 20)
+
+[sub_resource type="PrismMesh" id="PrismMesh_jouck"]
+left_to_right = 0.0
+size = Vector3(14, 14, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d3t7b"]
+size = Vector3(6, 20, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hd55j"]
+size = Vector3(20, 22, 20)
+
+[node name="BridgeDemo" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qjopm")
+
+[node name="CameraRig" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 38)
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Bridge_floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ygblk")
+
+[node name="Bridge_front" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -1, 10)
+mesh = SubResource("PlaneMesh_402x1")
+
+[node name="CentralPillar" type="Node3D" parent="."]
+
+[node name="Top_Rock" type="MeshInstance3D" parent="CentralPillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+mesh = SubResource("BoxMesh_h02pj")
+
+[node name="Pillar" type="MeshInstance3D" parent="CentralPillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14, 0)
+mesh = SubResource("BoxMesh_pybd4")
+
+[node name="Water" parent="." instance=ExtResource("1_p8xur")]
+transform = Transform3D(80, 0, 0, 0, 1, 0, 0, 0, 50, 0, -22, 0)
+
+[node name="Side1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91, 0, 0)
+
+[node name="Top" type="MeshInstance3D" parent="Side1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -1, 0)
+mesh = SubResource("BoxMesh_lsv6c")
+
+[node name="CliffEdge" type="MeshInstance3D" parent="Side1"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -6, -9, 0)
+mesh = SubResource("PrismMesh_jouck")
+
+[node name="Bottom1" type="MeshInstance3D" parent="Side1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -12, 0)
+mesh = SubResource("BoxMesh_d3t7b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Side1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, -11, 0)
+mesh = SubResource("BoxMesh_hd55j")
+
+[node name="Side2" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 91, 0, 1.59109e-05)
+
+[node name="Top" type="MeshInstance3D" parent="Side2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -1, 0)
+mesh = SubResource("BoxMesh_lsv6c")
+
+[node name="CliffEdge" type="MeshInstance3D" parent="Side2"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -6, -9, 0)
+mesh = SubResource("PrismMesh_jouck")
+
+[node name="Bottom1" type="MeshInstance3D" parent="Side2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -12, 0)
+mesh = SubResource("BoxMesh_d3t7b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Side2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, -11, 0)
+mesh = SubResource("BoxMesh_hd55j")
