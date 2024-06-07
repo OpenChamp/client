@@ -21,12 +21,12 @@ func enter(entity, target_entity=null):
 	# Subscribe to enter and exit 
 	entity.range_collider.body_entered.connect(_on_body_entered)
 	entity.range_collider.body_exited.connect(_on_body_exited)
-	search_radius();
+	is_in_range = search_radius();
 	pass
 
 func exit(entity):
-	entity.range_collider.body_entered.disconnect(entity, "_on_body_entered")
-	entity.range_collider.body_exited.disconnect(entity, "_on_body_exited")
+	#entity.range_collider.body_entered.disconnect(entity, "_on_body_entered")
+	#entity.range_collider.body_exited.disconnect(entity, "_on_body_exited")
 	pass;
 
 func update(entity, delta):
@@ -80,7 +80,7 @@ func _on_body_exited(body):
 
 func init_attack():
 	# Start the cast timer
-	cast_timer.set_wait_time(backup_entity.attack_windup)
+	cast_timer.set_wait_time(backup_entity.attack_windup / 100)
 	cast_timer.start()
 	pass
 
@@ -106,10 +106,9 @@ func try_attack():
 	init_attack()
 	pass
 	
-func search_radius():
+func search_radius() -> bool:
 	var bodies = backup_entity.range_collider.get_overlapping_bodies()
 	for body in bodies:
 		if body == target:
-			print(body);
-			print(target);
-			is_in_range = true;
+			return true;
+	return false

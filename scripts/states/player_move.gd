@@ -13,7 +13,6 @@ func update(entity, delta):
 	if entity.global_position != entity.server_position:
 		var lrp = delta * 8
 		var lerp = entity.global_position.lerp(entity.server_position, lrp)
-		print(lrp);
 		entity.global_position = lerp
 	pass;
 
