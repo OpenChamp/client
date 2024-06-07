@@ -2,6 +2,7 @@
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 
@@ -19,7 +20,6 @@ DynamicAssetLoader::~DynamicAssetLoader() {}
 
 void DynamicAssetLoader::dump_asset_map() {
     for ( const auto& [key, value] : asset_map ) {
-        
-        printf("%s: %s", key.ascii().get_data(), value.ascii().get_data());
+        UtilityFunctions::print("%s: %s", key.ascii().get_data(), value.ascii().get_data());
     }
 }

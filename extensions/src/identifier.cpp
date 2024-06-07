@@ -9,6 +9,7 @@ void Identifier::_bind_methods() {
 	
 	ClassDB::bind_method(D_METHOD("get_group"), &Identifier::get_group);
 	ClassDB::bind_method(D_METHOD("get_name"), &Identifier::get_name);
+	ClassDB::bind_method(D_METHOD("is_valid"), &Identifier::is_valid);
 }
 
 Identifier::Identifier() {}
@@ -21,6 +22,10 @@ String Identifier::get_group() const {
 
 String Identifier::get_name() const {
 	return name;
+}
+
+bool Identifier::is_valid() const {
+	return valid;
 }
 
 Identifier* Identifier::from_string(String _id_string) {

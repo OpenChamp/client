@@ -32,13 +32,15 @@ func _ready():
 		Champions[player['peer_id']] = champ
 		
 func _process_delta(_delta):
-	pass ;
+	pass
 
 func client_setup():
 	# Add the player into the world
 	# The player rig will ask the server for their champion
 	var player_rig = load("res://champions/_player.tscn").instantiate();
 	add_child(player_rig);
+	var player_ui = load("res://ui/game_ui.tscn")
+	add_child(player_ui.instantiate())
 	pass
 
 @rpc("any_peer")

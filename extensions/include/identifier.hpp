@@ -25,6 +25,8 @@ public:
 
 	String get_group() const;
 	String get_name() const;
+
+	bool is_valid() const;
 };
 
 } //namespace godot
