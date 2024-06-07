@@ -8,6 +8,9 @@ var cooldown_timer:Timer
 var backup_entity
 var is_in_range = false;
 func enter(entity, target_entity=null):
+	# Subscribe to enter and exit 
+	entity.range_collider.body_entered.connect(_on_body_entered)
+	entity.range_collider.body_exited.connect(_on_body_exited)
 	# Set the target
 	target = target_entity
 	backup_entity = entity
@@ -18,15 +21,13 @@ func enter(entity, target_entity=null):
 	cooldown_timer.one_shot = true;
 	# Subscribe to timer timeout
 	cast_timer.timeout.connect(finish_attack)
-	# Subscribe to enter and exit 
-	entity.range_collider.body_entered.connect(_on_body_entered)
-	entity.range_collider.body_exited.connect(_on_body_exited)
+
 	is_in_range = search_radius();
 	pass
 
 func exit(entity):
-	#entity.range_collider.body_entered.disconnect(entity, "_on_body_entered")
-	#entity.range_collider.body_exited.disconnect(entity, "_on_body_exited")
+	entity.range_collider.body_entered.disconnect(_on_body_entered)
+	entity.range_collider.body_exited.disconnect(_on_body_exited)
 	pass;
 
 func update(entity, delta):

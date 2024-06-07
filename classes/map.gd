@@ -65,7 +65,7 @@ func target(target_name):
 		print_debug("That's you ya idjit") # :O
 		return
 	var target_entity = get_parent().find_child(str(target_name), true, false)
-	champion.change_state("Attack", target_entity)
+	champion.change_state("Attacking", target_entity)
 
 @rpc("any_peer", "call_local")
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):

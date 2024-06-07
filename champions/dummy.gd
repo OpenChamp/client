@@ -11,6 +11,7 @@ func _ready():
 		'critical_chance': 15,
 		'critical_damage': 100,
 		'attack_damage': 59,
+		'attack_speed': 100,
 		'attack_windup': 21, 
 		'attack_range': 300,
 		'move_speed': 210

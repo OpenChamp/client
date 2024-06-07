@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcl2rt2anrp2t"]
+[gd_scene load_steps=13 format=3 uid="uid://dcl2rt2anrp2t"]
 
 [ext_resource type="Script" path="res://champions/dummy.gd" id="1_dclwc"]
+[ext_resource type="PackedScene" uid="uid://df1t330pbg8ah" path="res://scenes/projectiles/arrow.tscn" id="2_5je2c"]
 [ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="3_5ph6s"]
 [ext_resource type="PackedScene" path="res://ui/player_stats/healthbar.tscn" id="3_6j13w"]
 [ext_resource type="Script" path="res://scripts/states/player_idle.gd" id="4_d2sxx"]
 [ext_resource type="Script" path="res://scripts/states/player_move.gd" id="5_4mcnx"]
+[ext_resource type="Script" path="res://scripts/states/player_auto_attack.gd" id="6_8ucey"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3ihw"]
 albedo_color = Color(0.133333, 0.482353, 0.654902, 1)
@@ -35,6 +37,7 @@ properties/4/replication_mode = 1
 
 [node name="Dummy" type="CharacterBody3D" groups=["Champion"]]
 script = ExtResource("1_dclwc")
+projectile_scene = ExtResource("2_5je2c")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -85,6 +88,18 @@ spawn_limit = 999
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_7wmmw")
 
+[node name="Abilities" type="Node" parent="."]
+
+[node name="AutoAttack" type="Node" parent="Abilities"]
+
+[node name="Ability1" type="Node" parent="Abilities"]
+
+[node name="Ability2" type="Node" parent="Abilities"]
+
+[node name="Ability3" type="Node" parent="Abilities"]
+
+[node name="Ability4" type="Node" parent="Abilities"]
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_5ph6s")
 initial_state = NodePath("Idle")
@@ -94,3 +109,6 @@ script = ExtResource("4_d2sxx")
 
 [node name="Moving" type="Node" parent="StateMachine"]
 script = ExtResource("5_4mcnx")
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("6_8ucey")
