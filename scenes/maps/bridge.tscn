@@ -29,11 +29,6 @@ sky_material = SubResource("PhysicalSkyMaterial_glou8")
 [sub_resource type="Environment" id="Environment_qjopm"]
 background_mode = 2
 sky = SubResource("Sky_w164l")
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
-sdfgi_enabled = true
-glow_enabled = true
 fog_sky_affect = 0.025
 adjustment_brightness = 0.01
 
@@ -297,7 +292,7 @@ environment = SubResource("Environment_qjopm")
 [node name="Minions" type="Node" parent="."]
 
 [node name="ChampionSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://champions/archer.tscn")
+_spawnable_scenes = PackedStringArray("res://champions/archer.tscn", "res://champions/dummy.tscn")
 spawn_path = NodePath("../Champions")
 spawn_limit = 20
 
@@ -373,3 +368,7 @@ skeleton = NodePath("")
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3fe6r")
 skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 34)
+current = true
