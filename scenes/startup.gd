@@ -119,6 +119,8 @@ func setup_server(peer: ENetMultiplayerPeer):
 
 func server_success():
 	print("Server Started, beginning initialization")
+	# Set FPS to 30
+	Engine.set_max_fps(30);
 	# Set Timer to wait until all players are connected
 	var WaitTimer = Timer.new()
 	WaitTimer.name = "WaitTimer"
