@@ -27,6 +27,10 @@ public:
 	String get_name() const;
 
 	bool is_valid() const;
+	
+	String to_string() const;
+	String get_content_type() const;
+	bool is_texture() const;
 };
 
 } //namespace godot

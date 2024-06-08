@@ -10,6 +10,9 @@ void Identifier::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_group"), &Identifier::get_group);
 	ClassDB::bind_method(D_METHOD("get_name"), &Identifier::get_name);
 	ClassDB::bind_method(D_METHOD("is_valid"), &Identifier::is_valid);
+	ClassDB::bind_method(D_METHOD("to_string"), &Identifier::to_string);
+	ClassDB::bind_method(D_METHOD("get_content_type"), &Identifier::get_content_type);
+	ClassDB::bind_method(D_METHOD("is_texture"), &Identifier::is_texture);
 }
 
 Identifier::Identifier() {}
@@ -26,6 +29,23 @@ String Identifier::get_name() const {
 
 bool Identifier::is_valid() const {
 	return valid;
+}
+
+String Identifier::get_content_type() const{
+	String content_type = get_name().split("/")[0];
+	return content_type;
+}
+
+bool Identifier::is_texture() const{
+	String content_type = get_content_type();
+	return content_type == "textures";
+}
+
+String Identifier::to_string() const {
+	String combined = group;
+	combined += ":";
+	combined += name;
+	return combined;
 }
 
 Identifier* Identifier::from_string(String _id_string) {
