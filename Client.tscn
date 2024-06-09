@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://jn4ws45okvb0"]
+[gd_scene load_steps=2 format=3 uid="uid://jn4ws45okvb0"]
 
 [ext_resource type="Script" path="res://Scripts/Client.gd" id="1_enf40"]
-[ext_resource type="Texture2D" uid="uid://d1t8pthh2w3tb" path="res://scenic-sunset-1470030.jpg" id="2_344pq"]
 
 [node name="Client" type="Control"]
 layout_mode = 3
@@ -59,7 +58,6 @@ offset_right = 906.5
 offset_bottom = 680.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_344pq")
 expand_mode = 2
 stretch_mode = 3
 

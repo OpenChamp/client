@@ -3,7 +3,7 @@ extends CharacterBody3D
 @export var team:int;
 @export var health:float = 550.00
 @export var mana = 300
-@export var attack = 60
+@export var damage = 60
 @export var attack_speed = .75 #APM
 @export var armor = 20 
 @export var resistance = 30
@@ -19,7 +19,6 @@ var isDead: bool = false;
 var targetEntity:CharacterBody3D;
 var attackTimeout = 0;
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set Range
 	RangeCollider.get_node("./CollisionShape3D").shape.radius = range
@@ -27,10 +26,7 @@ func _ready():
 	target_pos = position
 	$Healthbar.max_value = health
 	$Healthbar.value = health
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Healthbar.update_loc(position)
 	if attackTimeout > 0:
@@ -47,9 +43,8 @@ func _process(delta):
 						targetEntity = null;
 						target_pos = position;
 					elif attackTimeout<=0:
-						print("Attack!")
 						attackTimeout = attack_speed;
-						AutoAttack()
+						auto_attack()
 			if !actionPerformed:
 				target_pos = targetEntity.position
 				move(delta)
@@ -60,7 +55,7 @@ func _process(delta):
 	elif target_pos != position:
 		move(delta)
 
-func move(delta):
+func move(delta: float):
 	if global_position.distance_to(target_pos) > 0.1:
 		var dir = (target_pos - global_position).normalized();
 		var dist = speed * delta
@@ -68,36 +63,48 @@ func move(delta):
 	else:
 		global_position = target_pos;
 
-
-func MoveTo(pos:Vector3):
+func move_to(pos: Vector3):
 	isAttacking = false;
 	targetEntity = null;
 	target_pos = pos;
 
-func Attack(entity:CharacterBody3D):
-	targetEntity = entity;
-	target_pos = targetEntity.position
+func attack(entity:CharacterBody3D):
 	isAttacking = true
+	targetEntity = entity;
+	target_pos = targetEntity.position	
 
-func AutoAttack():
+func auto_attack():
 	var Arrow = Projectile.instantiate()
 	Arrow.position = position
 	Arrow.target = targetEntity
-	Arrow.damage = attack
+	Arrow.damage = damage
 	get_node("/root").add_child(Arrow)
-	pass
 	
-func TakeDamage(damage):
-	print(damage);
-	var taken:float = armor
-	taken /= 100
-	taken = damage / (taken + 1)
-	print(taken);
-	$Healthbar.value -= taken
-	if $Healthbar.value <= 0:
-		Die()
+# activate or ready ability 1
+func ability1(pos: Vector3 = position, entity = null):
+	print("ability1");
+	
+# activate or ready ability 2
+func ability2(pos: Vector3 = position, entity = null):
+	print("ability2");
+	
+# activate or ready ability 3
+func ability3(pos: Vector3 = position, entity = null):
+	print("ability3");
+	
+# activate or ready ability 4
+func ability4(pos: Vector3 = position, entity = null):
+	print("ability4");
+	
+# select or cast readied ability
+func selected(pos: Vector3 = position, entity = null):
+	print(pos);
+	print(entity);
+	
+func take_damage(value):
+	$Healthbar.value -= value / ((armor / 100) + 1)
+	if $Healthbar.value <= 0: die()
 		
-func Die():
+func die():
 	isDead = true;
 	hide()
-	print("RIP");

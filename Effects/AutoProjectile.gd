@@ -19,5 +19,5 @@ func _process(delta):
 		var dist = speed * delta
 		global_position += dir * dist;
 	else:
-		target.TakeDamage(damage)
+		target.take_damage(damage)
 		queue_free()
