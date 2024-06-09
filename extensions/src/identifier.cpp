@@ -12,6 +12,8 @@ void Identifier::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("is_valid"), &Identifier::is_valid);
 	ClassDB::bind_method(D_METHOD("to_string"), &Identifier::to_string);
 	ClassDB::bind_method(D_METHOD("get_content_type"), &Identifier::get_content_type);
+	ClassDB::bind_method(D_METHOD("get_content_prefix"), &Identifier::get_content_prefix);
+	ClassDB::bind_method(D_METHOD("get_content_identifier"), &Identifier::get_content_identifier);
 	ClassDB::bind_method(D_METHOD("is_texture"), &Identifier::is_texture);
 }
 
@@ -34,6 +36,22 @@ bool Identifier::is_valid() const {
 String Identifier::get_content_type() const{
 	String content_type = get_name().split("/")[0];
 	return content_type;
+}
+
+String Identifier::get_content_prefix() const{
+	String type = get_content_type();
+	if (type == "textures"){
+		return "texture://";
+	}
+	if (type == "fonts"){
+		return "font://";
+	}
+
+	return "dyn://";
+}
+
+Identifier* Identifier::get_content_identifier() const{
+	return Identifier::from_values(get_group(), get_name().replace(get_content_type() + "/", ""));
 }
 
 bool Identifier::is_texture() const{

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3jvh40hxrese"]
+
+[ext_resource type="Script" path="res://addons/index_manager/index_manager_dock.gd" id="1_akxf6"]
+
+[node name="IndexManagerDock" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_akxf6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ReloadBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Reload Assets"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AssetTabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2

@@ -30,6 +30,8 @@ public:
 	
 	String to_string() const;
 	String get_content_type() const;
+	String get_content_prefix() const;
+	Identifier* get_content_identifier() const;
 	bool is_texture() const;
 };
 

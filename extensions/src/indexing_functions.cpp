@@ -87,14 +87,16 @@ static inline void _index_textures(String pack_path, String asset_group, HashMap
 			_index_textures(pack_path, asset_group, asset_map, texture_subdir + "/" + texture_name);
 		}
 		else{
-			// load texture
-			String texture_path = pack_path + "/" + asset_group + "/" + texture_subdir + "/" + texture_name;
-			String texture_basename = texture_name.get_basename();
-			
-			Identifier* texture_id = Identifier::from_values(asset_group, texture_subdir + "/" + texture_basename);
+			if (!texture_name.ends_with(".import")){
+				// load texture
+				String texture_path = pack_path + "/" + asset_group + "/" + texture_subdir + "/" + texture_name;
+				String texture_basename = texture_name.get_basename();
+				
+				Identifier* texture_id = Identifier::from_values(asset_group, texture_subdir + "/" + texture_basename);
 
-			asset_map[texture_id->to_string()] = texture_path;
-			UtilityFunctions::print("Indexed texture: " + texture_id->to_string());
+				asset_map[texture_id->to_string()] = texture_path;
+				UtilityFunctions::print("Indexed texture: " + texture_id->to_string());
+			}
 		}
 
 		texture_name = texture_dir->get_next();
@@ -114,7 +116,7 @@ static inline void _index_fonts(String pack_path, String asset_group, HashMap<St
 	font_dir->list_dir_begin();
 	String font_name = font_dir->get_next();
 	while (font_name != ""){
-		if (!font_dir->current_is_dir() && font_name.ends_with(".ttf")){
+		if (!font_dir->current_is_dir() && !font_name.ends_with(".import")){
 			// load font
 			String font_path = pack_path + "/" + asset_group + "/fonts/" + font_name;
 			String font_basename = font_name.get_basename();
