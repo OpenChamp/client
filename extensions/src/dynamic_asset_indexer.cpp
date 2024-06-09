@@ -12,10 +12,13 @@ void DynamicAssetIndexer::_bind_methods() {
 	
 	//ClassDB::bind_method(D_METHOD("get_group"), &Identifier::get_group);
 	ClassDB::bind_method(D_METHOD("index_files"), &DynamicAssetIndexer::index_files);
+	ClassDB::bind_method(D_METHOD("re_index_files"), &DynamicAssetIndexer::re_index_files);
 	ClassDB::bind_method(D_METHOD("get_asset_path"), &DynamicAssetIndexer::get_asset_path);
 	ClassDB::bind_method(D_METHOD("dump_asset_map"), &DynamicAssetIndexer::dump_asset_map);
 	ClassDB::bind_method(D_METHOD("get_asset_map"), &DynamicAssetIndexer::get_asset_map);
 }
+
+DynamicAssetIndexer* DynamicAssetIndexer::_AssetIndexerSingleton = nullptr;
 
 DynamicAssetIndexer::DynamicAssetIndexer() {}
 
@@ -38,13 +41,19 @@ void DynamicAssetIndexer::index_files(){
 	while (asset_pack != ""){
 		UtilityFunctions::print("Indexing asset pack: " + asset_pack);
 
+		String pack_path = "user://external/" + asset_pack;
 		if (packs_dir->current_is_dir()){
-			_index_asset_pack(asset_pack, asset_map);
+			_index_asset_pack(pack_path, asset_map);
 		}
 			
 		asset_pack = packs_dir->get_next();
 	}
-	
+}
+
+void DynamicAssetIndexer::re_index_files(){
+	asset_map.clear();
+	files_indexed = false;
+	index_files();
 }
 
 String DynamicAssetIndexer::get_asset_path(Identifier* asset_id){
