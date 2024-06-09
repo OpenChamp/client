@@ -2,3 +2,6 @@
 	path = extensions/godot-cpp
 	branch = master
 	url = https://github.com/godotengine/godot-cpp
+[submodule "default_assets"]
+	path = default_assets
+	url = https://github.com/OpenChamp/default_assets

@@ -27,6 +27,12 @@ DynamicAssetIndexer::~DynamicAssetIndexer() {}
 void DynamicAssetIndexer::index_files(){
 	files_indexed = true;
 
+	// Index res://default_assets as the base pack first
+	UtilityFunctions::print("Indexing asset pack res://default_assets");
+	_index_asset_pack("res://default_assets", asset_map);
+
+	// Now the external packs get loaded
+	// These will always overwrite the resources in the default pack
 	auto packs_dir = DirAccess::open("user://external"); 
 	if (packs_dir == nullptr){
 		UtilityFunctions::print("Failed to open external directory");
