@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bnqxjb0txibfq"]
 
 [ext_resource type="Script" path="res://scenes/startup.gd" id="1_7agtl"]
-[ext_resource type="Texture2D" uid="uid://ctkmieuegg5om" path="res://assets/textures/openchamp.png" id="2_yrij0"]
+[ext_resource type="Texture2D" path="texture://openchamp:openchamp" id="2_yrij0"]
 [ext_resource type="Shader" path="res://assets/shaders/fog.gdshader" id="3_b4cv1"]
 [ext_resource type="Theme" uid="uid://e507d8q4wvpm" path="res://assets/themes/default_theme.tres" id="4_h7jrb"]
 
@@ -83,6 +83,7 @@ bbcode_enabled = true
 text = "[center]Connecting...[/center]"
 
 [node name="HostButton" type="Button" parent="ConnectionUI/Background"]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -96,6 +97,7 @@ theme = ExtResource("4_h7jrb")
 text = "Host"
 
 [node name="ReconnectButton" type="Button" parent="ConnectionUI/Background"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -111,6 +113,7 @@ grow_vertical = 2
 text = "Retry Connection"
 
 [node name="ExitButton" type="Button" parent="ConnectionUI/Background"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
