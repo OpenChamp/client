@@ -6,6 +6,10 @@ using namespace godot;
 void Identifier::_bind_methods() {
 	ClassDB::bind_static_method("Identifier", D_METHOD("from_string", "_id_string"), &Identifier::from_string);
 	ClassDB::bind_static_method("Identifier", D_METHOD("from_values", "_group", "_name"), &Identifier::from_values);
+	ClassDB::bind_static_method("Identifier", D_METHOD("for_resource", "_resource_path"), &Identifier::for_resource);
+
+	ClassDB::bind_static_method("Identifier", D_METHOD("get_content_type_from_resouce", "_name"), &Identifier::get_content_type_from_resouce);
+	ClassDB::bind_static_method("Identifier", D_METHOD("get_resource_prefix_from_type", "_name"), &Identifier::get_resource_prefix_from_type);
 	
 	ClassDB::bind_method(D_METHOD("get_group"), &Identifier::get_group);
 	ClassDB::bind_method(D_METHOD("get_name"), &Identifier::get_name);
@@ -40,14 +44,7 @@ String Identifier::get_content_type() const{
 
 String Identifier::get_content_prefix() const{
 	String type = get_content_type();
-	if (type == "textures"){
-		return "texture://";
-	}
-	if (type == "fonts"){
-		return "font://";
-	}
-
-	return "dyn://";
+	return get_resource_prefix_from_type(type);
 }
 
 Identifier* Identifier::get_content_identifier() const{
@@ -64,6 +61,38 @@ String Identifier::to_string() const {
 	combined += ":";
 	combined += name;
 	return combined;
+}
+
+String Identifier::get_content_type_from_resouce(String _name){
+	if (!_name.contains("://")){
+		return "";
+	}
+
+	String prefix = _name.split("://")[0];
+	if (prefix == "dyn"){
+		return "dynamic";
+	}
+
+	if (prefix == "texture"){
+		return "textures";
+	}
+
+	if (prefix == "font"){
+		return "fonts";
+	}
+
+	return "";
+}
+
+String Identifier::get_resource_prefix_from_type(String _name){
+	if (_name == "textures"){
+		return "texture://";
+	}
+	if (_name == "fonts"){
+		return "font://";
+	}
+
+	return "dyn://";
 }
 
 Identifier* Identifier::from_string(String _id_string) {
@@ -93,6 +122,25 @@ Identifier* Identifier::from_values(String _group, String _name) {
 	}
 
 	id->valid = true;
+	
+	return id;
+}
+
+Identifier* Identifier::for_resource(String _resource_path) {
+	String content_type = get_content_type_from_resouce(_resource_path);
+	if (content_type == ""){
+		return nullptr;
+	}
+	String prefix = get_resource_prefix_from_type(content_type);
+
+	Identifier* id = Identifier::from_string(_resource_path.replace(prefix, ""));
+	if (id == nullptr){
+		return nullptr;
+	}
+
+	if (content_type != "dynamic"){
+		id->name = content_type + "/" + id->name;
+	}
 	
 	return id;
 }
