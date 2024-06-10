@@ -1,8 +1,8 @@
 @tool
 extends Control
 
-@onready var reload_button: Button = $VBoxContainer/ReloadBtn
-@onready var asset_tab_container := $VBoxContainer/AssetTabContainer
+@onready var reload_button: Button = $VSplitContainer/ReloadBtn
+@onready var asset_tab_container := $VSplitContainer/AssetTabContainer
 
 var asset_types: Array[String] = [
 	"textures",
@@ -64,7 +64,18 @@ func _build_asset_list():
 		
 	# add all tabs to the tab container
 	for category_name in category_continers.keys():
-		asset_tab_container.add_child(category_continers[category_name])
+		var tab_scroll = ScrollContainer.new()
+		
+		tab_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+		tab_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+		tab_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		tab_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		
+		#tab_scroll.clip_contents = false
+		
+		tab_scroll.name = category_continers[category_name].name
+		tab_scroll.add_child(category_continers[category_name])
+		asset_tab_container.add_child(tab_scroll)
 
 
 func _copy_asset_id(input_event: InputEvent, clipboard_text: String):

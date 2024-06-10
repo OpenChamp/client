@@ -7,21 +7,28 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1280.0
+offset_bottom = -720.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_akxf6")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="ReloadBtn" type="Button" parent="VBoxContainer"]
+[node name="ReloadBtn" type="Button" parent="VSplitContainer"]
 layout_mode = 2
 text = "Reload Assets"
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="AssetTabContainer" type="TabContainer" parent="VSplitContainer"]
 layout_mode = 2
-
-[node name="AssetTabContainer" type="TabContainer" parent="VBoxContainer"]
-layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0
