@@ -18,6 +18,7 @@ set(SOURCES
     src/register_types.cpp
     src/identifier.cpp
 	src/dynamic_asset_indexer.cpp
+	src/data_cache_manager.cpp
 )
 include_directories(include)
 
