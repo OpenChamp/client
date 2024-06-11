@@ -6,8 +6,14 @@ var hasPlayed = false
 var attack_move : bool
 
 func _ready():
+	hide()
 	particles.one_shot = true
 	$AnimationPlayer.current_animation = "shrink_ring"
+	$AnimationPlayer.animation_finished.connect(stop)
+
+func play():
+	show()
+	$AnimationPlayer.stop()
 	var meshmaterial : StandardMaterial3D = mesh.get_active_material(0)
 	if attack_move:
 		meshmaterial.albedo_color = Color(255,0,0)
@@ -15,12 +21,6 @@ func _ready():
 		meshmaterial.albedo_color = Color(0,255,0)
 		$AnimationPlayer.play()
 
-
-func _process(delta):
-	if !$AnimationPlayer.is_playing():
-		queue_free();
-	#if !$AnimationPlayer.is_playing() && !hasPlayed:
-		#hasPlayed = true
-		#particles.emitting = true
-	#if not particles.emitting && hasPlayed:
-		#queue_free()
+func stop(_anim_name):
+	print("Stopped");
+	hide();
