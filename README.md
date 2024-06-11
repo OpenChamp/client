@@ -19,8 +19,8 @@ At the moment we use godot 4.3 without C# support.
 
 In addition to that a gdextension is not part of the project.
 In order to run the game you either need to download the latest compiled version or compile the extension yourself.
-
-When you pull, use `git submodule update --init` if you've already got a local copy, or `git pull --recursive` on a fresh pull to pull the assets from our [default assets] (https://github.com/openchamp/default_assets) repository
+            
+When you pull, use `git submodule update --init` if you've already got a local copy, or `git pull --recursive` on a fresh pull to pull the assets from our [default assets](https://github.com/openchamp/default_assets) repository
 
 ### Downloading the extension
 
