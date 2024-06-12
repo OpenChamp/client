@@ -12,6 +12,7 @@ func _ready():
 	#GameStartTimer.timeout.connect(start);
 	add_child(GameStartTimer)
 	GameStartTimer.start()
+	
 
 func start():
 	GameStartTimer.timeout.disconnect(start);

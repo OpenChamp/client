@@ -292,7 +292,7 @@ environment = SubResource("Environment_qjopm")
 [node name="Minions" type="Node" parent="."]
 
 [node name="ChampionSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://champions/archer.tscn", "res://champions/dummy.tscn")
+_spawnable_scenes = PackedStringArray("res://champions/dummy.tscn")
 spawn_path = NodePath("../Champions")
 spawn_limit = 20
 
@@ -368,7 +368,3 @@ skeleton = NodePath("")
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3fe6r")
 skeleton = NodePath("")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 34)
-current = true
