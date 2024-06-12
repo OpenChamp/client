@@ -16,7 +16,7 @@ enum Start {
 @onready var port := 10000
 @onready var max_players := 2
 @onready var tickrate := 30
-@onready var server_map := "bridge"
+@onready var server_map := "the_ring"
 var jwt: String
 
 # UI
@@ -37,6 +37,8 @@ func _ready():
 	# Parse Args and launch the startup deferred
 	var start_type = parse_args()
 	call_deferred("start", start_type)
+	# Add map to mapspawner
+	$MapSpawner.add_spawnable_scene("res://scenes/maps/" + server_map +".tscn")
 
 func start(method: Start):
 	var peer = ENetMultiplayerPeer.new()
@@ -122,7 +124,6 @@ func server_success():
 	
 	# Set FPS to 30
 	Engine.set_max_fps(30)
-	
 	# Set Timer to wait until all players are connected
 	var WaitTimer = Timer.new()
 	WaitTimer.name = "WaitTimer"
@@ -130,6 +131,7 @@ func server_success():
 	WaitTimer.autostart = true
 	WaitTimer.timeout.connect(server_update)
 	add_child(WaitTimer)
+	
 
 func server_update():
 	var timer = get_node("WaitTimer")
