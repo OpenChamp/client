@@ -2,6 +2,7 @@
 
 #include "identifier.hpp"
 #include "dynamic_asset_indexer.hpp"
+#include "data_cache_manager.hpp"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -18,8 +19,10 @@ void initialize_openchamp_module(ModuleInitializationLevel p_level) {
 
 	ClassDB::register_class<Identifier>();
 	ClassDB::register_class<DynamicAssetIndexer>();
+	ClassDB::register_class<DataCacheManager>();
 
 	Engine::get_singleton()->register_singleton("AssetIndexer", DynamicAssetIndexer::get_singleton());
+	Engine::get_singleton()->register_singleton("DataCache", DataCacheManager::get_singleton());
 }
 
 
@@ -30,6 +33,9 @@ void uninitialize_openchamp_module(ModuleInitializationLevel p_level) {
 
 	Engine::get_singleton()->unregister_singleton("AssetIndexer");
 	DynamicAssetIndexer::destory_singleton();
+
+	Engine::get_singleton()->unregister_singleton("DataCache");
+	DataCacheManager::destory_singleton();
 }
 
 
