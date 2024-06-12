@@ -50,9 +50,15 @@ func _build_asset_list():
 		category_continers["all"].add_child(asset_label_all)
 		
 		var asset_id = Identifier.from_string(key)
+		var content_id = asset_id.get_content_identifier()
 		var asset_type = asset_id.get_content_type()
+		if content_id == null:
+			print('got null as content id for: ' + asset_id.to_string() )
+			continue
+		
 		var asset_label_category = Label.new()
-		asset_label_category.text = asset_id.get_content_prefix() + asset_id.get_content_identifier().to_string()
+		
+		asset_label_category.text = asset_id.get_content_prefix() + content_id.to_string()
 		asset_label_category.mouse_filter = Control.MOUSE_FILTER_STOP
 		asset_label_category.tooltip_text = dynamic_assets[key]
 		

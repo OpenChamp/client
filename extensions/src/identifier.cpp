@@ -48,7 +48,8 @@ String Identifier::get_content_prefix() const{
 }
 
 Identifier* Identifier::get_content_identifier() const{
-	return Identifier::from_values(get_group(), get_name().replace(get_content_type() + "/", ""));
+	String corrected_name = get_name().replace(get_content_type() + "/", "");
+	return Identifier::from_values(get_group(), corrected_name);
 }
 
 bool Identifier::is_texture() const{

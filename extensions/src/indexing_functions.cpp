@@ -1,4 +1,5 @@
 #include "identifier.hpp"
+#include "data_cache_manager.hpp"
 
 #include <gdextension_interface.h>
 
@@ -49,24 +50,39 @@ static inline void _load_lang_files(String pack_path, String asset_group, HashMa
 	}
 
 	lang_dir->list_dir_begin();
-	String lang_file = lang_dir->get_next();
+	String lang_file = "";
 
-	while (lang_file != ""){
-		if (!lang_dir->current_is_dir() && lang_file.ends_with(".json")){
-			String lang_path = pack_path + "/" + asset_group + "/lang/" + lang_file;
-			String locale = lang_file.substr(0, lang_file.length() - 5);
-
-			Ref<Resource> raw_lang_data = ResourceLoader::get_singleton()->load(lang_path);
-			if (raw_lang_data != nullptr && raw_lang_data.is_valid() && raw_lang_data->is_class("JSON")){
-				auto lang_data = Object::cast_to<JSON>(raw_lang_data.ptr());
-				if (lang_data != nullptr){
-					auto new_translation = _load_translation_from_json(lang_data, locale);
-					TranslationServer::get_singleton()->add_translation(new_translation);
-				}
-			}
+	while ((lang_file = lang_dir->get_next()) != ""){
+		if (lang_dir->current_is_dir()){
+			continue;
 		}
 
-		lang_file = lang_dir->get_next();
+		if (!lang_file.ends_with(".json")){
+			continue;
+		}
+
+		String lang_path = pack_path + "/" + asset_group + "/lang/" + lang_file;
+		String locale = lang_file.substr(0, lang_file.length() - 5);
+
+		Ref<Resource> raw_lang_data = ResourceLoader::get_singleton()->load(lang_path);
+		if (raw_lang_data == nullptr || !raw_lang_data.is_valid()){
+			UtilityFunctions::print("Failed to load lang file: " + lang_path);
+			continue;
+		}
+
+		if (!raw_lang_data->is_class("JSON")){
+			UtilityFunctions::print("Lang file is not a JSON file: " + lang_path);
+			continue;
+		}
+
+		auto lang_data = Object::cast_to<JSON>(raw_lang_data.ptr());
+		if (lang_data == nullptr){
+			UtilityFunctions::print("Failed to cast lang data to JSON: " + lang_path);
+			continue;
+		}
+
+		auto new_translation = _load_translation_from_json(lang_data, locale);
+		TranslationServer::get_singleton()->add_translation(new_translation);
 	}
 }
 
@@ -81,25 +97,24 @@ static inline void _index_textures(String pack_path, String asset_group, HashMap
 	UtilityFunctions::print("loading textures for " + pack_path + "/" + asset_group + "/" + texture_subdir);
 
 	texture_dir->list_dir_begin();
-	String texture_name = texture_dir->get_next();
-	while (texture_name != ""){
+	String texture_name = "";
+	while ((texture_name = texture_dir->get_next()) != ""){
 		if (texture_dir->current_is_dir()){
 			_index_textures(pack_path, asset_group, asset_map, texture_subdir + "/" + texture_name);
-		}
-		else{
-			if (!texture_name.ends_with(".import")){
-				// load texture
-				String texture_path = pack_path + "/" + asset_group + "/" + texture_subdir + "/" + texture_name;
-				String texture_basename = texture_name.get_basename();
-				
-				Identifier* texture_id = Identifier::from_values(asset_group, texture_subdir + "/" + texture_basename);
-
-				asset_map[texture_id->to_string()] = texture_path;
-				UtilityFunctions::print("Indexed texture: " + texture_id->to_string());
+		}else{
+			if (texture_name.ends_with(".import")){
+				continue;
 			}
-		}
 
-		texture_name = texture_dir->get_next();
+			// load texture
+			String texture_path = pack_path + "/" + asset_group + "/" + texture_subdir + "/" + texture_name;
+			String texture_basename = texture_name.get_basename();
+			
+			Identifier* texture_id = Identifier::from_values(asset_group, texture_subdir + "/" + texture_basename);
+
+			asset_map[texture_id->to_string()] = texture_path;
+			UtilityFunctions::print("Indexed texture: " + texture_id->to_string());
+		}
 	}
 }
 
@@ -114,20 +129,74 @@ static inline void _index_fonts(String pack_path, String asset_group, HashMap<St
 	UtilityFunctions::print("loading fonts for " + pack_path + "/" + asset_group);
 
 	font_dir->list_dir_begin();
-	String font_name = font_dir->get_next();
-	while (font_name != ""){
-		if (!font_dir->current_is_dir() && !font_name.ends_with(".import")){
-			// load font
-			String font_path = pack_path + "/" + asset_group + "/fonts/" + font_name;
-			String font_basename = font_name.get_basename();
-			
-			Identifier* font_id = Identifier::from_values(asset_group, "fonts/" + font_basename);
-
-			asset_map[font_id->to_string()] = font_path;
-			UtilityFunctions::print("Indexed font: " + font_id->to_string());
+	String font_name = "";
+	while ((font_name = font_dir->get_next()) != ""){
+		if (font_dir->current_is_dir()){
+			continue;
 		}
 
-		font_name = font_dir->get_next();
+		if (font_name.ends_with(".import")){
+			continue;
+		}
+
+		// load font
+		String font_path = pack_path + "/" + asset_group + "/fonts/" + font_name;
+		String font_basename = font_name.get_basename();
+		
+		Identifier* font_id = Identifier::from_values(asset_group, "fonts/" + font_basename);
+
+		asset_map[font_id->to_string()] = font_path;
+		UtilityFunctions::print("Indexed font: " + font_id->to_string());
+		
+	}
+}
+
+
+static inline void _cache_patch_data(String pack_path, String asset_group, HashMap<String, String>& asset_map){
+	auto patches_dir = DirAccess::open(pack_path + "/" + asset_group + "/patchdata");
+	if (patches_dir == nullptr){
+		UtilityFunctions::print("Failed to open patchdata directory");
+		return;
+	}
+
+	patches_dir->list_dir_begin();
+	String gamemode_name = "";
+
+	while ((gamemode_name = patches_dir->get_next()) != ""){
+		if (!patches_dir->current_is_dir()){
+			continue;
+		}
+
+		UtilityFunctions::print("Caching patch data for gamemode: " + gamemode_name);
+
+		Vector<String> patch_types = {"characters", "items"};
+
+		for (String patch_type:patch_types){
+
+			auto gamemode_dir = DirAccess::open(pack_path + "/" + asset_group + "/patchdata/" + gamemode_name + "/" + patch_type);
+			if (gamemode_dir == nullptr){
+				UtilityFunctions::print("Failed to open gamemode directory: " + gamemode_name);
+				continue;
+			}
+
+			gamemode_dir->list_dir_begin();
+			String patch_file = "";
+			while ((patch_file = gamemode_dir->get_next()) != ""){
+				if (gamemode_dir->current_is_dir()){
+					continue;
+				}
+
+				if (!patch_file.ends_with(".json")){
+					continue;
+				}
+
+				String patch_path = pack_path + "/" + asset_group + "/patchdata/" + gamemode_name + "/" + patch_type + "/" + patch_file;
+				String file_hash = DataCacheManager::get_singleton()->cache_file(patch_path);
+				
+				UtilityFunctions::print("Cached file '" + patch_path + "' with hash: " + file_hash);
+			}
+		}
+		
 	}
 }
 
@@ -156,6 +225,10 @@ static inline void _index_asset_group(String pack_path, String asset_group, Hash
 
 			if (asset_type == "fonts"){
 				_index_fonts(pack_path, asset_group, asset_map);
+			}
+
+			if (asset_type == "patchdata"){
+				_cache_patch_data(pack_path, asset_group, asset_map);
 			}
 		}
 			
