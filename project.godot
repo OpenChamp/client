@@ -39,6 +39,8 @@ enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg", "res://addons/gp
 [global_group]
 
 Champion="A player character"
+Map="Valid Map"
+Ground="Map Floor"
 
 [input]
 
