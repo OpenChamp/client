@@ -25,7 +25,7 @@ func _ready():
 	server.get_node("Champions").child_entered_tree.connect(champion_spawned)
 	# Set our camera as main
 	spring_arm.spring_length = Config.max_zoom
-	camera.make_current()
+	camera.make_current.call_deferred()
 
 func _process(delta):
 	camera_movement_handler()
