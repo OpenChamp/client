@@ -7,7 +7,7 @@ class_name CameraSettings
 @export var edge_margin: int = 75
 
 @export var min_zoom = 1.0
-@export var max_zoom = 50.0
+@export var max_zoom = 15.0
 
 
 func _init(_config: ConfigFile = null) -> void:
@@ -20,7 +20,7 @@ func _init(_config: ConfigFile = null) -> void:
 	edge_margin = _config.get_value("camera", "edge_margin", 75)
 	
 	min_zoom = _config.get_value("camera", "min_zoom", 1)
-	max_zoom = _config.get_value("camera", "max_zoom", 50.0)
+	max_zoom = _config.get_value("camera", "max_zoom", 15.0)
 
 
 func save(_config: ConfigFile) -> void:
