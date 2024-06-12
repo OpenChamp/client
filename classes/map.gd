@@ -18,16 +18,16 @@ func _ready():
 	Spawns.append(get_node("Spawn1").global_position)
 	Spawns.append(get_node("Spawn2").global_position)
 	# Spawn all the Champions
+	var champ_scene = load("res://champions/dummy.tscn")
 	for player in connected_players:
-		#var champ = load("res://champions/" + player["champ"].to_lower() + ".tscn").instantiate()
-		var champ = load("res://champions/dummy.tscn").instantiate()
+		var champ = champ_scene.instantiate()
 		champ.name = str(player["peer_id"])
 		champ.id = player["peer_id"]
 		champ.nametag = player["name"]
 		champ.team = player["team"]
 		champ.position = Spawns[champ.team-1]
 		champ.server_position = champ.position;
-		champion_container.add_child(champ)
+		champion_container.add_child(champ, true)
 		champ.look_at(Vector3(0,0,0))
 		Champions[player['peer_id']] = champ
 		
