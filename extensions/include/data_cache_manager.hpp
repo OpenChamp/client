@@ -1,8 +1,10 @@
 #pragma once
 
+#include "identifier.hpp"
+
 #include "godot_cpp/classes/object.hpp"
 #include "godot_cpp/templates/hash_map.hpp"
-#include "identifier.hpp"
+#include <godot_cpp/classes/json.hpp>
 
 namespace godot {
 
@@ -41,10 +43,18 @@ public:
 	void index_files();
 	void re_index_files();
 
-	void dump_asset_map();
-	Variant get_asset_map();
+	String cache_file(String file_path);
+	String cache_string(String str);
+
+	bool is_cached(String hash);
+	String get_cached_string(String hash);
+	Ref<JSON> get_cached_json(String hash);
+
+	void dump_hash_map();
+	Variant get_hash_map();
 
     static String get_file_hash(String file_path);
+	static String get_string_hash(String str);
 };
 
 } //namespace godot
