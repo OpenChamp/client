@@ -1,12 +1,51 @@
-[gd_scene load_steps=13 format=3 uid="uid://dcl2rt2anrp2t"]
+[gd_scene load_steps=23 format=3 uid="uid://dcl2rt2anrp2t"]
 
 [ext_resource type="Script" path="res://champions/dummy.gd" id="1_dclwc"]
 [ext_resource type="PackedScene" uid="uid://df1t330pbg8ah" path="res://scenes/projectiles/arrow.tscn" id="2_5je2c"]
 [ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="3_5ph6s"]
-[ext_resource type="PackedScene" path="res://ui/player_stats/healthbar.tscn" id="3_6j13w"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/player_stats/healthbar.tscn" id="3_6j13w"]
+[ext_resource type="Material" uid="uid://c82oohji8rcpv" path="res://assets/materials/wood.tres" id="3_ykon6"]
 [ext_resource type="Script" path="res://scripts/states/player_idle.gd" id="4_d2sxx"]
 [ext_resource type="Script" path="res://scripts/states/player_move.gd" id="5_4mcnx"]
 [ext_resource type="Script" path="res://scripts/states/player_auto_attack.gd" id="6_8ucey"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qlblt"]
+albedo_color = Color(1, 0.8, 0.654902, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rtig3"]
+material = SubResource("StandardMaterial3D_qlblt")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwhfe"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ivnwf"]
+material = SubResource("StandardMaterial3D_qwhfe")
+radius = 0.01
+height = 0.02
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wn1ej"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cdm5e"]
+height = 0.15
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cf4cx"]
+top_radius = 0.1
+bottom_radius = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ngp1a"]
+transparency = 1
+albedo_color = Color(0.227451, 0.227451, 0.227451, 0.513726)
+
+[sub_resource type="BoxMesh" id="BoxMesh_22uf2"]
+material = SubResource("StandardMaterial3D_ngp1a")
+size = Vector3(0.745, 1, 0.27)
+subdivide_width = 2
+subdivide_height = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3ihw"]
 albedo_color = Color(0.133333, 0.482353, 0.654902, 1)
@@ -39,10 +78,44 @@ properties/4/replication_mode = 1
 script = ExtResource("1_dclwc")
 projectile_scene = ExtResource("2_5je2c")
 
+[node name="Body" type="Node3D" parent="."]
+
+[node name="Head" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("SphereMesh_rtig3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0826644, 0.0541086, 0.240349)
+mesh = SubResource("SphereMesh_ivnwf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06878, 0.0541089, 0.239883)
+mesh = SubResource("SphereMesh_ivnwf")
+
+[node name="Arms" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.51689, 0)
+material_override = ExtResource("3_ykon6")
+mesh = SubResource("CylinderMesh_wn1ej")
+
+[node name="Foot" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0751479, 0)
+material_override = ExtResource("3_ykon6")
+mesh = SubResource("CylinderMesh_cdm5e")
+
+[node name="Pole" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = ExtResource("3_ykon6")
+mesh = SubResource("CylinderMesh_cf4cx")
+
+[node name="Torso" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23422, 0)
+mesh = SubResource("BoxMesh_22uf2")
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_rtcy3")
 
 [node name="ChampionCollider" type="CollisionShape3D" parent="."]
