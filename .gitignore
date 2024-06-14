@@ -18,6 +18,8 @@ godot/
 # extensions stuff
 bin/*.so
 bin/*.dll
+bin/*.dll.a
+bin/*.dylib
 bin/*.framework
 
 extensions/build*

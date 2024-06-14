@@ -27,6 +27,13 @@ include_directories(include)
 
 add_library(openchamp SHARED ${SOURCES})
 
+
+if(WIN32)
+    if(MINGW)
+		target_link_libraries(openchamp -static gcc stdc++ winpthread -dynamic)
+    endif()
+endif()
+
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 # rename the output file and update the install location
