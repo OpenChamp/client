@@ -1,10 +1,10 @@
 #pragma once
 
-#include <godot_cpp/classes/object.hpp>
+# include "base_include.hpp"
 
 namespace godot {
 
-class Identifier : public Object {
+class GDE_EXPORT Identifier : public Object {
 	GDCLASS(Identifier, Object)
 
 private:

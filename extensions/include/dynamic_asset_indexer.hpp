@@ -1,12 +1,12 @@
 #pragma once
 
-#include "godot_cpp/classes/object.hpp"
-#include "godot_cpp/templates/hash_map.hpp"
+#include "base_include.hpp"
+
 #include "identifier.hpp"
 
 namespace godot {
 
-class DynamicAssetIndexer : public Object {
+class GDE_EXPORT DynamicAssetIndexer : public Object {
 	GDCLASS(DynamicAssetIndexer, Object)
 
 private:

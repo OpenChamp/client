@@ -1,8 +1,6 @@
 #pragma once
 
-#include <godot_cpp/core/class_db.hpp>
+#include <base_include.hpp>
 
-using namespace godot;
-
-void initialize_openchamp_module(ModuleInitializationLevel p_level);
-void uninitialize_openchamp_module(ModuleInitializationLevel p_level);
+GDE_EXPORT void initialize_openchamp_module(godot::ModuleInitializationLevel p_level);
+GDE_EXPORT void uninitialize_openchamp_module(godot::ModuleInitializationLevel p_level);

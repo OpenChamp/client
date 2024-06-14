@@ -1,14 +1,12 @@
 #pragma once
 
-#include "identifier.hpp"
+#include "base_include.hpp"
 
-#include "godot_cpp/classes/object.hpp"
-#include "godot_cpp/templates/hash_map.hpp"
-#include <godot_cpp/classes/json.hpp>
+#include "identifier.hpp"
 
 namespace godot {
 
-class DataCacheManager : public Object {
+class GDE_EXPORT DataCacheManager : public Object {
 	GDCLASS(DataCacheManager, Object)
 
 private:

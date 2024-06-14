@@ -14,6 +14,9 @@ else()
 endif()
 
 # set the sources and headers
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+
 set(SOURCES
     src/register_types.cpp
     src/identifier.cpp
