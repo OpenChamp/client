@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cshi6yiwk1n2t"]
+
+[resource]
+resource_name = "Mat.Banners.Portal"
+cull_mode = 2
+albedo_color = Color(0.64881, 0, 0.116395, 1)
+metallic = 0.0393701
+roughness = 0.547996
