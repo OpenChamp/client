@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://daqqgycsr2m6s"]
+
+[ext_resource type="PackedScene" uid="uid://dyxw7w6egep1q" path="res://scenes/environment/Core/core.gltf" id="1_tni3d"]
+
+[node name="core" instance=ExtResource("1_tni3d")]
