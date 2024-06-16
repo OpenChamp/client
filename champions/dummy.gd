@@ -2,6 +2,7 @@ extends Champion
 class_name Dummy 
 
 func _ready():
+	super()
 	healthbar.size = Vector2(100, 15)
 	global_position = server_position
 	
