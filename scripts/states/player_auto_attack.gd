@@ -101,7 +101,7 @@ func try_attack():
 	if backup_entity.global_position.distance_to(target.global_position) > backup_entity.attack_range:
 		return
 	# Check if target is still alive
-	if target.health <= 0:
+	if target.current_health <= 0:
 		return
 	# Attack the target
 	init_attack()

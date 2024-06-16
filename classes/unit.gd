@@ -7,12 +7,14 @@ class_name Unit
 @export var move_speed: float = 100.0
 # Defensive Stats:
 @export var max_health: float = 100.0
-@export var health: float = max_health
+@onready var current_health: float = max_health
+@export var health_regen: float = 5
+var overheal: float = 0;
 @export var max_mana: float = 100.0
-@export var mana:float = max_mana
+@onready var current_mana: float = max_mana
+@export var mana_regen: float = 5
 @export var armor: float = 20.0
 @export var magic_resist:float = 20.0
-@export var overheal: float = 0;
 # Offensive Stats:
 @export var attack_damage: float = 60.0
 @export var attack_speed: float = .75
@@ -38,19 +40,18 @@ signal died
 @onready var range_collider = $RangeCollider
 @onready var healthbar = $Healthbar
 
+func _ready():
+	# Set Range
+	if !range_collider == null:
+		set_range()
+
+
 func _process(delta):
 	_update_healthbar(healthbar)
 
 func _physics_process(delta: float):
 	move(delta);
 
-func setup(default_stats:Dictionary):
-	for key in default_stats.keys():
-		self[key] = default_stats[key]
-	# Set Range
-	if !range_collider == null:
-		set_range()
-	
 # Setters
 func set_range(new_range=null):
 	if new_range==null:
@@ -172,22 +173,22 @@ func move(delta: float):
 func take_damage(damage: float):
 	var taken: float = armor / 100
 	taken = damage / (taken + 1)
-	health -= taken
-	if health <= 0:
-		health = 0
+	current_health -= taken
+	if current_health <= 0:
+		current_health = 0
 		die()
 
 func heal(amount:float, keep_extra:bool = false):
-	health += amount
-	if health > max_health and not keep_extra:
-		health = max_health
+	current_health += amount
+	if current_health > max_health and not keep_extra:
+		current_health = max_health
 	else:
-		overheal = health - max_health
-		health = max_health
+		overheal = current_health - max_health
+		current_health = max_health
 
 func die():
 	get_tree().quit()
 
 # UI
 func _update_healthbar(node: ProgressBar):
-	node.value = health
+	node.value = current_health

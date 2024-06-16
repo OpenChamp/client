@@ -64,18 +64,27 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:id")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath(".:mana")
+properties/2/path = NodePath(".:server_position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath(".:health")
+properties/3/path = NodePath(".:current_health")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:server_position")
+properties/4/path = NodePath(".:current_mana")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
 [node name="Dummy" type="CharacterBody3D" groups=["Champion"]]
 script = ExtResource("1_dclwc")
+move_speed = 210.0
+max_health = 640.0
+health_regen = 7.5
+max_mana = 280.0
+mana_regen = 3.5
+armor = 30.0
+magic_resist = 30.0
+attack_windup = 0.2
+critical_chance = 15.0
 projectile_scene = ExtResource("2_5je2c")
 
 [node name="Body" type="Node3D" parent="."]

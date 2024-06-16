@@ -2,9 +2,6 @@ extends Unit
 class_name Champion
 
 @export var server_position:Vector3
-# Regeneration Stats
-var health_regen = 3 #hps
-var mana_regen = 3 #mps
 
 @export var nametag : String
 
