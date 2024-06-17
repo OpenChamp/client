@@ -6,11 +6,6 @@ func _ready():
 	healthbar.size = Vector2(100, 15)
 	global_position = server_position
 	
-func _process(delta):
-	pass;
-
-func _physics_process(delta: float):
-	pass;
 
 func die():
 	super()

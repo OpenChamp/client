@@ -1,13 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://dcl2rt2anrp2t"]
+[gd_scene load_steps=12 format=3 uid="uid://dcl2rt2anrp2t"]
 
-[ext_resource type="Script" path="res://champions/dummy.gd" id="1_dclwc"]
-[ext_resource type="PackedScene" uid="uid://df1t330pbg8ah" path="res://scenes/projectiles/arrow.tscn" id="2_5je2c"]
-[ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="3_5ph6s"]
-[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/player_stats/healthbar.tscn" id="3_6j13w"]
+[ext_resource type="PackedScene" uid="uid://caux2gcn6uhus" path="res://champions/champion.tscn" id="1_2gk3s"]
 [ext_resource type="Material" uid="uid://c82oohji8rcpv" path="res://assets/materials/wood.tres" id="3_ykon6"]
-[ext_resource type="Script" path="res://scripts/states/player_idle.gd" id="4_d2sxx"]
-[ext_resource type="Script" path="res://scripts/states/player_move.gd" id="5_4mcnx"]
-[ext_resource type="Script" path="res://scripts/states/player_auto_attack.gd" id="6_8ucey"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qlblt"]
 albedo_color = Color(1, 0.8, 0.654902, 1)
@@ -47,150 +41,38 @@ size = Vector3(0.745, 1, 0.27)
 subdivide_width = 2
 subdivide_height = 2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3ihw"]
-albedo_color = Color(0.133333, 0.482353, 0.654902, 1)
+[node name="Champion" instance=ExtResource("1_2gk3s")]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_rtcy3"]
-material = SubResource("StandardMaterial3D_y3ihw")
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7uv"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_qi17u"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7wmmw"]
-properties/0/path = NodePath(".:rotation")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:id")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:server_position")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath(".:current_health")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath(".:current_mana")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-
-[node name="Dummy" type="CharacterBody3D" groups=["Champion"]]
-script = ExtResource("1_dclwc")
-move_speed = 210.0
-max_health = 640.0
-health_regen = 7.5
-max_mana = 280.0
-mana_regen = 3.5
-armor = 30.0
-magic_resist = 30.0
-attack_windup = 0.2
-critical_chance = 15.0
-projectile_scene = ExtResource("2_5je2c")
-
-[node name="Body" type="Node3D" parent="."]
-
-[node name="Head" type="MeshInstance3D" parent="Body"]
+[node name="Head" type="MeshInstance3D" parent="Body" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 mesh = SubResource("SphereMesh_rtig3")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/Head"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/Head" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0826644, 0.0541086, 0.240349)
 mesh = SubResource("SphereMesh_ivnwf")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body/Head"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body/Head" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06878, 0.0541089, 0.239883)
 mesh = SubResource("SphereMesh_ivnwf")
 
-[node name="Arms" type="MeshInstance3D" parent="Body"]
+[node name="Arms" type="MeshInstance3D" parent="Body" index="1"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.51689, 0)
 material_override = ExtResource("3_ykon6")
 mesh = SubResource("CylinderMesh_wn1ej")
 
-[node name="Foot" type="MeshInstance3D" parent="Body"]
+[node name="Foot" type="MeshInstance3D" parent="Body" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0751479, 0)
 material_override = ExtResource("3_ykon6")
 mesh = SubResource("CylinderMesh_cdm5e")
 
-[node name="Pole" type="MeshInstance3D" parent="Body"]
+[node name="Pole" type="MeshInstance3D" parent="Body" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = ExtResource("3_ykon6")
 mesh = SubResource("CylinderMesh_cf4cx")
 
-[node name="Torso" type="MeshInstance3D" parent="Body"]
+[node name="Torso" type="MeshInstance3D" parent="Body" index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23422, 0)
 mesh = SubResource("BoxMesh_22uf2")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
-mesh = SubResource("CapsuleMesh_rtcy3")
-
-[node name="ChampionCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_ig7uv")
-
-[node name="Healthbar" parent="." instance=ExtResource("3_6j13w")]
-
-[node name="RangeCollider" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RangeCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_qi17u")
-
-[node name="Timers" type="Node" parent="."]
-
-[node name="Windup" type="Timer" parent="Timers"]
-process_callback = 0
-one_shot = true
-
-[node name="AACooldown" type="Timer" parent="Timers"]
-process_callback = 0
-
-[node name="AbilityCooldown1" type="Timer" parent="Timers"]
-process_callback = 0
-
-[node name="AbilityCooldown2" type="Timer" parent="Timers"]
-process_callback = 0
-
-[node name="AbilityCooldown3" type="Timer" parent="Timers"]
-process_callback = 0
-
-[node name="AbilityCooldown4" type="Timer" parent="Timers"]
-process_callback = 0
-
-[node name="Projectiles" type="Node" parent="."]
-
-[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/projectiles/arrow.tscn")
-spawn_path = NodePath("../Projectiles")
-spawn_limit = 999
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_7wmmw")
-
-[node name="Abilities" type="Node" parent="."]
-
-[node name="AutoAttack" type="Node" parent="Abilities"]
-
-[node name="Ability1" type="Node" parent="Abilities"]
-
-[node name="Ability2" type="Node" parent="Abilities"]
-
-[node name="Ability3" type="Node" parent="Abilities"]
-
-[node name="Ability4" type="Node" parent="Abilities"]
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_5ph6s")
+[node name="StateMachine" parent="." index="9" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("4_d2sxx")
-
-[node name="Moving" type="Node" parent="StateMachine"]
-script = ExtResource("5_4mcnx")
-
-[node name="Attacking" type="Node" parent="StateMachine"]
-script = ExtResource("6_8ucey")

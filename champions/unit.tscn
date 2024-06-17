@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://byc0axq73jnsy"]
+
+[ext_resource type="Script" path="res://classes/unit.gd" id="1_qclsc"]
+[ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="2_0i0tp"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qi17u"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7wmmw"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:id")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:current_health")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:current_mana")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:server_position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7uv"]
+
+[node name="Unit" type="CharacterBody3D"]
+script = ExtResource("1_qclsc")
+
+[node name="Body" type="Node3D" parent="."]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="RangeCollider" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RangeCollider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_qi17u")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="Windup" type="Timer" parent="Timers"]
+process_callback = 0
+one_shot = true
+
+[node name="AACooldown" type="Timer" parent="Timers"]
+process_callback = 0
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="ProjectileSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/projectiles/arrow.tscn")
+spawn_path = NodePath("../Projectiles")
+spawn_limit = 999
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7wmmw")
+
+[node name="Abilities" type="Node" parent="."]
+
+[node name="AutoAttack" type="Node" parent="Abilities"]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_0i0tp")
+
+[node name="BodyCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ig7uv")

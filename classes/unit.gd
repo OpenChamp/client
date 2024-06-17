@@ -16,7 +16,7 @@ var overheal: float = 0;
 @export var attack_damage: float = 60.0
 @export var attack_speed: float = 0.75
 @export var attack_windup: float = 0.2
-@export var attack_range: float = 3.0
+@export var attack_range: float = 3.0: set = _set_attack_range
 @export var attack_time: float = 0.1
 @export var critical_chance: float = 0.0
 @export var critical_damage: float = 100
@@ -28,7 +28,7 @@ var overheal: float = 0;
 var target_entity: Node = null
 var is_aggressive: bool = false
 var is_patrolling: bool = false
-var can_respawn: bool = false;
+@export var can_respawn: bool = false;
 @onready var nav_agent :NavigationAgent3D = $NavigationAgent3D
 # Signals
 signal died
@@ -40,7 +40,7 @@ signal died
 func _ready():
 	# Set Range
 	if !range_collider == null:
-		set_range()
+		_set_attack_range(attack_range)
 
 
 func _process(delta):
@@ -50,9 +50,9 @@ func _physics_process(delta: float):
 	move(delta);
 
 # Setters
-func set_range(new_range=null):
-	if new_range==null:
-		new_range = attack_range;
+func _set_attack_range(new_range=null):
+	if new_range < 0: return
+	if not range_collider: return
 	range_collider.get_child(0).shape.radius = new_range
 #func setup(
 	#nav_agent: NavigationAgent3D,

@@ -26,6 +26,7 @@ func _physics_process(delta):
 	
 
 func change_state(new_state_name, args=null):
+	if not states.has(new_state_name): return
 	print("Changing to " + new_state_name);
 	var new_state = states[new_state_name]
 	if not new_state:
