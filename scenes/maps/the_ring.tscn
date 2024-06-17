@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxqjf7gqyn318"]
+[gd_scene load_steps=13 format=3 uid="uid://bxqjf7gqyn318"]
 
 [ext_resource type="Script" path="res://classes/map.gd" id="1_jqejy"]
 [ext_resource type="Shader" path="res://assets/shaders/grass.gdshader" id="2_dvf31"]
+[ext_resource type="PackedScene" uid="uid://bdqu261mn16md" path="res://scenes/environment/bush.tscn" id="3_iyd4x"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_glou8"]
 
@@ -89,3 +90,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
 _spawnable_scenes = PackedStringArray("res://champions/dummy.tscn")
 spawn_path = NodePath("../Champions")
 spawn_limit = 65
+
+[node name="Bush" parent="." instance=ExtResource("3_iyd4x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
