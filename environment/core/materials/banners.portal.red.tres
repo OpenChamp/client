@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cshi6yiwk1n2t"]
+
+[ext_resource type="Texture2D" uid="uid://eja2tl116a14" path="res://environment/core/textures/normal.portal_banners.webp" id="1_cva7d"]
+
+[resource]
+resource_name = "Mat.Banners.Portal"
+cull_mode = 2
+albedo_color = Color(0.64881, 0, 0.116395, 1)
+metallic = 0.0393701
+roughness = 0.547996
+normal_enabled = true
+normal_texture = ExtResource("1_cva7d")
