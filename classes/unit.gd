@@ -7,17 +7,16 @@ class_name Unit
 @export var move_speed: float = 100.0
 # Defensive Stats:
 @export var max_health: float = 100.0
-@export var health: float = max_health
-@export var max_mana: float = 100.0
-@export var mana:float = max_mana
+@onready var current_health: float = max_health
+@export var health_regen: float = 5
+var overheal: float = 0;
 @export var armor: float = 20.0
 @export var magic_resist:float = 20.0
-@export var overheal: float = 0;
 # Offensive Stats:
 @export var attack_damage: float = 60.0
-@export var attack_speed: float = .75
-@export var attack_windup: float = attack_speed/100;
-@export var attack_range: float = 3.0
+@export var attack_speed: float = 0.75
+@export var attack_windup: float = 0.2
+@export var attack_range: float = 3.0: set = _set_attack_range
 @export var attack_time: float = 0.1
 @export var critical_chance: float = 0.0
 @export var critical_damage: float = 100
@@ -29,7 +28,7 @@ class_name Unit
 var target_entity: Node = null
 var is_aggressive: bool = false
 var is_patrolling: bool = false
-var can_respawn: bool = false;
+@export var can_respawn: bool = false;
 @onready var nav_agent :NavigationAgent3D = $NavigationAgent3D
 # Signals
 signal died
@@ -38,23 +37,22 @@ signal died
 @onready var range_collider = $RangeCollider
 @onready var healthbar = $Healthbar
 
+func _ready():
+	# Set Range
+	if !range_collider == null:
+		_set_attack_range(attack_range)
+
+
 func _process(delta):
 	_update_healthbar(healthbar)
 
 func _physics_process(delta: float):
 	move(delta);
 
-func setup(default_stats:Dictionary):
-	for key in default_stats.keys():
-		self[key] = default_stats[key]
-	# Set Range
-	if !range_collider == null:
-		set_range()
-	
 # Setters
-func set_range(new_range=null):
-	if new_range==null:
-		new_range = attack_range;
+func _set_attack_range(new_range=null):
+	if new_range < 0: return
+	if not range_collider: return
 	range_collider.get_child(0).shape.radius = new_range
 #func setup(
 	#nav_agent: NavigationAgent3D,
@@ -172,22 +170,27 @@ func move(delta: float):
 func take_damage(damage: float):
 	var taken: float = armor / 100
 	taken = damage / (taken + 1)
-	health -= taken
-	if health <= 0:
-		health = 0
+	current_health -= taken
+	if current_health <= 0:
+		current_health = 0
 		die()
 
 func heal(amount:float, keep_extra:bool = false):
-	health += amount
-	if health > max_health and not keep_extra:
-		health = max_health
+	current_health += amount
+	if current_health > max_health and not keep_extra:
+		current_health = max_health
 	else:
-		overheal = health - max_health
-		health = max_health
+		overheal = current_health - max_health
+		current_health = max_health
 
 func die():
 	get_tree().quit()
 
 # UI
 func _update_healthbar(node: ProgressBar):
-	node.value = health
+	node.value = current_health
+
+
+@rpc("authority", "call_local")
+func change_state(new, args):
+	$StateMachine.change_state(new, args);

@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://caux2gcn6uhus"]
+
+[ext_resource type="PackedScene" uid="uid://byc0axq73jnsy" path="res://champions/unit.tscn" id="1_cybpu"]
+[ext_resource type="PackedScene" uid="uid://c7wnji0axaya3" path="res://ui/player_stats/healthbar.tscn" id="2_fhn0u"]
+[ext_resource type="Script" path="res://classes/champion.gd" id="2_iykai"]
+[ext_resource type="Script" path="res://scripts/states/player_idle.gd" id="4_kghj5"]
+[ext_resource type="Script" path="res://scripts/states/player_move.gd" id="5_qljr4"]
+[ext_resource type="Script" path="res://scripts/states/player_auto_attack.gd" id="6_51f8x"]
+
+[node name="Champion" instance=ExtResource("1_cybpu")]
+script = ExtResource("2_iykai")
+server_position = Vector3(0, 0, 0)
+nametag = ""
+max_mana = 100.0
+mana_regen = 5.0
+can_respawn = true
+
+[node name="Healthbar" parent="." index="0" instance=ExtResource("2_fhn0u")]
+
+[node name="AbilityCooldown1" type="Timer" parent="Timers" index="2"]
+process_callback = 0
+
+[node name="AbilityCooldown2" type="Timer" parent="Timers" index="3"]
+process_callback = 0
+
+[node name="AbilityCooldown3" type="Timer" parent="Timers" index="4"]
+process_callback = 0
+
+[node name="AbilityCooldown4" type="Timer" parent="Timers" index="5"]
+process_callback = 0
+
+[node name="Ability1" type="Node" parent="Abilities" index="1"]
+
+[node name="Ability2" type="Node" parent="Abilities" index="2"]
+
+[node name="Ability3" type="Node" parent="Abilities" index="3"]
+
+[node name="Ability4" type="Node" parent="Abilities" index="4"]
+
+[node name="StateMachine" parent="." index="9" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0"]
+script = ExtResource("4_kghj5")
+
+[node name="Moving" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("5_qljr4")
+
+[node name="Attacking" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("6_51f8x")

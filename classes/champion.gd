@@ -2,24 +2,25 @@ extends Unit
 class_name Champion
 
 @export var server_position:Vector3
-# Regeneration Stats
-var health_regen = 3 #hps
-var mana_regen = 3 #mps
 
 @export var nametag : String
 
-# Called when the node enters the scene tree for the first time.
+@export var max_mana: float = 100.0
+@onready var current_mana: float = max_mana
+@export var mana_regen: float = 5
+
+
 func _ready():
-	# Modify default unit permissions
-	can_respawn = true;
-	pass # Replace with function body.
+	super()
+	healthbar.size = Vector2(100, 15)
+	global_position = server_position
+	
 
+func die():
+	super()
+	var server_listener = $"../../ServerListener"
+	server_listener.rpc_id(multiplayer.get_unique_id(), "respawn", self)
 
-func _process(delta):
-	super(delta);
-
-func _physics_process(delta: float) -> void:
-	super(delta);
 
 @rpc("authority", "call_local")
 func change_state(new, args):

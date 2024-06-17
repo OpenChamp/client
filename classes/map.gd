@@ -13,7 +13,7 @@ var player_cooldowns = {}
 func _ready():
 	if not multiplayer.is_server():
 		client_setup()
-		return ;
+		return
 	# Get both team spawns
 	Spawns.append(get_node("Spawn1").global_position)
 	Spawns.append(get_node("Spawn2").global_position)
