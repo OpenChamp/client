@@ -1,5 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://daqqgycsr2m6s"]
+[gd_scene load_steps=5 format=3 uid="uid://daqqgycsr2m6s"]
 
-[ext_resource type="PackedScene" uid="uid://dyxw7w6egep1q" path="res://scenes/environment/Core/core.gltf" id="1_tni3d"]
+[ext_resource type="PackedScene" uid="uid://dyxw7w6egep1q" path="res://Environment/Core/core.gltf" id="1_tni3d"]
+[ext_resource type="Material" uid="uid://outb87wffcn1" path="res://Environment/Core/Materials/Mat.CrystalCore.Blue.tres" id="2_se1vl"]
+[ext_resource type="Material" uid="uid://wfhkx0kfs2m4" path="res://Environment/Core/Materials/Mat.Banners.Portal.Blue.tres" id="3_engqa"]
+[ext_resource type="Material" uid="uid://cn62dhlmaotf" path="res://Environment/Core/Materials/Mat.Crystals.Blue.tres" id="4_fe46n"]
 
 [node name="core" instance=ExtResource("1_tni3d")]
+
+[node name="Core" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_se1vl")
+
+[node name="Portal_Banners" parent="." index="1"]
+surface_material_override/0 = ExtResource("3_engqa")
+
+[node name="MinorCrystals" parent="." index="3"]
+surface_material_override/0 = ExtResource("4_fe46n")

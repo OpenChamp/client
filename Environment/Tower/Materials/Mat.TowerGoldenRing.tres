@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://sulua6ik03c"]
+
+[resource]
+resource_name = "Mat.TowerGoldenRing"
+cull_mode = 2
+albedo_color = Color(0.86932, 0.707161, 0, 1)
+metallic = 1.0
+roughness = 0.215569

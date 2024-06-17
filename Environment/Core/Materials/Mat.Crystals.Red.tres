@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b6i2os10kthkv"]
 
-[ext_resource type="Texture2D" uid="uid://di0ck4h8bbso0" path="res://scenes/environment/Core/Tex_Diffuse-2.webp" id="1_6pbrk"]
+[ext_resource type="Texture2D" uid="uid://di0ck4h8bbso0" path="res://Environment/Core/Textures/Tex_Diffuse-2.webp" id="1_6pbrk"]
 
 [resource]
 resource_name = "Mat.Crystals"

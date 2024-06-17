@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6t72n82r1ha"]
+
+[ext_resource type="PackedScene" uid="uid://bgulyl7blyvd2" path="res://Environment/Tower/tower2.gltf" id="1_8th80"]
+[ext_resource type="Material" uid="uid://bv5gmbcl1kmop" path="res://Environment/Tower/Materials/Mat.TowerCrystalBlue.tres" id="2_yw6ps"]
+[ext_resource type="Material" uid="uid://5jjv35xng1p0" path="res://Environment/Tower/Materials/Mat.TowerBannerBlue.tres" id="3_cyvsh"]
+
+[node name="tower2" instance=ExtResource("1_8th80")]
+
+[node name="Main Cristal" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_yw6ps")
+
+[node name="Banners" parent="." index="2"]
+surface_material_override/0 = ExtResource("3_cyvsh")
