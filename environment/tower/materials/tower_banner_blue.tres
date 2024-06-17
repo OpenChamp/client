@@ -1,7 +1,7 @@
 [gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://5jjv35xng1p0"]
 
-[ext_resource type="Texture2D" uid="uid://bb7qenn065hey" path="res://environment/tower/textures/tex.Diffuse.TowerBanners.webp" id="1_e8pho"]
-[ext_resource type="Texture2D" uid="uid://b3cvemngwvyej" path="res://environment/tower/textures/tex.Normal.TowerBanners.webp" id="2_f48ct"]
+[ext_resource type="Texture2D" uid="uid://bb7qenn065hey" path="res://environment/tower/textures/diffuse.tower_banners.webp" id="1_e8pho"]
+[ext_resource type="Texture2D" uid="uid://b3cvemngwvyej" path="res://environment/tower/textures/normal.tower_banners.webp" id="2_f48ct"]
 
 [resource]
 resource_name = "Mat.TowerBanner"

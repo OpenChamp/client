@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://c35xno4rg6d3t"]
+
+[ext_resource type="PackedScene" uid="uid://cqjkxyrc2f76j" path="res://environment/tower/tower2.gltf" id="1_r78pr"]
+[ext_resource type="Material" uid="uid://qsjrobxk371t" path="res://environment/tower/materials/tower_crystal_red.tres" id="2_obvj7"]
+[ext_resource type="Material" uid="uid://c30nufpn80reo" path="res://environment/tower/materials/tower.tres" id="3_470ry"]
+[ext_resource type="Material" uid="uid://eavj0lcarrwm" path="res://environment/tower/materials/tower_banner_red.tres" id="4_qy6qh"]
+[ext_resource type="Material" uid="uid://sulua6ik03c" path="res://environment/tower/materials/tower_golden_ring.tres" id="5_r85c7"]
+
+[node name="tower2" instance=ExtResource("1_r78pr")]
+
+[node name="Main Cristal" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_obvj7")
+
+[node name="Tower" parent="." index="1"]
+surface_material_override/0 = ExtResource("3_470ry")
+
+[node name="Banners" parent="." index="2"]
+surface_material_override/0 = ExtResource("4_qy6qh")
+
+[node name="GondelRings_Tower" parent="." index="3"]
+surface_material_override/0 = ExtResource("5_r85c7")
