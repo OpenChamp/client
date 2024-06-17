@@ -1,0 +1,33 @@
+[gd_scene load_steps=9 format=3 uid="uid://dtsa6s6pwuiwc"]
+
+[ext_resource type="PackedScene" uid="uid://dyxw7w6egep1q" path="res://environment/core/core.gltf" id="1_dul2y"]
+[ext_resource type="Material" uid="uid://dn6fnmct5ipj1" path="res://environment/core/materials/mat.CrystalCore.Red.tres" id="2_x88y4"]
+[ext_resource type="Material" uid="uid://cshi6yiwk1n2t" path="res://environment/core/materials/mat.Banners.Portal.Red.tres" id="3_3ech2"]
+[ext_resource type="Material" uid="uid://b6i2os10kthkv" path="res://environment/core/materials/mat.Crystals.Red.tres" id="4_fk5jf"]
+[ext_resource type="Material" uid="uid://cnn3e2f50ybbd" path="res://environment/core/materials/mat.CoreTower.tres" id="4_m3oec"]
+[ext_resource type="Material" uid="uid://cwe8ycp8yph2c" path="res://environment/core/materials/mat.Portal.tres" id="4_p78in"]
+[ext_resource type="Material" uid="uid://1khqa20tddrr" path="res://environment/core/materials/mat.GoldenRing.tres" id="6_cueu2"]
+[ext_resource type="Material" uid="uid://pv8ihdaw08vv" path="res://environment/core/materials/mat.GoldenRingsCore.tres" id="7_resml"]
+
+[node name="core" instance=ExtResource("1_dul2y")]
+
+[node name="Core" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_x88y4")
+
+[node name="Portal_Banners" parent="." index="1"]
+surface_material_override/0 = ExtResource("3_3ech2")
+
+[node name="Portal" parent="." index="2"]
+surface_material_override/0 = ExtResource("4_p78in")
+
+[node name="MinorCrystals" parent="." index="3"]
+surface_material_override/0 = ExtResource("4_fk5jf")
+
+[node name="CoreTower02" parent="." index="4"]
+surface_material_override/0 = ExtResource("4_m3oec")
+
+[node name="GoldenRings_Small" parent="." index="5"]
+surface_material_override/0 = ExtResource("6_cueu2")
+
+[node name="GondelRings_Core" parent="." index="6"]
+surface_material_override/0 = ExtResource("7_resml")
