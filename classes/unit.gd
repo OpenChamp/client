@@ -10,15 +10,12 @@ class_name Unit
 @onready var current_health: float = max_health
 @export var health_regen: float = 5
 var overheal: float = 0;
-@export var max_mana: float = 100.0
-@onready var current_mana: float = max_mana
-@export var mana_regen: float = 5
 @export var armor: float = 20.0
 @export var magic_resist:float = 20.0
 # Offensive Stats:
 @export var attack_damage: float = 60.0
-@export var attack_speed: float = .75
-@export var attack_windup: float = attack_speed/100;
+@export var attack_speed: float = 0.75
+@export var attack_windup: float = 0.2
 @export var attack_range: float = 3.0
 @export var attack_time: float = 0.1
 @export var critical_chance: float = 0.0
@@ -192,3 +189,8 @@ func die():
 # UI
 func _update_healthbar(node: ProgressBar):
 	node.value = current_health
+
+
+@rpc("authority", "call_local")
+func change_state(new, args):
+	$StateMachine.change_state(new, args);

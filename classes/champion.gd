@@ -5,6 +5,9 @@ class_name Champion
 
 @export var nametag : String
 
+@export var max_mana: float = 100.0
+@onready var current_mana: float = max_mana
+@export var mana_regen: float = 5
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()
