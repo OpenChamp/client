@@ -16,7 +16,7 @@ func update(entity, delta):
 		entity.global_position = lerp
 	pass;
 
-func update_tick(entity, delta):
+func update_tick_server(entity, delta):
 	# Server Only
 	super(entity, delta);
 	var current_location = entity.global_position

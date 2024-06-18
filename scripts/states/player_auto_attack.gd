@@ -8,9 +8,6 @@ var cooldown_timer:Timer
 var backup_entity
 var is_in_range = false;
 func enter(entity, target_entity=null):
-	# Subscribe to enter and exit 
-	entity.range_collider.body_entered.connect(_on_body_entered)
-	entity.range_collider.body_exited.connect(_on_body_exited)
 	# Set the target
 	target = target_entity
 	backup_entity = entity
@@ -37,7 +34,7 @@ func update(entity, delta):
 		entity.global_position = entity.global_position.lerp(entity.server_position, delta * entity.move_speed)
 	pass;
 
-func update_tick(entity, delta):
+func update_tick_server(entity, delta):
 	if is_in_range:
 		if cast_timer.is_stopped() && cooldown_timer.is_stopped():
 			print("Fire!");
