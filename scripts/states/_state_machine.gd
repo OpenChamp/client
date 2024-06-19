@@ -16,11 +16,11 @@ func _ready():
 		current_state = initial_state
 	
 func _process(delta):
-	if current_state == null:
-		return;
+	if not current_state: return
 	current_state.update(entity, delta);
 	
 func _physics_process(delta):
+	if not current_state: return
 	if multiplayer.is_server():
 		current_state.update_tick_server(entity, delta)
 	else:

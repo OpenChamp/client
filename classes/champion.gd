@@ -1,7 +1,6 @@
 extends Unit
 class_name Champion
 
-@export var server_position:Vector3
 
 @export var nametag : String
 
