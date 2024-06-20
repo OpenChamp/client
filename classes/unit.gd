@@ -2,13 +2,6 @@ extends CharacterBody3D
 class_name Unit
 
 
-const MOVEMENT_IMPAIR_MASK: int = 0b00100011
-const MOBILITY_CAST_IMPAIR_MASK: int = 0b11111011
-const ATTACK_IMPAIR_MASK: int = 0b11100101
-const CAST_IMPAIR_MASK: int = 0b11101001
-const TARGET_IMPAIR_MASK: int = 0b11000000
-const TAKE_DAMAGE_IMPAIR_MASK: int = 0b00100000
-
 # General Stats:
 @export var id: int
 @export var team: int
@@ -33,7 +26,7 @@ var overheal: float = 0;
 
 # Each bit of cc_state represents a different type of crowd control.
 var cc_state: int = 6
-var cc_effect_arr: Array[CCEffect] = []
+var effect_array: Array[UnitEffect] = []
 
 var target_entity: Node = null
 var server_position
@@ -103,48 +96,48 @@ func move_on_path(delta: float):
 
 
 func apply_cc(cc_mask: int, duration: float):
-	var effect = CCEffect.new()
+	var effect = UnitEffect.new()
 	effect.one_shot = true
 	effect.cc_mask = cc_mask
 	effect.time_left = duration
 	cc_state = cc_state | cc_mask
-	cc_effect_arr.append(effect)
+	effect_array.append(effect)
 	add_child(effect)
 
 
-func _on_cc_end(cc_effect: CCEffect):
-	cc_effect_arr.erase(cc_effect)
-	var cc_removal_mask := ~cc_effect.cc_mask
-	for eff in cc_effect_arr:
-		var shared_effects := eff.cc_mask & cc_effect.cc_mask
-		if shared_effects != 0:
-			cc_removal_mask = cc_removal_mask & ~shared_effects
+func _on_cc_end(effect: UnitEffect):
+	effect_array.erase(effect)
+	var cc_removal_mask := ~effect.cc_mask
+	for eff in effect_array:
+		var shared_cc := eff.cc_mask & effect.cc_mask
+		if shared_cc != 0:
+			cc_removal_mask = cc_removal_mask & ~shared_cc
 	cc_state = cc_state & cc_removal_mask
-	cc_effect.queue_free()
+	effect.end()
 
 
 func can_move() -> bool:
-	return (cc_state & MOVEMENT_IMPAIR_MASK) == 0
+	return cc_state & 1 == 0
 
 
 func can_attack() -> bool:
-	return cc_state & ATTACK_IMPAIR_MASK == 0
+	return cc_state & 1 == 0
 
 
 func can_cast_movement() -> bool:
-	return cc_state & MOBILITY_CAST_IMPAIR_MASK == 0
+	return cc_state & 2 == 0
 
 
 func can_cast() -> bool:
-	return cc_state & CAST_IMPAIR_MASK == 0
+	return cc_state & 4 == 0
 
 
 func can_change_target() -> bool:
-	return cc_state & TARGET_IMPAIR_MASK == 0
+	return cc_state & 8 == 0
 
 
 func can_take_damage() -> bool:
-	return cc_state & TAKE_DAMAGE_IMPAIR_MASK == 0
+	return cc_state & 16 == 0
 
 
 @rpc("authority", "call_local")
