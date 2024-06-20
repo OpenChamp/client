@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdqu261mn16md"]
+
+[ext_resource type="Script" path="res://scenes/environment/bush.gd" id="1_wlpek"]
+[ext_resource type="PackedScene" uid="uid://da50ykvcfx1y5" path="res://scenes/environment/bush.glb" id="2_7ke2p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g587y"]
+transparency = 1
+albedo_color = Color(0, 0.981713, 0.430688, 0.0313726)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dyfvd"]
+material = SubResource("StandardMaterial3D_g587y")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xjg5c"]
+
+[node name="Bush" type="Area3D"]
+script = ExtResource("1_wlpek")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_dyfvd")
+
+[node name="bush" parent="." instance=ExtResource("2_7ke2p")]
+transform = Transform3D(0.165, 0, 0, 0, 0.165, 0, 0, 0, 0.165, 0, -0.3, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xjg5c")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
