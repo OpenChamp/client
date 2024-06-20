@@ -1,36 +1,52 @@
 extends State
-class_name player_auto_attack
+class_name unit_auto_attack
 
 var windup_timer: Timer
 var cooldown_timer: Timer
-func enter(entity, _args = null):
-	# Set the target
-	
+var this_entity: Unit
+
+
+func enter(entity: Unit, _args = null):
+	this_entity = entity
 	# Configure Timers
 	windup_timer = entity.get_node("Timers/AAWindup")
 	cooldown_timer = entity.get_node("Timers/AACooldown")
 	# Subscribe to timer timeout
+	windup_timer.timeout.connect(do_attack)
 
 
-func update(entity, delta):
+func exit(entity: Unit):
+	windup_timer.timeout.disconnect
+
+
+func update(entity: Unit, delta):
 	# Client only
 	if entity.global_position != entity.server_position:
 		entity.global_position = entity.server_position
 		entity.global_position = entity.global_position.lerp(entity.server_position, delta * entity.move_speed)
-	pass;
 
-func update_tick_server(entity, delta):
+
+func update_tick_server(entity: Unit, delta):
 	if not entity.target_entity: 
-		entity.change_state("Idle")
+		entity.change_state("Idle", null)
 		return
 	if entity.target_entity.health <= 0: 
-		entity.change_state("Idle")
+		entity.change_state("Idle", null)
 		return
 	if entity.distance_to(entity.target_entity) <= entity.attack_range:
-		init_attack()
+		start_windup()
 		return
 	entity.nav_agent.target_position = entity.target_entity.global_position
 	entity.move_on_path(delta)
 
-func init_attack():
-	pass
+
+func start_windup():
+	if not this_entity.can_attack(): return
+	if not windup_timer.is_stopped(): return
+	if not cooldown_timer.is_stopped(): return
+	windup_timer.start()
+
+
+func do_attack():
+	if not this_entity.can_attack(): return
+	cooldown_timer.start()

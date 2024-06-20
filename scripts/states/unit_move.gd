@@ -1,13 +1,13 @@
 extends State
-class_name player_move
+class_name unit_move
 
-func enter(entity, args=null):
+func enter(entity: Unit, args=null):
 	pass
 
-func exit(entity):
+func exit(entity: Unit):
 	pass;
 
-func update(entity, delta):
+func update(entity: Unit, delta):
 	super(entity, delta);
 	# Client only
 	if entity.global_position != entity.server_position:
@@ -16,13 +16,13 @@ func update(entity, delta):
 		entity.global_position = lerp
 	pass;
 
-func update_tick_server(entity, delta):
+func update_tick_server(entity: Unit, delta):
 	# Server Only
 	super(entity, delta);
 	entity.move_on_path(delta)
 
 
-func modify(entity, args):
+func modify(entity: Unit, args):
 	# Update Target Position
 	if args is Vector3:
 		entity.nav_agent.target_position = args

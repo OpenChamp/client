@@ -20,6 +20,10 @@ func die():
 	var server_listener = $"../../ServerListener"
 	server_listener.rpc_id(multiplayer.get_unique_id(), "respawn", self)
 
+func _trigger_ability(index: int):
+	if not can_cast(): return
+	pass
+
 
 @rpc("authority", "call_local")
 func change_state(new, args):
