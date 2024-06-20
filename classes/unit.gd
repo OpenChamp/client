@@ -120,6 +120,7 @@ func _on_cc_end(cc_effect: CCEffect):
 		if shared_effects != 0:
 			cc_removal_mask = cc_removal_mask & ~shared_effects
 	cc_state = cc_state & cc_removal_mask
+	cc_effect.queue_free()
 
 
 func can_move() -> bool:
