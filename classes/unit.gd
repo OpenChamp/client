@@ -1,19 +1,19 @@
 extends CharacterBody3D
 class_name Unit
 
-const MOVEMENT_CC_MASK = 0b1
-const MOBILITY_CAST_CC_MASK = 0b10
-const ATTACK_CC_MASK = 0b100
-const CAST_CC_MASK = 0b1000
-const TARGET_CC_MASK = 0b10000
-const TAKE_DAMAGE_CC_MASK = 0b100000
+const CC_MASK_MOVEMENT = 0b1
+const CC_MASK_CAST_MOBILITY = 0b10
+const CC_MASK_ATTACK = 0b100
+const CC_MASK_CAST = 0b1000
+const CC_MASK_TARGET = 0b10000
+const CC_MASK_TAKE_DAMAGE = 0b100000
 
-static var STUNNED_CC_MASK := CAST_CC_MASK | ATTACK_CC_MASK | MOBILITY_CAST_CC_MASK | MOVEMENT_CC_MASK
-static var SNARED_CC_MASK := MOBILITY_CAST_CC_MASK | MOVEMENT_CC_MASK
-static var DISARMED_CC_MASK := ATTACK_CC_MASK
-static var SILENCED_CC_MASK := CAST_CC_MASK | MOBILITY_CAST_CC_MASK
-static var GROUNDED_CC_MASK := MOBILITY_CAST_CC_MASK
-static var STASIS_CC_MASK := TAKE_DAMAGE_CC_MASK | CAST_CC_MASK | ATTACK_CC_MASK | MOBILITY_CAST_CC_MASK | MOVEMENT_CC_MASK
+static var CC_VALUE_STUNNED := CC_MASK_CAST | CC_MASK_ATTACK | CC_MASK_CAST_MOBILITY | CC_MASK_MOVEMENT
+static var CC_VALUE_SNARED := CC_MASK_CAST_MOBILITY | CC_MASK_MOVEMENT
+static var CC_VALUE_DISARMED := CC_MASK_ATTACK
+static var CC_VALUE_SILENCED := CC_MASK_CAST | CC_MASK_CAST_MOBILITY
+static var CC_VALUE_GROUNDED := CC_MASK_CAST_MOBILITY
+static var CC_VALUE_STASIS := CC_MASK_TAKE_DAMAGE | CC_MASK_CAST | CC_MASK_ATTACK | CC_MASK_CAST_MOBILITY | CC_MASK_MOVEMENT
 
 # General Stats:
 @export var id: int
@@ -38,7 +38,7 @@ var overheal: float = 0;
 @export var turn_speed: float = 15.0
 
 # Each bit of cc_state represents a different type of crowd control.
-var cc_state: int = 6
+var cc_state: int = 0
 var effect_array: Array[UnitEffect] = []
 
 var target_entity: Node = null
@@ -127,27 +127,27 @@ func recalculate_cc_state() -> int:
 
 
 func can_move() -> bool:
-	return cc_state & MOVEMENT_CC_MASK == 0
+	return cc_state & CC_MASK_MOVEMENT == 0
 
 
 func can_cast_movement() -> bool:
-	return cc_state & MOBILITY_CAST_CC_MASK == 0
+	return cc_state & CC_MASK_CAST_MOBILITY == 0
 
 
 func can_attack() -> bool:
-	return cc_state & ATTACK_CC_MASK == 0
+	return cc_state & CC_MASK_ATTACK == 0
 
 
 func can_cast() -> bool:
-	return cc_state & CAST_CC_MASK == 0
+	return cc_state & CC_MASK_CAST == 0
 
 
 func can_change_target() -> bool:
-	return cc_state & TARGET_CC_MASK == 0
+	return cc_state & CC_MASK_TARGET == 0
 
 
 func can_take_damage() -> bool:
-	return cc_state & TAKE_DAMAGE_CC_MASK == 0
+	return cc_state & CC_MASK_TAKE_DAMAGE == 0
 
 
 @rpc("authority", "call_local")
