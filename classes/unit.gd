@@ -2,12 +2,13 @@ extends CharacterBody3D
 class_name Unit
 
 
-const MOVEMENT_IMPAIR_MASK: int = 0b11000001
-const MOBILITY_CAST_IMPAIR_MASK: int = 0b11011111
-const ATTACK_IMPAIR_MASK: int = 0b10100111
-const CAST_IMPAIR_MASK: int = 0b10010111
-const TARGET_IMPAIR_MASK: int = 0b00000110
-const TAKE_DAMAGE_IMPAIR_MASK: int = 0b00000001
+const MOVEMENT_IMPAIR_MASK: int = 0b00100011
+const MOBILITY_CAST_IMPAIR_MASK: int = 0b11111011
+const ATTACK_IMPAIR_MASK: int = 0b11100101
+const CAST_IMPAIR_MASK: int = 0b11101001
+const TARGET_IMPAIR_MASK: int = 0b11000000
+const TAKE_DAMAGE_IMPAIR_MASK: int = 0b00100000
+
 # General Stats:
 @export var id: int
 @export var team: int
@@ -31,7 +32,7 @@ var overheal: float = 0;
 @export var turn_speed: float = 15.0
 
 # Each bit of cc_state represents a different type of crowd control.
-var cc_state: int = 0
+var cc_state: int = 6
 var cc_effect_arr: Array[CCEffect] = []
 
 var target_entity: Node = null
