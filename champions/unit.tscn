@@ -27,6 +27,7 @@ properties/4/replication_mode = 1
 
 [node name="Unit" type="CharacterBody3D"]
 script = ExtResource("1_qclsc")
+move_speed = 200.0
 
 [node name="Body" type="Node3D" parent="."]
 

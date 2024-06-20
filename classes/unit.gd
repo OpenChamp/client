@@ -47,28 +47,12 @@ func _ready():
 	pass
 
 
-func _process(delta):
-	_update_healthbar(healthbar)
-
-func _physics_process(delta: float):
-	move(delta);
-
 # Movement
 func update_target_location(target_location: Vector3):
 	print("Target Location Updated");
 	target_entity = null
 	nav_agent.target_position = target_location
 
-
-func move(delta: float):
-	var target_location = nav_agent.get_next_path_position()
-	if global_position.distance_to(target_location) <= .1:
-		return
-	var current_location = global_position
-	var direction = target_location - current_location
-	velocity = direction.normalized() * move_speed * delta
-	rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), turn_speed * delta)
-	move_and_slide()
 
 ## Combat
 func take_damage(damage: float):
@@ -87,11 +71,10 @@ func take_damage(damage: float):
 
 func heal(amount:float, keep_extra:bool = false):
 	current_health += amount
-	if current_health > max_health and not keep_extra:
-		current_health = max_health
-	else:
+	if current_health <= max_health: return
+	if keep_extra:
 		overheal = current_health - max_health
-		current_health = max_health
+	current_health = max_health
 
 func die():
 	get_tree().quit()
@@ -102,17 +85,15 @@ func _update_healthbar(node: ProgressBar):
 
 
 func move_on_path(delta: float):
+	if nav_agent.is_navigation_finished(): return
 	server_position = global_position
-	var target_location = nav_agent.get_next_path_position()
-	# Check if target is looking at target
 	
-	if nav_agent.is_navigation_finished():
-		return
+	var target_location = nav_agent.get_next_path_position()
 	var direction = target_location - global_position
+	
 	velocity = direction.normalized() * move_speed * delta
 	rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), turn_speed * delta)
 	move_and_slide()
-	
 
 
 @rpc("authority", "call_local")

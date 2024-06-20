@@ -99,20 +99,13 @@ func player_action(event, play_marker: bool=false, attack_move: bool=false):
 	_player_action_attack(result.collider)
 
 func _player_action_attack(collider):
-	var collider_groups = collider.get_groups()
-	for group in collider_groups:
-		if group not in ["Objective", "Minion", "Champion"]: continue
-		server_listener.rpc_id(get_multiplayer_authority(), "target", collider.name)
-		break
-	# To account for hitting Navmeshes, we check the parent of the target as well
-	var parent_collider_groups = collider.get_parent().get_groups()
-	for group in parent_collider_groups:
-		if group not in ["Objective", "Minion", "Champion"]: continue
-		server_listener.rpc_id(get_multiplayer_authority(), "target", collider.get_parent().name)
-		break
+	if not collider is Unit: return
+	if collider.team == get_champion(multiplayer.get_unique_id()).team: return
+	server_listener.rpc_id(get_multiplayer_authority(), "target", collider.name)
+
 
 func _player_action_move(result, play_marker: bool, attack_move: bool):
-		result.position.y += 1
+		result.position.y += 0
 		if play_marker:
 			_play_move_marker(result.position, attack_move)
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
