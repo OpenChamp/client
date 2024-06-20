@@ -139,7 +139,7 @@ func can_cast() -> bool:
 
 
 func can_change_target() -> bool:
-	return cc_state & TAKE_DAMAGE_IMPAIR_MASK == 0
+	return cc_state & TARGET_IMPAIR_MASK == 0
 
 
 func can_take_damage() -> bool:
