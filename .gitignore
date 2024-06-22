@@ -1,5 +1,7 @@
 # Godot 4+ specific ignores
-.godot/
+.godot/*
+!.godot/uid_cache.bin
+
 android/
 *.tmp
 *.import
