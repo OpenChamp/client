@@ -2,6 +2,22 @@ extends ResourceFormatLoader
 class_name DynmaicPrefixHandler
 
 
+static func get_resource_path(path: String):
+	var resource_id := Identifier.for_resource(path)
+	if not resource_id.is_valid():
+		print("Got invalid Identidier: '" + path + "'")
+		return null
+
+	var content_type := resource_id.get_content_type() as String
+	
+	var fixed_path := AssetIndexer.get_asset_path(resource_id) as String
+	if fixed_path == null or fixed_path == "":
+		print("Asset not found in AssetIndexer: '" + path + "'")
+		return null
+
+	return [fixed_path, content_type]
+
+
 func _recognize_path(path: String, _type: StringName) -> bool:
 	if path.begins_with("texture://"):
 		return true
@@ -17,25 +33,21 @@ func _load(
 	_original_path:String, 
 	_use_sub_threads:bool, 
 	_cache_mode:int
-):
-	var resource_id := Identifier.for_resource(path)
-	if not resource_id.is_valid():
-		print("Got invalid Identidier: '" + path + "'")
+):	
+	var resource_stuff = DynmaicPrefixHandler.get_resource_path(path)
+	if resource_stuff == null:
+		print("Failed to get resource path for: '" + path + "'")
 		return FAILED
 
-	print("loading dynamic resource: '" + resource_id.to_string() + "'")
+	var fixed_path := resource_stuff[0] as String
+	var content_type := resource_stuff[1] as String
 	
-	var fixed_path: String = AssetIndexer.get_asset_path(resource_id)
 	var try_result = try_resource_load(fixed_path)
-	if typeof(try_result) == typeof(FAILED) and try_result == FAILED:
-		print("Failed to load resource: '" + resource_id.to_string() + "'")
-		return FAILED
-
 	if try_result != null:
 		return try_result
 
-	print("loading '" + resource_id.to_string() + "' as: " + fixed_path)
-	match resource_id.get_content_type():
+	print("loading '" + path + "' as: " + fixed_path)
+	match content_type:
 		"textures":
 			return load_texture_from_path(fixed_path)
 		"fonts":
@@ -44,22 +56,23 @@ func _load(
 	return FAILED
 
 
+func _rename_dependencies(path:String, renames: Dictionary):
+	return OK
+
+
 func try_resource_load(resource_path):
-	if resource_path == null:
-		print("Dynamic Asset '" + resource_path + "' does not exist in AssetIndexer. (null)")
-		return FAILED
-
-	if resource_path == "":
-		print("Dynamic Asset '" + resource_path + "' does not exist in AssetIndexer. (empty)")
-		return FAILED
-
 	if not FileAccess.file_exists(resource_path):
 		print("Dynamic Asset '" + resource_path + "' does not exist in Filesystem.")
-		return FAILED
+		return null
 	
 	if ResourceLoader.exists(resource_path):
 		print("loading '"+ resource_path + "' from the ResourceLoader.")
-		return ResourceLoader.load(resource_path)
+		var load_result = ResourceLoader.load(resource_path)
+		if load_result != null:
+			return load_result
+		else:
+			print("Failed to load resource from ResourceLoader: '" + resource_path + "'")
+			return null
 
 	return null
 

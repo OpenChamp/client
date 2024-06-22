@@ -134,10 +134,15 @@ player_ability4={
 ]
 }
 
+[memory]
+
+limits/message_queue/max_size_mb=128
+
 [physics]
 
 common/physics_ticks_per_second=30
 
 [rendering]
 
+textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
