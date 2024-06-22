@@ -1,8 +1,8 @@
-[gd_scene load_steps=19 format=4 uid="uid://b2n83te6pdl3y"]
+[gd_scene load_steps=19 format=4]
 
-[ext_resource type="Texture2D" uid="uid://c12ywqygw5uv3" path="res://scenes/environment/tower_final_texture.webp" id="1_cdfjb"]
-[ext_resource type="Texture2D" uid="uid://clno1v2gvtyr7" path="res://scenes/environment/towerCrystal_texture.webp" id="2_3untu"]
-[ext_resource type="Texture2D" uid="uid://kitqytx153yq" path="res://scenes/environment/banner_texture_tower.webp" id="3_7fqpu"]
+[ext_resource type="Texture2D" path="res://scenes/environment/tower_final_texture.webp" id="1_cdfjb"]
+[ext_resource type="Texture2D" path="res://scenes/environment/towerCrystal_texture.webp" id="2_3untu"]
+[ext_resource type="Texture2D" path="res://scenes/environment/banner_texture_tower.webp" id="3_7fqpu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwrk3"]
 resource_name = "Mat_Tower"

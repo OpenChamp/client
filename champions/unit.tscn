@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://byc0axq73jnsy"]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://classes/unit.gd" id="1_qclsc"]
 [ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="2_0i0tp"]

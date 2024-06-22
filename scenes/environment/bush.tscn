@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdqu261mn16md"]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scenes/environment/bush.gd" id="1_wlpek"]
-[ext_resource type="PackedScene" uid="uid://da50ykvcfx1y5" path="res://scenes/environment/bush.glb" id="2_7ke2p"]
+[ext_resource type="PackedScene" path="res://scenes/environment/bush.glb" id="2_7ke2p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g587y"]
 transparency = 1

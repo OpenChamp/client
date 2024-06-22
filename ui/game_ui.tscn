@@ -1,7 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://b3ge3nka634tb"]
+[gd_scene load_steps=25 format=3 uid="uid://bevs6vkkwqdmv"]
 
 [ext_resource type="Script" path="res://ui/game_ui.gd" id="1_21aey"]
-[ext_resource type="PackedScene" uid="uid://i6xgxqy83a2u" path="res://ui/settings_menu/settings_menu.tscn" id="1_b1o7r"]
+[ext_resource type="PackedScene" path="res://ui/settings_menu/settings_menu.tscn" id="1_b1o7r"]
 [ext_resource type="StyleBox" uid="uid://hso35v0bmr2i" path="res://assets/resources/progressbar_back.tres" id="2_ocle2"]
 [ext_resource type="StyleBox" uid="uid://d1of2i6o3typo" path="res://assets/resources/health_fill.tres" id="3_sb1q7"]
 [ext_resource type="StyleBox" uid="uid://bnrxgjlw018mo" path="res://assets/resources/mana_fill.tres" id="4_bdhvv"]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://ceb4v7n2sbkyq"]
+[gd_scene load_steps=13 format=3]
 
-[ext_resource type="PackedScene" uid="uid://df4v753aaj2e7" path="res://scenes/environment/water.tscn" id="1_p8xur"]
+[ext_resource type="PackedScene" path="res://scenes/environment/water.tscn" id="1_p8xur"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_glou8"]
 

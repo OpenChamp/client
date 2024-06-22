@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmm8cpo860dfq"]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://champions/_player_old.gd" id="1_lijrh"]
-[ext_resource type="Texture2D" uid="uid://5m7k6xcq0vgj" path="res://assets/textures/openchamp.png" id="1_mop06"]
-[ext_resource type="PackedScene" uid="uid://d0mug86g1buyj" path="res://scenes/effects/move_marker.tscn" id="2_d5q4r"]
+[ext_resource type="Texture2D" path="res://assets/textures/openchamp.png" id="1_mop06"]
+[ext_resource type="PackedScene" path="res://scenes/effects/move_marker.tscn" id="2_d5q4r"]
 [ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="3_25ke0"]
 [ext_resource type="Script" path="res://scripts/states/player_move.gd" id="4_jgf0k"]
 

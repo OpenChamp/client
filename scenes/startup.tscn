@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnqxjb0txibfq"]
+[gd_scene load_steps=9 format=3 uid="uid://bsbs7y6jrrvca"]
 
 [ext_resource type="Script" path="res://scenes/startup.gd" id="1_7agtl"]
 [ext_resource type="Texture2D" path="texture://openchamp:openchamp" id="2_yrij0"]

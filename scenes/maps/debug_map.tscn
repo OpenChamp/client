@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://cf3wfr4d5kn2s"]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://maps/debug_map.gd" id="1_oripi"]
-[ext_resource type="PackedScene" uid="uid://b3ge3nka634tb" path="res://ui/game_ui.tscn" id="2_qghmg"]
+[ext_resource type="PackedScene" path="res://ui/game_ui.tscn" id="2_qghmg"]
 [ext_resource type="PackedScene" path="res://characters/player.tscn" id="3_borkg"]
 [ext_resource type="Shader" path="res://environment/shaders/sky.gdshader" id="4_6tbti"]
 [ext_resource type="Texture2D" path="res://environment/textures/clover.jpg" id="4_wyhrk"]

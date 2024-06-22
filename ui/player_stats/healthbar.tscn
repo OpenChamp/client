@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7wnji0axaya3"]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://ui/player_stats/healthbar.gd" id="1_lit5y"]
 

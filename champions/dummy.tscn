@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dcl2rt2anrp2t"]
+[gd_scene load_steps=12 format=3]
 
-[ext_resource type="PackedScene" uid="uid://caux2gcn6uhus" path="res://champions/champion.tscn" id="1_2gk3s"]
-[ext_resource type="Material" uid="uid://c82oohji8rcpv" path="res://assets/materials/wood.tres" id="3_ykon6"]
+[ext_resource type="PackedScene" path="res://champions/champion.tscn" id="1_2gk3s"]
+[ext_resource type="Material" path="res://assets/materials/wood.tres" id="3_ykon6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qlblt"]
 albedo_color = Color(1, 0.8, 0.654902, 1)
