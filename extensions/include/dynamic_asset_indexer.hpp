@@ -1,6 +1,8 @@
 #pragma once
 
 #include "base_include.hpp"
+#include "godot_cpp/classes/mutex.hpp"
+#include "godot_cpp/core/mutex_lock.hpp"
 
 #include "identifier.hpp"
 
@@ -12,6 +14,8 @@ class GDE_EXPORT DynamicAssetIndexer : public Object {
 private:
     HashMap<String, String> asset_map;
 	bool files_indexed = false;
+	
+	Ref<godot::Mutex> index_mutex = nullptr;
 
 	static DynamicAssetIndexer* _AssetIndexerSingleton;
 

@@ -99,11 +99,11 @@ String DataCacheManager::get_file_hash(String file_path){
 
 String DataCacheManager::get_string_hash(String str){
 	//Start a SHA-256 context.
-    HashingContext ctx{};
-    ctx.start(HashingContext::HashType::HASH_SHA256);
-	ctx.update(str.to_utf8_buffer());
+	Ref<HashingContext> ctx = memnew(HashingContext);
+    ctx->start(HashingContext::HashType::HASH_SHA256);
+	ctx->update(str.to_utf8_buffer());
 
-	return ctx.finish().hex_encode();
+	return ctx->finish().hex_encode();
 }
 
 
