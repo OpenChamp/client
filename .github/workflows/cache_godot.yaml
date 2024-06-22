@@ -6,7 +6,7 @@ jobs:
     name: "Setup Godot Cache"
     runs-on: "ubuntu-24.04"
     env:
-      GODOT_VERSION: '4.3-beta1'
+      GODOT_VERSION: '4.3-beta2'
       GODOT_REPO: 'godotengine/godot-builds'
     steps:
       - uses: actions/cache@v4
@@ -14,7 +14,7 @@ jobs:
         with:
           path: godot
           enableCrossOsArchive: true
-          key: godot_4_3_0_beta1_rev1
+          key: godot_4_3_0_beta2_rev1
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
@@ -52,7 +52,7 @@ jobs:
           wget https://github.com/${{ env.GODOT_REPO }}/releases/download/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}_export_templates.tpz
           unzip Godot_v${{ env.GODOT_VERSION }}_export_templates.tpz
           mkdir godot/export_templates
-          mv templates godot/export_templates/4.3.beta1
+          mv templates godot/export_templates/4.3.beta2
 
       - name: generate api bindings
         run: godot/godot_linux --headless --dump-extension-api extension_api.json

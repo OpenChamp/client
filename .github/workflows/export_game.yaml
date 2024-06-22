@@ -4,7 +4,7 @@ on:
 jobs:
   export_game:
     env:
-      EXPORT_TEMPLATE_VERSION: '4.3.beta1'
+      EXPORT_TEMPLATE_VERSION: '4.3.beta2'
     strategy:
       fail-fast: false
       matrix:
@@ -46,7 +46,7 @@ jobs:
           path: godot
           enableCrossOsArchive: true
           fail-on-cache-miss: true
-          key: godot_4_3_0_beta1_rev1
+          key: godot_4_3_0_beta2_rev1
 
       - name: Retreive extensions artifacts
         uses: actions/download-artifact@v4
