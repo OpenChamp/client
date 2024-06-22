@@ -1,7 +1,7 @@
 [gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://outb87wffcn1"]
 
-[ext_resource type="Texture2D" uid="uid://rilvhrk8c3lx" path="res://environment/core/textures/diffuse.core.webp" id="1_oe1vg"]
-[ext_resource type="Texture2D" uid="uid://b75ndytkmrfav" path="res://environment/core/textures/normal.core.webp" id="2_uswm2"]
+[ext_resource type="Texture2D" path="texture://openchamp:environment/core/diffuse.core" id="1_oe1vg"]
+[ext_resource type="Texture2D" path="texture://openchamp:environment/core/normal.core" id="2_uswm2"]
 
 [resource]
 resource_name = "Mat.CrystalCore"
