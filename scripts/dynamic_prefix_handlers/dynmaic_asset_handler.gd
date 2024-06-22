@@ -22,10 +22,13 @@ func _load(
 	if not resource_id.is_valid():
 		print("Got invalid Identidier: '" + path + "'")
 		return FAILED
+
+	print("loading dynamic resource: '" + resource_id.to_string() + "'")
 	
 	var fixed_path: String = AssetIndexer.get_asset_path(resource_id)
 	var try_result = try_resource_load(fixed_path)
 	if typeof(try_result) == typeof(FAILED) and try_result == FAILED:
+		print("Failed to load resource: '" + resource_id.to_string() + "'")
 		return FAILED
 
 	if try_result != null:
@@ -62,14 +65,16 @@ func try_resource_load(resource_path):
 
 
 func load_texture_from_path(fixed_path: String):
-	var loaded_texture = Image.load_from_file(fixed_path)
-	if loaded_texture == null:
+	var loaded_image := Image.load_from_file(fixed_path)
+	if loaded_image == null:
 		print("Error loading image from file.")
+		return FAILED
 	
-	loaded_texture = ImageTexture.create_from_image(loaded_texture)
+	var loaded_texture := ImageTexture.create_from_image(loaded_image)
 
 	if loaded_texture == null:
 		print("error loading dynamic texture: '" + fixed_path + "'")
+		return FAILED
 	
 	return loaded_texture
 
