@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://classes/unit.gd" id="1_qclsc"]
 [ext_resource type="Script" path="res://scripts/states/_state_machine.gd" id="2_0i0tp"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_qi17u"]
+[ext_resource type="Script" path="res://scripts/states/unit_idle.gd" id="3_e223u"]
+[ext_resource type="Script" path="res://scripts/states/unit_move.gd" id="4_h7srd"]
+[ext_resource type="Script" path="res://scripts/states/unit_auto_attack.gd" id="5_7v1a7"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7wmmw"]
 properties/0/path = NodePath(".:rotation")
@@ -26,20 +27,15 @@ properties/4/replication_mode = 1
 
 [node name="Unit" type="CharacterBody3D"]
 script = ExtResource("1_qclsc")
+move_speed = 200.0
 
 [node name="Body" type="Node3D" parent="."]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
-[node name="RangeCollider" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RangeCollider"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_qi17u")
-
 [node name="Timers" type="Node" parent="."]
 
-[node name="Windup" type="Timer" parent="Timers"]
+[node name="AAWindup" type="Timer" parent="Timers"]
 process_callback = 0
 one_shot = true
 
@@ -62,6 +58,15 @@ replication_config = SubResource("SceneReplicationConfig_7wmmw")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_0i0tp")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_e223u")
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("4_h7srd")
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("5_7v1a7")
 
 [node name="BodyCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

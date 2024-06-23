@@ -61,11 +61,10 @@ func move_to(pos: Vector3):
 func target(target_name):
 	var champion = get_champion(multiplayer.get_remote_sender_id())
 	# Dont Kill Yourself
-	if str(target_name) == str(champion.name):
+	if target == champion:
 		print_debug("That's you ya idjit") # :O
 		return
-	var target_entity = get_parent().find_child(str(target_name), true, false)
-	champion.change_state("Attacking", target_entity)
+	champion.change_state("Attacking", target)
 
 @rpc("any_peer", "call_local")
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):

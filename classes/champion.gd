@@ -1,7 +1,6 @@
 extends Unit
 class_name Champion
 
-@export var server_position:Vector3
 
 @export var nametag : String
 
@@ -20,6 +19,10 @@ func die():
 	super()
 	var server_listener = $"../../ServerListener"
 	server_listener.rpc_id(multiplayer.get_unique_id(), "respawn", self)
+
+func _trigger_ability(index: int):
+	if not can_cast(): return
+	pass
 
 
 @rpc("authority", "call_local")

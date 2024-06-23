@@ -1,19 +1,28 @@
 extends Node
 class_name State
 
+
 signal change
+
 
 func enter(entity, args=null):
 	pass
+	
+	
 func exit(entity):
-	pass;
+	pass
+	
+	
 func update(entity, _delta):
-	# Client Tick, Server does not care
-	if multiplayer.is_server():
-		return;
-	pass;
-func update_tick(entity, _delta):
-	# Server Tick, Clients do not care
-	if not multiplayer.is_server():
-		return;
-	pass;
+	# Client Tick, variable based on framerate
+	if multiplayer.is_server(): return
+	
+
+func update_tick_client(entity, _delta):
+	# Client tick, 60 Hz
+	if multiplayer.is_server(): return
+
+
+func update_tick_server(entity, _delta):
+	# Server Tick, 60 Hz
+	if not multiplayer.is_server(): return

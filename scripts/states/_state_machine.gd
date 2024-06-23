@@ -16,21 +16,21 @@ func _ready():
 		current_state = initial_state
 	
 func _process(delta):
-	if current_state == null:
-		return;
+	if not current_state: return
 	current_state.update(entity, delta);
 	
 func _physics_process(delta):
-	if not multiplayer.is_server(): return;
-	current_state.update_tick(entity, delta)
+	if not current_state: return
+	if multiplayer.is_server():
+		current_state.update_tick_server(entity, delta)
+	else:
+		current_state.update_tick_client(entity, delta)
 	
 
-func change_state(new_state_name, args=null):
+func change_state(new_state_name, args = null):
 	if not states.has(new_state_name): return
 	print("Changing to " + new_state_name);
 	var new_state = states[new_state_name]
-	if not new_state:
-		return;
 	if current_state == new_state:
 		current_state.modify(entity, args);
 		return;

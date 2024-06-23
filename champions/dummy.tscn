@@ -41,7 +41,7 @@ size = Vector3(0.745, 1, 0.27)
 subdivide_width = 2
 subdivide_height = 2
 
-[node name="Champion" instance=ExtResource("1_2gk3s")]
+[node name="Dummy" instance=ExtResource("1_2gk3s")]
 
 [node name="Head" type="MeshInstance3D" parent="Body" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -74,5 +74,5 @@ mesh = SubResource("CylinderMesh_cf4cx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23422, 0)
 mesh = SubResource("BoxMesh_22uf2")
 
-[node name="StateMachine" parent="." index="9" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="8" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")

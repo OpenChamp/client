@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cab8i8g0nlfjw"]
+
+[ext_resource type="PackedScene" uid="uid://byc0axq73jnsy" path="res://champions/unit.tscn" id="1_qo5lf"]
+[ext_resource type="Script" path="res://npc/npc_unit.gd" id="2_eobr2"]
+
+[node name="NPCUnit" instance=ExtResource("1_qo5lf")]
+script = ExtResource("2_eobr2")
