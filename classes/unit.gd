@@ -111,11 +111,13 @@ func move_on_path(delta: float):
 func apply_effect(effect: UnitEffect):
 	effect_array.append(effect)
 	add_child(effect)
+	recalculate_cc_state()
 
 
 func _on_cc_end(effect: UnitEffect):
 	effect_array.erase(effect)
 	effect.end()
+	recalculate_cc_state()
 
 
 func recalculate_cc_state() -> int:
