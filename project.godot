@@ -18,6 +18,7 @@ config/icon="res://assets/textures/openchamp.png"
 
 [autoload]
 
+RegistryManager="*res://scripts/registries/registry_manager.gd"
 Config="*res://scripts/config.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
