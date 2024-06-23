@@ -7,9 +7,8 @@ func _ready():
 	hide()
 	
 func _process(_delta):
-	var parent = get_parent()
-
-	if value >= 0:
+	var parent : CharacterBody3D = get_parent()
+	if value >= 0 && parent.is_visible_in_tree():
 		# TODO: only show health of the lowest tier structure within a given lane
 		show()
 		var viewport = get_viewport()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://i6xgxqy83a2u"]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://ui/settings_menu/settings_menu.gd" id="1_g0wed"]
 [ext_resource type="Script" path="res://addons/sliderlabel/sliderlabel.gd" id="2_krd3l"]

@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://qsjrobxk371t"]
 
-[ext_resource type="Texture2D" uid="uid://s052a7ghona3" path="res://environment/tower/textures/combined.tower_crystal.webp" id="1_rsv07"]
+[ext_resource type="Texture2D" path="texture://openchamp:environment/tower/combined.tower_crystal" id="1_rsv07"]
 
 [resource]
 resource_name = "Mat.TowerCrystal"

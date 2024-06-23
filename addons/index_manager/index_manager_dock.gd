@@ -11,17 +11,25 @@ var asset_types: Array[String] = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	reload_button.pressed.connect(_build_asset_list)
+	reload_button.pressed.connect(_rebuild_asset_list)
 	_build_asset_list()
 
 
-func _build_asset_list():
+func _rebuild_asset_list():
 	print('reloading asset list')
 	
 	for child in asset_tab_container.get_children():
 		asset_tab_container.remove_child(child)
+
+	AssetIndexer.re_index_files()
+
+	_build_asset_list()
+
+
+func _build_asset_list():
+	print('building asset list')
 	
-	AssetIndexer.re_index_files()	
+	AssetIndexer.index_files()
 	var dynamic_assets := AssetIndexer.get_asset_map() as Dictionary
 	
 	# create the containers for all the categories
@@ -89,6 +97,7 @@ func _copy_asset_id(input_event: InputEvent, clipboard_text: String):
 		if input_event.button_index == MOUSE_BUTTON_LEFT and input_event.pressed:
 			print("callback for label " + clipboard_text + " entered")
 			DisplayServer.clipboard_set(clipboard_text)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -20,11 +20,16 @@ void DynamicAssetIndexer::_bind_methods() {
 
 DynamicAssetIndexer* DynamicAssetIndexer::_AssetIndexerSingleton = nullptr;
 
-DynamicAssetIndexer::DynamicAssetIndexer() {}
+DynamicAssetIndexer::DynamicAssetIndexer():index_mutex{memnew(godot::Mutex)} {}
 
 DynamicAssetIndexer::~DynamicAssetIndexer() {}
 
 void DynamicAssetIndexer::index_files(){
+	if (files_indexed){
+		return;
+	}
+
+	MutexLock lock{**index_mutex};
 	files_indexed = true;
 
 	// Index res://default_assets as the base pack first
@@ -57,15 +62,17 @@ void DynamicAssetIndexer::index_files(){
 }
 
 void DynamicAssetIndexer::re_index_files(){
-	asset_map.clear();
-	files_indexed = false;
+	{
+		MutexLock lock{**index_mutex};
+		asset_map.clear();
+		files_indexed = false;
+	}
+	
 	index_files();
 }
 
 String DynamicAssetIndexer::get_asset_path(Identifier* asset_id){
-	if (!files_indexed){
-		index_files();
-	}
+	index_files();
 
 	String asset_id_string = asset_id->to_string();	
 
@@ -78,9 +85,7 @@ String DynamicAssetIndexer::get_asset_path(Identifier* asset_id){
 }
 
 void DynamicAssetIndexer::dump_asset_map() {
-	if (!files_indexed){
-		index_files();
-	}
+	index_files();
 
 	UtilityFunctions::print("Asset map with size ", asset_map.size());
     for ( const auto& [key, value] : asset_map ) {
@@ -89,9 +94,7 @@ void DynamicAssetIndexer::dump_asset_map() {
 }
 
 Variant DynamicAssetIndexer::get_asset_map() {
-	if (!files_indexed){
-		index_files();
-	}
+	index_files();
 
 	Dictionary map;
 	for ( const auto& [key, value] : asset_map ) {

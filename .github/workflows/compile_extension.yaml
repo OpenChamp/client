@@ -23,7 +23,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: install ninja
         run: pip install ninja
@@ -35,7 +35,7 @@ jobs:
             extensions/godot-cpp
             extensions/build
           save-always: true
-          key: extension_cache_${{ matrix.os }}_${{ matrix.build_mode }}_${{ matrix.arch }}_4_3_0_beta1
+          key: extension_cache_${{ matrix.os }}_${{ matrix.build_mode }}_${{ matrix.arch }}_4_3_0_beta2
 
       - name: get submodules if cache miss
         if: steps.cache.outputs.cache-hit != 'true'

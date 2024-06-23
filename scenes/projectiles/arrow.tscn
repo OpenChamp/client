@@ -1,11 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://df1t330pbg8ah"]
+[gd_scene load_steps=12 format=3]
 
-[ext_resource type="PackedScene" uid="uid://dnovsm0ixxxwt" path="res://assets/models/arrow.glb" id="1_gm6ey"]
+[ext_resource type="PackedScene" path="res://assets/models/arrow.glb" id="1_gm6ey"]
 [ext_resource type="Script" path="res://scenes/projectiles/projectile.gd" id="2_1bci5"]
 [ext_resource type="Shader" path="res://addons/gpu_trail/shaders/trail.gdshader" id="3_sv5hu"]
 [ext_resource type="Shader" path="res://addons/gpu_trail/shaders/trail_draw_pass.gdshader" id="4_atog6"]
-[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/gpu_trail/defaults/texture.tres" id="5_4ynbe"]
-[ext_resource type="Texture2D" uid="uid://ct31fhxvcragr" path="res://addons/gpu_trail/defaults/curve.tres" id="6_2hs3r"]
+[ext_resource type="Texture2D" path="res://addons/gpu_trail/defaults/texture.tres" id="5_4ynbe"]
+[ext_resource type="Texture2D" path="res://addons/gpu_trail/defaults/curve.tres" id="6_2hs3r"]
 [ext_resource type="Script" path="res://addons/gpu_trail/GPUTrail3D.gd" id="7_vb01l"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2ta0k"]

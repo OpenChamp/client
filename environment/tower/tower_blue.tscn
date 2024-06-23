@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6t72n82r1ha"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="PackedScene" uid="uid://cqjkxyrc2f76j" path="res://environment/tower/tower2.gltf" id="1_8th80"]
-[ext_resource type="Material" uid="uid://bv5gmbcl1kmop" path="res://environment/tower/materials/tower_crystal_blue.tres" id="2_yw6ps"]
-[ext_resource type="Material" uid="uid://5jjv35xng1p0" path="res://environment/tower/materials/tower_banner_blue.tres" id="3_cyvsh"]
-[ext_resource type="Material" uid="uid://c30nufpn80reo" path="res://environment/tower/materials/tower.tres" id="3_l45m4"]
+[ext_resource type="PackedScene" path="res://environment/tower/tower2.gltf" id="1_8th80"]
+[ext_resource type="Material" path="res://environment/tower/materials/tower_crystal_blue.tres" id="2_yw6ps"]
+[ext_resource type="Material" path="res://environment/tower/materials/tower_banner_blue.tres" id="3_cyvsh"]
+[ext_resource type="Material" path="res://environment/tower/materials/tower.tres" id="3_l45m4"]
 
 [node name="tower2" instance=ExtResource("1_8th80")]
 

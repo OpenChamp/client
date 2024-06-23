@@ -1,13 +1,13 @@
-[gd_scene load_steps=32 format=4 uid="uid://crsnd6hjh6gyh"]
+[gd_scene load_steps=32 format=4]
 
-[ext_resource type="Material" uid="uid://ocn37vjn0pmi" path="res://assets/materials/brick.tres" id="1_d3gqr"]
+[ext_resource type="Material" path="res://assets/materials/brick.tres" id="1_d3gqr"]
 [ext_resource type="Script" path="res://scenes/maps/bridge.gd" id="1_uy26l"]
-[ext_resource type="Texture2D" uid="uid://b21b75q00p6jy" path="res://scenes/environment/tower_final_texture.webp" id="4_g3duy"]
-[ext_resource type="Texture2D" uid="uid://by0q3uc7nxyky" path="res://assets/textures/brick.png" id="5_p7oxv"]
-[ext_resource type="Texture2D" uid="uid://bg2uji87mk0yo" path="res://assets/textures/brick_normal.png" id="6_82ofb"]
-[ext_resource type="Texture2D" uid="uid://h2nie4prbchc" path="res://scenes/environment/towerCrystal_texture.webp" id="7_cy38q"]
-[ext_resource type="Texture2D" uid="uid://cv8h4kxb1d2km" path="res://scenes/environment/banner_texture_tower.webp" id="9_8lh8k"]
-[ext_resource type="Material" uid="uid://s5xpeagwcf7q" path="res://assets/materials/banner_red.tres" id="10_tqyyo"]
+[ext_resource type="Texture2D" path="res://scenes/environment/tower_final_texture.webp" id="4_g3duy"]
+[ext_resource type="Texture2D" path="res://assets/textures/brick.png" id="5_p7oxv"]
+[ext_resource type="Texture2D" path="res://assets/textures/brick_normal.png" id="6_82ofb"]
+[ext_resource type="Texture2D" path="res://scenes/environment/towerCrystal_texture.webp" id="7_cy38q"]
+[ext_resource type="Texture2D" path="res://scenes/environment/banner_texture_tower.webp" id="9_8lh8k"]
+[ext_resource type="Material" path="res://assets/materials/banner_red.tres" id="10_tqyyo"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_21owx"]
 vertices = PackedVector3Array(-99.5, 0.02, -12, -99.5, 0.02, 12, 99.5, 0.02, 12, 99.5, 0.02, -12)

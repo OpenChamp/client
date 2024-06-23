@@ -1,13 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://daqqgycsr2m6s"]
+[gd_scene load_steps=9 format=3]
 
-[ext_resource type="PackedScene" uid="uid://4vikvr17i1ce" path="res://environment/core/core.gltf" id="1_tni3d"]
-[ext_resource type="Material" uid="uid://outb87wffcn1" path="res://environment/core/materials/crystal_core.blue.tres" id="2_se1vl"]
-[ext_resource type="Material" uid="uid://wfhkx0kfs2m4" path="res://environment/core/materials/banners.portal.blue.tres" id="3_engqa"]
-[ext_resource type="Material" uid="uid://cn62dhlmaotf" path="res://environment/core/materials/crystals.blue.tres" id="4_fe46n"]
-[ext_resource type="Material" uid="uid://cwe8ycp8yph2c" path="res://environment/core/materials/portal.tres" id="4_g63b3"]
-[ext_resource type="Material" uid="uid://cnn3e2f50ybbd" path="res://environment/core/materials/core_tower.tres" id="6_4grjc"]
-[ext_resource type="Material" uid="uid://1khqa20tddrr" path="res://environment/core/materials/golden_ring.tres" id="7_gayc7"]
-[ext_resource type="Material" uid="uid://pv8ihdaw08vv" path="res://environment/core/materials/golden_rings_core.tres" id="8_lqrwd"]
+[ext_resource type="PackedScene" path="res://environment/core/core.gltf" id="1_tni3d"]
+[ext_resource type="Material" path="res://environment/core/materials/crystal_core.blue.tres" id="2_se1vl"]
+[ext_resource type="Material" path="res://environment/core/materials/banners.portal.blue.tres" id="3_engqa"]
+[ext_resource type="Material" path="res://environment/core/materials/crystals.blue.tres" id="4_fe46n"]
+[ext_resource type="Material" path="res://environment/core/materials/portal.tres" id="4_g63b3"]
+[ext_resource type="Material" path="res://environment/core/materials/core_tower.tres" id="6_4grjc"]
+[ext_resource type="Material" path="res://environment/core/materials/golden_ring.tres" id="7_gayc7"]
+[ext_resource type="Material" path="res://environment/core/materials/golden_rings_core.tres" id="8_lqrwd"]
 
 [node name="core" instance=ExtResource("1_tni3d")]
 
