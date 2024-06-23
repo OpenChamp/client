@@ -105,7 +105,7 @@ func _player_action_attack(collider):
 
 
 func _player_action_move(result, play_marker: bool, attack_move: bool):
-		result.position.y += 0
+		result.position.y += 1
 		if play_marker:
 			_play_move_marker(result.position, attack_move)
 		server_listener.rpc_id(get_multiplayer_authority(), "move_to", result.position)
