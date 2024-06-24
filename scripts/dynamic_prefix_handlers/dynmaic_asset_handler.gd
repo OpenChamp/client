@@ -24,6 +24,12 @@ func _recognize_path(path: String, _type: StringName) -> bool:
 	
 	if path.begins_with("font://"):
 		return true
+
+	if path.begins_with("material://"):
+		return true
+
+	if path.begins_with("model://"):
+		return true
 	
 	return path.begins_with("dyn://")
 

@@ -87,38 +87,6 @@ static inline void _load_lang_files(String pack_path, String asset_group, HashMa
 }
 
 
-static inline void _index_textures(String pack_path, String asset_group, HashMap<String, String>& asset_map, String texture_subdir){
-	auto texture_dir = DirAccess::open(pack_path + "/" + asset_group + "/" + texture_subdir);
-	if (texture_dir == nullptr){
-		UtilityFunctions::print("Failed to open texture directory");
-		return;
-	}
-	
-	UtilityFunctions::print("loading textures for " + pack_path + "/" + asset_group + "/" + texture_subdir);
-
-	texture_dir->list_dir_begin();
-	String texture_name = "";
-	while ((texture_name = texture_dir->get_next()) != ""){
-		if (texture_dir->current_is_dir()){
-			_index_textures(pack_path, asset_group, asset_map, texture_subdir + "/" + texture_name);
-		}else{
-			if (texture_name.ends_with(".import")){
-				continue;
-			}
-
-			// load texture
-			String texture_path = pack_path + "/" + asset_group + "/" + texture_subdir + "/" + texture_name;
-			String texture_basename = texture_name.get_basename();
-			
-			Identifier* texture_id = Identifier::from_values(asset_group, texture_subdir + "/" + texture_basename);
-
-			asset_map[texture_id->to_string()] = texture_path;
-			UtilityFunctions::print("Indexed texture: " + texture_id->to_string());
-		}
-	}
-}
-
-
 static inline void _index_fonts(String pack_path, String asset_group, HashMap<String, String>& asset_map){
 	auto font_dir = DirAccess::open(pack_path + "/" + asset_group + "/fonts");
 	if (font_dir == nullptr){
@@ -167,9 +135,12 @@ static inline void _cache_patch_data(String pack_path, String asset_group, HashM
 			continue;
 		}
 
-		UtilityFunctions::print("Caching patch data for gamemode: " + gamemode_name);
+		String manifest_path = pack_path + "/" + asset_group + "/patchdata/manifest.json";
+		Identifier* manifest_id = Identifier::for_resource("gamemode://" + asset_group + ":" + gamemode_name);
+		asset_map[manifest_id->to_string()] = manifest_path;
 
-		Vector<String> patch_types = {"characters", "items"};
+		UtilityFunctions::print("Caching patch data for gamemode: " + gamemode_name);
+		Vector<String> patch_types = {"characters", "items", "misc"};
 
 		for (String patch_type:patch_types){
 
@@ -201,6 +172,44 @@ static inline void _cache_patch_data(String pack_path, String asset_group, HashM
 }
 
 
+static inline void _index_resources(
+	String pack_path,
+	String asset_group,
+	HashMap<String, String>& asset_map,
+	String resource_type,
+	String resource_subdir
+){
+	auto texture_dir = DirAccess::open(pack_path + "/" + asset_group + "/" + resource_subdir);
+	if (texture_dir == nullptr){
+		UtilityFunctions::print("Failed to open " + resource_type + " directory");
+		return;
+	}
+	
+	UtilityFunctions::print("loading " + resource_type + " for " + pack_path + "/" + asset_group + "/" + resource_subdir);
+
+	texture_dir->list_dir_begin();
+	String texture_name = "";
+	while ((texture_name = texture_dir->get_next()) != ""){
+		if (texture_dir->current_is_dir()){
+			_index_resources(pack_path, asset_group, asset_map, resource_type, resource_subdir + "/" + texture_name);
+		}else{
+			if (texture_name.ends_with(".import")){
+				continue;
+			}
+
+			// load texture
+			String texture_path = pack_path + "/" + asset_group + "/" + resource_subdir + "/" + texture_name;
+			String texture_basename = texture_name.get_basename();
+			
+			Identifier* texture_id = Identifier::from_values(asset_group, resource_subdir + "/" + texture_basename);
+
+			asset_map[texture_id->to_string()] = texture_path;
+			UtilityFunctions::print("Indexed " + resource_type + ": " + texture_id->to_string());
+		}
+	}
+}
+
+
 static inline void _index_asset_group(String pack_path, String asset_group, HashMap<String, String>& asset_map){
 	auto group_dir = DirAccess::open(pack_path + "/" + asset_group);
 	if (group_dir == nullptr){
@@ -217,21 +226,15 @@ static inline void _index_asset_group(String pack_path, String asset_group, Hash
 			// use a different functions depending on the asset type
 			if (asset_type == "lang"){
 				_load_lang_files(pack_path, asset_group, asset_map);
-			}
-
-			if (asset_type == "textures"){
-				_index_textures(pack_path, asset_group, asset_map, "textures");
-			}
-
-			if (asset_type == "fonts"){
+			}else if (asset_type == "fonts"){
 				_index_fonts(pack_path, asset_group, asset_map);
-			}
-
-			if (asset_type == "patchdata"){
+			}else if (asset_type == "patchdata"){
 				_cache_patch_data(pack_path, asset_group, asset_map);
+			}else{
+				_index_resources(pack_path, asset_group, asset_map, asset_type, asset_type);
 			}
 		}
-			
+
 		asset_type = group_dir->get_next();
 	}
 }

@@ -82,6 +82,18 @@ String Identifier::get_content_type_from_resouce(String _name){
 		return "fonts";
 	}
 
+	if (prefix == "material"){
+		return "materials";
+	}
+
+	if (prefix == "model"){
+		return "models";
+	}
+
+	if (prefix == "gamemode"){
+		return "patchdata";
+	}
+
 	return "";
 }
 
@@ -89,25 +101,38 @@ String Identifier::get_resource_prefix_from_type(String _name){
 	if (_name == "textures"){
 		return "texture://";
 	}
+
 	if (_name == "fonts"){
 		return "font://";
+	}
+
+	if (_name == "materials"){
+		return "material://";
+	}
+
+	if (_name == "models"){
+		return "model://";
+	}
+
+	if (_name == "patchdata"){
+		return "gamemode://";
 	}
 
 	return "dyn://";
 }
 
 Identifier* Identifier::from_string(String _id_string) {
-		String group = "openchamp";
-		String name = _id_string;
+	String group = "openchamp";
+	String name = _id_string;
 
-		int colon = _id_string.find(":");
-		if (colon != -1){
-			group = _id_string.substr(0, colon);
-			name = _id_string.substr(colon + 1);
-		}
-
-		return Identifier::from_values(group, name);
+	int colon = _id_string.find(":");
+	if (colon != -1){
+		group = _id_string.substr(0, colon);
+		name = _id_string.substr(colon + 1);
 	}
+
+	return Identifier::from_values(group, name);
+}
 
 Identifier* Identifier::from_values(String _group, String _name) {
 	if (_group == ""){

@@ -7,6 +7,9 @@ extends Control
 var asset_types: Array[String] = [
 	"textures",
 	"fonts",
+	"materials",
+	"models",
+	"patchdata",
 ]
 
 # Called when the node enters the scene tree for the first time.
