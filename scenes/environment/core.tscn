@@ -1,0 +1,33 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="PackedScene" path="model://openchamp:environment/core" id="1_tni3d"]
+[ext_resource type="Material" path="material://openchamp:environment/core/crystal_core.base" id="2_se1vl"]
+[ext_resource type="Material" path="material://openchamp:environment/core/banners.portal.base" id="3_engqa"]
+[ext_resource type="Material" path="material://openchamp:environment/core/crystals.base" id="4_fe46n"]
+[ext_resource type="Material" path="material://openchamp:environment/core/portal" id="4_g63b3"]
+[ext_resource type="Material" path="material://openchamp:environment/core/core_tower" id="6_4grjc"]
+[ext_resource type="Material" path="material://openchamp:environment/core/golden_ring" id="7_gayc7"]
+[ext_resource type="Material" path="material://openchamp:environment/core/golden_rings_core" id="8_lqrwd"]
+
+[node name="core" instance=ExtResource("1_tni3d")]
+
+[node name="Core" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_se1vl")
+
+[node name="Portal_Banners" parent="." index="1"]
+surface_material_override/0 = ExtResource("3_engqa")
+
+[node name="Portal" parent="." index="2"]
+surface_material_override/0 = ExtResource("4_g63b3")
+
+[node name="MinorCrystals" parent="." index="3"]
+surface_material_override/0 = ExtResource("4_fe46n")
+
+[node name="CoreTower02" parent="." index="4"]
+surface_material_override/0 = ExtResource("6_4grjc")
+
+[node name="GoldenRings_Small" parent="." index="5"]
+surface_material_override/0 = ExtResource("7_gayc7")
+
+[node name="GondelRings_Core" parent="." index="6"]
+surface_material_override/0 = ExtResource("8_lqrwd")

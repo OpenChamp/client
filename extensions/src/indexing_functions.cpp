@@ -197,6 +197,10 @@ static inline void _index_resources(
 				continue;
 			}
 
+			if (texture_name.ends_with(".bin")){
+				continue;
+			}
+
 			// load texture
 			String texture_path = pack_path + "/" + asset_group + "/" + resource_subdir + "/" + texture_name;
 			String texture_basename = texture_name.get_basename();
