@@ -32,9 +32,9 @@ func _ready():
 	center_camera.call_deferred(multiplayer.get_unique_id())
 	
 	if server_listener == null:
-		server_listener = get_parent();
+		server_listener = get_parent()
 		while !server_listener.is_in_group("Map"):
-			server_listener = server_listener.get_parent();
+			server_listener = server_listener.get_parent()
 
 func _input(event):
 	if multiplayer.is_server(): return;

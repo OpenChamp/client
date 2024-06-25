@@ -1,38 +1,157 @@
 extends Node
 class_name MapNode
 
-@export var connected_players: Array
+enum EndCondition{
+	TEAM_ELIMINATION,
+	STRUCTURE_DESTRUCTION,
+}
 
+@export var connected_players: Array
 @export var champion_container: Node
 
-var Champions = {}
-var Spawns = []
+@export var player_spawns: Array = []
+@export var unit_spawns: Array = []
 
+@export var Spawns = {}
+
+var Champions = {}
 var player_cooldowns = {}
+var end_conditions = []
 
 func _ready():
+	champion_container = get_node("Champions")
+
 	if not multiplayer.is_server():
 		client_setup()
 		return
-	# Get both team spawns
-	Spawns.append(get_node("Spawn1").global_position)
-	Spawns.append(get_node("Spawn2").global_position)
+
 	# Spawn all the Champions
 	var champ_scene = load("res://champions/dummy.tscn")
+
 	for player in connected_players:
 		var champ = champ_scene.instantiate()
+
 		champ.name = str(player["peer_id"])
 		champ.id = player["peer_id"]
 		champ.nametag = player["name"]
 		champ.team = player["team"]
-		champ.position = Spawns[champ.team-1]
+		champ.position = Spawns[champ.team]
 		champ.server_position = champ.position;
 		champion_container.add_child(champ, true)
 		champ.look_at(Vector3(0,0,0))
+
 		Champions[player['peer_id']] = champ
 		
+
 func _process_delta(_delta):
 	pass
+
+
+func load_config(map_config: Dictionary):
+	if not map_config.has("end_conditions"):
+		print("Map config is missing end conditions")
+		return
+
+	var raw_end_conditions = map_config["end_conditions"]
+	for condition in raw_end_conditions:
+		if not condition.has("type"):
+			print("End condition is missing type")
+			continue
+
+		var type = condition["type"]
+		match type:
+			"team_elimination":
+				if not condition.has("team"):
+					print("Team elimination condition is missing team")
+					continue
+				end_conditions.append({
+					"type": EndCondition.TEAM_ELIMINATION,
+					"team": condition["team"]
+				})
+			"structure_destruction":
+				if not condition.has("structure"):
+					print("Structure destruction condition is missing structure")
+					continue
+				end_conditions.append({
+					"type": EndCondition.STRUCTURE_DESTRUCTION,
+					"structure_name": condition["structure_name"],
+					"loosing_team": condition["loosing_team"]
+				})
+			_:
+				print("Unknown end condition type: " + type)
+
+	if not map_config.has("features"):
+		print("Map config is missing features")
+		return
+
+	var features = map_config["features"]
+	for feature in features:
+		_load_feature(feature)
+
+
+func _load_feature(data: Dictionary):
+	if not data.has("type"):
+		print("Feature is missing type")
+		return
+	
+	match data["type"]:
+		"player_spawn":
+			var spawn = _decode_spawn_common(data)
+			if spawn == null:
+				return
+
+			player_spawns.append(spawn)
+			Spawns[spawn["team"]] = spawn["position"]
+
+		"unit_spawn":
+			var spawn = _decode_spawn_common(data)
+			if spawn == null:
+				return
+
+			unit_spawns.append(spawn)
+		_:
+			print("Unknown feature type: " + data["type"])
+
+
+func _decode_spawn_common(data: Dictionary):
+	if not data.has("team"):
+		print("Spawn is missing team")
+		return null
+	
+	if not data.has("position"):
+		print("Spawn is missing position")
+		return null
+	
+	if not data.has("name"):
+		print("Spawn is missing name")
+		return null
+
+	if not data.has("spawn_behaviour"):
+		print("Spawn is missing spawn_behaviour")
+		return null
+
+	var x = 0
+	var y = 0
+	var z = 0
+
+	if data["position"].has("x"):
+		x = data["position"]["x"]
+
+	if data["position"].has("y"):
+		y = data["position"]["y"]
+
+	if data["position"].has("z"):
+		z = data["position"]["z"]
+	
+	var position = Vector3(x, y, z)
+
+	return {
+		"team": int(data["team"]),
+		"name": str(data["name"]),
+		"position": position,
+		"spawn_behaviour": data["spawn_behaviour"]
+	}
+
 
 func client_setup():
 	# Add the player into the world
@@ -43,10 +162,12 @@ func client_setup():
 	add_child(player_ui.instantiate())
 	pass
 
+
 @rpc("any_peer")
 func client_ready():
 	print(connected_players);
 	print(multiplayer.get_remote_sender_id())
+
 
 @rpc("any_peer")
 func register_player():
@@ -56,7 +177,9 @@ func register_player():
 @rpc("any_peer", "call_local")
 func move_to(pos: Vector3):
 	var champion = get_champion(multiplayer.get_remote_sender_id())
-	champion.change_state.rpc("Moving", pos);
+	champion.change_state.rpc("Moving", pos)
+
+
 @rpc("any_peer", "call_local")
 func target(target_name):
 	var champion = get_champion(multiplayer.get_remote_sender_id())
@@ -65,6 +188,7 @@ func target(target_name):
 		print_debug("That's you ya idjit") # :O
 		return
 	champion.change_state("Attacking", target)
+
 
 @rpc("any_peer", "call_local")
 func spawn_ability(ability_name, ability_type, ability_pos, ability_mana_cost, cooldown, ab_id):
@@ -94,6 +218,7 @@ func spawn_local_effect(ability_name, ability_type, ability_pos, player_pos, pla
 	ability_scene.team = player_team
 	$"../Abilities".add_child(ability_scene);
 	
+
 @rpc("any_peer", "call_local")
 func respawn(champion:CharacterBody3D):
 	var rand = RandomNumberGenerator.new()
@@ -105,9 +230,11 @@ func respawn(champion:CharacterBody3D):
 	champion.show()
 	champion.rpc_id(champion.pid, "respawn")
 
+
 func free_ability(cooldown: float, peer_id: int, ab_id: int) -> void:
 	await get_tree().create_timer(cooldown).timeout
 	player_cooldowns[peer_id][ab_id] = 0
+
 
 func get_champion(id:int):
 	var champion = Champions.get(id)

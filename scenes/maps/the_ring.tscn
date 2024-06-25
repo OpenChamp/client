@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=13 format=3 uid="uid://byy632ry4s43t"]
 
 [ext_resource type="Script" path="res://classes/map.gd" id="1_jqejy"]
 [ext_resource type="Shader" path="res://assets/shaders/grass.gdshader" id="2_dvf31"]
@@ -6,12 +6,12 @@
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_glou8"]
 
-[sub_resource type="Sky" id="Sky_w164l"]
+[sub_resource type="Sky" id="Sky_v1kgr"]
 sky_material = SubResource("PhysicalSkyMaterial_glou8")
 
 [sub_resource type="Environment" id="Environment_qjopm"]
 background_mode = 2
-sky = SubResource("Sky_w164l")
+sky = SubResource("Sky_v1kgr")
 fog_sky_affect = 0.025
 adjustment_brightness = 0.01
 
@@ -49,7 +49,6 @@ mesh = SubResource("PlaneMesh_gws2r")
 
 [node name="TheRing" type="Node" node_paths=PackedStringArray("champion_container") groups=["Map"]]
 script = ExtResource("1_jqejy")
-champion_container = NodePath("Champions")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.777267, 0.629171, 0, -0.629171, -0.777267, 0, 15.2809, 3.21383)

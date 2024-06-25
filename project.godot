@@ -31,7 +31,8 @@ window/stretch/aspect="expand"
 
 [editor]
 
-run/main_run_args="-S 127.0.0.1 -P10000"
+run/main_run_args="-S 127.0.0.1 -P10000 -i"
+export/convert_text_resources_to_binary=false
 
 [editor_plugins]
 
