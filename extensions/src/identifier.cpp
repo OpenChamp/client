@@ -94,6 +94,10 @@ String Identifier::get_content_type_from_resouce(String _name){
 		return "patchdata";
 	}
 
+	if (prefix == "map"){
+		return "maps";
+	}
+
 	return "";
 }
 
@@ -116,6 +120,10 @@ String Identifier::get_resource_prefix_from_type(String _name){
 
 	if (_name == "patchdata"){
 		return "gamemode://";
+	}
+
+	if (_name == "maps"){
+		return "map://";
 	}
 
 	return "dyn://";

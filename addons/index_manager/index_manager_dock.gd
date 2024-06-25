@@ -10,6 +10,7 @@ var asset_types: Array[String] = [
 	"materials",
 	"models",
 	"patchdata",
+	"maps",
 ]
 
 # Called when the node enters the scene tree for the first time.

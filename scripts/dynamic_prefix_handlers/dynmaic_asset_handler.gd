@@ -30,6 +30,9 @@ func _recognize_path(path: String, _type: StringName) -> bool:
 
 	if path.begins_with("model://"):
 		return true
+
+	if path.begins_with("gamemode://"):
+		return true
 	
 	return path.begins_with("dyn://")
 
@@ -58,6 +61,9 @@ func _load(
 			return load_texture_from_path(fixed_path)
 		"fonts":
 			return load_font_from_path(fixed_path)
+		_:
+			if fixed_path.ends_with(".json"):
+				return load_json_from_path(fixed_path)
 
 	return FAILED
 
@@ -66,11 +72,7 @@ func _rename_dependencies(path:String, renames: Dictionary):
 	return OK
 
 
-func try_resource_load(resource_path):
-	if not FileAccess.file_exists(resource_path):
-		print("Dynamic Asset '" + resource_path + "' does not exist in Filesystem.")
-		return null
-	
+func try_resource_load(resource_path):	
 	if ResourceLoader.exists(resource_path):
 		print("loading '"+ resource_path + "' from the ResourceLoader.")
 		var load_result = ResourceLoader.load(resource_path)
@@ -106,3 +108,20 @@ func load_font_from_path(fixed_path: String):
 		print("error loading dynamic font: '" + fixed_path + "'")
 	
 	return loaded_font
+
+
+func load_json_from_path(fixed_path: String):
+	var file := FileAccess.open(fixed_path, FileAccess.READ)
+	if file == null:
+		print("error dynamic json not in file loader: '" + fixed_path + "'")
+		return FAILED
+
+	var json_data := JSON.new()
+	var error = json_data.parse(file.get_as_text())
+	file.close()
+
+	if error != OK:
+		print("error parsing dynamic json: '" + fixed_path + "'")
+		return FAILED
+
+	return json_data

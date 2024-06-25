@@ -135,12 +135,12 @@ static inline void _cache_patch_data(String pack_path, String asset_group, HashM
 			continue;
 		}
 
-		String manifest_path = pack_path + "/" + asset_group + "/patchdata/manifest.json";
+		String manifest_path = pack_path + "/" + asset_group + "/patchdata/" + gamemode_name + "/manifest.json";
 		Identifier* manifest_id = Identifier::for_resource("gamemode://" + asset_group + ":" + gamemode_name);
 		asset_map[manifest_id->to_string()] = manifest_path;
 
 		UtilityFunctions::print("Caching patch data for gamemode: " + gamemode_name);
-		Vector<String> patch_types = {"characters", "items", "misc"};
+		Vector<String> patch_types = {"characters", "items", "misc", "map"};
 
 		for (String patch_type:patch_types){
 
