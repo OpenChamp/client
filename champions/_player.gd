@@ -33,7 +33,7 @@ func _process(delta):
 	position = position.lerp(camera_target_position, 5 * delta)
 
 func _input(event):
-	$StateMachine.current_state.handle_input(event);
+	$StateMachine.current_state.handle_input(event)
 
 func champion_spawned(entity):
 	if entity.id == multiplayer.get_unique_id():

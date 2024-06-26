@@ -152,6 +152,7 @@ func setup_server(peer: ENetMultiplayerPeer):
 	#$MapSpawner.add_spawnable_scene(AssetIndexer.get_asset_path(server_map_id))
 
 	max_players = server_map_config["max_players"]
+	team_count = server_map_config["teams"]
 
 	# Hook up signals
 	peer.connect("peer_connected", server_add_player)

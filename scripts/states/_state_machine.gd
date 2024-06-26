@@ -5,6 +5,7 @@ var current_state: State
 var states: Dictionary = {}
 @onready var entity = get_parent();
 
+
 func _ready():
 	for state in get_children():
 		if state is State:
@@ -14,11 +15,13 @@ func _ready():
 	if !initial_state == null:
 		initial_state.enter(entity);
 		current_state = initial_state
-	
+
+
 func _process(delta):
 	if not current_state: return
 	current_state.update(entity, delta);
-	
+
+
 func _physics_process(delta):
 	if not current_state: return
 	if multiplayer.is_server():

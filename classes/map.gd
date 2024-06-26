@@ -19,7 +19,7 @@ var player_cooldowns = {}
 var end_conditions = []
 
 func _ready():
-	champion_container = get_node("Champions")
+	_setup_nodes()
 
 	if not multiplayer.is_server():
 		client_setup()
@@ -35,7 +35,7 @@ func _ready():
 		champ.id = player["peer_id"]
 		champ.nametag = player["name"]
 		champ.team = player["team"]
-		champ.position = Spawns[champ.team]
+		champ.position = Spawns[str(champ.team)]
 		champ.server_position = champ.position;
 		champion_container.add_child(champ, true)
 		champ.look_at(Vector3(0,0,0))
@@ -45,6 +45,29 @@ func _ready():
 
 func _process_delta(_delta):
 	pass
+
+
+func _setup_nodes():
+	champion_container = Node.new()
+	champion_container.name = "Champions"
+	add_child(champion_container)
+	champion_container = get_node("Champions")
+	
+	var champion_spawner = MultiplayerSpawner.new()
+	champion_spawner.name = "ChampionSpawner"
+	champion_spawner.spawn_path = champion_container.get_path()
+	champion_spawner.spawn_limit = 50
+	champion_spawner.add_spawnable_scene("res://champions/dummy.tscn")
+	add_child(champion_spawner)
+	
+	var minions_node = Node.new()
+	minions_node.name = "Minions"
+	add_child(minions_node)
+	
+	var abilities_node = Node.new()
+	abilities_node.name = "Abilities"
+	add_child(abilities_node)
+	
 
 
 func load_config(map_config: Dictionary):
@@ -101,7 +124,7 @@ func _load_feature(data: Dictionary):
 				return
 
 			player_spawns.append(spawn)
-			Spawns[spawn["team"]] = spawn["position"]
+			Spawns[str(spawn["team"])] = spawn["position"]
 
 		"unit_spawn":
 			var spawn = _decode_spawn_common(data)
@@ -156,11 +179,10 @@ func _decode_spawn_common(data: Dictionary):
 func client_setup():
 	# Add the player into the world
 	# The player rig will ask the server for their champion
-	var player_rig = load("res://champions/_player.tscn").instantiate();
-	add_child(player_rig);
+	var player_rig = load("res://champions/_player.tscn").instantiate()
+	add_child(player_rig)
 	var player_ui = load("res://ui/game_ui.tscn")
 	add_child(player_ui.instantiate())
-	pass
 
 
 @rpc("any_peer")

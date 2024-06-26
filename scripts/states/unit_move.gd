@@ -4,8 +4,10 @@ class_name unit_move
 func enter(entity: Unit, args=null):
 	pass
 
+
 func exit(entity: Unit):
-	pass;
+	pass
+
 
 func update(entity: Unit, delta):
 	super(entity, delta);
@@ -14,7 +16,7 @@ func update(entity: Unit, delta):
 		var lrp = delta * 8
 		var lerp = entity.global_position.lerp(entity.server_position, lrp)
 		entity.global_position = lerp
-	pass;
+
 
 func update_tick_server(entity: Unit, delta):
 	# Server Only
