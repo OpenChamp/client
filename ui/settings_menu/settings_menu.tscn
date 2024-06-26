@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://bu1bxbv3d7rpj"]
 
 [ext_resource type="Script" path="res://ui/settings_menu/settings_menu.gd" id="1_g0wed"]
 [ext_resource type="Script" path="res://addons/sliderlabel/sliderlabel.gd" id="2_krd3l"]
@@ -110,7 +110,6 @@ text = "SETTING:CAMERA_MAX_ZOOM_LABEL"
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
-max_value = 100.0
 step = 0.25
 value = 50.0
 exp_edit = true

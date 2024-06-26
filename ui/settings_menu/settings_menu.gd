@@ -15,11 +15,20 @@ extends Control
 
 
 func _ready():
+	hide()
 	visibility_changed.connect(on_show)
 	
 	ExitBtn.pressed.connect(_on_game_close_pressed)
 	ConfirmBtn.pressed.connect(_on_confirm_changes)
 
+
+func _input(event):
+	if event.is_action_pressed("player_pause"):
+		if visible:
+			hide()
+		else:
+			show()
+ 
 
 func on_show():
 	Config.in_focued_menu = visible

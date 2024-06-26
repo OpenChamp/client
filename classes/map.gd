@@ -18,6 +18,10 @@ var Champions = {}
 var player_cooldowns = {}
 var end_conditions = []
 
+
+const player_desktop_hud = preload("res://ui/game_ui.tscn")
+const player_desktop_settings = preload("res://ui/settings_menu/settings_menu.tscn")
+
 func _ready():
 	_setup_nodes()
 
@@ -181,8 +185,11 @@ func client_setup():
 	# The player rig will ask the server for their champion
 	var player_rig = load("res://champions/_player.tscn").instantiate()
 	add_child(player_rig)
-	var player_ui = load("res://ui/game_ui.tscn")
-	add_child(player_ui.instantiate())
+	
+	# instantiate and add all the UI components
+	add_child(player_desktop_hud.instantiate())
+	add_child(player_desktop_settings.instantiate())
+	
 
 
 @rpc("any_peer")
