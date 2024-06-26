@@ -38,6 +38,7 @@ func _ready():
 
 func _input(event):
 	if multiplayer.is_server(): return;
+	
 	if event is InputEventMouseButton:
 		
 		# if event.button_index == MOUSE_BUTTON_LEFT and not is_right_mouse_dragging:
@@ -182,6 +183,12 @@ func camera_movement_handler() -> void:
 		var cam_delta = Vector3(0, 0, 0)
 		var edge_margin = Config.camera_settings.edge_margin
 		
+		# Check if there is a collision at the mouse position
+		if not get_viewport().get_visible_rect().has_point(
+			get_viewport().get_final_transform() * current_mouse_position
+		):
+			return
+			
 		# Edge Panning
 		if current_mouse_position.x <= edge_margin:
 			cam_delta.x -= 1
