@@ -177,6 +177,10 @@ func camera_movement_handler() -> void:
 	if (Config.camera_settings.is_cam_centered):
 		camera_target_position = get_target_position(multiplayer.get_unique_id())
 	else:
+		#ignore the input if this window is not even focused
+		if not get_window().has_focus():
+			return
+		
 		# Get Mouse Coords on screen
 		var current_mouse_position = get_viewport().get_mouse_position()
 		var size = get_viewport().get_visible_rect().size
@@ -240,4 +244,8 @@ func get_champion(pid: int) -> Node:
 		return champion
 
 func _on_camera_setting_changed():
-	spring_arm.spring_length = clamp(spring_arm.spring_length, Config.min_zoom, Config.max_zoom)
+	spring_arm.spring_length = clamp(
+		spring_arm.spring_length,
+		Config.camera_settings.min_zoom,
+		Config.camera_settings.max_zoom
+	)

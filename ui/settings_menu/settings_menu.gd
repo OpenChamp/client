@@ -17,6 +17,7 @@ extends Control
 func _ready():
 	hide()
 	visibility_changed.connect(on_show)
+	hidden.connect(on_hide)
 	
 	ExitBtn.pressed.connect(_on_game_close_pressed)
 	ConfirmBtn.pressed.connect(_on_confirm_changes)
@@ -30,10 +31,15 @@ func _input(event):
 			show()
  
 
+func on_hide():
+	Config.in_focued_menu = false
+
+
 func on_show():
-	Config.in_focued_menu = visible
 	if not visible:
 		return
+	
+	Config.in_focued_menu = true
 	
 	fullscreen_toggle.button_pressed = Config.graphics_settings.is_fullscreen
 	
