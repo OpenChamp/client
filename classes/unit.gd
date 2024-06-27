@@ -5,22 +5,24 @@ class_name Unit
 # General Stats:
 @export var id: int
 @export var team: int
-@export var move_speed: float = 100.0
 # Defensive Stats:
-@export var max_health: float = 100.0
-@onready var current_health: float = max_health
-@export var health_regen: float = 5
-var overheal: float = 0;
-@export var armor: float = 20.0
+
 #@export var magic_resist:float = 20.0
+
 # Offensive Stats:
-@export var attack_damage: float = 60.0
-@export var attack_speed: float = 0.75
 #@export var attack_windup: float = 0.2
-@export var attack_range: float = 3.0
 #@export var attack_time: float = 0.1
 #@export var critical_chance: float = 0.0
 #@export var critical_damage: float = 100
+
+
+var maximum_stats: StatCollection
+var current_stats: StatCollection
+
+var has_mana: bool = false
+
+var current_shielding: int = 0
+
 # Rotation:
 @export var turn_speed: float = 15.0
 
@@ -40,6 +42,26 @@ signal died
 @onready var healthbar = $Healthbar
 
 
+func _init():
+	maximum_stats = StatCollection.from_dict({
+		"health_max": 640,
+		"health_regen": 3.5,
+
+		"mana_max": 280,
+		"mana_regen": 7,
+		
+		"armor": 26,
+		"magic_resist": 30,
+
+		"attack_range": 3.0,
+		"attack_damage": 60,
+		"attack_speed": 0.75,
+
+		"movement_speed": 100,
+	} as Dictionary)
+	
+	current_stats = maximum_stats.get_copy()
+
 func _ready():
 	pass
 
@@ -54,32 +76,38 @@ func update_target_location(target_location: Vector3):
 ## Combat
 func take_damage(damage: float):
 	if not can_take_damage(): return
-	var taken: float = armor / 100
+
+	var taken = float(current_stats.armor) / 100.0
 	taken = damage / (taken + 1)
-	if overheal > 0:
-		overheal -= taken
-		if overheal <= 0:
-			current_health += overheal
-			overheal = 0
+
+	var actual_damage = int(taken)
+	if current_shielding > 0:
+		current_shielding -= actual_damage
+		if current_shielding <= 0:
+			current_stats.health_max += current_shielding
+			current_shielding = 0
 	else:
-		current_health -= taken
-	if current_health <= 0:
-		current_health = 0
+		current_stats.health_max -= actual_damage
+	
+	if current_stats.health_max <= 0:
+		current_stats.health_max = 0
 		die()
 
+
 func heal(amount:float, keep_extra:bool = false):
-	current_health += amount
-	if current_health <= max_health: return
+	current_stats.health_max += int(amount)
+	if current_stats.health_max <= maximum_stats.health_max: return
 	if keep_extra:
-		overheal = current_health - max_health
-	current_health = max_health
+		current_shielding = current_stats.health_max - maximum_stats.health_max
+	current_stats.health_max = maximum_stats.health_max
+
 
 func die():
 	get_tree().quit()
 
 # UI
 func _update_healthbar(node: ProgressBar):
-	node.value = current_health
+	node.value = current_stats.health_max
 
 
 func move_on_path(delta: float):
@@ -90,7 +118,7 @@ func move_on_path(delta: float):
 	var target_location = nav_agent.get_next_path_position()
 	var direction = target_location - global_position
 	
-	velocity = direction.normalized() * move_speed * delta
+	velocity = direction.normalized() * current_stats.movement_speed * delta
 	rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), turn_speed * delta)
 	move_and_slide()
 

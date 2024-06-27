@@ -23,7 +23,11 @@ func get_element(_item: String):
     return null
 
 
-func load_from_json(_json: Dictionary):
+func load_from_json(_json: Dictionary) -> bool:
+    return false
+
+
+func assure_validity():
     pass
 
 

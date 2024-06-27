@@ -51,22 +51,22 @@ func get_element(_item: String):
 	return _internal_values[_item]
 
 
-func load_from_json(_json: Dictionary):
+func load_from_json(_json: Dictionary) -> bool:
 	if not can_load_from_json(_json):
-		return
+		return false
 
 	if int(_json["format_version"]) != 1:
 		print("Error: Attempted to load a CC Types registry with an invalid format version.")
-		return
+		return false
 
 	if not _json.has("data"):
 		print("Error: Attempted to load a CC Types registry with no data.")
-		return
+		return false
 
 	var data_array = _json["data"] as Array
 	if data_array == null:
 		print("Error: CC Types data is not an array.")
-		return
+		return false
 
 	for cc_type_data in data_array:
 		var data = cc_type_data as Dictionary
@@ -117,3 +117,5 @@ func load_from_json(_json: Dictionary):
 
 		var cc_type = CCType.new(cc_id, cc_icon, cc_impairments)
 		_internal_values[cc_string_id] = cc_type
+
+	return true

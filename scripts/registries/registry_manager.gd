@@ -1,9 +1,11 @@
 extends Node
 
-var CC_Type_Registry: CCTypesRegistry = CCTypesRegistry.new()
+var _CC_Type_Registry: CCTypesRegistry = CCTypesRegistry.new()
+var _Item_Registry: ItemRegistry = ItemRegistry.new()
 
-var RegistryList: Array[RegistryBase] = [
-	CC_Type_Registry,
+var _RegistryList: Array[RegistryBase] = [
+	_CC_Type_Registry,
+	_Item_Registry,
 ]
 
 
@@ -12,7 +14,11 @@ func _ready():
 
 
 func cc_types() -> CCTypesRegistry:
-	return CC_Type_Registry
+	return _CC_Type_Registry
+
+
+func items() -> ItemRegistry:
+	return _Item_Registry
 
 
 ## Get a list of files that are not cached yet.
@@ -67,18 +73,22 @@ func load_manifest(manifest: Dictionary, gamemode: String = "") -> Dictionary:
 
 		var loaded = false
 
-		for registry in RegistryList:
+		for registry in _RegistryList:
 			if not registry.can_load_from_json(data):
 				continue
-
-			registry.load_from_json(data)
-			loaded = true
-			break
+			
+			loaded = registry.load_from_json(data)
+			if loaded:
+				break
 		
 		if not loaded:
 			if map_config == {} and data["type"] == "map":
 				map_config = data["data"]
 			else:
-				print("No loader for '" + key + "' : '" + manifest["files"][key] +"' found.")
+				print("No loader for '" + key + "' : '" + manifest["files"][key] +"' found or failed to load.")
+
+
+	for registry in _RegistryList:
+		registry.assure_validity()
 
 	return map_config
