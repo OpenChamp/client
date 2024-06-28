@@ -14,7 +14,7 @@ var initial_mouse_position := Vector2.ZERO
 var is_middle_mouse_dragging := false
 var is_right_mouse_dragging := false
 var is_left_mouse_dragging := false
-var champion : CharacterBody3D
+var character : CharacterBody3D
 
 @onready var marker = MoveMarker.instantiate();
 #@export var player := 1:
@@ -233,15 +233,15 @@ func camera_movement_handler() -> void:
 		Config.camera_settings.is_cam_centered = (!Config.camera_settings.is_cam_centered)
 
 func get_champion(pid: int) -> Node:
-	if champion == null:
-		var champs = $"../Champions".get_children()
+	if character == null:
+		var champs = $"../Characters".get_children()
 		for child in champs:
 			if child.name == str(pid):
-				champion = child
+				character = child
 				return child
 		return null
 	else:
-		return champion
+		return character
 
 func _on_camera_setting_changed():
 	spring_arm.spring_length = clamp(

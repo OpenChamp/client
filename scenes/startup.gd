@@ -291,7 +291,7 @@ func fetch_default_user():
 		'id': '0', # Local user, no user in DB
 		'peer_id': peer_id,
 		'name': "Player",
-		'champ': "archer",
+		'character': "openchamp:orion",
 		'team': team
 	}
 	
@@ -313,9 +313,7 @@ func change_map(players):
 		child.queue_free()
 
 	server_map_config["players"] = players
-	var new_map = $MapSpawner.spawn(server_map_config)
-	
-	map.add_child(new_map)
+	$MapSpawner.spawn(server_map_config)
 
 	rpc("map_loaded")
 
@@ -329,7 +327,7 @@ func map_spawn_function(data: Variant) -> Node:
 
 	# Add the map script and load the config
 	new_map.set_script(map_base_script)
-	new_map.load_config(server_map_config)
+	new_map.map_configuration = server_map_config
 	new_map.add_to_group("Map")
 	new_map.connected_players = data["players"]
 	
