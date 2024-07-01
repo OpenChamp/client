@@ -37,7 +37,7 @@ func _ready():
 			server_listener = server_listener.get_parent()
 
 func _input(event):
-	if multiplayer.is_server(): return;
+	if Config.is_dedicated_server: return;
 	
 	if event is InputEventMouseButton:
 		
@@ -143,7 +143,7 @@ func center_camera(playerid):
 	camera_target_position = get_target_position(playerid)
 
 func _process(delta):
-	if multiplayer.is_server(): return ;
+	if Config.is_dedicated_server : return ;
 	# handle all the camera-related input
 	camera_movement_handler()
 	
