@@ -1,11 +1,13 @@
 extends Node
 
-var _CC_Type_Registry: CCTypesRegistry = CCTypesRegistry.new()
-var _Item_Registry: ItemRegistry = ItemRegistry.new()
+var _CC_Type_Registry := CCTypesRegistry.new()
+var _Item_Registry := ItemRegistry.new()
+var _Character_Registry := CharacterRegistry.new()
 
 var _RegistryList: Array[RegistryBase] = [
 	_CC_Type_Registry,
 	_Item_Registry,
+	_Character_Registry
 ]
 
 
@@ -19,6 +21,10 @@ func cc_types() -> CCTypesRegistry:
 
 func items() -> ItemRegistry:
 	return _Item_Registry
+
+
+func characters() -> CharacterRegistry:
+	return _Character_Registry
 
 
 ## Get a list of files that are not cached yet.
