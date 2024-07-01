@@ -26,3 +26,6 @@ bin/*.framework
 
 extensions/build*
 extensions/cross_compile_stuff/*
+
+# Mac
+.DS_Store
