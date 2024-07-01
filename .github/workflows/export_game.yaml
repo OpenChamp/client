@@ -48,7 +48,7 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: Generate default_asset manifest files
-        run: python scripts/generate_default_asset_manifest.py
+        run: python default_assets/manifests.py
 
       - uses: actions/cache@v4
         id: cache
