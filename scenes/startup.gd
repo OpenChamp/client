@@ -65,6 +65,7 @@ func start(method: Start):
 			add_player(multiplayer.multiplayer_peer.get_unique_id())
 			success_client()
 		Start.SERVER:
+			Config.is_dedicated_server = true
 			# Set peer as server
 			if not setup_server(peer):
 				fail_server()
@@ -97,20 +98,7 @@ func setup_server(peer: ENetMultiplayerPeer):
 	_set_status("STARTUP:STATUS_CREATE_SERVER")
 	
 	# Get the manifest data for the game mode
-	var manifest_json = load("gamemode://" + game_mode)
-		
-
-	mode_manifest_data = manifest_json.data
-
-	# Load the manifest data and get the map config
-	server_map_config = RegistryManager.load_manifest(
-		mode_manifest_data,
-		game_mode
-	)
-
-	# load some of the config values
-	#server_map_id = Identifier.for_resource("map://" + server_map_config["id"])
-	#$MapSpawner.add_spawnable_scene(AssetIndexer.get_asset_path(server_map_id))
+	load_gamemode(game_mode)
 
 	if max_players == -1:
 		max_players = server_map_config["max_players"]
@@ -136,18 +124,7 @@ func success_client():
 	# Set Gamemode
 	await rpc_id.call(get_multiplayer_authority(),"get_gamemode")
 	# Todo: get the correct game mode from the server
-	var manifest_json = load("gamemode://" + game_mode)
-	mode_manifest_data = manifest_json.data
-
-	server_map_config = RegistryManager.load_manifest(
-		mode_manifest_data,
-		game_mode
-	)
-
-	server_map_id = Identifier.for_resource("map://" + server_map_config["id"])
-
-	# Add map to mapspawner
-	$MapSpawner.add_spawnable_scene(AssetIndexer.get_asset_path(server_map_id))
+	load_gamemode(game_mode)
 
 
 func success_server():
@@ -175,6 +152,22 @@ func fail_client():
 func fail_server():
 	OS.alert("Server failed to start")
 	get_tree().quit()
+
+func load_gamemode(gamemode):
+	if server_map_config.keys().size() != 0:
+		return;
+	var manifest_json = load("gamemode://" + gamemode)
+	mode_manifest_data = manifest_json.data
+
+	server_map_config = RegistryManager.load_manifest(
+		mode_manifest_data,
+		gamemode
+	)
+
+	# Add map to mapspawner
+	if not Config.is_dedicated_server:
+		server_map_id = Identifier.for_resource("map://" + server_map_config["id"])
+		$MapSpawner.add_spawnable_scene(AssetIndexer.get_asset_path(server_map_id))
 
 func get_connected():
 	var timer = Timer.new()
