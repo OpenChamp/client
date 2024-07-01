@@ -32,9 +32,13 @@ func _ready():
 	# continueing here. For now we just do a 1 seconds delay.
 	await get_tree().create_timer(1).timeout
 	
+	
 	if not multiplayer.is_server():
 		client_setup()
 		return
+	# Check if Server is included as a player
+	if multiplayer.get_peers().size() + 1 == connected_players.size():
+		client_setup()
 	
 	for player in connected_players:
 		var spawn_args = {}
