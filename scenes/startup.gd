@@ -154,7 +154,8 @@ func success_server():
 	print("Server Started, beginning initialization")
 	
 	# Set FPS to 30
-	Engine.set_max_fps(30)
+	if not start_type == Start.INTEGRATED:
+		Engine.set_max_fps(30)
 	# Set Timer to wait until all players are connected
 	var WaitTimer = Timer.new()
 	WaitTimer.name = "WaitTimer"
@@ -281,7 +282,7 @@ func set_jwt(token: String):
 
 @rpc("any_peer", "call_local")
 func get_gamemode():
-	await rpc_id(multiplayer.get_remote_sender_id(), "set_gamemode", game_mode)
+	rpc_id(multiplayer.get_remote_sender_id(), "set_gamemode", game_mode)
 
 @rpc("authority", "call_local")
 func set_gamemode(gamemode):
@@ -361,7 +362,6 @@ func map_spawn_function(data: Variant) -> Node:
 
 
 func parse_args() -> Start:
-	var start_type = Start.CLIENT
 	if DisplayServer.get_name() == "headless":
 		start_type = Start.SERVER
 	
