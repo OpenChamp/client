@@ -20,7 +20,7 @@ func assure_validity():
 	var item_names = _internal_values.keys()
 	for item_name in item_names:
 		var item = _internal_values[item_name]
-		if not item.is_valid():
+		if not item.is_valid(self):
 			print("Item (%s): Invalid item." % item_name)
 			_internal_values.erase(item_name)
 

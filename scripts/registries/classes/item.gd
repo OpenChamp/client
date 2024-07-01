@@ -28,12 +28,20 @@ func get_combine_cost() -> int:
 func calculate_gold_cost() -> int:
 	var cost = gold_cost
 	for component in components:
-		cost += RegistryManager.items().get(component).calculate_gold_cost()
+		var item = RegistryManager.items().get(component)
+		if item == null:
+			print("Item (%s): Component item not found." % component)
+			continue
+		
+		cost += item.calculate_gold_cost()
 
 	return cost
 
 
-func is_valid() -> bool:
+func is_valid(item_registry: RegistryBase = null) -> bool:
+	if item_registry == null:
+		item_registry = RegistryManager.items()
+
 	if not id.is_valid():
 		return false
 
@@ -48,7 +56,7 @@ func is_valid() -> bool:
 			if not Identifier.from_string(component).is_valid():
 				return false
 
-			if not RegistryManager.items().contains(component):
+			if not item_registry.contains(component):
 				return false
 			
 	return true
