@@ -54,10 +54,21 @@ If you want to see all the available options just use the `--help` command line 
 
 ## Running the game
 
-To properly run the game you will need the default assets in your user directory.
-In the future the launcher will handle this, but for now this has to be done manually.
+All of the default assets are in the default_assets submodule.
+If you set up all the submodules most of the data should already be present.
+The only thing that needs to be done after each update is generating the manifest files.
+This can be done with the following command:
 
-The content has to be placed in `user://external/`
+```bash
+python ./default_assets/manifests.py
+```
+
+## Additional/overwirtten asset packs
+
+It is possible to have additional asset packs or override data of existing ones.
+To do this you need asset packs in the user dir.
+
+The packs have to be placed in `user://external/`
 That is the directory where the [assets repository](https://github.com/OpenChamp/default_assets) has to be cloned to.
 You could also create a new directory there and extract the contents of the [latest release](https://github.com/OpenChamp/default_assets/releases/latest) there.
 This will result in `user://external/default_assets/OpenChamp/...`

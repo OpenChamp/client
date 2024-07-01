@@ -40,6 +40,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: get submodules
+        run: git submodule update --init --recursive
+
+      - name: Generate default_asset manifest files
+        run: python scripts/generate_default_asset_manifest.py
+
       - uses: actions/cache@v4
         id: cache
         with:
