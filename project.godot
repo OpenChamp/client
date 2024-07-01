@@ -31,7 +31,7 @@ window/stretch/aspect="expand"
 
 [editor]
 
-run/main_run_args="-S 127.0.0.1 -P10000 -i -M openchamp:debug_the_ring"
+run/main_run_args="-I -gm openchamp:onslaught"
 export/convert_text_resources_to_binary=false
 
 [editor_plugins]

@@ -6,8 +6,9 @@ enum Start {
 	SERVER,
 	CLIENT,
 	INTEGRATED,
+	SPECTATOR
 }
-
+var start_type := Start.SPECTATOR
 const map_base_script := preload("res://classes/map.gd")
 
 @onready var args := Array(OS.get_cmdline_args())
@@ -16,7 +17,7 @@ const map_base_script := preload("res://classes/map.gd")
 @onready var api_server := "https://api.open-champ.com"
 @onready var address := "127.0.0.1"
 @onready var port := 10000
-@onready var max_players := 2
+@onready var max_players := -1
 @onready var tickrate := 30
 @onready var game_mode := "openchamp:onslaught"
 @onready var server_map_id := Identifier.for_resource("map://openchamp:onslaught")
@@ -36,14 +37,14 @@ var server_pid: int = 0
 
 # Used for when the API fails
 var last_team = 1
-var team_count = 1
+var team_count = -1
 
 
 func _ready():
 	_set_status("STARTUP:STATUS_CONNECTING")
 	
 	# Parse Args and launch the startup deferred
-	var start_type = parse_args()
+	start_type = parse_args()
 	call_deferred("start", start_type)
 
 	$MapSpawner.spawn_function = map_spawn_function
@@ -52,84 +53,43 @@ func _ready():
 func start(method: Start):
 	var peer = ENetMultiplayerPeer.new()
 	
-	# Integrated
-	if method == Start.INTEGRATED:
-		host_button.button_down.connect(host_click)
-		host_button.show()
-	
-	# Init client stuff when not starting dedicated server
-	if method != Start.SERVER:
-		$ConnectionUI.show()
-		setup_client(peer)
-		multiplayer.multiplayer_peer = peer
-	
-	# Start the server
-	if method == Start.SERVER:
-		if not setup_server(peer):
-			server_fail()
-			return
-		
-		multiplayer.multiplayer_peer = peer
-		server_success()
-	
+	match method:
+		Start.INTEGRATED:
+			# Set peer as server, then run client setup
+			$ConnectionUI.show()
+			if not setup_server(peer):
+				fail_server()
+				return
+			multiplayer.multiplayer_peer = peer
+			success_server()
+			add_player(multiplayer.multiplayer_peer.get_unique_id())
+			success_client()
+		Start.SERVER:
+			# Set peer as server
+			if not setup_server(peer):
+				fail_server()
+				return
+			multiplayer.multiplayer_peer = peer
+			success_server()
+		Start.CLIENT:
+			$ConnectionUI.show()
+			# Run Client Setup
+			if not setup_client(peer):
+				fail_client()
+			get_connected()
 
 # Client Connection Functionality
 func setup_client(peer: ENetMultiplayerPeer):
 	_set_status("STARTUP:STATUS_CONNECT_CLIENT")
 	print("Attempting connection to:" + address + ":" + str(port))
 	
-	peer.create_client(address, port)
+	var err = peer.create_client(address, port)
 	_set_status("STARTUP:STATUS_CONNECTING")
 	
-	var timer = Timer.new()
-	timer.name="CheckConnectionTimer"
-	timer.wait_time = 1
-	timer.autostart = true
-	timer.timeout.connect(check_client_connection)
-	
-	add_child(timer)
-
-
-func check_client_connection():
-	var connection_status := multiplayer.multiplayer_peer.get_connection_status()
-	if connection_status == MultiplayerPeer.CONNECTION_CONNECTING:
-		return
-	
-	var timer = get_node("CheckConnectionTimer")
-	timer.stop()
-	timer.timeout.disconnect(check_client_connection)
-	timer.queue_free()
-	
-	if connection_status == MultiplayerPeer.CONNECTION_CONNECTED:
-		client_success()
+	if err != Error.OK:
+		return false
 	else:
-		client_fail()
-
-
-func client_success():
-	_set_status("STARTUP:STATUS_CLIENT_CONNECTED")
-
-	# Todo: get the correct game mode from the server
-	var manifest_json = load("gamemode://" + game_mode)
-	mode_manifest_data = manifest_json.data
-
-	server_map_config = RegistryManager.load_manifest(
-		mode_manifest_data,
-		game_mode
-	)
-
-	#server_map_id = Identifier.for_resource("map://" + server_map_config["id"])
-
-	# Add map to mapspawner
-	#$MapSpawner.add_spawnable_scene(AssetIndexer.get_asset_path(server_map_id))
-
-
-func client_fail():
-	_set_status("STARTUP:STATUS_CLIENT_FAILED")
-	multiplayer.multiplayer_peer.close()
-	
-	reconnect_button.show()
-	exit_button.show()
+		return true;
 
 
 # Server Connection Functionality
@@ -138,6 +98,7 @@ func setup_server(peer: ENetMultiplayerPeer):
 	
 	# Get the manifest data for the game mode
 	var manifest_json = load("gamemode://" + game_mode)
+		
 
 	mode_manifest_data = manifest_json.data
 
@@ -151,12 +112,14 @@ func setup_server(peer: ENetMultiplayerPeer):
 	#server_map_id = Identifier.for_resource("map://" + server_map_config["id"])
 	#$MapSpawner.add_spawnable_scene(AssetIndexer.get_asset_path(server_map_id))
 
-	max_players = server_map_config["max_players"]
-	team_count = server_map_config["teams"]
+	if max_players == -1:
+		max_players = server_map_config["max_players"]
+	if team_count == -1:
+		team_count = server_map_config["teams"]
 
 	# Hook up signals
-	peer.connect("peer_connected", server_add_player)
-	peer.connect("peer_disconnected", server_remove_player)
+	peer.connect("peer_connected", add_player)
+	peer.connect("peer_disconnected", remove_player)
 	
 	var err = peer.create_server(port, max_players)
 	if err != Error.OK:
@@ -168,8 +131,26 @@ func setup_server(peer: ENetMultiplayerPeer):
 	
 	return true
 
+func success_client():
+	_set_status("STARTUP:STATUS_CLIENT_CONNECTED")
+	# Set Gamemode
+	await rpc_id.call(get_multiplayer_authority(),"get_gamemode")
+	# Todo: get the correct game mode from the server
+	var manifest_json = load("gamemode://" + game_mode)
+	mode_manifest_data = manifest_json.data
 
-func server_success():
+	server_map_config = RegistryManager.load_manifest(
+		mode_manifest_data,
+		game_mode
+	)
+
+	server_map_id = Identifier.for_resource("map://" + server_map_config["id"])
+
+	# Add map to mapspawner
+	$MapSpawner.add_spawnable_scene(AssetIndexer.get_asset_path(server_map_id))
+
+
+func success_server():
 	print("Server Started, beginning initialization")
 	
 	# Set FPS to 30
@@ -179,15 +160,53 @@ func server_success():
 	WaitTimer.name = "WaitTimer"
 	WaitTimer.wait_time = 1
 	WaitTimer.autostart = true
-	WaitTimer.timeout.connect(server_update)
+	WaitTimer.timeout.connect(update_server)
 	add_child(WaitTimer)
 	
 
-func server_update():
+func fail_client():
+	_set_status("STARTUP:STATUS_CLIENT_FAILED")
+	multiplayer.multiplayer_peer.close()
+	
+	reconnect_button.show()
+	exit_button.show()
+
+func fail_server():
+	OS.alert("Server failed to start")
+	get_tree().quit()
+
+func get_connected():
+	var timer = Timer.new()
+	timer.name="CheckConnectionTimer"
+	timer.wait_time = 1
+	timer.autostart = true
+	timer.timeout.connect(check_connection)
+	
+	add_child(timer)
+
+func check_connection():
+	var connection_status := multiplayer.multiplayer_peer.get_connection_status()
+	if connection_status == MultiplayerPeer.CONNECTION_CONNECTING:
+		return
+	
+	var timer = get_node("CheckConnectionTimer")
+	timer.stop()
+	timer.timeout.disconnect(check_connection)
+	timer.queue_free()
+	
+	if connection_status == MultiplayerPeer.CONNECTION_CONNECTED:
+		success_client()
+	else:
+		fail_client()
+		
+
+func update_server():
 	var timer = get_node("WaitTimer")
 	
 	# Check how many players are connected
-	var connected_players = multiplayer.get_peers().size()
+	var connected_players := multiplayer.get_peers().size()
+	if start_type == Start.INTEGRATED:
+		connected_players += 1
 	print(str(connected_players) + "/" + str(max_players) + " Connected")
 	
 	if connected_players == 0:
@@ -204,36 +223,38 @@ func server_update():
 	
 	# Clean up our timer
 	timer.stop()
-	timer.timeout.disconnect(server_update)
+	timer.timeout.disconnect(update_server)
 	timer.queue_free()
 	
 	# prevent new users from joining
 	multiplayer.multiplayer_peer.refuse_new_connections = true
 	
 	# disconnect the signals
-	multiplayer.multiplayer_peer.disconnect("peer_connected", server_add_player)
-	multiplayer.multiplayer_peer.disconnect("peer_disconnected", server_remove_player)
+	multiplayer.multiplayer_peer.disconnect("peer_connected", add_player)
+	multiplayer.multiplayer_peer.disconnect("peer_disconnected", remove_player)
 	
 	#Change Map
 	print(Players)
 	change_map(Players)
 
-
-func server_add_player(id: int):
+### Server Functions
+func add_player(id: int):
 	print("Player connected: " + str(id))
-	
-	# ask for jwt
 	rpc_id.call_deferred(id, "get_jwt")
-	
 
-func server_remove_player(id: int):
+
+func remove_player(id: int):
 	print("Player disconnected: " + str(id))
-	
 	# Remove from Players
 	for i in range(Players.size()):
 		if Players[i].peer_id == id:
 			Players.remove_at(i)
 			break
+
+
+@rpc("authority", "call_local")
+func map_loaded():
+	$ConnectionUI.hide();
 
 
 # JWTs
@@ -258,6 +279,13 @@ func set_jwt(token: String):
 	
 	Players.append(user)
 
+@rpc("any_peer", "call_local")
+func get_gamemode():
+	await rpc_id(multiplayer.get_remote_sender_id(), "set_gamemode", game_mode)
+
+@rpc("authority", "call_local")
+func set_gamemode(gamemode):
+	game_mode = gamemode
 
 func fetch_user(token: String):
 	var headers = {}
@@ -298,9 +326,7 @@ func fetch_default_user():
 	return user
 
 
-func server_fail():
-	OS.alert("Server failed to start")
-	get_tree().quit()
+
 
 
 # Custom Functions
@@ -341,41 +367,38 @@ func parse_args() -> Start:
 	
 	for i in args.size():
 		match args[i]:
-			"-S": # Server
-				address = args[i + 1]
-				i += 1
-			"-P": # Port
-				port = args[i + 1]
-				i += 1
-			"-M": # Gamemode
-				game_mode = args[i + 1]
-				i += 1
-			"-T": # Tickrate
+
+			## Standalone Flags
+			"-S": # Dedicated Server
+				start_type = Start.SERVER
+			"-I": # Integrated Server
+				start_type = Start.INTEGRATED
+			"-G":
+				start_type = Start.SPECTATOR
+
+			## Server Flags
+			"-tr": # Tickrate
 				Engine.physics_ticks_per_second = args[i + 1]
 				i += 1
-			"-PL": # Players (Max)
+			"-pl": # Players (Max)
 				max_players = args[i + 1]
+				i += 1
+			"-gm": # Gamemode
+				game_mode = args[i + 1]
+				i += 1
+
+			## Client Flags
+			"-s": # Server
+				address = args[i + 1]
+				i += 1
+			"-p": # Port
+				port = args[i + 1]
 				i += 1
 			"-t": # token
 				jwt = args[i + 1]
 				i += 1
-			"-s": # start as server
-				start_type = Start.SERVER
-			"-i": # start as integrated server
-				start_type = Start.INTEGRATED
 	
 	return start_type
-
-
-# Event Listeners
-func host_click():
-	server_pid = OS.create_process(
-		OS.get_executable_path(),
-		[OS.get_cmdline_args(), '-s']
-	)
-
-	host_button.hide()
-
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -384,20 +407,13 @@ func _notification(what):
 		
 		get_tree().quit()
 
-
+## Buttons
 func reconnect_click():
 	start(Start.CLIENT)
-
 
 func exit_click():
 	get_tree().quit()
 
-
 # Setters
 func _set_status(message: String):
 	status_text.text = "[center]" + tr(message) + "[/center]"
-
-
-@rpc("authority")
-func map_loaded():
-	$ConnectionUI.hide();
