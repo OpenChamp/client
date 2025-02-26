@@ -10,10 +10,15 @@ config_version=5
 
 [application]
 
-config/name="WrathOfChampions"
-run/main_scene="res://menu.tscn"
+config/name="OpenChamp_PrimaryClient"
+run/main_scene="uid://duvf74qe1iq2p"
+config/use_custom_user_dir=true
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+NetworkManager="*res://script/_NetworkManager.gd"
 
 [dotnet]
 

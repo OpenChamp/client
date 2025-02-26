@@ -1,22 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4bcxtr2koou0"]
+[gd_scene load_steps=4 format=3 uid="uid://d4bcxtr2koou0"]
 
-[ext_resource type="Shader" uid="uid://dap2d8j1i785a" path="res://stars.gdshader" id="1_lti8b"]
-[ext_resource type="Script" uid="uid://qw6fxnfxfk6m" path="res://menu.gd" id="1_ouk20"]
-[ext_resource type="Texture2D" uid="uid://cx3e2xhw48c6m" path="res://ui/icons/champeye.webp" id="3_mae5d"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ouk20"]
-shader = ExtResource("1_lti8b")
-shader_parameter/dimensions = Vector2(1024, 600)
-shader_parameter/small_stars = 50.0
-shader_parameter/small_stars_far_size = 0.5
-shader_parameter/small_stars_near_size = 1.0
-shader_parameter/large_stars = 8.0
-shader_parameter/large_stars_far_size = 0.5
-shader_parameter/large_stars_near_size = 1.0
-shader_parameter/far_stars_color = Color(0.5, 0, 1, 1)
-shader_parameter/near_stars_color = Color(1, 1, 1, 1)
-shader_parameter/base_scroll_speed = 0.05
-shader_parameter/additional_scroll_speed = 0.05
+[ext_resource type="Script" uid="uid://qw6fxnfxfk6m" path="res://ui/menu.gd" id="1_udkah"]
+[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/LeagueGothic-Regular.woff2" id="2_2ot4n"]
+[ext_resource type="Texture2D" uid="uid://cx3e2xhw48c6m" path="res://ui/icons/champeye.webp" id="2_4c782"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -25,37 +11,35 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ouk20")
+script = ExtResource("1_udkah")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_ouk20")
+[node name="LogoLabel" type="RichTextLabel" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.117647, 0.0705882, 0.129412, 1)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.236
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.236
 offset_left = -121.5
-offset_top = -20.0
+offset_top = -37.928
 offset_right = 121.5
-offset_bottom = 20.0
+offset_bottom = 39.072
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/table_border = Color(0, 0, 0.862745, 1)
+theme_override_colors/table_even_row_bg = Color(0.496475, 0.21976, 0.219295, 1)
+theme_override_colors/table_odd_row_bg = Color(0.847528, 0.254038, 0.54182, 1)
+theme_override_colors/default_color = Color(0.423458, 0.414729, 0.141252, 1)
+theme_override_fonts/normal_font = ExtResource("2_2ot4n")
+theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]OpenChamp[/center]
 "
 fit_content = true
+scroll_active = false
 
 [node name="PlayerCount" type="RichTextLabel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -71,22 +55,23 @@ bbcode_enabled = true
 text = "[right]Players online: 0[/right]"
 fit_content = true
 
-[node name="Button" type="Button" parent="."]
+[node name="ConnectionButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = 11.5
-offset_right = 36.0
-offset_bottom = 42.5
+offset_left = -42.0
+offset_top = 8.0
+offset_right = 44.0
+offset_bottom = 39.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Queue"
+text = "Connect"
 
 [node name="TextureButton" type="TextureButton" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -99,7 +84,7 @@ offset_right = -10.0
 offset_bottom = -10.0
 grow_horizontal = 0
 grow_vertical = 0
-texture_normal = ExtResource("3_mae5d")
+texture_normal = ExtResource("2_4c782")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -121,4 +106,5 @@ bbcode_enabled = true
 text = "[center]Queue[/center]"
 autowrap_mode = 0
 
+[connection signal="button_up" from="ConnectionButton" to="." method="_on_connection_button_button_up"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

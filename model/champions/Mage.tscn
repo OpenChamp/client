@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnfgd4spe77la"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ge5w"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwy4i"]
+albedo_color = Color(0.727094, 0.599393, 0.341582, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8jkwl"]
+material = SubResource("StandardMaterial3D_lwy4i")
+top_radius = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ub1fe"]
+albedo_color = Color(1, 1, 0.27451, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mro74"]
+material = SubResource("StandardMaterial3D_ub1fe")
+radius = 0.02
+height = 0.08
+
+[node name="Mage" type="CharacterBody3D"]
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_3o8tx")
+surface_material_override/0 = SubResource("StandardMaterial3D_2ge5w")
+
+[node name="Hat" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 0, 0.505964, 0)
+mesh = SubResource("CylinderMesh_8jkwl")
+
+[node name="Eye" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169789, 0.0850159, 0.465818)
+mesh = SubResource("SphereMesh_mro74")
+
+[node name="Eye2" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199696, 0.084904, 0.45354)
+mesh = SubResource("SphereMesh_mro74")
