@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cg3m5qnyxjev4"]
+[gd_scene load_steps=4 format=3 uid="uid://cg3m5qnyxjev4"]
 
 [ext_resource type="Material" uid="uid://m80rmki4fbox" path="res://shader/night_sky.tres" id="1_octoo"]
 
@@ -15,12 +15,6 @@ tonemap_mode = 2
 glow_enabled = true
 glow_bloom = 0.2
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_db6hg"]
-size = Vector2(2000, 2000)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_db6hg"]
-albedo_color = Color(0.501961, 0.305882, 0, 1)
-
 [node name="Sky" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -32,8 +26,3 @@ shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, -1.77636e-15, -8.74228e-08, 2.26267e-08, 0.965926, -0.258819, 8.44439e-08, -0.258819, -0.965926, 0.118164, 101.589, 0.644348)
-
-[node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("PlaneMesh_db6hg")
-surface_material_override/0 = SubResource("StandardMaterial3D_db6hg")
