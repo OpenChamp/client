@@ -10,6 +10,7 @@ var Store = {
 	"Username": ""
 }
 var socket = WebSocketPeer.new()
+var connection_timeout : float = 0
 
 func _ready():
 	set_process(false)
@@ -17,14 +18,11 @@ func _ready():
 	load_settings()
 	pass
 	
-func _process(_delta):
+func _process(delta):
 	socket.poll()
-
-	# get_ready_state() tells you what state the socket is in.
+	connection_timeout += delta
 	var state = socket.get_ready_state()
 
-	# WebSocketPeer.STATE_OPEN means the socket is connected and ready
-	# to send and receive data.
 	if state == WebSocketPeer.STATE_OPEN:
 		while socket.get_available_packet_count():
 			var data = socket.get_packet().get_string_from_utf8()
@@ -33,23 +31,19 @@ func _process(_delta):
 			processPacket(json)
 	
 	if state == WebSocketPeer.STATE_CONNECTING:
-		print("WebSocket connecting...")
-		pass
-	# WebSocketPeer.STATE_CLOSING means the socket is closing.
-	# It is important to keep polling for a clean close.
-	elif state == WebSocketPeer.STATE_CLOSING:
-		print("WebSocket closing...")
 		pass
 
-	# WebSocketPeer.STATE_CLOSED means the connection has fully closed.
-	# It is now safe to stop polling.
+	elif state == WebSocketPeer.STATE_CLOSING:
+		pass
+
 	elif state == WebSocketPeer.STATE_CLOSED:
-		# The code will be -1 if the disconnection was not properly notified by the remote peer.
 		var code = socket.get_close_code()
 		print("WebSocket closed with code: %d. Clean: %s" % [code, code != -1])
-		set_process(false) # Stop processing.
+		set_process(false)
+
 # Setup
 func connect_to_server():
+	connection_timeout  = 0.0
 	var err = socket.connect_to_url(Settings.websocket_url)
 	if err != OK:
 		print("Unable to connect")
@@ -57,6 +51,10 @@ func connect_to_server():
 	else:
 		set_process(true)
 		return true
+
+func disconnect_from_server():
+	socket.close()
+	set_process(false)
 		
 func load_settings():
 	var file = FileAccess.open("user://settings.json", FileAccess.READ)
@@ -70,7 +68,6 @@ func load_settings():
 # Basic Networking
 func get_player_count():
 	socket.send_text("{\"type\": \"count\"}")
-	
 func start_queue():
 	socket.send_text("{\"type\": \"queue\"}")
 func stop_queue():

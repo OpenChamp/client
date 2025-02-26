@@ -8,11 +8,16 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 32.0
+offset_right = -2.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_udkah")
 
 [node name="LogoLabel" type="RichTextLabel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -70,6 +75,21 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Connect"
 
+[node name="CancelConnectionButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = 49.5
+offset_right = 76.0
+offset_bottom = 80.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Cancel"
+
 [node name="MainMenu" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 1
@@ -89,6 +109,10 @@ grow_vertical = 2
 layout_mode = 2
 text = "Start Queue"
 
+[node name="Practice" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Practice"
+
 [node name="Settings" type="Button" parent="MainMenu"]
 layout_mode = 2
 text = "Settings"
@@ -97,5 +121,48 @@ text = "Settings"
 layout_mode = 2
 text = "Quit"
 
+[node name="Settings" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -308.0
+offset_top = -196.5
+offset_right = 308.0
+offset_bottom = 196.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 134.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="BackButton" type="Button" parent="Settings"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -35.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Back"
+
 [connection signal="button_up" from="ConnectionButton" to="." method="_on_connection_button_button_up"]
+[connection signal="button_up" from="CancelConnectionButton" to="." method="_on_cancel_connection_button_button_up"]
 [connection signal="button_up" from="MainMenu/StartQueue" to="." method="_on_start_queue_button_up"]
+[connection signal="button_up" from="MainMenu/Settings" to="." method="_on_settings_button_up"]
+[connection signal="button_up" from="MainMenu/Quit" to="." method="_on_quit_button_up"]
+[connection signal="button_up" from="Settings/BackButton" to="." method="_on_back_button_button_up"]
