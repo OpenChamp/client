@@ -93,7 +93,6 @@ grow_vertical = 2
 text = "Cancel"
 
 [node name="MainMenu" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -129,7 +128,6 @@ text = "Credits
 "
 
 [node name="Settings" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -211,28 +209,30 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+offset_left = 9.0
 offset_top = -126.5
+offset_right = -12.0
 offset_bottom = 150.5
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
 text = "[left]Developers:[/left]
-[right]Cody Krist
-Leah Lundqvist
-Noah Kirschmann[/right]
+[right]Cody Krist 
+Leah Lundqvist 
+Noah Kirschmann [/right]
 
 [left]Music:[/left]
-[right]Matthew Pablo (opengameart)
-mad_rad_slav[/right]
+[right]Matthew Pablo (opengameart) 
+mad_rad_slav [/right]
 
 [left]Art:[/left]
-[right]
-gkaps
-Thibaud Goiffon[/right]"
+[right]gkaps 
+Thibaud Goiffon [/right]"
 
 [connection signal="button_up" from="ConnectionButton" to="." method="_on_connection_button_button_up"]
 [connection signal="button_up" from="CancelConnectionButton" to="." method="_on_cancel_connection_button_button_up"]
 [connection signal="button_up" from="MainMenu/StartQueue" to="." method="_on_start_queue_button_up"]
+[connection signal="button_up" from="MainMenu/Practice" to="." method="_on_practice_button_up"]
 [connection signal="button_up" from="MainMenu/Settings" to="." method="_on_settings_button_up"]
 [connection signal="button_up" from="MainMenu/Quit" to="." method="_on_quit_button_up"]
 [connection signal="button_up" from="MainMenu/Credits" to="." method="_on_credits_button_up"]

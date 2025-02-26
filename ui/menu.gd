@@ -113,3 +113,22 @@ func _on_cancel_connection_button_button_up() -> void:
 func _on_credits_button_up() -> void:
 	$MainMenu.hide()
 	$Credits.show()
+
+
+func _on_practice_button_up() -> void:
+	$MainMenu/Practice.text = "Please Wait..."
+	$MainMenu/Practice.disabled = true
+
+	# Connect to server
+	var peer = ENetMultiplayerPeer.new()
+	peer.create_client("127.0.0.1", 10330)
+	multiplayer.multiplayer_peer = peer
+	# Check if connection was successful in 2 seconds
+	await get_tree().create_timer(2).timeout
+	if(multiplayer.multiplayer_peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED):
+		# Swap to Game Scene
+		get_tree().change_scene_to_file("res://scene/game.tscn")
+	else:
+		print("Failed to connect to server")
+		$MainMenu/Practice.text = "Practice"
+		$MainMenu/Practice.disabled = false

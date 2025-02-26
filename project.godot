@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 NetworkManager="*res://script/_NetworkManager.gd"
+GameManager="*res://script/GameManager.gd"
 
 [dotnet]
 
