@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnfgd4spe77la"]
+[gd_scene load_steps=8 format=3 uid="uid://dnfgd4spe77la"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
 
@@ -20,6 +20,14 @@ material = SubResource("StandardMaterial3D_ub1fe")
 radius = 0.02
 height = 0.08
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3o8tx"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Mage" type="CharacterBody3D"]
 
 [node name="Body" type="MeshInstance3D" parent="."]
@@ -38,3 +46,6 @@ mesh = SubResource("SphereMesh_mro74")
 [node name="Eye2" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199696, 0.084904, 0.45354)
 mesh = SubResource("SphereMesh_mro74")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3o8tx")

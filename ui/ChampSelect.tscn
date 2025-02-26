@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg02bjhjj4g74"]
+[gd_scene load_steps=5 format=3 uid="uid://bg02bjhjj4g74"]
 
-[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/LeagueGothic-Regular.woff2" id="1_oh6nd"]
+[ext_resource type="Script" uid="uid://8psqwm80u3qb" path="res://ui/champ_select.gd" id="1_ghrd5"]
+[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/LeagueGothic-Regular.woff2" id="2_wqrtw"]
+[ext_resource type="Texture2D" uid="uid://crh8sb1tbjko7" path="res://ui/icons/ranger.png" id="3_0u0ku"]
+[ext_resource type="Texture2D" uid="uid://b6am7d8s7vxha" path="res://ui/icons/Mage.png" id="4_ock6e"]
 
 [node name="ChampSelect" type="Control"]
 layout_mode = 3
@@ -9,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ghrd5")
 
 [node name="Title" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -16,7 +20,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 88.0
 grow_horizontal = 2
-theme_override_fonts/normal_font = ExtResource("1_oh6nd")
+theme_override_fonts/normal_font = ExtResource("2_wqrtw")
 theme_override_font_sizes/bold_font_size = 64
 bbcode_enabled = true
 text = "[center][b]Champion Select[/b][/center]"
@@ -98,3 +102,42 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 133.0
+offset_top = -204.0
+offset_right = -107.0
+offset_bottom = 253.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="RangerChamp" type="TextureButton" parent="PanelContainer/Panel/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_0u0ku")
+
+[node name="MageChamp" type="TextureButton" parent="PanelContainer/Panel/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_ock6e")
+
+[connection signal="button_up" from="PanelContainer/Panel/HBoxContainer/RangerChamp" to="." method="_on_ranger_champ_button_up"]
