@@ -18,6 +18,7 @@ func _ready():
 	$MainMenu.hide()
 	$Settings.hide()
 	$CancelConnectionButton.hide()
+	$Credits.hide()
 	# Fadein Logo
 	$LogoLabel.add_theme_color_override("default_color", Color(255,0,0, 0))
 	
@@ -97,6 +98,7 @@ func _on_quit_button_up() -> void:
 func _on_back_button_button_up() -> void:
 	$MainMenu.show()
 	$Settings.hide()
+	$Credits.hide()
 
 
 func _on_cancel_connection_button_button_up() -> void:
@@ -106,3 +108,8 @@ func _on_cancel_connection_button_button_up() -> void:
 	$ConnectionButton.disabled = false
 	$ConnectionButton.text = "Connect"
 	pass # Replace with function body.
+
+
+func _on_credits_button_up() -> void:
+	$MainMenu.hide()
+	$Credits.show()

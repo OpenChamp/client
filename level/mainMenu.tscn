@@ -9,6 +9,10 @@
 [node name="MainMenu" type="Node3D"]
 
 [node name="Menu" parent="." instance=ExtResource("1_3hh8m")]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="Sky" parent="." instance=ExtResource("2_ukjrj")]
 
