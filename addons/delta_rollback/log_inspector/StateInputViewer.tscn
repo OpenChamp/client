@@ -1,0 +1,154 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/delta_rollback/log_inspector/StateInputViewer.gd" type="Script" id=1]
+
+[node name="StateInputViewer" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 1024.0
+offset_bottom = 24.0
+
+[node name="TickNumberLabel" type="Label" parent="HBoxContainer"]
+offset_top = 5.0
+offset_right = 29.0
+offset_bottom = 19.0
+text = "Tick:"
+
+[node name="TickNumber" type="SpinBox" parent="HBoxContainer"]
+offset_left = 33.0
+offset_right = 107.0
+offset_bottom = 24.0
+max_value = 0.0
+rounded = true
+
+[node name="StartButton" type="Button" parent="HBoxContainer"]
+offset_left = 111.0
+offset_right = 152.0
+offset_bottom = 24.0
+text = "Start"
+
+[node name="PreviousMismatchButton" type="Button" parent="HBoxContainer"]
+offset_left = 156.0
+offset_right = 310.0
+offset_bottom = 24.0
+text = "<< Previous Mismatch"
+
+[node name="NextMismatchButton" type="Button" parent="HBoxContainer"]
+offset_left = 314.0
+offset_right = 443.0
+offset_bottom = 24.0
+text = "Next Mismatch >>"
+
+[node name="EndButton" type="Button" parent="HBoxContainer"]
+offset_left = 447.0
+offset_right = 482.0
+offset_bottom = 24.0
+text = "End"
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_top = 28.0
+offset_right = 1024.0
+offset_bottom = 600.0
+size_flags_vertical = 3
+theme_override_constants/v_separation = 5
+theme_override_constants/h_separation = 5
+columns = 2
+
+[node name="InputLabel" type="Label" parent="GridContainer"]
+offset_right = 509.0
+offset_bottom = 14.0
+size_flags_horizontal = 3
+text = "Input:"
+
+[node name="InputMismatchesLabel" type="Label" parent="GridContainer"]
+offset_left = 514.0
+offset_right = 1023.0
+offset_bottom = 14.0
+size_flags_horizontal = 3
+text = "Input Mismatches:"
+
+[node name="InputPanel" type="Panel" parent="GridContainer"]
+offset_top = 19.0
+offset_right = 509.0
+offset_bottom = 283.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InputDataTree" type="Tree" parent="GridContainer/InputPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 2
+hide_root = true
+select_mode = 1
+
+[node name="InputMismatchesPanel" type="Panel" parent="GridContainer"]
+offset_left = 514.0
+offset_top = 19.0
+offset_right = 1023.0
+offset_bottom = 283.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InputMismatchesDataTree" type="Tree" parent="GridContainer/InputMismatchesPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 3
+hide_root = true
+select_mode = 1
+
+[node name="StateLabel" type="Label" parent="GridContainer"]
+offset_top = 288.0
+offset_right = 509.0
+offset_bottom = 302.0
+size_flags_horizontal = 3
+text = "State:"
+
+[node name="StateMismatchesLabel" type="Label" parent="GridContainer"]
+offset_left = 514.0
+offset_top = 288.0
+offset_right = 1023.0
+offset_bottom = 302.0
+size_flags_horizontal = 3
+text = "State Mismatches:"
+
+[node name="StatePanel" type="Panel" parent="GridContainer"]
+offset_top = 307.0
+offset_right = 509.0
+offset_bottom = 571.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StateDataTree" type="Tree" parent="GridContainer/StatePanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 2
+hide_root = true
+select_mode = 1
+
+[node name="StateMismatchesPanel" type="Panel" parent="GridContainer"]
+offset_left = 514.0
+offset_top = 307.0
+offset_right = 1023.0
+offset_bottom = 571.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StateMismatchesDataTree" type="Tree" parent="GridContainer/StateMismatchesPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 3
+hide_root = true
+select_mode = 1
+
+[connection signal="value_changed" from="HBoxContainer/TickNumber" to="." method="_on_TickNumber_value_changed"]
+[connection signal="pressed" from="HBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/PreviousMismatchButton" to="." method="_on_PreviousMismatchButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/NextMismatchButton" to="." method="_on_NextMismatchButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/EndButton" to="." method="_on_EndButton_pressed"]

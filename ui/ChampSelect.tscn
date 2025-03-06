@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bg02bjhjj4g74"]
 
 [ext_resource type="Script" uid="uid://8psqwm80u3qb" path="res://ui/champ_select.gd" id="1_ghrd5"]
-[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/LeagueGothic-Regular.woff2" id="2_wqrtw"]
+[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/fonts/LeagueGothic-Regular.woff2" id="2_wqrtw"]
 [ext_resource type="Texture2D" uid="uid://crh8sb1tbjko7" path="res://ui/icons/ranger.png" id="3_0u0ku"]
 [ext_resource type="Texture2D" uid="uid://b6am7d8s7vxha" path="res://ui/icons/Mage.png" id="4_ock6e"]
 

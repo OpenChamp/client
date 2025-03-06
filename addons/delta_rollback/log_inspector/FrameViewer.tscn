@@ -1,0 +1,110 @@
+[gd_scene load_steps=5 format=3 uid="uid://58hro2kq3tlw"]
+
+[ext_resource type="Script" path="res://addons/delta_rollback/log_inspector/FrameViewer.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://vf3gjk5tt6ih" path="res://addons/delta_rollback/log_inspector/FrameDataGraph.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://d3aa0ihjfmkb8" path="res://addons/delta_rollback/log_inspector/FrameViewerSettingsDialog.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://addons/delta_rollback/log_inspector/FrameDataGrid.tscn" id="4"]
+
+[node name="FrameViewer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Time (ms)"
+
+[node name="Time" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 0.0
+rounded = true
+
+[node name="StartButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Start"
+
+[node name="PreviousFrameButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "<< Previous frame"
+
+[node name="NextFrameButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Next frame >>"
+
+[node name="EndButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "End"
+
+[node name="SeekOnReplayPeerField" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Seek only on replay peer"
+
+[node name="Separator1" type="Control" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReplayContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/ReplayContainer"]
+layout_mode = 2
+
+[node name="ReplayToCurrentButton" type="Button" parent="VBoxContainer/HBoxContainer/ReplayContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Replay to Current Frame"
+
+[node name="AutoReplayToCurrentField" type="CheckBox" parent="VBoxContainer/HBoxContainer/ReplayContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Auto"
+
+[node name="Separator2" type="Control" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Settings"
+
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DataGraph" parent="VBoxContainer/VSplitContainer" instance=ExtResource("2")]
+layout_mode = 2
+
+[node name="DataGrid" parent="VBoxContainer/VSplitContainer" instance=ExtResource("4")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SettingsDialog" parent="." instance=ExtResource("3")]
+
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/Time" to="." method="_on_Time_value_changed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PreviousFrameButton" to="." method="_on_PreviousFrameButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/NextFrameButton" to="." method="_on_NextFrameButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/EndButton" to="." method="_on_EndButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ReplayContainer/HBoxContainer/ReplayToCurrentButton" to="." method="_on_ReplayToCurrentButton_pressed"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/ReplayContainer/HBoxContainer/AutoReplayToCurrentField" to="." method="_on_AutoReplayToCurrentField_toggled"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="cursor_time_changed" from="VBoxContainer/VSplitContainer/DataGraph" to="." method="_on_DataGraph_cursor_time_changed"]

@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dc551sfxv8bol"]
-
-[ext_resource type="Script" uid="uid://dm3o34y1nnsna" path="res://server/server.gd" id="1_pcfvm"]
-[ext_resource type="PackedScene" uid="uid://wsquw55cuajg" path="res://model/champions/Ranger.tscn" id="2_0wvpq"]
-
-[node name="Server" type="Node"]
-script = ExtResource("1_pcfvm")
-player_scene = ExtResource("2_0wvpq")

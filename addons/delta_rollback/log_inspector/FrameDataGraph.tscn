@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://vf3gjk5tt6ih"]
+
+[ext_resource type="Script" path="res://addons/delta_rollback/log_inspector/FrameDataGraph.gd" id="1"]
+[ext_resource type="PackedScene" path="res://addons/delta_rollback/log_inspector/FrameDataGraphCanvas.tscn" id="2"]
+
+[node name="FrameDataGraph" type="VBoxContainer"]
+clip_contents = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+script = ExtResource("1")
+
+[node name="Canvas" parent="." instance=ExtResource("2")]
+layout_mode = 2
+
+[node name="ScrollBar" type="HScrollBar" parent="."]
+layout_mode = 2
+
+[connection signal="cursor_time_changed" from="Canvas" to="." method="_on_Canvas_cursor_time_changed"]
+[connection signal="start_time_changed" from="Canvas" to="." method="_on_Canvas_start_time_changed"]
+[connection signal="value_changed" from="ScrollBar" to="." method="_on_ScrollBar_value_changed"]

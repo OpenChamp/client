@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cox1hp6n0afel"]
+
+[ext_resource type="Script" uid="uid://b1ylskjqvyq3g" path="res://scenes/game.gd" id="1_5kiuu"]
+[ext_resource type="PackedScene" uid="uid://dnfgd4spe77la" path="res://models/champions/Mage.tscn" id="2_33cqm"]
+[ext_resource type="PackedScene" uid="uid://doxl5p8jmoqs3" path="res://ui/ingame.tscn" id="2_dbls1"]
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_5kiuu")
+caster_minion = ExtResource("2_33cqm")
+
+[node name="UI" parent="." instance=ExtResource("2_dbls1")]
+
+[node name="MinionSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dnfgd4spe77la")
+spawn_path = NodePath("..")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="Timer" to="." method="spawn_minion"]

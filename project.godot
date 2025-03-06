@@ -18,9 +18,21 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-NetworkManager="*res://script/_NetworkManager.gd"
-GameManager="*res://script/GameManager.gd"
+NetworkManager="*res://scripts/globals/_NetworkManager.gd"
+SyncManager="*res://addons/delta_rollback/SyncManager.gd"
 
 [dotnet]
 
 project/assembly_name="WrathOfChampions"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/delta_rollback/plugin.cfg")
+
+[input]
+
+sync_debug={
+&"deadzone": 0.5,
+&"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194342,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}

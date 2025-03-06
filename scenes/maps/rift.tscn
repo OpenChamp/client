@@ -1,0 +1,164 @@
+[gd_scene load_steps=49 format=3 uid="uid://msc37o8s4pow"]
+
+[ext_resource type="ArrayMesh" uid="uid://cajpow4ddehui" path="res://scenes/environment/rift/outskirts.tres" id="1_g2blg"]
+[ext_resource type="PackedScene" uid="uid://cg3m5qnyxjev4" path="res://scenes/maps/sky.tscn" id="1_iq00d"]
+[ext_resource type="NavigationMesh" uid="uid://biqbd8skvpi3h" path="res://scenes/environment/rift/navmesh.res" id="1_vyju1"]
+[ext_resource type="Texture2D" uid="uid://oebjbwwttre8" path="res://scenes/environment/textures/grass_dark.webp" id="2_0yl4j"]
+[ext_resource type="ArrayMesh" uid="uid://cbulhfdvkubgf" path="res://scenes/environment/rift/pine_trees.tres" id="3_0iix8"]
+[ext_resource type="Texture2D" uid="uid://5mic4yo8a1vf" path="res://scenes/environment/textures/grass_dark.height.webp" id="3_70rml"]
+[ext_resource type="Texture2D" uid="uid://dpxmf3rgbapji" path="res://scenes/environment/textures/grass_dark.normal.webp" id="4_ka5jo"]
+[ext_resource type="Texture2D" uid="uid://dr3iscyrttgkc" path="res://scenes/environment/textures/pine.webp" id="6_jq4bx"]
+[ext_resource type="Texture2D" uid="uid://blqj87csf1rwj" path="res://scenes/environment/textures/pine.height.webp" id="7_agx3g"]
+[ext_resource type="Texture2D" uid="uid://ua75hlrfogj7" path="res://scenes/environment/textures/pine.normal.webp" id="8_dalci"]
+[ext_resource type="ArrayMesh" uid="uid://c27p4drp1x0y5" path="res://scenes/environment/rift/torches.tres" id="10_1d886"]
+[ext_resource type="Texture2D" uid="uid://brcrow6s5d2in" path="res://scenes/environment/textures/torch.webp" id="11_ejtxi"]
+[ext_resource type="Texture2D" uid="uid://cpdsn6ncpqso7" path="res://scenes/environment/textures/torch.height.webp" id="12_j6rnc"]
+[ext_resource type="Texture2D" uid="uid://drpfs8qdfyuol" path="res://scenes/environment/textures/torch.normal.webp" id="13_esrrj"]
+[ext_resource type="ArrayMesh" uid="uid://dhtc8qbjl1asw" path="res://scenes/environment/rift/buildings.tres" id="14_rikwy"]
+[ext_resource type="Texture2D" uid="uid://c4ejugiwp7ejc" path="res://scenes/environment/textures/buildings.webp" id="15_ala8v"]
+[ext_resource type="Texture2D" uid="uid://dt4ua364vkcgr" path="res://scenes/environment/textures/buildings.height.webp" id="16_v6yah"]
+[ext_resource type="Texture2D" uid="uid://bsganww7ymbg0" path="res://scenes/environment/textures/buildings.normal.webp" id="17_3p26r"]
+[ext_resource type="ArrayMesh" uid="uid://4vj1nhdnlwne" path="res://scenes/environment/rift/posts.tres" id="18_iq00d"]
+[ext_resource type="Texture2D" uid="uid://dg5galkays6od" path="res://scenes/environment/textures/posts.webp" id="19_tlbex"]
+[ext_resource type="Texture2D" uid="uid://dew3galkwppjd" path="res://scenes/environment/textures/posts.height.webp" id="20_bbilf"]
+[ext_resource type="Texture2D" uid="uid://jun04ulmmqxn" path="res://scenes/environment/textures/posts.normal.webp" id="21_btudj"]
+[ext_resource type="ArrayMesh" uid="uid://nmq5aqsvpq0r" path="res://scenes/environment/rift/bottomShrine.tres" id="22_3p26r"]
+[ext_resource type="Texture2D" uid="uid://dvvpgkhdtpji2" path="res://scenes/environment/textures/shrine.webp" id="23_iq00d"]
+[ext_resource type="Texture2D" uid="uid://dcc2tfiedf0yf" path="res://scenes/environment/textures/shrine.height.webp" id="24_tlbex"]
+[ext_resource type="Texture2D" uid="uid://bubd4rhp1md8p" path="res://scenes/environment/textures/shrine.normal.webp" id="25_bbilf"]
+[ext_resource type="ArrayMesh" uid="uid://ba1y7briwqy7s" path="res://scenes/environment/rift/bottomShrineCrystals.tres" id="26_btudj"]
+[ext_resource type="Texture2D" uid="uid://c47dt2h7ndcfx" path="res://scenes/environment/textures/shrine_crystals.webp" id="27_vvf6h"]
+[ext_resource type="Texture2D" uid="uid://ddeneaj1rj1hj" path="res://scenes/environment/textures/shrine_crystals.height.webp" id="28_6elqv"]
+[ext_resource type="Texture2D" uid="uid://cs5glibbdtwsx" path="res://scenes/environment/textures/shrine_crystals.normal.webp" id="29_0it4o"]
+[ext_resource type="ArrayMesh" uid="uid://mfous57jsb6a" path="res://scenes/environment/rift/dirt.tres" id="31_mxykp"]
+[ext_resource type="Texture2D" uid="uid://na6jg1pgn5t" path="res://scenes/environment/textures/dirt.webp" id="32_n2sxx"]
+[ext_resource type="Texture2D" uid="uid://bo6cyg3pevbn2" path="res://scenes/environment/textures/dirt.height.webp" id="33_aj4dt"]
+[ext_resource type="Texture2D" uid="uid://d30goteu4veyt" path="res://scenes/environment/textures/dirt.normal.webp" id="34_nhcpu"]
+[ext_resource type="ArrayMesh" uid="uid://c3mwklndv5t7e" path="res://scenes/environment/rift/nexusFloor.tres" id="35_v3xie"]
+[ext_resource type="Texture2D" uid="uid://cuw6ijnx8fw0g" path="res://scenes/environment/textures/nexus_floor.webp" id="36_6sfwd"]
+[ext_resource type="Texture2D" uid="uid://clrn0oskx1x44" path="res://scenes/environment/textures/nexus_floor.height.webp" id="37_cn0x4"]
+[ext_resource type="Texture2D" uid="uid://b4wfikcxyobi8" path="res://scenes/environment/textures/nexus_floor.normal.webp" id="38_fa17v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glhlx"]
+resource_name = "rift_ground"
+albedo_texture = ExtResource("2_0yl4j")
+normal_enabled = true
+normal_texture = ExtResource("4_ka5jo")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_70rml")
+metadata/extras = {
+"name": "NVRMaterial_ground_grass_ground_new_dark_"
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6lwy"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("6_jq4bx")
+normal_enabled = true
+normal_texture = ExtResource("8_dalci")
+heightmap_enabled = true
+heightmap_texture = ExtResource("7_agx3g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvf6h"]
+albedo_texture = ExtResource("11_ejtxi")
+normal_enabled = true
+normal_texture = ExtResource("13_esrrj")
+heightmap_enabled = true
+heightmap_texture = ExtResource("12_j6rnc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6elqv"]
+albedo_texture = ExtResource("15_ala8v")
+normal_enabled = true
+normal_texture = ExtResource("17_3p26r")
+heightmap_enabled = true
+heightmap_texture = ExtResource("16_v6yah")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0it4o"]
+albedo_texture = ExtResource("19_tlbex")
+normal_enabled = true
+normal_texture = ExtResource("21_btudj")
+heightmap_enabled = true
+heightmap_texture = ExtResource("20_bbilf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mr4iv"]
+albedo_texture = ExtResource("23_iq00d")
+normal_enabled = true
+normal_texture = ExtResource("25_bbilf")
+heightmap_enabled = true
+heightmap_texture = ExtResource("24_tlbex")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxykp"]
+albedo_texture = ExtResource("27_vvf6h")
+normal_enabled = true
+normal_texture = ExtResource("29_0it4o")
+heightmap_enabled = true
+heightmap_texture = ExtResource("28_6elqv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rfjn3"]
+albedo_texture = ExtResource("32_n2sxx")
+normal_enabled = true
+normal_texture = ExtResource("34_nhcpu")
+heightmap_enabled = true
+heightmap_texture = ExtResource("33_aj4dt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xaehw"]
+albedo_texture = ExtResource("36_6sfwd")
+normal_enabled = true
+normal_texture = ExtResource("38_fa17v")
+heightmap_enabled = true
+heightmap_texture = ExtResource("37_cn0x4")
+
+[sub_resource type="SphereMesh" id="SphereMesh_mxykp"]
+
+[node name="Map" type="Node3D"]
+
+[node name="Sky" parent="." instance=ExtResource("1_iq00d")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("1_vyju1")
+
+[node name="Grass" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_g2blg")
+surface_material_override/0 = SubResource("StandardMaterial3D_glhlx")
+
+[node name="PineTrees" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_0iix8")
+surface_material_override/0 = SubResource("StandardMaterial3D_u6lwy")
+
+[node name="Torches" type="MeshInstance3D" parent="."]
+mesh = ExtResource("10_1d886")
+surface_material_override/0 = SubResource("StandardMaterial3D_vvf6h")
+
+[node name="Buildings" type="MeshInstance3D" parent="."]
+mesh = ExtResource("14_rikwy")
+skeleton = NodePath("../Torches")
+surface_material_override/0 = SubResource("StandardMaterial3D_6elqv")
+
+[node name="Posts" type="MeshInstance3D" parent="."]
+mesh = ExtResource("18_iq00d")
+skeleton = NodePath("../NavigationRegion3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_0it4o")
+
+[node name="BottomShrine" type="MeshInstance3D" parent="."]
+mesh = ExtResource("22_3p26r")
+surface_material_override/0 = SubResource("StandardMaterial3D_mr4iv")
+
+[node name="BottomShrineCrystals" type="MeshInstance3D" parent="."]
+mesh = ExtResource("26_btudj")
+surface_material_override/0 = SubResource("StandardMaterial3D_mxykp")
+
+[node name="Dirt" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = ExtResource("31_mxykp")
+surface_material_override/0 = SubResource("StandardMaterial3D_rfjn3")
+
+[node name="NexusFloor" type="MeshInstance3D" parent="."]
+mesh = ExtResource("35_v3xie")
+surface_material_override/0 = SubResource("StandardMaterial3D_xaehw")
+
+[node name="Spawns" type="Node3D" parent="."]
+
+[node name="Team1" type="MeshInstance3D" parent="Spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.5, 4)
+mesh = SubResource("SphereMesh_mxykp")

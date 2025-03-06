@@ -1,0 +1,78 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3aa0ihjfmkb8"]
+
+[ext_resource type="Script" path="res://addons/delta_rollback/log_inspector/FrameViewerSettingsDialog.gd" id="1"]
+
+[node name="FrameViewerSettingsDialog" type="AcceptDialog"]
+title = "Frame Viewer Settings"
+size = Vector2i(640, 350)
+script = ExtResource("1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 632.0
+offset_bottom = 301.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="ShowNetworkArrowsLabel" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Show network arrows"
+
+[node name="ShowNetworkArrows" type="CheckBox" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "On"
+
+[node name="NetworkArrowsPeer1Label" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Network arrows - Peer 1"
+
+[node name="NetworkArrowsPeer1" type="OptionButton" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="NetworkArrowsPeer2Label" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Network arrows - Peer 2"
+
+[node name="NetworkArrowsPeer2" type="OptionButton" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="ShowRollbackTicksLabel" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Show rollback ticks"
+
+[node name="ShowRollbackTicks" type="CheckBox" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "On"
+
+[node name="MaxRollbackTicksLabel" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Max rollback ticks"
+
+[node name="MaxRollbackTicks" type="LineEdit" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="TimeOffsetLabel" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Time offsets"
+
+[node name="TimeOffsetContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[connection signal="toggled" from="MarginContainer/GridContainer/ShowNetworkArrows" to="." method="_on_ShowNetworkArrows_toggled"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/NetworkArrowsPeer1" to="." method="_on_NetworkArrowsPeer1_item_selected"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/NetworkArrowsPeer2" to="." method="_on_NetworkArrowsPeer2_item_selected"]
+[connection signal="pressed" from="MarginContainer/GridContainer/ShowRollbackTicks" to="." method="_on_ShowRollbackTicks_pressed"]
+[connection signal="text_changed" from="MarginContainer/GridContainer/MaxRollbackTicks" to="." method="_on_MaxRollbackTicks_text_changed"]

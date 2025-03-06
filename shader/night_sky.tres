@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=13 format=3 uid="uid://m80rmki4fbox"]
 
 [ext_resource type="Shader" uid="uid://dd18tp4it05sf" path="res://shader/stylized_sky.gdshader" id="1_kacri"]
-[ext_resource type="Texture2D" uid="uid://dcjxv3cemwqm0" path="res://assets/shooting_star_sampler.png" id="2_qh8d7"]
+[ext_resource type="Texture2D" uid="uid://dcjxv3cemwqm0" path="res://assets/textures/shooting_star_sampler.png" id="2_qh8d7"]
 
 [sub_resource type="Gradient" id="Gradient_hjww8"]
 offsets = PackedFloat32Array(0.58, 0.6)

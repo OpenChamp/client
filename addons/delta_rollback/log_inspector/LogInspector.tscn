@@ -1,0 +1,171 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsud2u0uhwn4m"]
+
+[ext_resource type="PackedScene" uid="uid://teh77pd0ah27" path="res://addons/delta_rollback/log_inspector/ProgressDialog.tscn" id="1"]
+[ext_resource type="Script" path="res://addons/delta_rollback/log_inspector/LogInspector.gd" id="2"]
+[ext_resource type="PackedScene" path="res://addons/delta_rollback/log_inspector/StateInputViewer.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://58hro2kq3tlw" path="res://addons/delta_rollback/log_inspector/FrameViewer.tscn" id="4"]
+[ext_resource type="Script" path="res://addons/delta_rollback/log_inspector/ReplayServer.gd" id="5"]
+
+[node name="LogInspector" type="AcceptDialog"]
+title = "Log Inspector"
+size = Vector2i(1024, 600)
+ok_button_text = "Close"
+script = ExtResource("2")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+mode = 1
+title = "Open File(s)"
+position = Vector2i(0, 36)
+size = Vector2i(1024, 600)
+ok_button_text = "Ouvrir"
+file_mode = 1
+access = 2
+filters = PackedStringArray("*.log ; Log files")
+
+[node name="ProgressDialog" parent="." instance=ExtResource("1")]
+size = Vector2i(400, 100)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LoadToolbar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ClearButton" type="Button" parent="MarginContainer/VBoxContainer/LoadToolbar"]
+layout_mode = 2
+text = "Clear"
+
+[node name="AddLogButton" type="Button" parent="MarginContainer/VBoxContainer/LoadToolbar"]
+layout_mode = 2
+text = "Add Log"
+
+[node name="Separator1" type="Control" parent="MarginContainer/VBoxContainer/LoadToolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ModeButton" type="OptionButton" parent="MarginContainer/VBoxContainer/LoadToolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 2
+selected = 1
+popup/item_0/text = "State/Input Viewer"
+popup/item_0/id = 0
+popup/item_1/text = "Frame Viewer"
+popup/item_1/id = 1
+
+[node name="Separator2" type="Control" parent="MarginContainer/VBoxContainer/LoadToolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DataDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/LoadToolbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0 logs loaded"
+
+[node name="ReplayToolbar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ReplayLabel" type="Label" parent="MarginContainer/VBoxContainer/ReplayToolbar"]
+layout_mode = 2
+text = "REPLAY:"
+
+[node name="Seperator1" type="Control" parent="MarginContainer/VBoxContainer/ReplayToolbar"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ServerContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/ReplayToolbar"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ReplayToolbar/ServerContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ReplayToolbar/ServerContainer/HBoxContainer"]
+layout_mode = 2
+text = "Server:"
+
+[node name="ReplayStatusLabel" type="Label" parent="MarginContainer/VBoxContainer/ReplayToolbar/ServerContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+text = "Listening..."
+clip_text = true
+
+[node name="StartServerButton" type="Button" parent="MarginContainer/VBoxContainer/ReplayToolbar/ServerContainer/HBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="StopServerButton" type="Button" parent="MarginContainer/VBoxContainer/ReplayToolbar/ServerContainer/HBoxContainer"]
+layout_mode = 2
+text = "Stop"
+
+[node name="DisconnectButton" type="Button" parent="MarginContainer/VBoxContainer/ReplayToolbar/ServerContainer/HBoxContainer"]
+layout_mode = 2
+text = "Disconnect"
+
+[node name="Seperator2" type="Control" parent="MarginContainer/VBoxContainer/ReplayToolbar"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ClientContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/ReplayToolbar"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ReplayToolbar/ClientContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ReplayToolbar/ClientContainer/HBoxContainer"]
+layout_mode = 2
+text = "Client:"
+
+[node name="LaunchGameButton" type="Button" parent="MarginContainer/VBoxContainer/ReplayToolbar/ClientContainer/HBoxContainer"]
+layout_mode = 2
+text = "Launch"
+
+[node name="Seperator1" type="Control" parent="MarginContainer/VBoxContainer/ReplayToolbar/ClientContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ShowPeerLabel" type="Label" parent="MarginContainer/VBoxContainer/ReplayToolbar/ClientContainer/HBoxContainer"]
+layout_mode = 2
+text = "Show:"
+
+[node name="ShowPeerField" type="OptionButton" parent="MarginContainer/VBoxContainer/ReplayToolbar/ClientContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="FrameViewer" parent="MarginContainer/VBoxContainer" instance=ExtResource("4")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StateInputViewer" parent="MarginContainer/VBoxContainer" instance=ExtResource("3")]
+visible = false
+layout_mode = 2
+
+[node name="ReplayServer" type="Node" parent="."]
+script = ExtResource("5")
+
+[connection signal="about_to_popup" from="." to="." method="_on_LogInspector_about_to_show"]
+[connection signal="files_selected" from="FileDialog" to="." method="_on_FileDialog_files_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/LoadToolbar/ClearButton" to="." method="_on_ClearButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/LoadToolbar/AddLogButton" to="." method="_on_AddLogButton_pressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/LoadToolbar/ModeButton" to="." method="_on_ModeButton_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ReplayToolbar/ServerContainer/HBoxContainer/StartServerButton" to="." method="_on_StartServerButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ReplayToolbar/ServerContainer/HBoxContainer/StopServerButton" to="." method="_on_StopServerButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ReplayToolbar/ServerContainer/HBoxContainer/DisconnectButton" to="." method="_on_DisconnectButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ReplayToolbar/ClientContainer/HBoxContainer/LaunchGameButton" to="." method="_on_LaunchGameButton_pressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/ReplayToolbar/ClientContainer/HBoxContainer/ShowPeerField" to="." method="_on_ShowPeerField_item_selected"]
+[connection signal="game_connected" from="ReplayServer" to="." method="_on_ReplayServer_game_connected"]
+[connection signal="game_disconnected" from="ReplayServer" to="." method="_on_ReplayServer_game_disconnected"]
+[connection signal="started_listening" from="ReplayServer" to="." method="_on_ReplayServer_started_listening"]
+[connection signal="stopped_listening" from="ReplayServer" to="." method="_on_ReplayServer_stopped_listening"]

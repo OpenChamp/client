@@ -1,0 +1,240 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4bcxtr2koou0"]
+
+[ext_resource type="Script" uid="uid://qw6fxnfxfk6m" path="res://scripts/ui/menu.gd" id="1_udkah"]
+[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/fonts/LeagueGothic-Regular.woff2" id="2_2ot4n"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 32.0
+offset_right = -2.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_udkah")
+
+[node name="LogoLabel" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.236
+anchor_right = 0.5
+anchor_bottom = 0.236
+offset_left = -121.5
+offset_top = -37.928
+offset_right = 121.5
+offset_bottom = 39.072
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/table_border = Color(0, 0, 0.862745, 1)
+theme_override_colors/table_even_row_bg = Color(0.496475, 0.21976, 0.219295, 1)
+theme_override_colors/table_odd_row_bg = Color(0.847528, 0.254038, 0.54182, 1)
+theme_override_colors/default_color = Color(0.423458, 0.414729, 0.141252, 1)
+theme_override_fonts/normal_font = ExtResource("2_2ot4n")
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]OpenChamp[/center]
+"
+fit_content = true
+scroll_active = false
+
+[node name="PlayerCount" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -314.0
+offset_top = -20.0
+offset_right = -8.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+bbcode_enabled = true
+text = "[right]Players Online: ...[/right]"
+fit_content = true
+
+[node name="ConnectionButton" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = 8.0
+offset_right = 44.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Connect"
+
+[node name="CancelConnectionButton" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = 49.5
+offset_right = 76.0
+offset_bottom = 80.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Cancel"
+
+[node name="MainMenu" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartQueue" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Start Queue"
+
+[node name="Practice" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Practice"
+
+[node name="Settings" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Credits" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Credits
+"
+
+[node name="Settings" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -308.0
+offset_top = -196.5
+offset_right = 308.0
+offset_bottom = 196.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 134.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="BackButton" type="Button" parent="Settings"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -35.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Back"
+
+[node name="Credits" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -308.0
+offset_top = -196.5
+offset_right = 308.0
+offset_bottom = 196.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Credits"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 134.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 32
+text = "Credits"
+
+[node name="BackButton" type="Button" parent="Credits"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -35.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Back"
+
+[node name="Accreditations" type="RichTextLabel" parent="Credits"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = -126.5
+offset_right = -12.0
+offset_bottom = 150.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[left]Developers:[/left]
+[right]Cody Krist 
+Leah Lundqvist 
+Noah Kirschmann [/right]
+
+[left]Music:[/left]
+[right]Matthew Pablo (opengameart) 
+mad_rad_slav [/right]
+
+[left]Art:[/left]
+[right]gkaps 
+Thibaud Goiffon [/right]"
+
+[connection signal="button_up" from="ConnectionButton" to="." method="_on_connection_button_button_up"]
+[connection signal="button_up" from="CancelConnectionButton" to="." method="_on_cancel_connection_button_button_up"]
+[connection signal="button_up" from="MainMenu/StartQueue" to="." method="_on_start_queue_button_up"]
+[connection signal="button_up" from="MainMenu/Practice" to="." method="_on_practice_button_up"]
+[connection signal="button_up" from="MainMenu/Settings" to="." method="_on_settings_button_up"]
+[connection signal="button_up" from="MainMenu/Quit" to="." method="_on_quit_button_up"]
+[connection signal="button_up" from="MainMenu/Credits" to="." method="_on_credits_button_up"]
+[connection signal="button_up" from="Settings/BackButton" to="." method="_on_back_button_button_up"]
+[connection signal="button_up" from="Credits/BackButton" to="." method="_on_back_button_button_up"]
