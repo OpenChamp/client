@@ -10,6 +10,7 @@ var sfx_volume : float = 1.0
 var fullscreen : bool = false
 var vsync : bool = true
 var username : String = "Player"
+var show_fps : bool = false
 
 # Config file path
 const SETTINGS_PATH = "user://settings.cfg"
@@ -43,6 +44,7 @@ func _ready():
 	$Settings/SFXVolumeSlider.value = sfx_volume * 100
 	$Settings/FullscreenCheckBox.button_pressed = fullscreen
 	$Settings/VSyncCheckBox.button_pressed = vsync
+	$Settings/ShowFPSCheckBox.button_pressed = show_fps
 	$Settings/UsernameInput.text = username
 	
 	# Apply settings
@@ -56,6 +58,10 @@ func _process(_delta):
 	# Connection Timer
 	if(NetworkManager.socket.get_ready_state() == WebSocketPeer.STATE_CONNECTING):
 		$ConnectionButton.text = "Attempting Connection... [" + str(int(NetworkManager.connection_timeout)) + "]"
+		
+	# Update FPS counter if enabled
+	if show_fps and has_node("FPSCounter"):
+		$FPSCounter.text = "FPS: " + str(Engine.get_frames_per_second())
 
 func _on_connection_button_button_up() -> void:
 	$ConnectionButton.disabled = true
@@ -174,6 +180,7 @@ func load_settings():
 	sfx_volume = config.get_value("audio", "sfx_volume", 1.0)
 	fullscreen = config.get_value("video", "fullscreen", false)
 	vsync = config.get_value("video", "vsync", true)
+	show_fps = config.get_value("video", "show_fps", false)
 	username = config.get_value("player", "username", "Player")
 
 func save_settings():
@@ -185,6 +192,7 @@ func save_settings():
 	# Save video settings
 	config.set_value("video", "fullscreen", fullscreen)
 	config.set_value("video", "vsync", vsync)
+	config.set_value("video", "show_fps", show_fps)
 	
 	# Save player settings
 	config.set_value("player", "username", username)
@@ -204,6 +212,19 @@ func apply_settings():
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
+	
+	# Apply FPS counter visibility
+	if show_fps:
+		if not has_node("FPSCounter"):
+			var fps_label = Label.new()
+			fps_label.name = "FPSCounter"
+			fps_label.text = "FPS: 0"
+			fps_label.add_theme_color_override("font_color", Color(0, 1, 0)) # Green text
+			fps_label.position = Vector2(10, 10)
+			add_child(fps_label)
+	else:
+		if has_node("FPSCounter"):
+			$FPSCounter.queue_free()
 	
 	# Apply username (would be used when connecting to network, etc.)
 	if NetworkManager and NetworkManager.Store.has("Username"):
@@ -237,6 +258,20 @@ func _on_vsync_check_box_toggled(button_pressed):
 
 func _on_username_input_text_changed(new_text):
 	username = new_text
+
+func _on_show_fps_check_box_toggled(button_pressed):
+	show_fps = button_pressed
+	if button_pressed:
+		if not has_node("FPSCounter"):
+			var fps_label = Label.new()
+			fps_label.name = "FPSCounter"
+			fps_label.text = "FPS: 0"
+			fps_label.add_theme_color_override("font_color", Color(0, 1, 0)) # Green text
+			fps_label.position = Vector2(10, 10)
+			add_child(fps_label)
+	else:
+		if has_node("FPSCounter"):
+			$FPSCounter.queue_free()
 
 func _on_apply_settings_button_up():
 	apply_settings()

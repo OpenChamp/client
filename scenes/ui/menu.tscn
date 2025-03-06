@@ -275,28 +275,43 @@ offset_right = 192.0
 offset_bottom = 280.0
 button_pressed = true
 
-[node name="PlayerLabel" type="Label" parent="Settings"]
+[node name="ShowFPSLabel" type="Label" parent="Settings"]
 layout_mode = 0
 offset_left = 24.0
-offset_top = 296.0
+offset_top = 288.0
 offset_right = 148.0
-offset_bottom = 322.0
-text = "Player Settings"
+offset_bottom = 314.0
+text = "Show FPS"
 
-[node name="UsernameLabel" type="Label" parent="Settings"]
+[node name="ShowFPSCheckBox" type="CheckBox" parent="Settings"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 288.0
+offset_right = 192.0
+offset_bottom = 312.0
+
+[node name="PlayerLabel" type="Label" parent="Settings"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 328.0
 offset_right = 148.0
 offset_bottom = 354.0
+text = "Player Settings"
+
+[node name="UsernameLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 360.0
+offset_right = 148.0
+offset_bottom = 386.0
 text = "Username"
 
 [node name="UsernameInput" type="LineEdit" parent="Settings"]
 layout_mode = 0
 offset_left = 168.0
-offset_top = 328.0
+offset_top = 360.0
 offset_right = 470.0
-offset_bottom = 359.0
+offset_bottom = 391.0
 text = "Player"
 
 [node name="Credits" type="Panel" parent="."]
@@ -377,5 +392,6 @@ Thibaud Goiffon [/right]"
 [connection signal="value_changed" from="Settings/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
 [connection signal="toggled" from="Settings/FullscreenCheckBox" to="." method="_on_fullscreen_check_box_toggled"]
 [connection signal="toggled" from="Settings/VSyncCheckBox" to="." method="_on_vsync_check_box_toggled"]
+[connection signal="toggled" from="Settings/ShowFPSCheckBox" to="." method="_on_show_fps_check_box_toggled"]
 [connection signal="text_changed" from="Settings/UsernameInput" to="." method="_on_username_input_text_changed"]
 [connection signal="button_up" from="Credits/BackButton" to="." method="_on_back_button_button_up"]
