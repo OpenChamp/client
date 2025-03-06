@@ -67,7 +67,7 @@ func _on_connection_button_button_up() -> void:
 	$ConnectionButton.disabled = true
 	$ConnectionButton.text = "Attempting Connection..."
 	$CancelConnectionButton.show()
-	NetworkManager.connect_to_server()
+	NetworkManager.connect_to_server(username)
 	var timer = Timer.new()
 	timer.name = "ConnectionTimer"
 	timer.set_wait_time(1)

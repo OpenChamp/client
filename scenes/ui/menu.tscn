@@ -93,6 +93,7 @@ grow_vertical = 2
 text = "Cancel"
 
 [node name="MainMenu" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -135,9 +136,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -308.0
-offset_top = -196.5
+offset_top = -196.0
 offset_right = 308.0
-offset_bottom = 196.5
+offset_bottom = 201.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -309,12 +310,13 @@ text = "Username"
 [node name="UsernameInput" type="LineEdit" parent="Settings"]
 layout_mode = 0
 offset_left = 168.0
-offset_top = 360.0
-offset_right = 470.0
-offset_bottom = 391.0
+offset_top = 359.0
+offset_right = 453.0
+offset_bottom = 390.0
 text = "Player"
 
 [node name="Credits" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

@@ -42,13 +42,15 @@ func _process(delta):
 		set_process(false)
 
 # Setup
-func connect_to_server():
+func connect_to_server(username : String = ""):
+	Settings.username = username
 	connection_timeout  = 0.0
 	var err = socket.connect_to_url(Settings.websocket_url)
 	if err != OK:
 		print("Unable to connect")
 		return false
 	else:
+		socket.send_text("{\"type\": \"set_username\", \"payload\": \"" + Settings.username + "\"}")
 		set_process(true)
 		return true
 
