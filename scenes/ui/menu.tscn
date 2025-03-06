@@ -392,7 +392,7 @@ mad_rad_slav [/right]
 [right]gkaps 
 Thibaud Goiffon [/right]"
 
-[node name="Chat" type="Panel" parent="."]
+[node name="ChatContainer" type="Panel" parent="."]
 custom_minimum_size = Vector2(300, 230)
 layout_mode = 1
 anchors_preset = 2
@@ -404,7 +404,7 @@ offset_right = 305.0
 offset_bottom = -5.0
 grow_vertical = 0
 
-[node name="ChatTitle" type="Label" parent="Chat"]
+[node name="ChatTitle" type="Label" parent="ChatContainer"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 5.0
@@ -412,7 +412,7 @@ offset_right = 104.0
 offset_bottom = 31.0
 text = "Chat"
 
-[node name="ToggleButton" type="Button" parent="Chat"]
+[node name="ToggleButton" type="Button" parent="ChatContainer"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -425,7 +425,7 @@ grow_horizontal = 0
 tooltip_text = "Minimize Chat"
 text = "_"
 
-[node name="ChatDisplay" type="TextEdit" parent="Chat"]
+[node name="ChatDisplay" type="TextEdit" parent="ChatContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -443,7 +443,7 @@ scroll_v_scroll_speed = 120.0
 highlight_all_occurrences = true
 highlight_current_line = true
 
-[node name="ChatInput" type="LineEdit" parent="Chat"]
+[node name="ChatInput" type="LineEdit" parent="ChatContainer"]
 layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -458,7 +458,7 @@ placeholder_text = "Type your message..."
 clear_button_enabled = true
 caret_blink = true
 
-[node name="SendButton" type="Button" parent="Chat"]
+[node name="SendButton" type="Button" parent="ChatContainer"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -474,7 +474,7 @@ grow_vertical = 0
 tooltip_text = "Send Message"
 text = "→"
 
-[node name="ResizeHandle" type="Control" parent="Chat"]
+[node name="ResizeHandle" type="Control" parent="ChatContainer"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -485,7 +485,7 @@ grow_horizontal = 0
 tooltip_text = "Resize Chat Window"
 script = ExtResource("3_c2n5p")
 
-[node name="ResizeIcon" type="ColorRect" parent="Chat/ResizeHandle"]
+[node name="ResizeIcon" type="ColorRect" parent="ChatContainer/ResizeHandle"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

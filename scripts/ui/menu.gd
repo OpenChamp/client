@@ -12,6 +12,11 @@ var vsync : bool = true
 var username : String = "Player"
 var show_fps : bool = false
 
+# Chat variables
+var chat_visible : bool = true
+var chat_history : Array = []
+var max_chat_messages : int = 100  # Limit the number of messages to prevent memory issues
+
 # Config file path
 const SETTINGS_PATH = "user://settings.cfg"
 var config = ConfigFile.new()
@@ -28,14 +33,7 @@ func _ready():
 		return
 		
 	# Make sure environment is defaulted correctly
-	$LogoLabel.show()
-	$PlayerCount.hide()
-	$ConnectionButton.show()
-	$Quit.show()
-	$MainMenu.hide()
-	$Settings.hide()
-	$CancelConnectionButton.hide()
-	$Credits.hide()
+	set_ui("connect")
 
 	# Fadein Logo
 	$LogoLabel.add_theme_color_override("default_color", Color(255,0,0, 0))
@@ -66,10 +64,8 @@ func _process(_delta):
 		$FPSCounter.text = "FPS: " + str(Engine.get_frames_per_second())
 
 func _on_connection_button_button_up() -> void:
-	$ConnectionButton.disabled = true
-	$ConnectionButton.text = "Attempting Connection..."
-	$CancelConnectionButton.show()
-	$Quit.hide()
+	set_ui("connecting")
+	
 	NetworkManager.connect_to_server(username)
 	var timer = Timer.new()
 	timer.name = "ConnectionTimer"
@@ -79,25 +75,48 @@ func _on_connection_button_button_up() -> void:
 	timer.connect("timeout", wait_for_connection)
 	add_child(timer)
 
+func set_ui(layout:String):
+	$ConnectionButton.hide()
+	$CancelConnectionButton.hide()
+	$Quit.hide()
+	$MainMenu.hide()
+	$Settings.hide()
+	$Credits.hide()
+	$ChatContainer.hide()
+	match layout:
+		"connect":
+			$LogoLabel.show()
+			$ConnectionButton.show()
+			$Quit.show()
+		"connecting":
+			$ConnectionButton.disabled = true
+			$ConnectionButton.text = "Attempting Connection..."
+			$ConnectionButton.show()
+			$CancelConnectionButton.show()
+		"mainmenu":
+			$ConnectionButton.hide()
+			$PlayerCount.show()
+			$MainMenu.show()
+			$ChatContainer.show()
+		"settings":
+			$Settings.show()
 
 func wait_for_connection():
 	var cur_state = NetworkManager.socket.get_ready_state()
 	if cur_state == WebSocketPeer.STATE_OPEN:
 		$ConnectionTimer.queue_free()
 		$CancelConnectionButton.hide()
+		NetworkManager.set_username()
+		_setup_chat()
 		open_main_menu()
 	elif cur_state == WebSocketPeer.STATE_CLOSED:
 		$ConnectionTimer.queue_free()
-		$ConnectionButton.text = "Connect"
-		$ConnectionButton.disabled = false
-		$Quit.show()
-
+		set_ui("connect")
 
 func open_main_menu():
+	set_ui("mainmenu")
 	setup_player_count()
-	$ConnectionButton.hide()
-	$PlayerCount.show()
-	$MainMenu.show()
+	add_chat_message("System", "Connected to server. Welcome, " + username + "!")
 	
 func setup_player_count():
 	# Create a timer to update the player count every 5 seconds
@@ -118,26 +137,23 @@ func _on_start_queue_button_up() -> void:
 	if is_queued:
 		NetworkManager.start_queue()
 		$MainMenu/StartQueue.text = "Stop"
+		add_chat_message("System", "You joined the queue.")
 	else:
 		NetworkManager.stop_queue()
 		$MainMenu/StartQueue.text = "Start Queue"
+		add_chat_message("System", "You left the queue.")
 
 func _on_settings_button_up() -> void:
-	$MainMenu.hide()
-	$Settings.show()
+	set_ui("settings")
 
 func _on_quit_button_up() -> void:
 	get_tree().quit()
 
 
 func _on_back_button_button_up() -> void:
-	$MainMenu.show()
-	$Settings.hide()
-	$Credits.hide()
-	
+	set_ui("mainmenu")
 	# Save settings when leaving the settings panel
 	save_settings()
-
 
 func _on_cancel_connection_button_button_up() -> void:
 	NetworkManager.disconnect_from_server()
@@ -147,11 +163,9 @@ func _on_cancel_connection_button_button_up() -> void:
 	$ConnectionButton.text = "Connect"
 	$Quit.show()
 
-
 func _on_credits_button_up() -> void:
 	$MainMenu.hide()
 	$Credits.show()
-
 
 func _on_practice_button_up() -> void:
 	$MainMenu/Practice.text = "Please Wait..."
@@ -187,6 +201,7 @@ func load_settings():
 	vsync = config.get_value("video", "vsync", true)
 	show_fps = config.get_value("video", "show_fps", false)
 	username = config.get_value("player", "username", "Player")
+	chat_visible = config.get_value("ui", "chat_visible", true)
 
 func save_settings():
 	# Save audio settings
@@ -201,6 +216,9 @@ func save_settings():
 	
 	# Save player settings
 	config.set_value("player", "username", username)
+	
+	# Save UI settings
+	config.set_value("ui", "chat_visible", chat_visible)
 	
 	# Save to file
 	config.save(SETTINGS_PATH)
@@ -281,3 +299,57 @@ func _on_show_fps_check_box_toggled(button_pressed):
 func _on_apply_settings_button_up():
 	apply_settings()
 	save_settings()
+
+# Chat functions
+func _setup_chat():
+	# Set up chat UI interactions
+	$ChatContainer/SendButton.connect("button_up", _send_chat_message)
+	$ChatContainer/ChatInput.connect("text_submitted", _send_chat_message)
+	$ChatContainer/ToggleButton.connect("button_up", _on_chat_toggle_button_pressed)
+	
+	NetworkManager.chat_message_received.connect(add_chat_message)
+
+func _send_chat_message(_e = null):
+	var message_text = $ChatContainer/ChatInput.text.strip_edges()
+	if message_text.length() > 0:
+		# Send the message to the server
+		if NetworkManager.socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+			NetworkManager.send_global_chat_message(message_text)
+			$ChatContainer/ChatInput.text = ""
+
+func add_chat_message(sender, message):
+	# Create message with timestamp
+	var timestamp = Time.get_datetime_string_from_system(false, true).split(" ")[1].substr(0, 5)
+	var formatted_message = "[" + timestamp + "] " + sender + ": " + message
+	
+	# Add to our history array
+	chat_history.append(formatted_message)
+	if chat_history.size() > max_chat_messages:
+		chat_history.pop_front()  # Remove oldest message if we exceed limit
+	
+	# Update the chat display
+	_update_chat_display()
+	
+	# Play a sound for new message (optional)
+	# _play_chat_sound()
+
+func _update_chat_display():
+	var display_text = ""
+	for message in chat_history:
+		display_text += message + "\n"
+	
+	$ChatContainer/ChatDisplay.text = display_text
+	
+	# Auto-scroll to bottom
+	$ChatContainer/ChatDisplay.scroll_vertical = $ChatContainer/ChatDisplay.get_v_scroll_bar().max_value
+
+func _on_chat_toggle_button_pressed():
+	chat_visible = !chat_visible
+	$ChatContainer.visible = chat_visible
+	save_settings()
+
+# Called by the resize handle - now handled by the resize handle script directly
+func _on_chat_resize_handle_gui_input(event):
+	# This function can remain empty as we're now handling the resize logic
+	# in the dedicated script attached to the ResizeHandle node
+	pass

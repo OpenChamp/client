@@ -12,6 +12,8 @@ var Store = {
 var socket = WebSocketPeer.new()
 var connection_timeout : float = 0
 
+signal chat_message_received(sender, message)
+
 func _ready():
 	set_process(false)
 	print("Global Script Loaded")
@@ -24,10 +26,10 @@ func _process(delta):
 	var state = socket.get_ready_state()
 
 	if state == WebSocketPeer.STATE_OPEN:
+		
 		while socket.get_available_packet_count():
 			var data = socket.get_packet().get_string_from_utf8()
 			var json = JSON.parse_string(data)
-			print("Got data from server: ", json)
 			processPacket(json)
 	
 	if state == WebSocketPeer.STATE_CONNECTING:
@@ -50,7 +52,6 @@ func connect_to_server(username : String = ""):
 		print("Unable to connect")
 		return false
 	else:
-		socket.send_text("{\"type\": \"set_username\", \"payload\": \"" + Settings.username + "\"}")
 		set_process(true)
 		return true
 
@@ -76,8 +77,9 @@ func stop_queue():
 	socket.send_text("{\"type\": \"stop_queue\"}")
 	
 func processPacket(packet : Dictionary):
-	print("Processing packet: ", packet)
 	match packet["type"]:
+		"global_chat":
+			_handle_chat_message(packet["payload"])
 		"player_count":
 			Store.PlayerCount = int(packet["payload"])
 		"queued":
@@ -87,3 +89,27 @@ func processPacket(packet : Dictionary):
 		_:
 			print("Unknown packet: ", JSON.stringify(packet))
 		
+## Chat
+func send_global_chat_message(message_text):
+	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		var chat_packet = {
+			"type": "global_chat",
+			"payload": message_text,
+		}
+		var json_string = JSON.stringify(chat_packet)
+		socket.send_text(json_string)
+
+# Handle incoming chat messages from server
+# This would be called from your _process function that processes incoming messages
+func _handle_chat_message(packet):
+	print("HANDLING MESSAGE")
+	if packet.has("username") and packet.has("message"):
+		# Emit the signal for any listeners
+		emit_signal("chat_message_received", packet.username, packet.message)
+
+func set_username(username:String = Settings.username):
+	var packet = {
+		"type": "set_username",
+		"payload": Settings.username.replace("\"", "")
+	}
+	NetworkManager.socket.send_text(JSON.stringify(packet))
