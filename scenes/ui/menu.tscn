@@ -1,17 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://d4bcxtr2koou0"]
+[gd_scene load_steps=4 format=3 uid="uid://d4bcxtr2koou0"]
 
 [ext_resource type="Script" uid="uid://qw6fxnfxfk6m" path="res://scripts/ui/menu.gd" id="1_udkah"]
 [ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/fonts/LeagueGothic-Regular.woff2" id="2_2ot4n"]
+[ext_resource type="Script" uid="uid://dw2odp1h7n1uw" path="res://scripts/ui/chatresizer.gd" id="3_c2n5p"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = 32.0
-offset_right = -2.0
-offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_udkah")
@@ -91,6 +88,21 @@ offset_bottom = 80.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Cancel"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = 41.5
+offset_right = 21.0
+offset_bottom = 72.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
 
 [node name="MainMenu" type="VBoxContainer" parent="."]
 visible = false
@@ -380,8 +392,112 @@ mad_rad_slav [/right]
 [right]gkaps 
 Thibaud Goiffon [/right]"
 
+[node name="Chat" type="Panel" parent="."]
+custom_minimum_size = Vector2(300, 230)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -235.0
+offset_right = 305.0
+offset_bottom = -5.0
+grow_vertical = 0
+
+[node name="ChatTitle" type="Label" parent="Chat"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 5.0
+offset_right = 104.0
+offset_bottom = 31.0
+text = "Chat"
+
+[node name="ToggleButton" type="Button" parent="Chat"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 35.0
+grow_horizontal = 0
+tooltip_text = "Minimize Chat"
+text = "_"
+
+[node name="ChatDisplay" type="TextEdit" parent="Chat"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = -8.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+editable = false
+wrap_mode = 1
+scroll_smooth = true
+scroll_v_scroll_speed = 120.0
+highlight_all_occurrences = true
+highlight_current_line = true
+
+[node name="ChatInput" type="LineEdit" parent="Chat"]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -32.0
+offset_right = -44.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+placeholder_text = "Type your message..."
+clear_button_enabled = true
+caret_blink = true
+
+[node name="SendButton" type="Button" parent="Chat"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -32.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+tooltip_text = "Send Message"
+text = "→"
+
+[node name="ResizeHandle" type="Control" parent="Chat"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+tooltip_text = "Resize Chat Window"
+script = ExtResource("3_c2n5p")
+
+[node name="ResizeIcon" type="ColorRect" parent="Chat/ResizeHandle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.8, 0.8, 0.8, 1)
+
 [connection signal="button_up" from="ConnectionButton" to="." method="_on_connection_button_button_up"]
 [connection signal="button_up" from="CancelConnectionButton" to="." method="_on_cancel_connection_button_button_up"]
+[connection signal="button_up" from="Quit" to="." method="_on_quit_button_up"]
 [connection signal="button_up" from="MainMenu/StartQueue" to="." method="_on_start_queue_button_up"]
 [connection signal="button_up" from="MainMenu/Practice" to="." method="_on_practice_button_up"]
 [connection signal="button_up" from="MainMenu/Settings" to="." method="_on_settings_button_up"]

@@ -31,10 +31,12 @@ func _ready():
 	$LogoLabel.show()
 	$PlayerCount.hide()
 	$ConnectionButton.show()
+	$Quit.show()
 	$MainMenu.hide()
 	$Settings.hide()
 	$CancelConnectionButton.hide()
 	$Credits.hide()
+
 	# Fadein Logo
 	$LogoLabel.add_theme_color_override("default_color", Color(255,0,0, 0))
 	
@@ -67,6 +69,7 @@ func _on_connection_button_button_up() -> void:
 	$ConnectionButton.disabled = true
 	$ConnectionButton.text = "Attempting Connection..."
 	$CancelConnectionButton.show()
+	$Quit.hide()
 	NetworkManager.connect_to_server(username)
 	var timer = Timer.new()
 	timer.name = "ConnectionTimer"
@@ -87,6 +90,7 @@ func wait_for_connection():
 		$ConnectionTimer.queue_free()
 		$ConnectionButton.text = "Connect"
 		$ConnectionButton.disabled = false
+		$Quit.show()
 
 
 func open_main_menu():
@@ -141,6 +145,7 @@ func _on_cancel_connection_button_button_up() -> void:
 	$CancelConnectionButton.hide()
 	$ConnectionButton.disabled = false
 	$ConnectionButton.text = "Connect"
+	$Quit.show()
 
 
 func _on_credits_button_up() -> void:
