@@ -16,6 +16,6 @@ offset_bottom = 0.0
 
 [node name="HeroicDemise(new)" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_7nrmo")
-volume_db = -80.0
 autoplay = true
+bus = &"Music"
 parameters/looping = false

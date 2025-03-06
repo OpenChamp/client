@@ -16,6 +16,10 @@ config/use_custom_user_dir=true
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://ddwso3ogy7vee"
+
 [autoload]
 
 NetworkManager="*res://scripts/globals/_NetworkManager.gd"

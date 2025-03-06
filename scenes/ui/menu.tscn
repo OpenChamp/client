@@ -165,6 +165,140 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Back"
 
+[node name="ApplySettingsButton" type="Button" parent="Settings"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -35.0
+offset_right = -60.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Apply"
+
+[node name="AudioLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 56.0
+offset_right = 148.0
+offset_bottom = 82.0
+text = "Audio Settings"
+
+[node name="MasterVolumeLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 88.0
+offset_right = 148.0
+offset_bottom = 114.0
+text = "Master Volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="Settings"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 88.0
+offset_right = 470.0
+offset_bottom = 114.0
+value = 100.0
+
+[node name="MusicVolumeLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 120.0
+offset_right = 148.0
+offset_bottom = 146.0
+text = "Music Volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="Settings"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 120.0
+offset_right = 470.0
+offset_bottom = 146.0
+value = 100.0
+
+[node name="SFXVolumeLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 152.0
+offset_right = 148.0
+offset_bottom = 178.0
+text = "SFX Volume"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="Settings"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 152.0
+offset_right = 470.0
+offset_bottom = 178.0
+value = 100.0
+
+[node name="VideoLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 192.0
+offset_right = 148.0
+offset_bottom = 218.0
+text = "Video Settings"
+
+[node name="FullscreenLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 224.0
+offset_right = 148.0
+offset_bottom = 250.0
+text = "Fullscreen"
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="Settings"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 224.0
+offset_right = 192.0
+offset_bottom = 248.0
+
+[node name="VSyncLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 256.0
+offset_right = 148.0
+offset_bottom = 282.0
+text = "VSync"
+
+[node name="VSyncCheckBox" type="CheckBox" parent="Settings"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 256.0
+offset_right = 192.0
+offset_bottom = 280.0
+button_pressed = true
+
+[node name="PlayerLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 296.0
+offset_right = 148.0
+offset_bottom = 322.0
+text = "Player Settings"
+
+[node name="UsernameLabel" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 328.0
+offset_right = 148.0
+offset_bottom = 354.0
+text = "Username"
+
+[node name="UsernameInput" type="LineEdit" parent="Settings"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 328.0
+offset_right = 470.0
+offset_bottom = 359.0
+text = "Player"
+
 [node name="Credits" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -237,4 +371,11 @@ Thibaud Goiffon [/right]"
 [connection signal="button_up" from="MainMenu/Quit" to="." method="_on_quit_button_up"]
 [connection signal="button_up" from="MainMenu/Credits" to="." method="_on_credits_button_up"]
 [connection signal="button_up" from="Settings/BackButton" to="." method="_on_back_button_button_up"]
+[connection signal="button_up" from="Settings/ApplySettingsButton" to="." method="_on_apply_settings_button_up"]
+[connection signal="value_changed" from="Settings/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="Settings/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="Settings/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="toggled" from="Settings/FullscreenCheckBox" to="." method="_on_fullscreen_check_box_toggled"]
+[connection signal="toggled" from="Settings/VSyncCheckBox" to="." method="_on_vsync_check_box_toggled"]
+[connection signal="text_changed" from="Settings/UsernameInput" to="." method="_on_username_input_text_changed"]
 [connection signal="button_up" from="Credits/BackButton" to="." method="_on_back_button_button_up"]

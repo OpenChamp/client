@@ -3,7 +3,22 @@ extends Node
 var title_fadein : float = 0.0
 var is_queued : bool = false
 
+# Settings variables
+var master_volume : float = 1.0
+var music_volume : float = 1.0
+var sfx_volume : float = 1.0
+var fullscreen : bool = false
+var vsync : bool = true
+var username : String = "Player"
+
+# Config file path
+const SETTINGS_PATH = "user://settings.cfg"
+var config = ConfigFile.new()
+
 func _ready():
+	# Load settings first
+	load_settings()
+	
 	# If headless, go to Server Scene instead
 	for argument in OS.get_cmdline_args():
 		print(argument)
@@ -22,6 +37,16 @@ func _ready():
 	# Fadein Logo
 	$LogoLabel.add_theme_color_override("default_color", Color(255,0,0, 0))
 	
+	# Initialize settings UI with current values
+	$Settings/MasterVolumeSlider.value = master_volume * 100
+	$Settings/MusicVolumeSlider.value = music_volume * 100
+	$Settings/SFXVolumeSlider.value = sfx_volume * 100
+	$Settings/FullscreenCheckBox.button_pressed = fullscreen
+	$Settings/VSyncCheckBox.button_pressed = vsync
+	$Settings/UsernameInput.text = username
+	
+	# Apply settings
+	apply_settings()
 
 func _process(_delta):
 	# Fadein Title
@@ -99,6 +124,9 @@ func _on_back_button_button_up() -> void:
 	$MainMenu.show()
 	$Settings.hide()
 	$Credits.hide()
+	
+	# Save settings when leaving the settings panel
+	save_settings()
 
 
 func _on_cancel_connection_button_button_up() -> void:
@@ -107,7 +135,6 @@ func _on_cancel_connection_button_button_up() -> void:
 	$CancelConnectionButton.hide()
 	$ConnectionButton.disabled = false
 	$ConnectionButton.text = "Connect"
-	pass # Replace with function body.
 
 
 func _on_credits_button_up() -> void:
@@ -132,3 +159,85 @@ func _on_practice_button_up() -> void:
 		print("Failed to connect to server")
 		$MainMenu/Practice.text = "Practice"
 		$MainMenu/Practice.disabled = false
+
+# Settings related functions
+func load_settings():
+	var err = config.load(SETTINGS_PATH)
+	if err != OK:
+		# If the file doesn't exist, we'll just use the default values
+		print("No settings file found, using defaults")
+		return
+		
+	# Load values with defaults if they don't exist
+	master_volume = config.get_value("audio", "master_volume", 1.0)
+	music_volume = config.get_value("audio", "music_volume", 1.0)
+	sfx_volume = config.get_value("audio", "sfx_volume", 1.0)
+	fullscreen = config.get_value("video", "fullscreen", false)
+	vsync = config.get_value("video", "vsync", true)
+	username = config.get_value("player", "username", "Player")
+
+func save_settings():
+	# Save audio settings
+	config.set_value("audio", "master_volume", master_volume)
+	config.set_value("audio", "music_volume", music_volume)
+	config.set_value("audio", "sfx_volume", sfx_volume)
+	
+	# Save video settings
+	config.set_value("video", "fullscreen", fullscreen)
+	config.set_value("video", "vsync", vsync)
+	
+	# Save player settings
+	config.set_value("player", "username", username)
+	
+	# Save to file
+	config.save(SETTINGS_PATH)
+
+func apply_settings():
+	# Apply audio settings
+	AudioServer.set_bus_volume_db(0, linear_to_db(master_volume))
+	
+	# Apply video settings
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN != fullscreen:
+		if fullscreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
+	
+	# Apply username (would be used when connecting to network, etc.)
+	if NetworkManager and NetworkManager.Store.has("Username"):
+		NetworkManager.Store["Username"] = username
+
+# Signal handlers for settings controls
+
+func _on_master_volume_slider_value_changed(value):
+	master_volume = value / 100.0
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
+
+func _on_music_volume_slider_value_changed(value):
+	music_volume = value / 100.0
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(music_volume))
+
+func _on_sfx_volume_slider_value_changed(value):
+	sfx_volume = value / 100.0
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(sfx_volume))
+
+
+func _on_fullscreen_check_box_toggled(button_pressed):
+	fullscreen = button_pressed
+	if button_pressed:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+func _on_vsync_check_box_toggled(button_pressed):
+	vsync = button_pressed
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
+
+func _on_username_input_text_changed(new_text):
+	username = new_text
+
+func _on_apply_settings_button_up():
+	apply_settings()
+	save_settings()
