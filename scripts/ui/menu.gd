@@ -12,8 +12,6 @@ var max_chat_messages : int = 100
 
 
 func _ready():
-	Util.load_settings()
-	
 	# Check for headless server mode
 	for argument in OS.get_cmdline_args():
 		print(argument)
