@@ -5,9 +5,9 @@ var Map = null
 func stage_map(mapname: String) -> void:
 	match mapname:
 		"rift":
-			Map = preload("res://level/rift.tscn")
+			Map = preload("res://scenes/maps/rift.tscn")
 		_:
-			Map = preload("res://level/rift.tscn")
+			Map = preload("res://scenes/maps/bridge.tscn")
 
 
 func change_map(path: String = "") -> void:

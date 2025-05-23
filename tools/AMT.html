@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenChamp Account Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .connection-status {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .status-connecting {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .status-connected {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            border-bottom-color: #667eea;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .tab:hover {
+            background: #f8f9fa;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+        
+        .result.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+        
+        .result.error {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .token-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .token-display h4 {
+            margin-bottom: 10px;
+            color: #495057;
+        }
+        
+        .token-value {
+            font-family: 'Courier New', monospace;
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 3px;
+            word-break: break-all;
+            font-size: 12px;
+            border: 1px solid #ced4da;
+        }
+        
+        .copy-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .copy-btn:hover {
+            background: #218838;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .server-config {
+            margin-top: 10px;
+        }
+        
+        .server-config input {
+            width: 100%;
+            padding: 8px;
+            font-size: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>OpenChamp</h1>
+            <p>Account Manager</p>
+        </div>
+        
+        <div class="content">
+            <div class="server-config">
+                <label for="serverUrl">Server URL:</label>
+                <input type="text" id="serverUrl" value="ws://localhost:8080/ws" placeholder="ws://localhost:8080/ws">
+            </div>
+            
+            <div id="connectionStatus" class="connection-status status-connecting">
+                Connecting to server...
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="login">Login</div>
+                <div class="tab" data-tab="register">Register</div>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="form-container">
+                <div class="form-group">
+                    <label for="loginUsername">Username:</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button class="btn" id="loginBtn" onclick="handleLogin()">Login</button>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="registerForm" class="form-container hidden">
+                <div class="form-group">
+                    <label for="registerUsername">Username:</label>
+                    <input type="text" id="registerUsername" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email (optional):</label>
+                    <input type="email" id="registerEmail">
+                </div>
+                <button class="btn" id="registerBtn" onclick="handleRegister()">Create Account</button>
+            </div>
+            
+            <!-- Result Display -->
+            <div id="result" class="result hidden">
+                <div id="resultMessage"></div>
+                <div id="tokenDisplay" class="token-display hidden">
+                    <h4>Authentication Token:</h4>
+                    <div class="token-value" id="tokenValue"></div>
+                    <button class="copy-btn" onclick="copyToken()">Copy Token</button>
+                    <p style="margin-top: 10px; font-size: 12px; color: #6c757d;">
+                        Add this token to your Godot client's settings or config file for automatic authentication.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let socket = null;
+        let isConnected = false;
+        
+        // Initialize connection
+        function connect() {
+            const serverUrl = document.getElementById('serverUrl').value;
+            
+            try {
+                socket = new WebSocket(serverUrl);
+                updateConnectionStatus('connecting', 'Connecting to server...');
+                
+                socket.onopen = function() {
+                    isConnected = true;
+                    updateConnectionStatus('connected', 'Connected to server');
+                    enableForms();
+                };
+                
+                socket.onclose = function() {
+                    isConnected = false;
+                    updateConnectionStatus('error', 'Disconnected from server');
+                    disableForms();
+                    
+                    // Attempt to reconnect after 3 seconds
+                    setTimeout(connect, 3000);
+                };
+                
+                socket.onerror = function(error) {
+                    console.error('WebSocket error:', error);
+                    updateConnectionStatus('error', 'Connection failed');
+                };
+                
+                socket.onmessage = function(event) {
+                    handleMessage(JSON.parse(event.data));
+                };
+                
+            } catch (error) {
+                console.error('Connection error:', error);
+                updateConnectionStatus('error', 'Invalid server URL');
+            }
+        }
+        
+        function updateConnectionStatus(status, message) {
+            const statusEl = document.getElementById('connectionStatus');
+            statusEl.className = `connection-status status-${status}`;
+            statusEl.textContent = message;
+        }
+        
+        function enableForms() {
+            document.getElementById('loginBtn').disabled = false;
+            document.getElementById('registerBtn').disabled = false;
+        }
+        
+        function disableForms() {
+            document.getElementById('loginBtn').disabled = true;
+            document.getElementById('registerBtn').disabled = true;
+        }
+        
+        function handleMessage(message) {
+            console.log('Received:', message);
+            
+            switch(message.type) {
+                case 'connection_established':
+                    console.log('Connection established');
+                    break;
+                    
+                case 'auth_success':
+                    showResult('success', `Login successful! Welcome, ${message.payload.username}`);
+                    showToken(message.payload.token, message.payload.username);
+                    break;
+                    
+                case 'auth_error':
+                    showResult('error', `Login failed: ${message.payload.message}`);
+                    break;
+                    
+                case 'register_success':
+                    if (message.payload.autoLogin) {
+                        showResult('success', `Account created and logged in! Welcome, ${message.payload.username}`);
+                        showToken(message.payload.token, message.payload.username);
+                    } else {
+                        showResult('success', 'Account created successfully! You can now login.');
+                    }
+                    break;
+                    
+                case 'register_error':
+                    showResult('error', `Registration failed: ${message.payload.message}`);
+                    break;
+            }
+        }
+        
+        function handleLogin() {
+            if (!isConnected) {
+                showResult('error', 'Not connected to server');
+                return;
+            }
+            
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!username || !password) {
+                showResult('error', 'Please enter both username and password');
+                return;
+            }
+            
+            const message = {
+                type: 'login',
+                payload: {
+                    username: username,
+                    password: password
+                }
+            };
+            
+            socket.send(JSON.stringify(message));
+            showResult('', 'Logging in...');
+        }
+        
+        function handleRegister() {
+            if (!isConnected) {
+                showResult('error', 'Not connected to server');
+                return;
+            }
+            
+            const username = document.getElementById('registerUsername').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const email = document.getElementById('registerEmail').value.trim();
+            
+            if (!username || !password) {
+                showResult('error', 'Username and password are required');
+                return;
+            }
+            
+            if (username.length < 3) {
+                showResult('error', 'Username must be at least 3 characters');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showResult('error', 'Password must be at least 6 characters');
+                return;
+            }
+            
+            const message = {
+                type: 'register',
+                payload: {
+                    username: username,
+                    password: password,
+                    email: email
+                }
+            };
+            
+            socket.send(JSON.stringify(message));
+            showResult('', 'Creating account...');
+        }
+        
+        function showResult(type, message) {
+            const resultEl = document.getElementById('result');
+            const messageEl = document.getElementById('resultMessage');
+            const tokenEl = document.getElementById('tokenDisplay');
+            
+            if (type === '') {
+                resultEl.className = 'result';
+                messageEl.textContent = message;
+                resultEl.classList.remove('hidden');
+                tokenEl.classList.add('hidden');
+                return;
+            }
+            
+            resultEl.className = `result ${type}`;
+            messageEl.textContent = message;
+            resultEl.classList.remove('hidden');
+            
+            if (type === 'error') {
+                tokenEl.classList.add('hidden');
+            }
+        }
+        
+        function showToken(token, username) {
+            const tokenEl = document.getElementById('tokenDisplay');
+            const tokenValueEl = document.getElementById('tokenValue');
+            
+            tokenValueEl.textContent = token;
+            tokenEl.classList.remove('hidden');
+        }
+        
+        function copyToken() {
+            const tokenValue = document.getElementById('tokenValue').textContent;
+            navigator.clipboard.writeText(tokenValue).then(function() {
+                const copyBtn = document.querySelector('.copy-btn');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                copyBtn.style.background = '#28a745';
+                
+                setTimeout(function() {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.background = '';
+                }, 2000);
+            });
+        }
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.dataset.tab;
+                
+                // Update active tab
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show/hide forms
+                document.getElementById('loginForm').classList.toggle('hidden', tabName !== 'login');
+                document.getElementById('registerForm').classList.toggle('hidden', tabName !== 'register');
+                
+                // Clear results
+                document.getElementById('result').classList.add('hidden');
+            });
+        });
+        
+        // Server URL change handler
+        document.getElementById('serverUrl').addEventListener('change', function() {
+            if (socket) {
+                socket.close();
+            }
+            connect();
+        });
+        
+        // Enter key handlers
+        document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleLogin();
+        });
+        
+        document.getElementById('registerEmail').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleRegister();
+        });
+        
+        // Initialize connection on page load
+        connect();
+    </script>
+</body>
+</html>

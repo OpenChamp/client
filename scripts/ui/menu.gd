@@ -4,26 +4,15 @@ extends Node
 var title_fadein : float = 0.0
 var is_queued : bool = false
 
-# Settings variables
-var master_volume : float = 1.0
-var music_volume : float = 1.0
-var sfx_volume : float = 1.0
-var fullscreen : bool = false
-var vsync : bool = true
-var username : String = "Player"
-var show_fps : bool = false
-
 # Chat variables
 var chat_visible : bool = true
 var chat_history : Array = []
 var max_chat_messages : int = 100
 
-# Config file handling
-const SETTINGS_PATH = "user://settings.cfg"
-var config = ConfigFile.new()
+
 
 func _ready():
-	load_settings()
+	Util.load_settings()
 	
 	# Check for headless server mode
 	for argument in OS.get_cmdline_args():
@@ -38,7 +27,7 @@ func _ready():
 	
 	# Initialize settings UI
 	_init_settings_ui()
-	apply_settings()
+	Util.apply_settings()
 
 func _process(_delta):
 	# Handle logo fade-in animation
@@ -49,10 +38,6 @@ func _process(_delta):
 	# Update connection status
 	if(NetworkManager.socket.get_ready_state() == WebSocketPeer.STATE_CONNECTING):
 		$ConnectionButton.text = "Attempting Connection... [" + str(int(NetworkManager.connection_timeout)) + "]"
-	
-	# Update FPS counter if enabled
-	if show_fps and has_node("FPSCounter"):
-		$FPSCounter.text = "FPS: " + str(Engine.get_frames_per_second())
 
 # === UI Management ===
 
@@ -86,20 +71,20 @@ func set_ui(layout: String):
 			$Settings.show()
 
 func _init_settings_ui():
-	$Settings/MasterVolumeSlider.value = master_volume * 100
-	$Settings/MusicVolumeSlider.value = music_volume * 100
-	$Settings/SFXVolumeSlider.value = sfx_volume * 100
-	$Settings/FullscreenCheckBox.button_pressed = fullscreen
-	$Settings/VSyncCheckBox.button_pressed = vsync
-	$Settings/ShowFPSCheckBox.button_pressed = show_fps
-	$Settings/UsernameInput.text = username
+	$Settings/MasterVolumeSlider.value = Util.master_volume * 100
+	$Settings/MusicVolumeSlider.value = Util.music_volume * 100
+	$Settings/SFXVolumeSlider.value = Util.sfx_volume * 100
+	$Settings/FullscreenCheckBox.button_pressed = Util.fullscreen
+	$Settings/VSyncCheckBox.button_pressed = Util.vsync
+	$Settings/ShowFPSCheckBox.button_pressed = Util.show_fps
+	$Settings/UsernameInput.text = Util.username
 
 # === Connection Management ===
 
 func _on_connection_button_button_up() -> void:
 	set_ui("connecting")
 	
-	NetworkManager.connect_to_server(username)
+	NetworkManager.connect_to_server()
 	var timer = Timer.new()
 	timer.name = "ConnectionTimer"
 	timer.set_wait_time(1)
@@ -133,7 +118,7 @@ func _on_cancel_connection_button_button_up() -> void:
 func open_main_menu():
 	set_ui("mainmenu")
 	setup_player_count()
-	add_chat_message("System", "Connected to server. Welcome, " + username + "!")
+	add_chat_message("System", "Connected to server. Welcome, " + Util.username + "!")
 
 func setup_player_count():
 	var timer = Timer.new()
@@ -174,93 +159,42 @@ func _on_practice_button_up() -> void:
 		$MainMenu/Practice.text = "Practice"
 		$MainMenu/Practice.disabled = false
 
-# === Settings Management ===
-
-func load_settings():
-	var err = config.load(SETTINGS_PATH)
-	if err != OK:
-		print("No settings file found, using defaults")
-		return
-	
-	master_volume = config.get_value("audio", "master_volume", 1.0)
-	music_volume = config.get_value("audio", "music_volume", 1.0)
-	sfx_volume = config.get_value("audio", "sfx_volume", 1.0)
-	fullscreen = config.get_value("video", "fullscreen", false)
-	vsync = config.get_value("video", "vsync", true)
-	show_fps = config.get_value("video", "show_fps", false)
-	username = config.get_value("player", "username", "Player")
-	chat_visible = config.get_value("ui", "chat_visible", true)
-
-func save_settings():
-	NetworkManager.save_settings_to_config(config)
-
-
-func apply_settings():
-	# Apply audio settings
-	AudioServer.set_bus_volume_db(0, linear_to_db(master_volume))
-	
-	# Apply video settings
-	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN != fullscreen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
-	
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
-	
-	# Apply FPS counter
-	_update_fps_counter()
-	
-	# Apply username
-	if NetworkManager and NetworkManager.Store.has("Username"):
-		NetworkManager.Store["Username"] = username
-
-func _update_fps_counter():
-	if show_fps:
-		if not has_node("FPSCounter"):
-			var fps_label = Label.new()
-			fps_label.name = "FPSCounter"
-			fps_label.text = "FPS: 0"
-			fps_label.add_theme_color_override("font_color", Color(0, 1, 0))
-			fps_label.position = Vector2(10, 10)
-			add_child(fps_label)
-	else:
-		if has_node("FPSCounter"):
-			$FPSCounter.queue_free()
-
 # === Settings UI Signal Handlers ===
 
 func _on_master_volume_slider_value_changed(value):
-	master_volume = value / 100.0
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
+	Util.master_volume = value / 100.0
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(Util.master_volume))
 
 func _on_music_volume_slider_value_changed(value):
-	music_volume = value / 100.0
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(music_volume))
+	Util.music_volume = value / 100.0
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(Util.music_volume))
 
 func _on_sfx_volume_slider_value_changed(value):
-	sfx_volume = value / 100.0
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(sfx_volume))
+	Util.sfx_volume = value / 100.0
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(Util.sfx_volume))
 
 func _on_fullscreen_check_box_toggled(button_pressed):
-	fullscreen = button_pressed
+	Util.fullscreen = button_pressed
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if button_pressed else DisplayServer.WINDOW_MODE_WINDOWED)
 
 func _on_vsync_check_box_toggled(button_pressed):
-	vsync = button_pressed
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
+	Util.vsync = button_pressed
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if Util.vsync else DisplayServer.VSYNC_DISABLED)
 
 func _on_show_fps_check_box_toggled(button_pressed):
-	show_fps = button_pressed
-	_update_fps_counter()
+	print(button_pressed)
+	Util.toggle_fps_counter(button_pressed)
 
 func _on_username_input_text_changed(new_text):
-	username = new_text
+	Util.username = new_text
 
 func _on_apply_settings_button_up():
-	apply_settings()
-	save_settings()
+	Util.apply_settings()
+	Util.save_settings()
 
 func _on_back_button_button_up() -> void:
 	set_ui("mainmenu")
-	save_settings()
+	Util.save_settings()
 
 # === Navigation Buttons ===
 
@@ -313,4 +247,4 @@ func _update_chat_display():
 func _on_chat_toggle_button_pressed():
 	chat_visible = !chat_visible
 	$ChatContainer.visible = chat_visible
-	save_settings()
+	Util.save_settings()

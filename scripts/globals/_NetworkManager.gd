@@ -4,8 +4,8 @@ extends Node
 const SETTINGS_PATH = "user://settings.cfg"
 
 # Network Settings
-var websocket_url: String = "ws://localhost:8080/ws"
-
+var websocket_url: String = ""
+var token = ""
 # Network State
 var socket = WebSocketPeer.new()
 var connection_timeout: float = 0
@@ -14,7 +14,6 @@ var connection_timeout: float = 0
 var Store = {
 	"InQueue": false,
 	"PlayerCount": 0,
-	"Username": ""
 }
 
 # Signals
@@ -23,7 +22,6 @@ signal chat_message_received(sender, message)
 func _ready():
 	set_process(false)
 	print("NetworkManager Loaded")
-	load_settings()
 
 func _process(delta):
 	socket.poll()
@@ -42,8 +40,7 @@ func _process(delta):
 
 # === Connection Management ===
 
-func connect_to_server(username: String = ""):
-	Store["Username"] = username
+func connect_to_server():
 	connection_timeout = 0.0
 	var err = socket.connect_to_url(websocket_url)
 	if err != OK:
@@ -57,31 +54,12 @@ func disconnect_from_server():
 	socket.close()
 	set_process(false)
 
-func set_username(username: String = Store["Username"]):
+func set_username(username: String = Util.username):
 	var packet = {
 		"type": "set_username",
 		"payload": username.replace("\"", "")
 	}
 	socket.send_text(JSON.stringify(packet))
-
-# === Settings Management ===
-
-func load_settings():
-	var config = ConfigFile.new()
-	var err = config.load(SETTINGS_PATH)
-	
-	if err != OK:
-		print("No settings file found, using defaults for network")
-		return
-	
-	# Load network settings from the same config file
-	websocket_url = config.get_value("network", "websocket_url", "ws://localhost:8080/ws")
-	Store["Username"] = config.get_value("player", "username", "Player")
-
-func save_settings_to_config(config):
-	# Save network settings to the provided config
-	config.set_value("network", "websocket_url", websocket_url)
-
 # === Server Communication ===
 
 func get_player_count():
@@ -102,7 +80,7 @@ func process_packet(packet: Dictionary):
 		"queued":
 			Store.InQueue = true
 		"user_assigned":
-			Store.Username = packet["payload"]
+			Util.Username = packet["payload"]
 		_:
 			print("Unknown packet: ", JSON.stringify(packet))
 

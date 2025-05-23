@@ -22,6 +22,7 @@ buses/default_bus_layout="uid://ddwso3ogy7vee"
 
 [autoload]
 
+Util="*res://scripts/globals/_Utility.gd"
 NetworkManager="*res://scripts/globals/_NetworkManager.gd"
 SyncManager="*res://addons/delta_rollback/SyncManager.gd"
 

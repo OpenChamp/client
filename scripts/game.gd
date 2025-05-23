@@ -4,7 +4,7 @@ extends Node3D
 @export var caster_minion : PackedScene
 
 func _ready():
-	add_child(load("res://level/rift.tscn").instantiate())
+	add_child(load("res://scenes/maps/rift.tscn").instantiate())
 	pass
 
 func _physics_process(delta: float) -> void:

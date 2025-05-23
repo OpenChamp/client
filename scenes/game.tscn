@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cox1hp6n0afel"]
 
-[ext_resource type="Script" uid="uid://b1ylskjqvyq3g" path="res://scenes/game.gd" id="1_5kiuu"]
+[ext_resource type="Script" uid="uid://b1ylskjqvyq3g" path="res://scripts/game.gd" id="1_5kiuu"]
 [ext_resource type="PackedScene" uid="uid://dnfgd4spe77la" path="res://models/champions/Mage.tscn" id="2_33cqm"]
 [ext_resource type="PackedScene" uid="uid://doxl5p8jmoqs3" path="res://ui/ingame.tscn" id="2_dbls1"]
 
