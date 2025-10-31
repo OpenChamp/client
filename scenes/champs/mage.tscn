@@ -1,8 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dnfgd4spe77la"]
+[gd_scene load_steps=17 format=3 uid="uid://dnfgd4spe77la"]
 
 [ext_resource type="Script" uid="uid://2nl4a33gjxy2" path="res://scripts/champs/minion_mage.gd" id="1_qtj5o"]
+[ext_resource type="AudioStream" uid="uid://cpnet0bdrym1x" path="res://assets/audio/kill_gold.wav" id="2_1olus"]
 [ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="2_eaxdl"]
+[ext_resource type="PackedScene" path="res://scenes/ui/floating_health_bar.tscn" id="3_tbheh"]
 [ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="3_vvu41"]
+[ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="4_n1ca0"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
 
@@ -38,10 +41,19 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vvu41"]
+radius = 10.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_n1ca0"]
+
 [node name="Mage" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 collision_layer = 256
+collision_mask = 65281
 script = ExtResource("1_qtj5o")
+death_sound = ExtResource("2_1olus")
+
+[node name="FloatingHealthBar" parent="." instance=ExtResource("3_tbheh")]
 
 [node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_3o8tx")
@@ -65,9 +77,21 @@ physics_interpolation_mode = 1
 shape = SubResource("ConvexPolygonShape3D_chs0q")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-simplify_path = true
-avoidance_enabled = true
 debug_enabled = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vvu41")
+
+[node name="ExperienceZone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExperienceZone"]
+shape = SubResource("CylinderShape3D_vvu41")
+
+[node name="Vision" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Vision"]
+shape = SubResource("CylinderShape3D_n1ca0")
+
+[node name="MoneyEmitter" parent="." instance=ExtResource("4_n1ca0")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

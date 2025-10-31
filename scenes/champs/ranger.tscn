@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://wsquw55cuajg"]
+[gd_scene load_steps=12 format=3 uid="uid://wsquw55cuajg"]
 
 [ext_resource type="Script" uid="uid://cedu4oyudngf3" path="res://scripts/champs/ranger.gd" id="1_shl3n"]
-[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="2_3pwj2"]
-[ext_resource type="ArrayMesh" uid="uid://b5rdkf1vmcyff" path="res://models/misc/CoinDollarSign.obj" id="2_32au6"]
+[ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="2_32au6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dvd4r"]
 
@@ -31,27 +30,6 @@ radius = 0.005
 height = 0.01
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_epftc"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jrr1c"]
-render_priority = 0
-shader = ExtResource("2_3pwj2")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/outline_width = 2.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gv0bw"]
-resource_name = "Gold1"
-next_pass = SubResource("ShaderMaterial_jrr1c")
-albedo_color = Color(0.8, 0.669756, 0.185991, 1)
-metallic = 0.5
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3pwj2"]
-particle_flag_align_y = true
-particle_flag_rotate_y = true
-angle_min = 70.000015
-angle_max = 90.000015
-direction = Vector3(1, 10, 0)
-initial_velocity_min = 6.15
-initial_velocity_max = 6.15
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3pwj2"]
 
@@ -88,20 +66,7 @@ shape = SubResource("CapsuleShape3D_epftc")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-material_override = SubResource("StandardMaterial3D_gv0bw")
-cast_shadow = 0
-gi_mode = 0
-emitting = false
-amount = 10
-one_shot = true
-explosiveness = 1.0
-randomness = 1.0
-transform_align = 2
-trail_enabled = true
-trail_lifetime = 3.0
-process_material = SubResource("ParticleProcessMaterial_3pwj2")
-draw_pass_1 = ExtResource("2_32au6")
+[node name="MoneyEmitter" parent="." instance=ExtResource("2_32au6")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_3pwj2")
