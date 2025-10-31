@@ -90,12 +90,16 @@ func spawn_mage(name:String="Mage"):
 func spawn_minion_test(name:String="Mage"):
 	if not multiplayer.is_server(): return;
 	print("SPAWNING MINION FOR TEST");
+	var spawns = get_tree().get_nodes_in_group("minion_spawn")
 	for i in range(0, 2):
 		var mage:CharacterBody3D = CHAMPION_MAGE_SCENE.instantiate()
 		mage.name = name + str(i) + "_" + str(randi())
 		mage.team = i
-		mage.target_node = get_tree().get_first_node_in_group("minion_spawn")
-		mage.spawn_point = minion_spawns[i][0] # Only use first found spawn for testing
+		if i == 1:
+			mage.target_node = spawns[0]
+		else:
+			mage.target_node = spawns[1]
+		mage.spawn_point = minion_spawns[i][0]
 		await get_node(spawn_path).call_deferred("add_child", mage, true)
 
 func spawn_ability(pos):

@@ -53,9 +53,12 @@ func start_game():
 	Game_Time = 0.0
 	rpc("_client_on_game_start")
 	$MinionWaveTimer.start()
-	for pid in Util.players.keys():
-		if pid == 1: continue;
-		$MultiplayerSpawner.spawn_ranger(str(pid))
+	## === UNCOMMENT BEFORE PROD === ##
+	#for pid in Util.players.keys():
+		#if pid == 1: continue;
+		#$MultiplayerSpawner.spawn_ranger(str(pid))
+	## === DEBUGGING === ##
+	$MultiplayerSpawner.spawn_minion_test()
 	print("Game Started!")
 	pass
 
