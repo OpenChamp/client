@@ -28,8 +28,12 @@ var player_sessions
 var player_ids=[];
 # Client Args Variables
 func _process(_d:float):
+	var fps = Engine.get_frames_per_second()
+	# For multi-server stress testing script
+	if debug and dedicated_server:
+		print("FPS: " + str(fps))
 	if show_fps:
-		get_node("FPSCounter").text = "FPS: " + str(Engine.get_frames_per_second())
+		get_node("FPSCounter").text = "FPS: " + str(fps)
 	if dedicated_server:
 		_update_debug_overlay()
 
@@ -76,8 +80,8 @@ func apply_settings():
 	toggle_fps_counter(show_fps)
 	
 func set_up():
-	load_args()
 	load_settings()
+	load_args()
 	if debug:
 		show_debug_overlay()
 ##===== Auth =====##
@@ -107,28 +111,29 @@ func load_args():
 			player_ids.append(player["id"])
 	for i in range(args.size()):
 		match args[i]:
-			"--ip":
+			"--ip", "-host":
 				if i + 1 < args.size():
 					ip = args[i + 1]
-			"--sid":
+			"--sid", "-serverid":
 				if i + 1 < args.size():
 					server_id = args[i + 1]
-			"--pid":
+			"--pid", "-id":
 				if i + 1 < args.size():
 					player_id = args[i + 1]
-			"--p":
+			"--p", "-port":
 				if i + 1 < args.size():
 					port = int(args[i + 1])
-			"--m":
+					print("Port Set")
+			"--m", "-map":
 				if i + 1 < args.size():
 					map_name = args[i + 1]
-			"--mp":
+			"--mp", "-maxplayers":
 				if i + 1 < args.size():
 					max_players = int(args[i + 1])
-			"--gm":
+			"--gm", "-gamemode":
 				if i + 1 < args.size():
 					game_mode = args[i + 1]
-			"--ds":
+			"--ds", "-dedicated":
 				dedicated_server = true
 	
 ##===== Helper Functions =====##

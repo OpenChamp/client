@@ -16,12 +16,13 @@ enum GAME_STATE {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_process(true)
-	Util.set_up();
+	await Util.set_up();
 	NetworkManager.player_connected.connect(_on_player_connected)
 	NetworkManager.player_disconnected.connect(_on_player_disconnected)
 	if Util.dedicated_server:
-		_setup_server()
+		call_deferred("_setup_server")
 	else:
+		# Simulate differnt player's loading times
 		get_tree().create_timer(randi_range(0,3)).timeout.connect(setup_client)
 	pass # Replace with function body.
 
@@ -30,17 +31,21 @@ func _physics_process(delta: float) -> void:
 		Game_Time += delta
 
 func _setup_server():
+	# 30s Server
+	if Util.debug:
+		get_tree().create_timer(30).timeout.connect(get_tree().quit)
 	Engine.max_fps = SERVER_TICKRATE
 	Gamestate = GAME_STATE.LOADING
 	$Loading.hide()
 	NetworkManager._start_gameserver()
-	# $PingTimer.start();
 	print("Server Created, Waiting on for players...")
 	
 func setup_client():
 	$PlayerRig.use_ability.connect(_on_player_use_ability)
 	$PlayerRig.move_player.connect(_on_player_requests_movement)
 	multiplayer.connected_to_server.connect(_client_on_connected)
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	multiplayer.connection_failed.connect(_on_server_disconnected)
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(Util.ip, Util.port)
 	if error != OK:
@@ -82,6 +87,11 @@ func _on_player_disconnected(id):
 func _on_connected_to_server():
 	pass
 func _on_connection_failed():
+	pass
+func _on_server_disconnected():
+	$Loading.update_header("Server Lost... Shutting Down.")
+	$Loading.show()
+	get_tree().create_timer(3).timeout.connect(get_tree().quit)
 	pass
 func _client_on_connected():
 	$Loading.update_header("Waiting On Players...")

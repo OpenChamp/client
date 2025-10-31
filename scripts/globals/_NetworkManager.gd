@@ -176,8 +176,8 @@ func _start_gameserver():
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(Util.port, Util.max_players)
 	if error != OK:
-		print("Failed to create server.")
-		get_tree().quit(1001)
+		print("Failed to create server on port ", Util.port)
+		get_tree().create_timer(1).timeout.connect(get_tree().quit)
 	multiplayer.multiplayer_peer = peer
 	print("Server Created, Waiting on for players...")
 	pass

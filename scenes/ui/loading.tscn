@@ -39,20 +39,10 @@ alignment = 1
 [node name="PlayerIcon" parent="Panel/RedTeam" instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="ColorRect2" type="ColorRect" parent="Panel/RedTeam"]
-custom_minimum_size = Vector2(64, 64)
+[node name="PlayerIcon2" parent="Panel/RedTeam" instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="ColorRect3" type="ColorRect" parent="Panel/RedTeam"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="ColorRect4" type="ColorRect" parent="Panel/RedTeam"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="ColorRect5" type="ColorRect" parent="Panel/RedTeam"]
-custom_minimum_size = Vector2(64, 64)
+[node name="PlayerIcon3" parent="Panel/RedTeam" instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
 [node name="BlueTeam" type="VBoxContainer" parent="Panel"]
@@ -65,24 +55,13 @@ grow_horizontal = 0
 grow_vertical = 2
 alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="Panel/BlueTeam"]
-custom_minimum_size = Vector2(64, 64)
+[node name="PlayerIcon4" parent="Panel/BlueTeam" instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="ColorRect2" type="ColorRect" parent="Panel/BlueTeam"]
-custom_minimum_size = Vector2(64, 64)
+[node name="PlayerIcon5" parent="Panel/BlueTeam" instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="ColorRect3" type="ColorRect" parent="Panel/BlueTeam"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="ColorRect4" type="ColorRect" parent="Panel/BlueTeam"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="ColorRect5" type="ColorRect" parent="Panel/BlueTeam"]
-custom_minimum_size = Vector2(64, 64)
+[node name="PlayerIcon6" parent="Panel/BlueTeam" instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
 [node name="MiddleHeader" type="Label" parent="Panel"]

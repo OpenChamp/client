@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dx6fmqn4xp2h4"
 path.s3tc="res://.godot/imported/debug_square.png-8f7f2efd5def74a60df32e15334e9168.s3tc.ctex"
+path.etc2="res://.godot/imported/debug_square.png-8f7f2efd5def74a60df32e15334e9168.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/debug_square.png"
-dest_files=["res://.godot/imported/debug_square.png-8f7f2efd5def74a60df32e15334e9168.s3tc.ctex"]
+dest_files=["res://.godot/imported/debug_square.png-8f7f2efd5def74a60df32e15334e9168.s3tc.ctex", "res://.godot/imported/debug_square.png-8f7f2efd5def74a60df32e15334e9168.etc2.ctex"]
 
 [params]
 
