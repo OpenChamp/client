@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjlryqf2s7uaw"]
+[gd_scene load_steps=10 format=3 uid="uid://bjlryqf2s7uaw"]
 
 [ext_resource type="Script" uid="uid://vtnwe3wqf1tn" path="res://scripts/ingame.gd" id="1_ls5gx"]
 [ext_resource type="PackedScene" uid="uid://q6einnml1qx8" path="res://scenes/maps/Konda.tscn" id="2_5lq18"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cg3m5qnyxjev4" path="res://scenes/environment/sky.tscn" id="3_5lq18"]
 [ext_resource type="Script" uid="uid://wv3ssgt68co2" path="res://scripts/utility/multiplayer_spawner.gd" id="5_sithu"]
 [ext_resource type="Script" uid="uid://b51yh5k56lj12" path="res://scripts/utility/ping_timer.gd" id="6_3ywp8"]
+[ext_resource type="Script" uid="uid://j2dune3b222i" path="res://scripts/ui/health_bar_manager.gd" id="7_health"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2nns3"]
 
@@ -16,7 +17,6 @@ script = ExtResource("1_ls5gx")
 [node name="Loading" parent="." instance=ExtResource("2_s2j7k")]
 
 [node name="Konda" parent="." instance=ExtResource("2_5lq18")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Sky" parent="." instance=ExtResource("3_5lq18")]
 
@@ -36,5 +36,8 @@ script = ExtResource("6_3ywp8")
 
 [node name="MinionWaveTimer" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="HealthBarManager" type="CanvasLayer" parent="."]
+script = ExtResource("7_health")
 
 [connection signal="timeout" from="MinionWaveTimer" to="MultiplayerSpawner" method="_on_minion_wave_timer_timeout"]

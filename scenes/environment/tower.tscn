@@ -103,6 +103,7 @@ _data = {
 }
 
 [node name="Tower" type="StaticBody3D"]
+collision_layer = 3
 script = ExtResource("1_dmdi6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

@@ -1,3 +1,4 @@
+# === CAMERA IS ROTATED 90deg AT LAUNCH === #
 extends Camera3D
 
 @export_category("Camera movement")
@@ -69,7 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion and _is_mmb_pressed:
 		var dt := get_process_delta_time()
 		var mouse_pos = get_viewport().get_mouse_position();
-		var new_movement = Vector3(mmb_origin.x - mouse_pos.x, 0, mmb_origin.y - mouse_pos.y) * camera_pan_speed * dt
+		var new_movement = Vector3(mmb_origin.y - mouse_pos.y, 0, mouse_pos.x- mmb_origin.x) * camera_pan_speed * dt
 		mmb_origin = mouse_pos
 		orbit_center -= new_movement
 		_update_camera_position()
@@ -90,9 +91,9 @@ func set_follow_target(new_node: Node3D) -> void:
 
 func _update_camera_position() -> void:
 	var dir := Vector3(
-		0,
+		camera_close,
 		camera_zoom,
-		camera_close
+		0
 	)
 
 	if state == CameraMode.FOLLOW and target_node != null:
