@@ -34,6 +34,9 @@ project/assembly_name="WrathOfChampions"
 champion_select=""
 game_root=""
 navmesh_region=""
+team1=""
+team2=""
+minion_spawn=""
 
 [input]
 

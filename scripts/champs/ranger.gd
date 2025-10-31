@@ -58,7 +58,3 @@ func move_towards_target(_delta: float) -> void:
 # === Server Only Functions === #
 func _on_target_reached() -> void:
 	if not Util.dedicated_server: return;
-	target_pos.x = randi_range(-10, 10)
-	target_pos.z = randi_range(-10, 10)
-	debug_target_indicator.global_position = target_pos
-	rpc("update_target", target_pos)

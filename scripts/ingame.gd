@@ -38,17 +38,18 @@ func _setup_server():
 func setup_client():
 	$PlayerRig.use_ability.connect(_on_player_use_ability)
 	$PlayerRig.move_player.connect(_on_player_requests_movement)
+	multiplayer.connected_to_server.connect(_client_on_connected)
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(Util.ip, Util.port)
 	if error != OK:
 		print("Failed to create client.")
 		get_tree().quit(1002)
 	multiplayer.multiplayer_peer = peer
-	$Loading.hide();
 
 func start_game():
 	Gamestate = GAME_STATE.ONGOING
 	Game_Time = 0.0
+	rpc("_client_on_game_start")
 	$MinionWaveTimer.start()
 	for pid in Util.players.keys():
 		if pid == 1: continue;
@@ -77,7 +78,11 @@ func _on_connected_to_server():
 	pass
 func _on_connection_failed():
 	pass
-
+func _client_on_connected():
+	$Loading.update_header("Waiting On Players...")
+@rpc("authority")
+func _client_on_game_start():
+	$Loading.hide()
 # === Abilities === #
 @rpc("any_peer")
 func _rpc_player_use_ability(ability_id:int, loc):

@@ -43,5 +43,9 @@ func update_position(new_pos: Vector3) -> void:
 
 @rpc("authority", "call_local")
 func update_target(new_pos: Vector3) -> void:
+	new_pos.y = .5
 	target_pos = new_pos
-	NavAgent.set_target_position(target_pos);
+	if NavAgent:
+		NavAgent.set_target_position(target_pos);
+	else:
+		ready.connect(func():NavAgent.set_target_position(target_pos))
