@@ -1,24 +1,13 @@
+# === Clients Only === #
 extends Node
 
-# Variables
 var title_fadein : float = 0.0
 var is_queued : bool = false
-
-# Chat variables
 var chat_visible : bool = true
 var chat_history : Array = []
 var max_chat_messages : int = 100
 
-
-
 func _ready():
-	# Check for headless server mode
-	for argument in OS.get_cmdline_args():
-		print(argument)
-	if OS.get_cmdline_args().has("-s"):
-		get_tree().change_scene_to_file("res://server/server.tscn")
-		return
-	
 	# Initialize UI
 	set_ui("connect")
 	$LogoLabel.add_theme_color_override("default_color", Color(255,0,0, 0))
@@ -26,17 +15,46 @@ func _ready():
 	# Initialize settings UI
 	_init_settings_ui()
 	Util.apply_settings()
+	
+	# Set up match found overlay
+	var match_overlay = ColorRect.new()
+	match_overlay.name = "MatchFoundOverlay"
+	match_overlay.color = Color(0, 0, 0, 0.8)  # Semi-transparent black
+	match_overlay.hide()
+	match_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)  # Fill entire screen
+	
+	var match_label = Label.new()
+	match_label.name = "MatchFoundLabel"
+	match_label.text = "MATCH FOUND"
+	match_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	match_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	match_label.add_theme_font_size_override("font_size", 64)
+	match_label.modulate = Color(1, 1, 1, 0)  # Start fully transparent
+	match_label.set_anchors_preset(Control.PRESET_CENTER)
+	
+	match_overlay.add_child(match_label)
+	add_child(match_overlay)
+	
+	# Prepare for auth requirement before login
+	NetworkManager.auth_required.connect(func():set_ui("register"));
+	NetworkManager.auth_obtained.connect(func():print("Auth Obtained"); _setup_chat(); open_main_menu())
+	NetworkManager.match_found.connect(func():_match_found())
+	NetworkManager.ws_connecting.connect(func():$ConnectionButton.text = "Attempting Connection... [" + str(int(NetworkManager.connection_time)) + "]")
+	NetworkManager.ws_connected.connect(func():
+		print("Attmepting Auth");
+		if Util.get_token():
+			NetworkManager.auth_with_token()
+		else:
+			set_ui("register")
+	)
+	# Check Login
+	_on_connection_button_button_up()
 
 func _process(_delta):
 	# Handle logo fade-in animation
 	if(title_fadein < 255):
 		title_fadein += 0.001
 		$LogoLabel.add_theme_color_override("default_color", Color(255,0,0, title_fadein))
-	
-	# Update connection status
-	if(NetworkManager.socket.get_ready_state() == WebSocketPeer.STATE_CONNECTING):
-		$ConnectionButton.text = "Attempting Connection... [" + str(int(NetworkManager.connection_timeout)) + "]"
-
 # === UI Management ===
 
 func set_ui(layout: String):
@@ -48,6 +66,7 @@ func set_ui(layout: String):
 	$Settings.hide()
 	$Credits.hide()
 	$ChatContainer.hide()
+	$Register.hide();
 	
 	# Show only the elements needed for the current layout
 	match layout:
@@ -61,10 +80,11 @@ func set_ui(layout: String):
 			$ConnectionButton.show()
 			$CancelConnectionButton.show()
 		"mainmenu":
-			$ConnectionButton.hide()
 			$PlayerCount.show()
 			$MainMenu.show()
 			$ChatContainer.show()
+		"register":
+			$Register.show()
 		"settings":
 			$Settings.show()
 
@@ -78,30 +98,9 @@ func _init_settings_ui():
 	$Settings/UsernameInput.text = Util.username
 
 # === Connection Management ===
-
 func _on_connection_button_button_up() -> void:
 	set_ui("connecting")
-	
 	NetworkManager.connect_to_server()
-	var timer = Timer.new()
-	timer.name = "ConnectionTimer"
-	timer.set_wait_time(1)
-	timer.set_one_shot(false)
-	timer.autostart = true
-	timer.connect("timeout", wait_for_connection)
-	add_child(timer)
-
-func wait_for_connection():
-	var cur_state = NetworkManager.socket.get_ready_state()
-	if cur_state == WebSocketPeer.STATE_OPEN:
-		$ConnectionTimer.queue_free()
-		$CancelConnectionButton.hide()
-		NetworkManager.set_username()
-		_setup_chat()
-		open_main_menu()
-	elif cur_state == WebSocketPeer.STATE_CLOSED:
-		$ConnectionTimer.queue_free()
-		set_ui("connect")
 
 func _on_cancel_connection_button_button_up() -> void:
 	NetworkManager.disconnect_from_server()
@@ -128,16 +127,16 @@ func setup_player_count():
 
 func update_player_count():
 	NetworkManager.get_player_count()
-	$PlayerCount.text = "[right]Players Online: [color=green]" + str(await NetworkManager.Store["PlayerCount"]) + "[/color][/right]"
+	$PlayerCount.text = "[right]Players Online: [color=green]" + str(NetworkManager.player_count) + "[/color][/right]"
 
 func _on_start_queue_button_up() -> void:
 	is_queued = !is_queued
 	if is_queued:
-		NetworkManager.start_queue()
+		NetworkManager.join_queue()
 		$MainMenu/StartQueue.text = "Stop"
 		add_chat_message("System", "You joined the queue.")
 	else:
-		NetworkManager.stop_queue()
+		NetworkManager.leave_queue()
 		$MainMenu/StartQueue.text = "Start Queue"
 		add_chat_message("System", "You left the queue.")
 
@@ -218,7 +217,7 @@ func _setup_chat():
 func _send_chat_message(_e = null):
 	var message_text = $ChatContainer/ChatInput.text.strip_edges()
 	if message_text.length() > 0:
-		if NetworkManager.socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		if NetworkManager.is_ws_connected:
 			NetworkManager.send_global_chat_message(message_text)
 			$ChatContainer/ChatInput.text = ""
 
@@ -246,3 +245,48 @@ func _on_chat_toggle_button_pressed():
 	chat_visible = !chat_visible
 	$ChatContainer.visible = chat_visible
 	Util.save_settings()
+
+
+func _on_local_connect_button_up() -> void:
+	pass # Replace with function body.
+
+
+func _on_save_username_button_button_up() -> void:
+	# Fast Registration
+	NetworkManager.fast_registration($Register/VBoxContainer/UsernameInput.text)
+	pass # Replace with function body.
+
+func _match_found() -> void:
+	var overlay = $MatchFoundOverlay
+	var label = $MatchFoundOverlay/MatchFoundLabel
+	
+	# Show the overlay
+	overlay.show()
+	
+	# Create a fade-in tween for the overlay
+	var overlay_tween = create_tween()
+	overlay_tween.tween_property(overlay, "modulate", Color(1, 1, 1, 1), 0.5)
+	
+	# Create a tween sequence for the label
+	var label_tween = create_tween()
+	label_tween.set_parallel(false)  # Make animations sequential
+	
+	# Fade in and scale up
+	label_tween.tween_property(label, "modulate", Color(1, 1, 1, 1), 0.5)
+	label_tween.tween_property(label, "scale", Vector2(1.2, 1.2), 0.3)
+	
+	# Pulse animation
+	label_tween.tween_property(label, "scale", Vector2(1, 1), 0.3)
+	label_tween.tween_property(label, "scale", Vector2(1.1, 1.1), 0.3)
+	label_tween.tween_property(label, "scale", Vector2(1, 1), 0.3)
+	
+	# Wait a bit then transition to the game
+	await get_tree().create_timer(3.0).timeout
+	
+	# Fade out everything
+	var final_tween = create_tween()
+	final_tween.tween_property(overlay, "modulate", Color(1, 1, 1, 0), 0.5)
+	
+	# Wait for fade out then change scene
+	await final_tween.finished
+	get_tree().change_scene_to_file("res://scenes/game.tscn")

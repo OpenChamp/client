@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1001,
+    "name": "Boots",
+    "description": "Standard-issue footwear for the aspiring hero.",
+    "cost": 300,
+    "stats": {
+      "move_speed": 25
+    }
+  },
+  {
+    "id": 1002,
+    "name": "Magic Resist Cloak",
+    "description": "A cloak woven from enchanted threads, providing protection against magical attacks.",
+    "cost": 800,
+    "stats": {
+      "magic_resistance": 20
+    }
+  },
+  {
+    "id": 1022,
+    "name": "Warden's Treads",
+    "description": "Boots crafted from the scales of an ancient, steadfast drake. \n They appear to provide some magical resistances.",
+    "cost": 1100,
+    "stats": {
+      "move_speed": 45,
+      "magic_resistance": 25,
+      "resistance": 35
+    },
+    "components": [
+    {
+        "item_id": 1001,
+        "quantity": 1
+    },
+    {
+        "item_id": 1002,
+        "quantity": 1
+    }
+    ]
+  }
+]

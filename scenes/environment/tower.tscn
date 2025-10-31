@@ -1,0 +1,141 @@
+[gd_scene load_steps=15 format=3 uid="uid://c1kj04tpxbmmf"]
+
+[ext_resource type="Script" uid="uid://cky7uy2lqmp8d" path="res://scripts/environment/tower.gd" id="1_dmdi6"]
+[ext_resource type="Texture2D" uid="uid://5wq2byj0yoqi" path="res://assets/textures/bricks.png" id="1_nyolb"]
+[ext_resource type="PackedScene" uid="uid://0kn044mnc5ja" path="res://models/environment/crystalexport.glb" id="2_3on5a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3on5a"]
+albedo_texture = ExtResource("1_nyolb")
+uv1_scale = Vector3(9.15, 5.765, 5.765)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dmdi6"]
+top_radius = 1.0
+bottom_radius = 3.0
+height = 0.5
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tqtlk"]
+albedo_texture = ExtResource("1_nyolb")
+uv1_scale = Vector3(8.095, 3.73, 4.99)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pphlw"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 1.0
+radial_segments = 16
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nyolb"]
+radius = 5.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nyolb"]
+top_radius = 5.0
+bottom_radius = 5.0
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmdi6"]
+transparency = 1
+albedo_color = Color(0, 1, 1, 0.039215688)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3on5a"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_dmdi6"]
+resource_name = "idle"
+length = 4.0
+loop_mode = 1
+step = 0.033
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("crystalexport:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.1, 0.13333334, 0.16666667, 0.2, 0.23333333, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.4, 0.43333334, 0.46666667, 0.53333336, 0.56666666, 0.6, 0.6333333, 0.6666667, 0.7, 0.73333335, 0.76666665, 0.8, 0.8333333, 0.8666667, 0.9, 0.93333334, 0.96666664, 1.0333333, 1.0666667, 1.1, 1.1333333, 1.1666666, 1.2, 1.2333333, 1.2666667, 1.3, 1.3333334, 1.3666667, 1.4, 1.4333333, 1.4666667, 1.5333333, 1.5666667, 1.6, 1.6333333, 1.6666666, 1.7, 1.7333333, 1.7666667, 1.8, 1.8333334, 1.8666667, 1.9, 1.9333333, 1.9666667, 2.0333333, 2.0666666, 2.1, 2.1333334, 2.1666667, 2.2, 2.2333333, 2.2666667, 2.3, 2.3333333, 2.3666666, 2.4, 2.4333334, 2.4666667, 2.5333333, 2.5666666, 2.6, 2.6333334, 2.6666667, 2.7, 2.7333333, 2.7666667, 2.8, 2.8333333, 2.8666666, 2.9, 2.9333334, 2.9666667, 3.0333333, 3.0666666, 3.1, 3.1333334, 3.1666667, 3.2, 3.2333333, 3.2666667, 3.3, 3.3333333, 3.3666666, 3.4, 3.4333334, 3.4666667, 3.5333333, 3.5666666, 3.6, 3.6333334, 3.6666667, 3.7, 3.7333333, 3.7666667, 3.8, 3.8333333, 3.8666666, 3.9, 3.9333334, 3.9666667, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 5, 0), Vector3(0, 4.998889, 0), Vector3(0, 4.9955554, 0), Vector3(0, 4.99, 0), Vector3(0, 4.982222, 0), Vector3(0, 4.9722223, 0), Vector3(0, 4.96, 0), Vector3(0, 4.9455557, 0), Vector3(0, 4.928889, 0), Vector3(0, 4.91, 0), Vector3(0, 4.888889, 0), Vector3(0, 4.865556, 0), Vector3(0, 4.84, 0), Vector3(0, 4.812222, 0), Vector3(0, 4.7822223, 0), Vector3(0, 4.7177777, 0), Vector3(0, 4.687778, 0), Vector3(0, 4.66, 0), Vector3(0, 4.634444, 0), Vector3(0, 4.611111, 0), Vector3(0, 4.59, 0), Vector3(0, 4.571111, 0), Vector3(0, 4.5544443, 0), Vector3(0, 4.54, 0), Vector3(0, 4.5277777, 0), Vector3(0, 4.517778, 0), Vector3(0, 4.51, 0), Vector3(0, 4.5044446, 0), Vector3(0, 4.501111, 0), Vector3(0, 4.501111, 0), Vector3(0, 4.5044446, 0), Vector3(0, 4.51, 0), Vector3(0, 4.517778, 0), Vector3(0, 4.5277777, 0), Vector3(0, 4.54, 0), Vector3(0, 4.5544443, 0), Vector3(0, 4.571111, 0), Vector3(0, 4.59, 0), Vector3(0, 4.611111, 0), Vector3(0, 4.634444, 0), Vector3(0, 4.66, 0), Vector3(0, 4.687778, 0), Vector3(0, 4.7177777, 0), Vector3(0, 4.7822223, 0), Vector3(0, 4.812222, 0), Vector3(0, 4.84, 0), Vector3(0, 4.865556, 0), Vector3(0, 4.888889, 0), Vector3(0, 4.91, 0), Vector3(0, 4.928889, 0), Vector3(0, 4.9455557, 0), Vector3(0, 4.96, 0), Vector3(0, 4.9722223, 0), Vector3(0, 4.982222, 0), Vector3(0, 4.99, 0), Vector3(0, 4.9955554, 0), Vector3(0, 4.998889, 0), Vector3(0, 4.998889, 0), Vector3(0, 4.9955554, 0), Vector3(0, 4.99, 0), Vector3(0, 4.982222, 0), Vector3(0, 4.9722223, 0), Vector3(0, 4.96, 0), Vector3(0, 4.9455557, 0), Vector3(0, 4.928889, 0), Vector3(0, 4.91, 0), Vector3(0, 4.888889, 0), Vector3(0, 4.865556, 0), Vector3(0, 4.84, 0), Vector3(0, 4.812222, 0), Vector3(0, 4.7822223, 0), Vector3(0, 4.7177777, 0), Vector3(0, 4.687778, 0), Vector3(0, 4.66, 0), Vector3(0, 4.634444, 0), Vector3(0, 4.611111, 0), Vector3(0, 4.59, 0), Vector3(0, 4.571111, 0), Vector3(0, 4.5544443, 0), Vector3(0, 4.54, 0), Vector3(0, 4.5277777, 0), Vector3(0, 4.517778, 0), Vector3(0, 4.51, 0), Vector3(0, 4.5044446, 0), Vector3(0, 4.501111, 0), Vector3(0, 4.501111, 0), Vector3(0, 4.5044446, 0), Vector3(0, 4.51, 0), Vector3(0, 4.517778, 0), Vector3(0, 4.5277777, 0), Vector3(0, 4.54, 0), Vector3(0, 4.5544443, 0), Vector3(0, 4.571111, 0), Vector3(0, 4.59, 0), Vector3(0, 4.611111, 0), Vector3(0, 4.634444, 0), Vector3(0, 4.66, 0), Vector3(0, 4.687778, 0), Vector3(0, 4.7177777, 0), Vector3(0, 4.7822223, 0), Vector3(0, 4.812222, 0), Vector3(0, 4.84, 0), Vector3(0, 4.865556, 0), Vector3(0, 4.888889, 0), Vector3(0, 4.91, 0), Vector3(0, 4.928889, 0), Vector3(0, 4.9455557, 0), Vector3(0, 4.96, 0), Vector3(0, 4.9722223, 0), Vector3(0, 4.982222, 0), Vector3(0, 4.99, 0), Vector3(0, 4.9955554, 0), Vector3(0, 4.998889, 0), Vector3(0, 5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("crystalexport:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.9666667, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.265732, 0), Vector3(0, 6.265732, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tqtlk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("crystalexport:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 6.0459995, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("crystalexport:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pphlw"]
+_data = {
+&"RESET": SubResource("Animation_tqtlk"),
+&"idle": SubResource("Animation_dmdi6")
+}
+
+[node name="Tower" type="StaticBody3D"]
+script = ExtResource("1_dmdi6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_3on5a")
+mesh = SubResource("CylinderMesh_dmdi6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_tqtlk")
+mesh = SubResource("CylinderMesh_pphlw")
+
+[node name="vision" type="Area3D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="vision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_nyolb")
+
+[node name="DEBUG_VISION" type="MeshInstance3D" parent="vision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2348758, 0)
+visible = false
+mesh = SubResource("CylinderMesh_nyolb")
+surface_material_override/0 = SubResource("StandardMaterial3D_dmdi6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_3on5a")
+
+[node name="crystalexport" parent="." instance=ExtResource("2_3on5a")]
+transform = Transform3D(0.15527518, 0, -0.096320815, 0, 0.17, 0, 0.10339126, 0, 0.14465664, 0, 4.8444633, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+&"": SubResource("AnimationLibrary_pphlw")
+}
+speed_scale = 0.5

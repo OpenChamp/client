@@ -1,0 +1,102 @@
+[gd_scene load_steps=15 format=3 uid="uid://wsquw55cuajg"]
+
+[ext_resource type="Script" uid="uid://cedu4oyudngf3" path="res://scripts/champs/ranger.gd" id="1_shl3n"]
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="2_3pwj2"]
+[ext_resource type="ArrayMesh" uid="uid://b5rdkf1vmcyff" path="res://models/misc/CoinDollarSign.obj" id="2_32au6"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dvd4r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jsdwf"]
+albedo_color = Color(0, 0.482353, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8mwbd"]
+albedo_color = Color(0.231373, 0.345098, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_ijs6c"]
+material = SubResource("StandardMaterial3D_8mwbd")
+outer_radius = 0.8
+rings = 6
+ring_segments = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_ua723"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pu1r2"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_k8kie"]
+material = SubResource("StandardMaterial3D_pu1r2")
+radius = 0.005
+height = 0.01
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_epftc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jrr1c"]
+render_priority = 0
+shader = ExtResource("2_3pwj2")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gv0bw"]
+resource_name = "Gold1"
+next_pass = SubResource("ShaderMaterial_jrr1c")
+albedo_color = Color(0.8, 0.669756, 0.185991, 1)
+metallic = 0.5
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3pwj2"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+angle_min = 70.000015
+angle_max = 90.000015
+direction = Vector3(1, 10, 0)
+initial_velocity_min = 6.15
+initial_velocity_max = 6.15
+
+[node name="Ranger" type="CharacterBody3D"]
+transform = Transform3D(0.99999994, -0.00036651915, 0, 0.00036651915, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_shl3n")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_dvd4r")
+surface_material_override/0 = SubResource("StandardMaterial3D_jsdwf")
+
+[node name="Wreath" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.589684, 0)
+mesh = SubResource("TorusMesh_ijs6c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.458617, 0.405842, -0.175302)
+mesh = SubResource("SphereMesh_ua723")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0500978, 0, 0)
+mesh = SubResource("SphereMesh_k8kie")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.458617, 0.405842, 0.162471)
+mesh = SubResource("SphereMesh_ua723")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0500978, 0, 0)
+mesh = SubResource("SphereMesh_k8kie")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00036651915, 0.99999994, 0)
+shape = SubResource("CapsuleShape3D_epftc")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_gv0bw")
+cast_shadow = 0
+gi_mode = 0
+amount = 10
+explosiveness = 1.0
+randomness = 1.0
+transform_align = 2
+trail_enabled = true
+trail_lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_3pwj2")
+draw_pass_1 = ExtResource("2_32au6")

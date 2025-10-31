@@ -8,16 +8,25 @@ var fullscreen : bool = false
 var vsync : bool = true
 var username : String = "Player"
 var show_fps : bool = false
+var debug : bool = true
 # Config file handling
-const SETTINGS_PATH = "user://settings.cfg"
-var config = ConfigFile.new()
+const SETTINGS_PATH := "user://settings.cfg"
+const AUTH_TOKEN_PATH := "user://auth.dat"
+var config := ConfigFile.new()
 # Args Variables
 var server_id : String = ""
+var ip : String = ""
 var player_id : String = ""
 var map_name : String = ""
 var game_mode : String = ""
 var dedicated_server : bool = false
-
+# Server Args Variables
+var port := 7000
+var max_players := 10
+var players := {};
+var player_sessions
+var player_ids=[];
+# Client Args Variables
 func _process(_d:float):
 	if show_fps:
 		get_node("FPSCounter").text = "FPS: " + str(Engine.get_frames_per_second())
@@ -36,8 +45,7 @@ func load_settings():
 	fullscreen = config.get_value("video", "fullscreen", false)
 	vsync = config.get_value("video", "vsync", true)
 	show_fps = config.get_value("video", "show_fps", false)
-	username = config.get_value("player", "username", "Player")
-	NetworkManager.websocket_url = config.get_value("network", "websocket_url", "ws://localhost:8080/ws")
+	NetworkManager.websocket_url = config.get_value("network", "websocket_url", "ws://127.0.0.1:8080/ws")
 	NetworkManager.token = config.get_value("network", "token", "")
 	
 	toggle_fps_counter(show_fps)
@@ -49,7 +57,6 @@ func save_settings():
 	config.set_value("video", "fullscreen", fullscreen)
 	config.set_value("video", "vsync", vsync)
 	config.set_value("video", "show_fps", show_fps)
-	config.set_value("player", "username", username)
 	config.set_value("network", "token", NetworkManager.token)
 	config.set_value("network", "websocket_url", NetworkManager.websocket_url)
 	config.save(SETTINGS_PATH)
@@ -68,31 +75,78 @@ func apply_settings():
 	# Apply FPS counter
 	toggle_fps_counter(show_fps)
 	
-	# Apply username
-	if NetworkManager and NetworkManager.Store.has("Username"):
-		NetworkManager.Store["Username"] = username
+func set_up():
+	load_args()
+	load_settings()
+	if debug:
+		show_debug_overlay()
+##===== Auth =====##
+
+func get_token():
+	var token_file = FileAccess.open(AUTH_TOKEN_PATH, FileAccess.READ)
+	if token_file:
+		return (token_file.get_as_text())
+	else:
+		return ""
+
+func set_token(new_token):
+	var token_file = FileAccess.open(AUTH_TOKEN_PATH, FileAccess.WRITE)
+	token_file.store_string(new_token)
+	return true
 
 ##===== Args =====##
 func load_args():
 	var args = OS.get_cmdline_args()
-	
+	var env_players = OS.get_environment("PLAYERS_JSON")
+	var raw_players
+	if env_players:
+		raw_players = JSON.parse_string(env_players) # Passed in by portmanager in go
+	if raw_players:
+		for player in raw_players:
+			players[player["id"]] = { "name": player["Username"], "connected": false, "nodepath": null }
+			player_ids.append(player["id"])
 	for i in range(args.size()):
 		match args[i]:
-			"-sid":
+			"--ip":
+				if i + 1 < args.size():
+					ip = args[i + 1]
+			"--sid":
 				if i + 1 < args.size():
 					server_id = args[i + 1]
-			"-pid":
+			"--pid":
 				if i + 1 < args.size():
 					player_id = args[i + 1]
-			"-m":
+			"--p":
+				if i + 1 < args.size():
+					port = int(args[i + 1])
+			"--m":
 				if i + 1 < args.size():
 					map_name = args[i + 1]
-			"-gm":
+			"--mp":
+				if i + 1 < args.size():
+					max_players = int(args[i + 1])
+			"--gm":
 				if i + 1 < args.size():
 					game_mode = args[i + 1]
-			"-ds":
+			"--ds":
 				dedicated_server = true
 	
+##===== Helper Functions =====##
+func get_mouse_vector3() -> Vector3:
+	var viewport = get_viewport()
+	var mouse_screen_pos = viewport.get_mouse_position()
+	var from = viewport.get_camera_3d().project_ray_origin(mouse_screen_pos)
+	var to = from + viewport.get_camera_3d().project_ray_normal(mouse_screen_pos) * 1000
+	var space_state = get_window().get_world_3d().direct_space_state
+	var ray_params = PhysicsRayQueryParameters3D.new()
+	ray_params.from = from
+	ray_params.to = to
+	var result = space_state.intersect_ray(ray_params)
+	if result:
+		return result.position
+	return Vector3.ZERO
+
+##===== Debug Overlay =====##
 func show_debug_overlay():
 	# Check if debug overlay already exists
 	if has_node("DebugOverlay"):
@@ -185,12 +239,9 @@ func _update_debug_overlay():
 			for peer_id in connected_peers:
 				var player_label = Label.new()
 				var ping = "N/A"
-				
-				# Try to get ping (this may not work in all Godot versions/configurations)
-				if multiplayer.multiplayer_peer.has_method("get_peer_ping"):
-					ping = str(multiplayer.multiplayer_peer.get_peer_ping(peer_id)) + "ms"
-				
-				player_label.text = "Player " + str(peer_id) + " - " + ping
+				if players.has(peer_id):
+					ping = str(players[peer_id].ping)
+				player_label.text = players[peer_id]["name"] + " - " + ping
 				player_label.add_theme_color_override("font_color", Color.WHITE)
 				player_label.add_theme_color_override("font_shadow_color", Color.BLACK)
 				player_label.add_theme_constant_override("shadow_offset_x", 1)
