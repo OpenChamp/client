@@ -40,6 +40,10 @@ var target_pos: Vector3 = Vector3.ZERO
 @rpc("authority")
 func update_position(new_pos: Vector3) -> void:
 	server_pos = new_pos
+	
+@rpc("authority")
+func update_global_position(new_pos: Vector3) -> void:
+	set_global_position(new_pos)
 
 @rpc("authority", "call_local")
 func update_target(new_pos: Vector3) -> void:

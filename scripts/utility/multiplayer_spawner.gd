@@ -15,8 +15,10 @@ var current_minion_index = 0
 # === Ingame Stats === #
 var waves_spawned = 0
 
-var t1_minion_spawns : Array = []
-var t2_minion_spawns : Array = []
+var minion_spawns = [
+	[],
+	[]
+]
 
 func _ready():
 	add_scenes()
@@ -36,19 +38,17 @@ func _physics_process(delta):
 				var minion = CHAMPION_MAGE_SCENE.instantiate()
 				minion.team = team
 				minion.name = str(waves_spawned, "_", team, "_", current_minion_index)
-				get_node(spawn_path).call_deferred("add_child", minion, true)
-				print("T", team)
-				
-				if team == 1:
-					minion.ready.connect(func():
-						minion.rpc("update_global_position", t1_minion_spawns[0])
-						minion.rpc("update_target", t2_minion_spawns[0])
-					)
-				else:
-					minion.ready.connect(func():
-						minion.rpc("update_global_position", t2_minion_spawns[0])
-						minion.rpc("update_target", t1_minion_spawns[0])
-					)
+				await get_node(spawn_path).call_deferred("add_child", minion, true)
+				#if team == 1:
+					#minion.ready.connect(func():
+						#minion.rpc("update_global_position", t1_minion_spawns[0])
+						#minion.rpc("update_target", t2_minion_spawns[0])
+					#)
+				#else:
+					#minion.ready.connect(func():
+						#minion.rpc("update_global_position", t2_minion_spawns[0])
+						#minion.rpc("update_target", t1_minion_spawns[0])
+					#)
 			
 			current_minion_index += 1
 			# Reset for next wave if this wave is complete
@@ -65,9 +65,9 @@ func setup_spawns():
 	var minion_spawn_markers = get_tree().get_nodes_in_group("minion_spawn")
 	for marker: Marker3D in minion_spawn_markers:
 		if marker.is_in_group("team1"):
-			t1_minion_spawns.append(marker.global_position)
+			minion_spawns[0].append(marker.global_position)
 		else:
-			t2_minion_spawns.append(marker.global_position)
+			minion_spawns[1].append(marker.global_position)
 
 func spawn_ranger(name:String="Ranger"):
 	if not multiplayer.is_server(): return;
@@ -87,6 +87,17 @@ func spawn_mage(name:String="Mage"):
 	if Util.players.has(name):
 		Util.players[name]["Node"] = mage
 		
+func spawn_minion_test(name:String="Mage"):
+	if not multiplayer.is_server(): return;
+	print("SPAWNING MINION FOR TEST");
+	for i in range(0, 2):
+		var mage:CharacterBody3D = CHAMPION_MAGE_SCENE.instantiate()
+		mage.name = name + str(i) + "_" + str(randi())
+		mage.team = i
+		mage.target_node = get_tree().get_first_node_in_group("minion_spawn")
+		mage.spawn_point = minion_spawns[i][0] # Only use first found spawn for testing
+		await get_node(spawn_path).call_deferred("add_child", mage, true)
+
 func spawn_ability(pos):
 	if not multiplayer.is_server(): return;
 	print("SPAWNING METEOR");
@@ -96,6 +107,4 @@ func spawn_ability(pos):
 
 func _on_minion_wave_timer_timeout():
 	print("SPAWNING WAVE")
-	wave_size = max_wave_size
-	waves_spawned += 1
-	current_minion_index = 0
+	spawn_minion_test()

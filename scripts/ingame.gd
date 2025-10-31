@@ -1,6 +1,7 @@
 extends Node
 
 const MAX_PLAYERS = 2
+const SERVER_TICKRATE = 30
 
 var Gamestate = GAME_STATE.LOADING
 enum GAME_STATE {
@@ -29,6 +30,7 @@ func _physics_process(delta: float) -> void:
 		Game_Time += delta
 
 func _setup_server():
+	Engine.max_fps = SERVER_TICKRATE
 	Gamestate = GAME_STATE.LOADING
 	$Loading.hide()
 	NetworkManager._start_gameserver()

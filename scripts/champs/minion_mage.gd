@@ -2,64 +2,36 @@ extends OC_Entity
 class_name Minion_Mage
 
 @export var team := 1
-func _ready() -> void:
-	if Util.dedicated_server:
-		get_tree().create_timer(10.0).timeout.connect(func():
-			print("Minion ", name, " lifetime expired, cleaning up")
-			queue_free()
-		)
-# Server
+@export var target_node : Node3D
+@export var spawn_point : Vector3
+var has_target:bool = false
+
+func _ready():
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
+	if spawn_point:
+		global_position = spawn_point + Vector3(0, .5, 0) # Adjust for unit height
+	if target_node:
+		_set_target(target_node.position)
+	
+func _set_target(pos:Vector3):
+	has_target = true
+	NavAgent.set_target_position(pos)
+	
 func _physics_process(delta: float) -> void:
-	if Util.dedicated_server:
-		move_towards_target(delta)
-
-# Client
-func _process(delta: float) -> void:
-	if Util.dedicated_server:return;
-	# Client-side move closer to server position
-	var direction = server_pos - position
-	var distance = direction.length()
-	if distance > 2:
-		# Desynced from server, fix pos
-		direction = direction.normalized()
-		look_at(direction)
-		var move_amount = min(distance, MoveSpeed * delta)
-		position += direction * move_amount
-	else:
-		move_towards_target(delta)
-
-func move_towards_target(_delta: float) -> void:
-	if target_pos == Vector3.ZERO:
-		return
-	if not NavAgent.is_target_reachable():
-		print("Minion ", name, " target not reachable from ", position, " to ", target_pos)
-		return
-	var dest = NavAgent.get_next_path_position()
-	var local_dest = dest - global_position
-	var direction = local_dest.normalized()
-	
-	# Check if we've reached the destination
-	if Util.dedicated_server and local_dest.length() < 1.0:
-		_on_target_reached()
-		return
-		
-	velocity = direction * MoveSpeed
+	if not Util.dedicated_server: return;
+	if has_target:
+		if not NavAgent.is_target_reachable():
+			has_target = false;
+			return;
+		var next_path_pos := NavAgent.get_next_path_position()
+		var dir := global_position.direction_to(next_path_pos)
+		velocity = dir * MoveSpeed
+		if NavAgent.is_navigation_finished():
+			has_target = false
+			velocity = Vector3.ZERO
+		var ROT_SPEED = 4
+		var target_rotation := dir.signed_angle_to(Vector3.MODEL_FRONT, Vector3.DOWN)
+		if abs(target_rotation - rotation.y) > deg_to_rad(60):
+			ROT_SPEED = 20
+		rotation.y = move_toward(rotation.y, target_rotation, delta*ROT_SPEED)
 	move_and_slide()
-	
-	# Update clients with current position
-	if Util.dedicated_server:
-		rpc("update_position", position)
-	else:
-		# Client-side position smoothing
-		if (server_pos - position).length() < 1.0:
-			position = server_pos
-
-# === Server Only Functions === #
-func _on_target_reached() -> void:
-	if not Util.dedicated_server: 
-		return
-	
-	print("Minion ", name, " reached target at ", position)
-	# Minion has reached its destination - could attack, wait, or find new target
-	# For now, just stop moving
-	velocity = Vector3.ZERO
