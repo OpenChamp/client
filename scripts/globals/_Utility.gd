@@ -31,7 +31,8 @@ func _process(_d:float):
 	var fps = Engine.get_frames_per_second()
 	# For multi-server stress testing script
 	if debug and dedicated_server:
-		print("FPS: " + str(fps))
+		# print("FPS: " + str(fps))
+		pass
 	if show_fps:
 		get_node("FPSCounter").text = "FPS: " + str(fps)
 	if dedicated_server:
@@ -254,7 +255,6 @@ func _update_debug_overlay():
 				player_list.add_child(player_label)
 
 func toggle_fps_counter(on:bool = false):
-	print(on)
 	show_fps = on
 	if on:
 		if not has_node("FPSCounter"):

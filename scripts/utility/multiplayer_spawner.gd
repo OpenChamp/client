@@ -36,7 +36,7 @@ func _physics_process(delta):
 			# Spawn one minion for each team at the current spawn index
 			for team in range(1, 3):
 				var minion = CHAMPION_MAGE_SCENE.instantiate()
-				minion.team = team
+				minion.Team = team
 				minion.name = str(waves_spawned, "_", team, "_", current_minion_index)
 				await get_node(spawn_path).call_deferred("add_child", minion, true)
 				#if team == 1:
@@ -69,37 +69,36 @@ func setup_spawns():
 		else:
 			minion_spawns[1].append(marker.global_position)
 
-func spawn_ranger(name:String="Ranger"):
+func spawn_ranger(entity_name:String="Ranger"):
 	if not multiplayer.is_server(): return;
 	print("SPAWNING RANGER");
 	var ranger:CharacterBody3D = CHAMPION_RANGER_SCENE.instantiate()
-	ranger.name = name
+	ranger.name = entity_name
 	await get_node(spawn_path).call_deferred("add_child", ranger, true)
 	if Util.players.has(name):
 		Util.players[name]["Node"] = ranger
 	
-func spawn_mage(name:String="Mage"):
+func spawn_mage(entity_name:String="Mage"):
 	if not multiplayer.is_server(): return;
 	print("SPAWNING MAGE");
 	var mage:CharacterBody3D = CHAMPION_MAGE_SCENE.instantiate()
-	mage.name = name
+	mage.name = entity_name
 	await get_node(spawn_path).call_deferred("add_child", mage, true)
-	if Util.players.has(name):
-		Util.players[name]["Node"] = mage
+	if Util.players.has(entity_name):
+		Util.players[entity_name]["Node"] = mage
 		
-func spawn_minion_test(name:String="Mage"):
+func spawn_minion_test(entity_name:String="Mage"):
 	if not multiplayer.is_server(): return;
 	print("SPAWNING MINION FOR TEST");
-	var spawns = get_tree().get_nodes_in_group("minion_spawn")
-	for i in range(0, 2):
+	for i in range(1, 3):
 		var mage:CharacterBody3D = CHAMPION_MAGE_SCENE.instantiate()
-		mage.name = name + str(i) + "_" + str(randi())
-		mage.team = i
-		if i == 1:
-			mage.target_node = spawns[0]
+		mage.name = entity_name + str(i) + "_" + str(randi())
+		mage.Team = i
+		if i == 2:
+			mage.enemy_node_pos = minion_spawns[0][0]
 		else:
-			mage.target_node = spawns[1]
-		mage.spawn_point = minion_spawns[i][0]
+			mage.enemy_node_pos = minion_spawns[1][0]
+		mage.spawn_point = minion_spawns[i-1][0]
 		await get_node(spawn_path).call_deferred("add_child", mage, true)
 
 func spawn_ability(pos):

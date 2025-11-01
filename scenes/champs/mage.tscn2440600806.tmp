@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dnfgd4spe77la"]
+[gd_scene load_steps=17 format=3 uid="uid://dnfgd4spe77la"]
 
 [ext_resource type="Script" uid="uid://2nl4a33gjxy2" path="res://scripts/champs/minion_mage.gd" id="1_qtj5o"]
 [ext_resource type="AudioStream" uid="uid://cpnet0bdrym1x" path="res://assets/audio/kill_gold.wav" id="2_1olus"]
@@ -39,14 +39,16 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath(".:state")
+properties/2/path = NodePath(".:State")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath(".:Team")
-properties/3/spawn = true
-properties/3/replication_mode = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vvu41"]
+radius = 10.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n1ca0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1olus"]
 
 [node name="Mage" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -78,10 +80,14 @@ shape = SubResource("ConvexPolygonShape3D_chs0q")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
-debug_path_custom_color = Color(1, 0, 0, 1)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vvu41")
+
+[node name="ExperienceZone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExperienceZone"]
+shape = SubResource("CylinderShape3D_vvu41")
 
 [node name="Vision" type="Area3D" parent="."]
 collision_layer = 0
@@ -89,6 +95,11 @@ collision_mask = 65280
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Vision"]
 shape = SubResource("CylinderShape3D_n1ca0")
+
+[node name="Range" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Range"]
+shape = SubResource("CylinderShape3D_1olus")
 
 [node name="MoneyEmitter" parent="." instance=ExtResource("4_n1ca0")]
 
@@ -98,7 +109,4 @@ pitch_scale = 0.75
 max_distance = 20.0
 
 [node name="AttackTimeout" type="Timer" parent="."]
-one_shot = true
-
-[node name="FollowTimer" type="Timer" parent="."]
 one_shot = true

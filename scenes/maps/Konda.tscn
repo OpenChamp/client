@@ -29,6 +29,11 @@ _data = {
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_kvq41"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0.25, 18, 0, 0, 0, 0, 0, 0, 0, 0.25, -18),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [node name="Konda" type="NavigationRegion3D" groups=["map_root"]]
 navigation_mesh = SubResource("NavigationMesh_fsqvq")
@@ -326,10 +331,11 @@ material_override = ExtResource("5_fsqvq")
 mesh = SubResource("PlaneMesh_ga830")
 skeleton = NodePath("../..")
 
-[node name="BluePath" type="Path3D" parent="."]
+[node name="team1_path" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0, 0)
 curve = SubResource("Curve3D_fsqvq")
 debug_custom_color = Color(2.5027991e-06, 0.57417166, 0.8241528, 1)
 
-[node name="RedPath" type="Path3D" parent="."]
+[node name="team2_path" type="Path3D" parent="."]
 curve = SubResource("Curve3D_kvq41")
+debug_custom_color = Color(0.57, 0.0342, 0.04312986, 1)

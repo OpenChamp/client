@@ -42,9 +42,6 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:state")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath(".:Team")
-properties/3/spawn = true
-properties/3/replication_mode = 1
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n1ca0"]
 
@@ -53,7 +50,38 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 collision_layer = 256
 collision_mask = 65281
 script = ExtResource("1_qtj5o")
+team = null
+spawn_point = null
+enemy_node_pos = null
+ProjectileSpeed = null
+server_pos = null
 death_sound = ExtResource("2_1olus")
+state = null
+Team = null
+MaxHealth = null
+Health = null
+MaxMana = null
+Mana = null
+MoveSpeed = null
+RequiredExp = null
+CurrentExp = null
+Level = null
+PhysicalPower = null
+MagicalPower = null
+AttackSpeed = null
+AttackRange = null
+CritChance = null
+CritBonus = null
+Armor = null
+MagicResist = null
+Dodge = null
+HealthRegen = null
+ManaRegen = null
+LifeSteal = null
+OmniVamp = null
+Resistance = null
+VisionRange = null
+TotalExp = null
 
 [node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_3o8tx")
@@ -78,7 +106,6 @@ shape = SubResource("ConvexPolygonShape3D_chs0q")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
-debug_path_custom_color = Color(1, 0, 0, 1)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vvu41")
