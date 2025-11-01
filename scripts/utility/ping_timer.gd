@@ -22,7 +22,7 @@ func pong():
 		print(now - PING_START)
 
 func _on_ping_timer_timeout() -> void:
-	if not Util.dedicated_server: stop();
+	if not Util.dedicated_server: stop(); return;
 	PING_START = Time.get_ticks_msec()
 	rpc("ping")
 	pass # Replace with function body.
