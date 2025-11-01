@@ -1,0 +1,15 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:old_bow",
+        "texture": "openchamp:items/old_bow",
+        "recipe": {
+            "gold_cost": 500,
+            "components": []
+        },
+        "stats": {
+            "attack_speed": 10
+        }
+    }
+}

@@ -1,0 +1,177 @@
+{
+    "type": "unit",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:orion",
+        "is_character": true,
+        "tags": [
+            "openchamp:assassin",
+            "openchamp:ranged_dps"
+        ],
+        "kill_gold": 200,
+        "kill_exp": 50,
+        "gold_per_second": 1.0,
+        "exp_per_second": 0.0,
+        "spawn_gold": 1500,
+        "spawn_exp": 0,
+        "stat_graph": {
+            "ability_damage": 7,
+            "ability_defense": 3,
+            "utility": 2,
+            "mobility": 4,
+            "basic_defense": 2,
+            "basic_damage": 8
+        },
+        "base_stats": {
+            "health": 1600,
+            "health_regen": 10,
+            "mana": 280,
+            "mana_regen": 35,
+            "armor": 26,
+            "magic_resist": 30,
+            "armor_pen_flat": 0,
+            "armor_pen_percent": 0,
+            "magic_pen_flat": 0,
+            "magic_pen_percent": 0,
+            "attack_range": 1250,
+            "attack_damage": 70,
+            "attack_speed": 75,
+            "attack_crit_chance": 0,
+            "attack_crit_damage": 10,
+            "ability_power": 0,
+            "ability_haste": 0,
+            "omnivamp": 5,
+            "physical_vamp": 0,
+            "magic_vamp": 0,
+            "true_vamp": 0,
+            "movement_speed": 500
+        },
+        "stat_growth": {
+            "health": 80,
+            "health_regen": 5,
+            "mana": 35,
+            "mana_regen": 5,
+            "armor": 5,
+            "magic_resist": 2,
+            "armor_pen_flat": 5,
+            "armor_pen_percent": 0,
+            "magic_pen_flat": 0,
+            "magic_pen_percent": 0,
+            "attack_range": 25,
+            "attack_damage": 5,
+            "attack_speed": 10,
+            "attack_crit_chance": 0,
+            "attack_crit_damage": 0,
+            "ability_power": 0,
+            "ability_haste": 0,
+            "omnivamp": 1,
+            "physical_vamp": 0,
+            "magic_vamp": 0,
+            "true_vamp": 0,
+            "movement_speed": 0
+        },
+        "abilities": {
+            "basic_attack": {
+                "display_id": "openchamp:basic_attack",
+                "texture_id": "openchamp:basic_attack",
+                "base_values": {
+                    "base_id": "PointAndClickProjectile",
+                    "display_id": "openchamp:ranged_basic_attack",
+                    "as_scaled": true,
+                    "use_attack_range": true,
+                    "effect_source": "basic_attack",
+                    "windup_ratio": 0.1,
+                    "scaling": "0 + 1.0 c.curr.dmg_phy",
+                    "projectile": {
+                        "model": "openchamp:particles/arrow",
+                        "model_scale": {
+                            "x": 0.3,
+                            "y": 1.0,
+                            "z": 0.3
+                        },
+                        "model_rotation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "spawn_offset": {
+                            "x": 0.0,
+                            "y": 1.0,
+                            "z": 0.0
+                        },
+                        "speed": 30.0,
+                        "damage_type": "physical",
+                        "launch_sfx": "openchamp:sfx/game/basic_attack_1"
+                    }
+                }
+            },
+            "passive": {
+                "display_id": "openchamp:orion:passive",
+                "texture_id": "openchamp:units/characters/orion/passive",
+                "base_values": {
+                    "base_id": "OnHitDamageEffect",
+                    "display_id": "openchamp:orion:passive_fx",
+                    "is_exclusive": true,
+                    "effect_source": "ability_single",
+                    "damage": 20,
+                    "scaling": "10 + 0.02 t.max.hp",
+                    "can_crit": false,
+                    "damage_type": "magical"
+                }
+            },
+            "ability_1": {
+                "display_id": "openchamp:orion:ability_1",
+                "texture_id": "openchamp:units/characters/orion/ability_1",
+                "has_upgrades": true,
+                "base_values": {
+                    "base_id": "PointAndClickProjectile",
+                    "display_id": "openchamp:orion:ability_1_fx",
+                    "as_scaled": false,
+                    "cooldown": 5,
+                    "channel_time": 0.5,
+                    "use_attack_range": false,
+                    "casting_range": 1500,
+                    "effect_source": "ability_single",
+                    "projectile": {
+                        "model": "openchamp:particles/arrow",
+                        "model_scale": {
+                            "x": 0.3,
+                            "y": 1.0,
+                            "z": 0.3
+                        },
+                        "model_rotation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "spawn_offset": {
+                            "x": 0.0,
+                            "y": 1.0,
+                            "z": 0.0
+                        },
+                        "speed": 30.0,
+                        "damage_type": "physical",
+                        "launch_sfx": "openchamp:sfx/game/basic_attack_1"
+                    }
+                },
+                "ability_data": [
+                    {
+                        "scaling": "100 + 1.5 c.curr.dmg_phy"
+                    },
+                    {
+                        "scaling": "200 + 1.5 c.curr.dmg_phy"
+                    },
+                    {
+                        "scaling": "300 + 1.5 c.curr.dmg_phy"
+                    },
+                    {
+                        "scaling": "400 + 1.5 c.curr.dmg_phy"
+                    },
+                    {
+                        "scaling": "500 + 1.5 c.curr.dmg_phy"
+                    }
+                ]
+            }
+        }
+    }
+}

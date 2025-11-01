@@ -1,0 +1,19 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:silky_glove",
+        "texture": "openchamp:items/silky_glove",
+        "recipe": {
+            "gold_cost": 500,
+            "components": [
+                "openchamp:old_bow",
+                "openchamp:silk_toga"
+            ]
+        },
+        "stats": {
+            "magic_resist": 20,
+            "attack_speed": 20
+        }
+    }
+}

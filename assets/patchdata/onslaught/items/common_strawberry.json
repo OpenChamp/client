@@ -1,0 +1,15 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:common_strawberry",
+        "texture": "openchamp:items/common_strawberry",
+        "recipe": {
+            "gold_cost": 500,
+            "components": []
+        },
+        "stats": {
+            "health_regen": 10
+        }
+    }
+}

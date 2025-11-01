@@ -1,0 +1,15 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:small_red_rune",
+        "texture": "openchamp:items/small_red_rune",
+        "recipe": {
+            "gold_cost": 500,
+            "components": []
+        },
+        "stats": {
+            "health": 300
+        }
+    }
+}

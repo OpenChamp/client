@@ -1,0 +1,15 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:small_blue_rune",
+        "texture": "openchamp:items/small_blue_rune",
+        "recipe": {
+            "gold_cost": 500,
+            "components": []
+        },
+        "stats": {
+            "mana": 150
+        }
+    }
+}

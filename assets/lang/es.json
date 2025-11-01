@@ -1,0 +1,120 @@
+{
+    "SETTINGS_TAB_DISPLAY": "pantalla",
+    "SETTING:FULLSCREEN": "pantalla completa",
+    "SETTINGS_TAB_CAMERA": "cámara",
+    "SETTING:CAMERA_SPEED_LABEL": "velocidad de la cámara:",
+    "SETTING:CAMERA_EDGE_MARGIN_LABEL": "movimiento de la cámara en el borde del margen:",
+    "SETTING:CAMERA_MAX_ZOOM_LABEL": "nivel máximo de zoom:",
+    "SETTING:CAMERA_CENTERED": "centrar la cámara en el jugador",
+    "SETTING:CAMERA_PAN_SENSITIVITY_LABEL": "sensibilidad de la cámara:",
+    "SETTINGS_MENU_CONFIRM": "confirmar",
+    "SETTINGS_MENU_EXIT_GAME": "salir del juego",
+
+    "STARTUP:STATUS_CONNECTING": "conectando...",
+    "STARTUP:STATUS_CONNECT_CLIENT": "conectando como cliente...",
+    "STARTUP:STATUS_CLIENT_FAILED": "error conectando al servidor",
+    "STARTUP:STATUS_CREATE_SERVER": "creando servidor...",
+    "STARTUP:ATTEMPTS": "reintentos: %d",
+    "STARTUP:HOST_GAME": "crear partida",
+    "STARTUP:RECONNECT": "reconectar",
+    "STARTUP:EXIT": "salir",
+
+    "UNIT_TAG:openchamp:assassin:NAME": "Asesino",
+    "UNIT_TAG:openchamp:assassin:DESCRIPTION": "Los asesinos son campeones fragiles que buscan asesinar a su enemigo antes que este reaccione.",
+    "UNIT_TAG:openchamp:ranged_dps:NAME": "DPS de rango",
+    "UNIT_TAG:openchamp:ranged_dps:DESCRIPTION": "Los dps de rango son campeones fragiles que hacen daño continuo a la distancia.",
+
+    "STAT:health:NAME": "Salud",
+    "STAT:health:DESCRIPTION": "Puntos de Salud",
+    "STAT:health_regen:NAME": "Regeneracion de salud",
+    "STAT:health_regen:DESCRIPTION": "Regeneracion de salud cada 5 segundos",
+
+    "STAT:mana:NAME": "Mana",
+    "STAT:mana:DESCRIPTION": "Puntos de Mana",
+    "STAT:mana_regen:NAME": "Regeneracion de Mana",
+    "STAT:mana_regen:DESCRIPTION": "Mana regenerated cada 5 segundos",
+
+    "STAT:armor:NAME": "Armadura",
+    "STAT:armor:DESCRIPTION": "Reduccion de daño fisico. cada 100 de Armadura podes soportar la misma cantidad de daño otra vez.",
+    "STAT:magic_resist:NAME": "Resistencia magica",
+    "STAT:magic_resist:DESCRIPTION": "Reduccion de daño magico. cada 100 de Resistencia magica podes soportar la misma cantidad de daño otra vez.",
+
+    "STAT:armor_pen_flat:NAME": "Penetracion de Armadura (Fija)",
+    "STAT:armor_pen_flat:DESCRIPTION": "Ignora una cantidad fija de armadura (aplicado despues de la penetracion porcentual)",
+    "STAT:armor_pen_percent:NAME": "Penetracion de Armadura (%)",
+    "STAT:armor_pen_percent:DESCRIPTION": "Ignora un porcentaje armadura",
+
+    "STAT:magic_pen_flat:NAME": "Penetracion Magica (Fija)",
+    "STAT:magic_pen_flat:DESCRIPTION": "Ignora una cantidad fija de Resistencia magica (aplicado despues de la penetracion porcentual)",
+    "STAT:magic_pen_percent:NAME": "Penetracion Magica (%)",
+    "STAT:magic_pen_percent:DESCRIPTION": "Ignora un porcentaje Resistencia magica",
+
+    "STAT:attack_damage:NAME": "Daño de ataque",
+    "STAT:attack_damage:DESCRIPTION": "Daño basico echo por los ataques basicos",
+    "STAT:attack_speed:NAME": "Velocidad de ataque",
+    "STAT:attack_speed:DESCRIPTION": "velocidad de ataque basica. cada 100 velocidad de atauqe es 1 ataque por segundo.",
+    "STAT:attack_range:NAME": "Rango de ataque",
+    "STAT:attack_range:DESCRIPTION": "Rango basico de ataque en centimetros",
+    "STAT:attack_crit_chance:NAME": "Probabilidad critica",
+    "STAT:attack_crit_chance:DESCRIPTION": "posibilidad de daño extra con ataques basicos",
+    "STAT:attack_crit_damage:NAME": "Daño critico",
+    "STAT:attack_crit_damage:DESCRIPTION": "Daño extra de los golpes criticos en porcentaje",
+
+    "STAT:ability_power:NAME": "Poder de habilidad",
+    "STAT:ability_power:DESCRIPTION": "Amplificacion de poder de las habilidades",
+    "STAT:ability_haste:NAME": "Reduccion de enfriamiento",
+    "STAT:ability_haste:DESCRIPTION": "Reduccion de enfriamiento de las habilidades. cada 100 reduccion de enfriamiento permite lanzar 1 vez mas a la vez.",
+
+    "STAT:omnivamp:NAME": "Omnivampirismo",
+    "STAT:omnivamp:DESCRIPTION": "Porcentaje del daño post mitigación que se convierte en curacion. Este porcentaje se agrega al vampirismo fisico, Magica y verdadero.",
+    "STAT:physical_vamp:NAME": "Physical Vamp",
+    "STAT:physical_vamp:DESCRIPTION": "Porcentaje del daño fisico post mitigación que se convierte en curacion",
+    "STAT:magic_vamp:NAME": "Magic Vamp",
+    "STAT:magic_vamp:DESCRIPTION": "Porcentaje del daño magico post mitigación que se convierte en curacion",
+    "STAT:true_vamp:NAME": "True Vamp",
+    "STAT:true_vamp:DESCRIPTION": "Porcentaje del daño verdadero post mitigación que se convierte en curacion",
+
+    "STAT:movement_speed:NAME": "Velocidad de movimiento",
+    "STAT:movement_speed:DESCRIPTION": "Velocidad del campeon en centimetros por segundo",
+
+
+    "ITEM:COST_LABEL": "Costo total: %d",
+    "ITEM:NOT_ENOUGH_GOLD": "Te falta %d de oro para comprar \"%s\".",
+    "ITEM:NOT_ENOUGH_SLOTS": "No te queda espacio para comprar \"%s\".",
+    "ITEM:NOT_ENOUGH_ACTIVE_SLOTS": "No te queda espacio de activas para comprar \"%s\".",
+
+
+    "ITEM:openchamp:rusty_sword:NAME": "Espada oxidada",
+    "ITEM:openchamp:rusty_sword:LORE": "Vieja espada oxidada no es buena pero es mejor que estar desarmado.\nNadie conoce su pasado y lo unico seguro es que vio mejores dias.",
+    
+    "ITEM:openchamp:old_bow:NAME": "Arco viejo",
+    "ITEM:openchamp:old_bow:LORE": "Un viejo arco que vio mejores dias.",
+
+    "ITEM:openchamp:metal_padded_leather_armor:NAME": "Armadura de cuero con acolchonado de metal",
+    "ITEM:openchamp:metal_padded_leather_armor:LORE": "un pedazo de cuero para armadura con un acolchonado de metal.",
+
+    "ITEM:openchamp:silk_toga:NAME": "Toga de seda",
+    "ITEM:openchamp:silk_toga:LORE": "una toga echa de seda encantada para darle portador algo de resistencia magica.",
+
+    "ITEM:openchamp:small_blue_rune:NAME": "Pequeña runa azul",
+    "ITEM:openchamp:small_blue_rune:LORE": "Pequeña runa azul que le otorga al portador mas mana.",
+
+    "ITEM:openchamp:small_red_rune:NAME": "Pequeña runa roja",
+    "ITEM:openchamp:small_red_rune:LORE": "Pequeña runa roja que le otorga al portador mas salud.",
+
+    "ITEM:openchamp:mysterious_blue_orb:NAME": "Misterioso orbe azul",
+    "ITEM:openchamp:mysterious_blue_orb:LORE": "Misterioso orbe azul que potencia los poderes de regeneracion arcana del portador.",
+
+    "ITEM:openchamp:common_strawberry:NAME": "Frutilla comun",
+    "ITEM:openchamp:common_strawberry:LORE": "que pasa con estas frutillas?\nporque comerlas incrementa mi vitalidad?",
+
+
+    "ITEM:openchamp:empire_sword:NAME": "Espada estandar del imperio",
+    "ITEM:openchamp:empire_sword:LORE": "cada soldado del imperio sostiene una de estas en algun punto de sus vidas.\nbuena espada, nada especial.",
+
+    "ITEM:openchamp:blueberry_runic_jelly:NAME": "Jalea de arándano runica",
+    "ITEM:openchamp:blueberry_runic_jelly:LORE": "una jalea echa con una frutilla comun encantada con un misterioso orbe azul.\nIt el portador recive regeneracion de salud y mana.",
+
+    "ITEM:openchamp:silky_glove:NAME": "Guantes de seda",
+    "ITEM:openchamp:silky_glove:LORE": "un guante de seda encantado protege al portador y lo ayuda a atacar mas rapido."
+}

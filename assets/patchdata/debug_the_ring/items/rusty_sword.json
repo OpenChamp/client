@@ -1,0 +1,15 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:rusty_sword",
+        "texture": "openchamp:item/rusty_sword.png",
+        "recipe": {
+            "gold_cost": 500,
+            "components": []
+        },
+        "stats": {
+            "attack_damage": 10
+        }
+    }
+}

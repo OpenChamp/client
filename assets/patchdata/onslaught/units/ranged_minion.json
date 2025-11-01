@@ -1,0 +1,88 @@
+{
+    "type": "unit",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:ranged_minion",
+        "model": "openchamp:npc/ranged_minion",
+        "is_character": false,
+        "aggro_type": "aggressive",
+        "aggro_distance": 300.0,
+        "deaggro_distance": 1000.0,
+        "kill_gold": 150,
+        "kill_exp": 75,
+        "gold_per_second": 0.0,
+        "exp_per_second": 0.0,
+        "team": -1,
+        "stat_graph": {
+            "ability_damage": 7,
+            "ability_defense": 3,
+            "utility": 2,
+            "mobility": 4,
+            "basic_defense": 2,
+            "basic_damage": 8
+        },
+        "base_stats": {
+            "health": 200,
+            "health_regen": 0,
+            "mana": 280,
+            "mana_regen": 7,
+            "armor": 20,
+            "magic_resist": 20,
+            "attack_range": 500,
+            "attack_damage": 60,
+            "attack_speed": 75,
+            "attack_crit_chance": 0,
+            "attack_crit_damage": 10,
+            "movement_speed": 250
+        },
+        "stat_growth": {
+            "health": 50,
+            "health_regen": 5,
+            "mana": 35,
+            "mana_regen": 5,
+            "armor": 3,
+            "magic_resist": 2,
+            "attack_range": 10,
+            "attack_damage": 15,
+            "attack_speed": 5,
+            "attack_crit_chance": 5,
+            "attack_crit_damage": 0,
+            "movement_speed": 10
+        },
+        "abilities": {
+            "basic_attack": {
+                "display_id": "openchamp:basic_attack",
+                "texture_id": "openchamp:basic_attack",
+                "base_values": {
+                    "base_id": "PointAndClickProjectile",
+                    "display_id": "openchamp:ranged_basic_attack",
+                    "as_scaled": true,
+                    "use_attack_range": true,
+                    "effect_source": "basic_attack",
+                    "windup_ratio": 0.3,
+                    "scaling": "0 + 1.0 c.curr.dmg_phy",
+                    "projectile": {
+                        "model": "openchamp:particles/arrow",
+                        "model_scale": {
+                            "x": 0.3,
+                            "y": 1.0,
+                            "z": 0.3
+                        },
+                        "model_rotation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "spawn_offset": {
+                            "x": 0.0,
+                            "y": 1.0,
+                            "z": 0.0
+                        },
+                        "speed": 20.0,
+                        "damage_type": "physical"
+                    }
+                }
+            }
+        }
+    }
+}
