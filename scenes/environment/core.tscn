@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://ck2ucwywmbfg0"]
+
+[ext_resource type="PackedScene" uid="uid://c027muvqkm1jm" path="res://assets/models/environment/core.gltf" id="1_12brt"]
+[ext_resource type="Material" uid="uid://b6i2os10kthkv" path="res://assets/materials/environment/core/crystals.base.tres" id="2_dh3ea"]
+[ext_resource type="Material" uid="uid://cshi6yiwk1n2t" path="res://assets/materials/environment/core/banners.portal.base.tres" id="3_0hmbs"]
+[ext_resource type="Material" uid="uid://cwe8ycp8yph2c" path="res://assets/materials/environment/core/portal.tres" id="4_gchl0"]
+[ext_resource type="Material" uid="uid://cnn3e2f50ybbd" path="res://assets/materials/environment/core/core_tower.tres" id="5_cgfw8"]
+[ext_resource type="Material" uid="uid://1khqa20tddrr" path="res://assets/materials/environment/core/golden_ring.tres" id="6_odehj"]
+[ext_resource type="Material" uid="uid://pv8ihdaw08vv" path="res://assets/materials/environment/core/golden_rings_core.tres" id="7_sukxs"]
+
+[node name="core" instance=ExtResource("1_12brt")]
+
+[node name="Core" parent="." index="0"]
+material_override = ExtResource("2_dh3ea")
+
+[node name="Portal_Banners" parent="." index="1"]
+material_override = ExtResource("3_0hmbs")
+
+[node name="Portal" parent="." index="2"]
+material_override = ExtResource("4_gchl0")
+
+[node name="MinorCrystals" parent="." index="3"]
+material_override = ExtResource("2_dh3ea")
+
+[node name="CoreTower02" parent="." index="4"]
+material_override = ExtResource("5_cgfw8")
+
+[node name="GoldenRings_Small" parent="." index="5"]
+material_override = ExtResource("6_odehj")
+
+[node name="GondelRings_Core" parent="." index="6"]
+material_override = ExtResource("7_sukxs")

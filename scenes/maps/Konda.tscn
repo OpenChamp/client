@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://q6einnml1qx8"]
+[gd_scene load_steps=13 format=3 uid="uid://q6einnml1qx8"]
 
 [ext_resource type="PackedScene" uid="uid://c1kj04tpxbmmf" path="res://scenes/environment/tower.tscn" id="1_82gln"]
 [ext_resource type="PackedScene" uid="uid://tcuki7sy0jps" path="res://scenes/environment/bush.tscn" id="1_lof5r"]
 [ext_resource type="ArrayMesh" uid="uid://b0lkocesjfk6k" path="res://models/environment/Prop_Tree_Pine_1.obj" id="3_saiab"]
 [ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://assets/materials/dirt_material.tres" id="5_fsqvq"]
+[ext_resource type="PackedScene" uid="uid://ck2ucwywmbfg0" path="res://scenes/environment/core.tscn" id="6_3jmng"]
 [ext_resource type="ArrayMesh" uid="uid://clmcir5n6ckk2" path="res://models/environment/Prop_Stump.obj" id="7_yqddd"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_fsqvq"]
@@ -339,3 +340,9 @@ debug_custom_color = Color(2.5027991e-06, 0.57417166, 0.8241528, 1)
 [node name="team2_path" type="Path3D" parent="."]
 curve = SubResource("Curve3D_kvq41")
 debug_custom_color = Color(0.57, 0.0342, 0.04312986, 1)
+
+[node name="core" parent="." instance=ExtResource("6_3jmng")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -21)
+
+[node name="core2" parent="." instance=ExtResource("6_3jmng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21)

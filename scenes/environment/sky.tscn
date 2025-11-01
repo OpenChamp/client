@@ -21,7 +21,7 @@ glow_bloom = 0.2
 environment = SubResource("Environment_1eoep")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.9841956, 0.11311603, -0.13624957, 0.17105141, -0.4081152, 0.89676243, 0.045832902, -0.9058959, -0.42101377, 0, 374.22, 0)
+transform = Transform3D(0.045833018, -0.9058958, -0.42101368, 0.17105138, -0.40811506, 0.8967628, -0.9841954, -0.113115825, 0.13624923, 0, 374.22, 0)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]

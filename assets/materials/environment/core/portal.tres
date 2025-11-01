@@ -1,8 +1,8 @@
 [gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://cwe8ycp8yph2c"]
 
-[ext_resource type="Texture2D" path="texture://openchamp:environment/core/diffuse.portal" id="1_xb6wm"]
-[ext_resource type="Texture2D" path="texture://openchamp:environment/core/normal.portal" id="3_md0gr"]
-[ext_resource type="Texture2D" path="texture://openchamp:environment/core/roughness.portal" id="3_td0dj"]
+[ext_resource type="Texture2D" uid="uid://dbbh3uuj1kbsl" path="res://assets/textures/environment/core/diffuse.portal.webp" id="1_xb6wm"]
+[ext_resource type="Texture2D" uid="uid://dkwwholie30xn" path="res://assets/textures/environment/core/normal.portal.webp" id="3_md0gr"]
+[ext_resource type="Texture2D" uid="uid://c38a0f11kthyn" path="res://assets/textures/environment/core/roughness.portal.webp" id="3_td0dj"]
 
 [resource]
 resource_name = "Mat.Portal"

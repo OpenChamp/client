@@ -1,12 +1,9 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b6i2os10kthkv"]
-
-[ext_resource type="Texture2D" path="texture://openchamp:environment/core/combined.crystals" id="1_qhyje"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b6i2os10kthkv"]
 
 [resource]
 resource_name = "Mat.Crystals"
 cull_mode = 2
 albedo_color = Color(0.776471, 0, 0, 1)
-albedo_texture = ExtResource("1_qhyje")
 metallic_specular = 1.0
 roughness = 0.13
 emission_enabled = true
