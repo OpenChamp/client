@@ -1,17 +1,16 @@
 extends MultiplayerSpawner
 
-var loaded_champs = {};
-
+var loaded_champs = {}
 func _ready() -> void:
 	_add_all_champ_scenes("res://scenes/champs")
 
 func spawn_player(id:int, champ:String):
-	if !multiplayer.is_server(): return;
-	if id==1: return;
+	if !multiplayer.is_server(): return
+	if id==1: return
 	if not loaded_champs.has(champ + ".tscn"):
-		get_tree().quit(-1);
+		get_tree().quit(-1)
 	var new_player:CharacterBody3D = loaded_champs[champ + ".tscn"].instantiate()
-	new_player.name = str(id);
+	new_player.name = str(id)
 	await get_node(spawn_path).call_deferred("add_child", new_player)
 	new_player.translate(Vector3i(randi_range(-10, 10), 0, 0))
 	

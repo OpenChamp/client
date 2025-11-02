@@ -6,8 +6,8 @@ class_name FogOfWar
 
 var local_player: Node3D = null
 var all_entities := []
-@onready var fog_mask_rect : ColorRect = null
-@onready var camera : Camera3D = null
+@onready var fog_mask_rect: ColorRect = null
+@onready var camera: Camera3D = null
 var mask_radius_px: float = 1.0 # Will scale with range and camera zoom if desired
 
 func _ready() -> void:
@@ -25,7 +25,7 @@ func _on_node_added(node):
 		# Optionally connect for deletion
 
 func _process(_delta):
-	if Util.dedicated_server: queue_free(); 
+	if Util.dedicated_server: queue_free()
 	if local_player == null:
 		_update_local_player()
 	if local_player == null or fog_mask_rect == null or camera == null:

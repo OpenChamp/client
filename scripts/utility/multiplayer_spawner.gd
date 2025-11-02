@@ -25,7 +25,7 @@ func _ready():
 	setup_spawns()
 	
 func _physics_process(delta):
-	if !Util.dedicated_server:return;
+	if !Util.dedicated_server:return
 	if wave_size > 0:
 		if spawn_timeout > 0:
 			spawn_timeout -= delta
@@ -39,16 +39,16 @@ func _physics_process(delta):
 				minion.Team = team
 				minion.name = str(waves_spawned, "_", team, "_", current_minion_index)
 				await get_node(spawn_path).call_deferred("add_child", minion, true)
-				#if team == 1:
-					#minion.ready.connect(func():
-						#minion.rpc("update_global_position", t1_minion_spawns[0])
-						#minion.rpc("update_target", t2_minion_spawns[0])
-					#)
-				#else:
-					#minion.ready.connect(func():
-						#minion.rpc("update_global_position", t2_minion_spawns[0])
-						#minion.rpc("update_target", t1_minion_spawns[0])
-					#)
+				# if team == 1:
+					# minion.ready.connect(func():
+						# minion.rpc("update_global_position", t1_minion_spawns[0])
+						# minion.rpc("update_target", t2_minion_spawns[0])
+					# )
+				# else:
+					# minion.ready.connect(func():
+						# minion.rpc("update_global_position", t2_minion_spawns[0])
+						# minion.rpc("update_target", t1_minion_spawns[0])
+					# )
 			
 			current_minion_index += 1
 			# Reset for next wave if this wave is complete
@@ -70,8 +70,8 @@ func setup_spawns():
 			minion_spawns[1].append(marker.global_position)
 
 func spawn_ranger(entity_name:String="Ranger"):
-	if not multiplayer.is_server(): return;
-	print("SPAWNING RANGER");
+	if not multiplayer.is_server(): return
+	print("SPAWNING RANGER")
 	var ranger:CharacterBody3D = CHAMPION_RANGER_SCENE.instantiate()
 	ranger.name = entity_name
 	await get_node(spawn_path).call_deferred("add_child", ranger, true)
@@ -79,8 +79,8 @@ func spawn_ranger(entity_name:String="Ranger"):
 		Util.players[name]["Node"] = ranger
 	
 func spawn_mage(entity_name:String="Mage"):
-	if not multiplayer.is_server(): return;
-	print("SPAWNING MAGE");
+	if not multiplayer.is_server(): return
+	print("SPAWNING MAGE")
 	var mage:CharacterBody3D = CHAMPION_MAGE_SCENE.instantiate()
 	mage.name = entity_name
 	await get_node(spawn_path).call_deferred("add_child", mage, true)
@@ -88,8 +88,8 @@ func spawn_mage(entity_name:String="Mage"):
 		Util.players[entity_name]["Node"] = mage
 		
 func spawn_minion_test(entity_name:String="Mage"):
-	if not multiplayer.is_server(): return;
-	print("SPAWNING MINION FOR TEST");
+	if not multiplayer.is_server(): return
+	print("SPAWNING MINION FOR TEST")
 	for i in range(1, 3):
 		var mage:CharacterBody3D = CHAMPION_MAGE_SCENE.instantiate()
 		mage.name = entity_name + str(i) + "_" + str(randi())
@@ -102,8 +102,8 @@ func spawn_minion_test(entity_name:String="Mage"):
 		await get_node(spawn_path).call_deferred("add_child", mage, true)
 
 func spawn_ability(pos):
-	if not multiplayer.is_server(): return;
-	print("SPAWNING METEOR");
+	if not multiplayer.is_server(): return
+	print("SPAWNING METEOR")
 	var ability:Ability = ABILITY_METEOR_SCENE.instantiate()
 	await get_node(spawn_path).call_deferred("add_child", ability, true)
 	ability.position = pos

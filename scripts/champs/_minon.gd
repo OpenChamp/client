@@ -167,17 +167,17 @@ func reset():
 func _distribute_experience():
 	# TODO: get all bodies in range on death
 	pass
-	#for body in bodies:
-		#if body.is_in_group("player") and body.has_method("get_team"):
+	# for body in bodies:
+		# if body.is_in_group("player") and body.has_method("get_team"):
 			## Give experience to players on the OPPOSITE team (enemy players who killed this minion)
-			#if body.get_team() != team:
-				#players_in_range.append(body)
+			# if body.get_team() != team:
+				# players_in_range.append(body)
 	#
-	#if players_in_range.size() > 0:
-		#var exp_per_player = float(TotalExp) / players_in_range.size()
-		#for player in players_in_range:
-			#if player.has_method("gain_experience"):
-				#player.gain_experience(int(exp_per_player))
+	# if players_in_range.size() > 0:
+		# var exp_per_player = float(TotalExp) / players_in_range.size()
+		# for player in players_in_range:
+			# if player.has_method("gain_experience"):
+				# player.gain_experience(int(exp_per_player))
 	#
 
 func _is_navigation_ready() -> bool:

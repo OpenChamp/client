@@ -5,9 +5,9 @@ var direction: Vector3 = Vector3.ZERO
 var spawn_pos: Vector3 = Vector3.ZERO
 var speed: float = 4.0
 # === Targeting Config === #
-var lockon : bool = false
+var lockon: bool = false
 var target_node: Node3D
-var lifetime : float = 3.0
+var lifetime: float = 3.0
 # === Ownership Config === #
 var team: int
 var creator: Node3D
@@ -30,7 +30,7 @@ func _ready(pos: Vector3 = spawn_pos) -> void:
 		print("Warning: Projectile created with zero direction!")
 		queue_free()
 	if Util.dedicated_server:
-		if pos == Vector3.ZERO: queue_free();
+		if pos == Vector3.ZERO: queue_free()
 	_setup()
 	
 func _physics_process(delta: float) -> void:
@@ -46,16 +46,15 @@ func _physics_process(delta: float) -> void:
 			linear_velocity = direction_to_target * speed
 
 func _setup():
-	print("Projectile Setup called on base class... ");
-
+	print("Projectile Setup called on base class... ")
 func _on_body_entered_hitbox(body: Node3D) -> void:
-	if body.is_in_group(str("team", team)): return;
+	if body.is_in_group(str("team", team)): return
 	hit(body)
 
 func hit(entity:Node3D):
 	if not Util.dedicated_server:
-		_create_hit_effect();
-		return;
+		_create_hit_effect()
+		return
 	if not entity.has_method("take_damage"):
 		queue_free()
 	entity.take_damage.rpc(int(damage), damage_type)

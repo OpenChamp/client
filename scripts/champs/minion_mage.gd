@@ -2,7 +2,7 @@ extends Minion_Base
 class_name Minion_Mage
 
 # === Ranged New Vars === #
-@export var Projectile_Scene : PackedScene = load("res://scenes/abilities/MageProjectile.tscn")
+@export var Projectile_Scene: PackedScene = load("res://scenes/abilities/MageProjectile.tscn")
 
 func setup_stats():
 	attack_range = 5.0
@@ -11,7 +11,7 @@ func setup_stats():
 	super()
 	
 func attack(body: Node3D = target_node):
-	if state == STATE.DEAD: return;
+	if state == STATE.DEAD: return
 	if !can_attack_now: return
 	if !body or !body is Creature: return
 	
@@ -46,7 +46,7 @@ func spawn_projectile(target_name:String):
 	var target = get_parent().get_node(target_name)
 	if not target:
 		print("Projectile Sync Error: Invalid Target Name")
-		return;
+		return
 	var new_projectile = Projectile_Scene.instantiate()
 	var direction = (target.global_position - global_position).normalized()
 	new_projectile.spawn_pos = global_position + direction

@@ -3,7 +3,7 @@ extends MultiplayerSpawner
 @export var map_scene:PackedScene
 
 func spawn_map():
-	if !multiplayer.is_server(): return;
+	if !multiplayer.is_server(): return
 	print("Attempting to spawn map")
 	var map = map_scene.instantiate()
 	map.name="GameMap"

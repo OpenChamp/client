@@ -9,9 +9,8 @@ extends Camera3D
 @export var camera_zoom_min: float = 4.0
 @export var camera_zoom_max: float = 8.0
 
-var camera_zoom = camera_zoom_max;
-var camera_close = -5;
-
+var camera_zoom = camera_zoom_max
+var camera_close = -5
 @export_category("Edge scrolling")
 @export var edge_scroll_margin: float = 20.0
 @export var edge_scroll_speed: float = 15.0 
@@ -19,7 +18,7 @@ var camera_close = -5;
 var orbit_center: Vector3 = Vector3.ZERO
 var _is_mmb_pressed := false
 
-var mmb_origin : Vector2 = Vector2.ZERO
+var mmb_origin: Vector2 = Vector2.ZERO
 var state: CameraMode = CameraMode.FREE
 enum CameraMode {
 	FREE,
@@ -27,14 +26,12 @@ enum CameraMode {
 }
 
 signal use_ability(ability_id:int, loc)
-signal move_player(pos:Vector3);
-
+signal move_player(pos:Vector3)
 var target_node: Node3D = null
 
 func _ready() -> void:
 	_update_camera_position()
-	pass;
-
+	pass
 func _enter_tree() -> void:
 	state = CameraMode.FREE
 	set_process_unhandled_input(true)
@@ -45,16 +42,16 @@ func _process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			camera_zoom -= camera_zoom_speed;
+			camera_zoom -= camera_zoom_speed
 			if camera_zoom < camera_zoom_min: camera_zoom = camera_zoom_min
 			else:
-				camera_close += camera_close_speed;
+				camera_close += camera_close_speed
 			_update_camera_position()
 		elif event.pressed and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			camera_zoom += camera_zoom_speed;
+			camera_zoom += camera_zoom_speed
 			if camera_zoom > camera_zoom_max: camera_zoom = camera_zoom_max
 			else:
-				camera_close -= camera_close_speed;
+				camera_close -= camera_close_speed
 			_update_camera_position()
 
 		if event.button_index == MOUSE_BUTTON_RIGHT:
@@ -69,7 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 	elif event is InputEventMouseMotion and _is_mmb_pressed:
 		var dt := get_process_delta_time()
-		var mouse_pos = get_viewport().get_mouse_position();
+		var mouse_pos = get_viewport().get_mouse_position()
 		var new_movement = Vector3(mmb_origin.y - mouse_pos.y, 0, mouse_pos.x- mmb_origin.x) * camera_pan_speed * dt
 		mmb_origin = mouse_pos
 		orbit_center -= new_movement

@@ -1,11 +1,11 @@
 # === Clients Only === #
 extends Node
 
-var title_fadein : float = 0.0
-var is_queued : bool = false
-var chat_visible : bool = true
-var chat_history : Array = []
-var max_chat_messages : int = 100
+var title_fadein: float = 0.0
+var is_queued: bool = false
+var chat_visible: bool = true
+var chat_history: Array = []
+var max_chat_messages: int = 100
 
 func _ready():
 	# Initialize UI
@@ -36,12 +36,12 @@ func _ready():
 	add_child(match_overlay)
 	
 	# Prepare for auth requirement before login
-	NetworkManager.auth_required.connect(func():set_ui("register"));
+	NetworkManager.auth_required.connect(func():set_ui("register"))
 	NetworkManager.auth_obtained.connect(func():print("Auth Obtained"); _setup_chat(); open_main_menu())
 	NetworkManager.match_found.connect(func():_match_found())
 	NetworkManager.ws_connecting.connect(func():$ConnectionButton.text = "Attempting Connection... [" + str(int(NetworkManager.connection_time)) + "]")
 	NetworkManager.ws_connected.connect(func():
-		print("Attmepting Auth");
+		print("Attmepting Auth")
 		if Util.get_token():
 			NetworkManager.auth_with_token()
 		else:
@@ -66,8 +66,7 @@ func set_ui(layout: String):
 	$Settings.hide()
 	$Credits.hide()
 	$ChatContainer.hide()
-	$Register.hide();
-	
+	$Register.hide()
 	# Show only the elements needed for the current layout
 	match layout:
 		"connect":
