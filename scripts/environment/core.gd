@@ -1,11 +1,10 @@
 extends StaticBody3D
 
-@export var Team = 1
-const TotalHP = 1000
-
-@onready var CurrentHP : float = TotalHP
+@export var Team : int = 0
 @export var blue_color : Color
 @export var red_color : Color
+const TotalHP = 1000
+@onready var CurrentHP : float = TotalHP
 
 func _ready() -> void:
 	var color :Vector4 = (func() -> Vector4:
@@ -14,12 +13,14 @@ func _ready() -> void:
 		else:
 			return Vector4(red_color.r, red_color.g, red_color.b, red_color.a)
 		).call()
-	$"Main Crystal".set_instance_shader_parameter("team_color", color)
-	$Banners.set_instance_shader_parameter("team_color", color)
+	$Core.set_instance_shader_parameter("team_color", color)
+	$MinorCrystals.set_instance_shader_parameter("team_color", color)
+	$Portal_Banners.set_instance_shader_parameter("team_color", color)
+
 	# Listeners
 	#$Vision.body_entered.connect(_on_body_entered_range)
 	
-	$AnimationPlayer.play("idle", -1, .5)
+	# $AnimationPlayer.play("idle", -1, .5)
 
 func _on_body_entered_range():
 	pass;

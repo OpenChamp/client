@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://q6einnml1qx8"]
 
-[ext_resource type="PackedScene" uid="uid://c1kj04tpxbmmf" path="res://scenes/environment/tower.tscn" id="1_82gln"]
+[ext_resource type="PackedScene" uid="uid://c1kj04tpxbmmf" path="res://models/environment/tower.tscn" id="1_82gln"]
 [ext_resource type="PackedScene" uid="uid://tcuki7sy0jps" path="res://scenes/environment/bush.tscn" id="1_lof5r"]
 [ext_resource type="ArrayMesh" uid="uid://b0lkocesjfk6k" path="res://models/environment/Prop_Tree_Pine_1.obj" id="3_saiab"]
 [ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://assets/materials/dirt_material.tres" id="5_fsqvq"]
@@ -54,11 +54,12 @@ skeleton = NodePath("../MeshInstance3D2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.01, 0)
 mesh = SubResource("PlaneMesh_saiab")
 
-[node name="Tower" parent="." groups=["team1"] instance=ExtResource("1_82gln")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+[node name="Tower1" parent="." groups=["team1"] instance=ExtResource("1_82gln")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [node name="Tower2" parent="." groups=["team2"] instance=ExtResource("1_82gln")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+Team = 2
 
 [node name="MinionSpawn1" type="Marker3D" parent="." groups=["minion_spawn", "team1"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -18)
@@ -341,8 +342,10 @@ debug_custom_color = Color(2.5027991e-06, 0.57417166, 0.8241528, 1)
 curve = SubResource("Curve3D_kvq41")
 debug_custom_color = Color(0.57, 0.0342, 0.04312986, 1)
 
-[node name="core" parent="." instance=ExtResource("6_3jmng")]
+[node name="core1" groups=["team1"] parent="." instance=ExtResource("6_3jmng")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -21)
+Team = 1
 
-[node name="core2" parent="." instance=ExtResource("6_3jmng")]
+[node name="core2" groups=["team2"] parent="." instance=ExtResource("6_3jmng")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21)
+Team = 2
