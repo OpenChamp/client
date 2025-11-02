@@ -112,29 +112,29 @@ func load_args():
 			player_ids.append(player["id"])
 	for i in range(args.size()):
 		match args[i]:
-			"--ip", "-host":
+			"-ip", "--host":
 				if i + 1 < args.size():
 					ip = args[i + 1]
-			"--sid", "-serverid":
+			"-sid", "--serverid":
 				if i + 1 < args.size():
 					server_id = args[i + 1]
-			"--pid", "-id":
+			"-ws", "--webid":
 				if i + 1 < args.size():
 					player_id = args[i + 1]
-			"--p", "-port":
+			"-p", "--port":
 				if i + 1 < args.size():
 					port = int(args[i + 1])
 					print("Port Set")
-			"--m", "-map":
+			"-m", "--map":
 				if i + 1 < args.size():
 					map_name = args[i + 1]
-			"--mp", "-maxplayers":
+			"-mp", "--maxplayers":
 				if i + 1 < args.size():
 					max_players = int(args[i + 1])
-			"--gm", "-gamemode":
+			"-gm", "--gamemode":
 				if i + 1 < args.size():
 					game_mode = args[i + 1]
-			"--ds", "-dedicated":
+			"-ds", "--dedicated":
 				dedicated_server = true
 	
 ##===== Helper Functions =====##
