@@ -8,12 +8,10 @@ func _ready() -> void:
 
 @rpc("authority")
 func ping():
-	print("PING")
 	rpc_id(1, "pong")
 
 @rpc("any_peer")
 func pong():
-	print("PONG")
 	var now = Time.get_ticks_msec()
 	var id = multiplayer.get_remote_sender_id()
 	if Util.players.has(id):

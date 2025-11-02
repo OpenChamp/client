@@ -1,15 +1,15 @@
-extends OC_Entity
+extends Creature
 class_name Minion_Base
 
 # === Minion Specific Stats === #
-@export var spawn_point : Vector3
+@export var spawn_point: Vector3
 @export var enemy_node_pos: Vector3
 # === Attack Stats === #
-@onready var vision_area : Area3D = $Vision
-@onready var vision_collision : CollisionShape3D = $Vision/CollisionShape3D
+@onready var vision_area: Area3D = $Vision
+@onready var vision_collision: CollisionShape3D = $Vision/CollisionShape3D
 # === Navigation Optimization === #
 var _last_nav_update: float = 0.0
-const NAV_UPDATE_INTERVAL: float = 0.1 
+const NAV_UPDATE_INTERVAL: float = 0.1
 
 func _ready():
 	super()
@@ -20,32 +20,32 @@ func _ready():
 	if Util.dedicated_server:
 		call_deferred("_setup_navigation")
 		_setup_vision_range()
-		$AttackTimeout.timeout.connect(func():can_attack = true)
+		$AttackTimeout.timeout.connect(func(): can_attack_now = true)
 		$FollowTimer.timeout.connect(_on_follow_timer_timeout)
 		if enemy_node_pos != Vector3.ZERO:
 			_set_target(enemy_node_pos)
 
 func _physics_process(delta: float) -> void:
-	if not Util.dedicated_server: return;
-	if state == OC_Entity.STATE.DEAD: return
+	if not Util.dedicated_server: return
+	if state == STATE.DEAD: return
 	if not nav_agent: return
 
 	if health <= 0:
 		print("SERVER IS ASKING FOR DEATH")
-		state = OC_Entity.STATE.DEAD
+		state = STATE.DEAD
 		die.rpc()
 		return
 	
 	match state:
-		OC_Entity.STATE.IDLE:
+		STATE.IDLE:
 			_handle_idle_state(delta)
-		OC_Entity.STATE.MOVING:
+		STATE.MOVING:
 			_handle_moving_state(delta)
-		OC_Entity.STATE.FOLLOWING:
+		STATE.FOLLOWING:
 			_handle_following_state(delta)
-		OC_Entity.STATE.ATTACKING:
+		STATE.ATTACKING:
 			_handle_attacking_state(delta)
-		OC_Entity.STATE.DEAD:
+		STATE.DEAD:
 			return
 			
 ## === State Handlers === ##
@@ -122,7 +122,7 @@ func _handle_following_state(delta: float) -> void:
 	move_and_slide()
 
 func _handle_attacking_state(_delta: float) -> void:
-	if not target_check(): return;
+	if not target_check(): return
 	attack(target_node)
 	velocity = Vector3.ZERO
 	move_and_slide()
@@ -140,7 +140,7 @@ func _setup_vision_range():
 	vision_area.get_node("CollisionShape3D").shape.radius = vision_range
 	vision_area.body_entered.connect(_on_body_entered_vision)
 
-@rpc("authority","call_local")
+@rpc("authority", "call_local")
 func die():
 	print(str(multiplayer.get_unique_id(), ": Death Called"))
 	if Util.dedicated_server:
@@ -158,15 +158,15 @@ func cleanup():
 		queue_free()
 
 func reset():
-	if state == OC_Entity.STATE.DEAD: return;
+	if state == STATE.DEAD: return
 	super()
 	if enemy_node_pos != Vector3.ZERO:
 		_set_target(enemy_node_pos)
-		state = OC_Entity.STATE.MOVING
+		state = STATE.MOVING
 
 func _distribute_experience():
 	# TODO: get all bodies in range on death
-	pass;
+	pass
 	#for body in bodies:
 		#if body.is_in_group("player") and body.has_method("get_team"):
 			## Give experience to players on the OPPOSITE team (enemy players who killed this minion)
@@ -193,7 +193,7 @@ func _is_navigation_ready() -> bool:
 	return true
 
 func target_check() -> TARGET_STATUS:
-	if state == OC_Entity.STATE.DEAD: return TARGET_STATUS.INVALID;
+	if state == STATE.DEAD: return TARGET_STATUS.INVALID
 	# Verify node exists and is valid
 	if not target_node or not is_instance_valid(target_node):
 		reset()
@@ -210,17 +210,17 @@ func target_check() -> TARGET_STATUS:
 	else:
 		return TARGET_STATUS.OUT_OF_RANGE
 
-func _on_body_entered_vision(body:Node3D):
+func _on_body_entered_vision(body: Node3D):
 	var eid
 	if team != 1:
-		eid=1;
+		eid = 1
 	else:
-		eid=2
+		eid = 2
 	if body.is_in_group(str("team", eid)):
-		print("Enemy Spotted");
+		print("Enemy Spotted")
 		set_attack_target(body)
 
-func set_attack_target(body:OC_Entity):
+func set_attack_target(body: Node3D):
 	target_node = body
 	target_node.died.connect(reset)
 	state = STATE.FOLLOWING
@@ -252,8 +252,8 @@ func move_towards_target(target: Node3D) -> void:
 		state = STATE.ATTACKING
 
 func attack(body: Node3D = target_node):
-	if !can_attack: return
-	if !body or !body is OC_Entity: return
+	if !can_attack_now: return
+	if !body or !body is Node3D: return
 	
 	var distance_to_target = body.global_position.distance_to(global_position)
 	
@@ -261,7 +261,7 @@ func attack(body: Node3D = target_node):
 		state = STATE.FOLLOWING
 		return
 	
-	can_attack = false
+	can_attack_now = false
 	$AttackTimeout.start()
 	$FollowTimer.stop()
 	$FollowTimer.start(max_follow_time)

@@ -1,19 +1,19 @@
-extends RigidBody3D
 class_name Projectile
-
+extends RigidBody3D
 # === Movement Config === #
 var direction: Vector3 = Vector3.ZERO
 var spawn_pos: Vector3 = Vector3.ZERO
 var speed: float = 4.0
 # === Targeting Config === #
 var lockon : bool = false
-var target_node: OC_Entity
+var target_node: Node3D
 var lifetime : float = 3.0
 # === Ownership Config === #
 var team: int
-var creator: OC_Entity
+var creator: Node3D
 # === Effect & Damage Properties === #
 var damage: float = 10.0
+var damage_type: OC.DAMAGE_TYPE
 var effect: Effect = Effect.new()
 
 func _ready(pos: Vector3 = spawn_pos) -> void:
@@ -58,8 +58,8 @@ func hit(entity:Node3D):
 		return;
 	if not entity.has_method("take_damage"):
 		queue_free()
-	entity.take_damage.rpc(int(damage))
-	if entity is OC_Entity:
+	entity.take_damage.rpc(int(damage), damage_type)
+	if entity is Creature:
 		entity.apply_effect(effect)
 	queue_free()
 

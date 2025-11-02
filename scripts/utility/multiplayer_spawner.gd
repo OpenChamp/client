@@ -93,7 +93,7 @@ func spawn_minion_test(entity_name:String="Mage"):
 	for i in range(1, 3):
 		var mage:CharacterBody3D = CHAMPION_MAGE_SCENE.instantiate()
 		mage.name = entity_name + str(i) + "_" + str(randi())
-		mage.Team = i
+		mage.team = i
 		if i == 2:
 			mage.enemy_node_pos = minion_spawns[0][0]
 		else:

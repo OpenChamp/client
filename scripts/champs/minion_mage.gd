@@ -12,8 +12,8 @@ func setup_stats():
 	
 func attack(body: Node3D = target_node):
 	if state == STATE.DEAD: return;
-	if !can_attack: return
-	if !body or !body is OC_Entity: return
+	if !can_attack_now: return
+	if !body or !body is Creature: return
 	
 	var distance_to_target = body.global_position.distance_to(global_position)
 	
@@ -21,7 +21,7 @@ func attack(body: Node3D = target_node):
 		state = STATE.FOLLOWING
 		return
 	
-	can_attack = false
+	can_attack_now = false
 	$AttackTimeout.start()
 	$FollowTimer.stop()
 	$FollowTimer.start(max_follow_time)
@@ -55,5 +55,6 @@ func spawn_projectile(target_name:String):
 	new_projectile.creator = self
 	new_projectile.target_node = target
 	new_projectile.damage = magic_power
+	new_projectile.damage_type = OC.DAMAGE_TYPE.MAGICAL
 	new_projectile.speed = projectile_speed
 	get_parent().add_child(new_projectile)
