@@ -109,12 +109,12 @@ jobs:
           # Create release notes
           RELEASE_NOTES="# Release ${TAG}
 
-## Changes
-${CHANGELOG}
+          ## Changes
+          ${CHANGELOG}
 
-## Downloads
-All builds are attached to this release."
-          
+          ## Downloads
+          All builds are attached to this release."
+                    
           # Output to file and env
           echo "$RELEASE_NOTES" > release_notes.md
           echo "release_notes<<EOF" >> $GITHUB_OUTPUT
