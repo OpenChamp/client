@@ -28,9 +28,9 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if not Util.dedicated_server: return;
 	if state == OC_Entity.STATE.DEAD: return
-	if not NavAgent: return
+	if not nav_agent: return
 
-	if Health <= 0:
+	if health <= 0:
 		print("SERVER IS ASKING FOR DEATH")
 		state = OC_Entity.STATE.DEAD
 		die.rpc()
@@ -66,17 +66,17 @@ func _handle_moving_state(delta: float) -> void:
 	if not _is_navigation_ready():
 		return
 	
-	if not NavAgent.is_target_reachable() or NavAgent.is_target_reached():
+	if not nav_agent.is_target_reachable() or nav_agent.is_target_reached():
 		if target_node:
 			reset()
 	
-	var next_path_pos := NavAgent.get_next_path_position()
+	var next_path_pos := nav_agent.get_next_path_position()
 	
 	if next_path_pos == Vector3.ZERO or next_path_pos.distance_to(global_position) < 0.1:
 		return
 	
 	var dir := global_position.direction_to(next_path_pos)
-	velocity = dir * MoveSpeed
+	velocity = dir * move_speed
 	
 	var ROT_SPEED = 4
 	var target_rotation := dir.signed_angle_to(Vector3.MODEL_FRONT, Vector3.DOWN)
@@ -101,17 +101,17 @@ func _handle_following_state(delta: float) -> void:
 	
 	_set_target(target_node.global_position)
 	
-	if not NavAgent.is_target_reachable():
+	if not nav_agent.is_target_reachable():
 		reset()
 		return
 	
-	var next_path_pos := NavAgent.get_next_path_position()
+	var next_path_pos := nav_agent.get_next_path_position()
 	
 	if next_path_pos == Vector3.ZERO or next_path_pos.distance_to(global_position) < 0.1:
 		return
 	
 	var dir := global_position.direction_to(next_path_pos)
-	velocity = dir * MoveSpeed
+	velocity = dir * move_speed
 	
 	var ROT_SPEED = 6
 	var target_rotation := dir.signed_angle_to(Vector3.MODEL_FRONT, Vector3.DOWN)
@@ -137,7 +137,7 @@ func _setup_navigation():
 		_set_target(target_node.position)
 
 func _setup_vision_range():
-	vision_area.get_node("CollisionShape3D").shape.radius = VisionRange
+	vision_area.get_node("CollisionShape3D").shape.radius = vision_range
 	vision_area.body_entered.connect(_on_body_entered_vision)
 
 @rpc("authority","call_local")
@@ -181,13 +181,13 @@ func _distribute_experience():
 	#
 
 func _is_navigation_ready() -> bool:
-	if not NavAgent:
+	if not nav_agent:
 		return false
 	
 	if not NavigationServer3D.get_maps().size() > 0:
 		return false
 		
-	if not NavAgent.is_inside_tree():
+	if not nav_agent.is_inside_tree():
 		return false
 		
 	return true
@@ -200,11 +200,11 @@ func target_check() -> TARGET_STATUS:
 		return TARGET_STATUS.INVALID
 	# Verify node hasn't left target max_range
 	var distance_to_target = global_position.distance_to(target_node.global_position)
-	if distance_to_target > VisionRange * 1.5:
+	if distance_to_target > vision_range * 1.5:
 		reset()
 		return TARGET_STATUS.INVALID
 	# Attack target if in range
-	if distance_to_target <= AttackRange:
+	if distance_to_target <= vision_range:
 		state = STATE.ATTACKING
 		return TARGET_STATUS.IN_RANGE
 	else:
@@ -212,7 +212,7 @@ func target_check() -> TARGET_STATUS:
 
 func _on_body_entered_vision(body:Node3D):
 	var eid
-	if Team != 1:
+	if team != 1:
 		eid=1;
 	else:
 		eid=2
@@ -240,13 +240,13 @@ func move_towards_target(target: Node3D) -> void:
 	
 	var distance_to_target = global_position.distance_to(target.global_position)
 	
-	if distance_to_target > VisionRange * 1.5:
+	if distance_to_target > vision_range * 1.5:
 		reset()
 		return
 	
 	_set_target(target.global_position)
 	
-	if distance_to_target > AttackRange:
+	if distance_to_target > attack_range:
 		state = STATE.FOLLOWING
 	else:
 		state = STATE.ATTACKING
@@ -257,7 +257,7 @@ func attack(body: Node3D = target_node):
 	
 	var distance_to_target = body.global_position.distance_to(global_position)
 	
-	if distance_to_target > AttackRange:
+	if distance_to_target > attack_range:
 		state = STATE.FOLLOWING
 		return
 	
@@ -266,7 +266,7 @@ func attack(body: Node3D = target_node):
 	$FollowTimer.stop()
 	$FollowTimer.start(max_follow_time)
 	
-	print("Minion team ", Team, " attacking ", body.name, " with magical power ", MagicalPower)
+	print("Minion team ", team, " attacking ", body.name, " with magical power ", magic_power)
 	var spawner = get_tree().get_first_node_in_group("game_root")
 	if not spawner:
 		print("Error: Could not find game_root node")

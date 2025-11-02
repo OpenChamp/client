@@ -19,7 +19,7 @@ var effect: Effect = Effect.new()
 func _ready(pos: Vector3 = spawn_pos) -> void:
 	global_position = pos
 	if target_node:
-		if target_node.Team == team:
+		if target_node.team == team:
 			print("Targeting Teammate")
 			queue_free()
 	body_entered.connect(_on_body_entered_hitbox)

@@ -24,38 +24,38 @@ enum TARGET_STATUS {
 ## === Signals === ##
 signal died
 ## === Core Stats === ##
-@export var Team : int        = 1
-@export var MaxHealth : int   = 100
-@export var Health : int      = 100
-@export var MaxMana : int     = 100
-@export var Mana : int        = 100
-@export var MoveSpeed : float = 5.0
-@export var RequiredExp: float = 100.0
-@export var CurrentExp: float = 0.0
-@export var Level: int = 1
+@export var team : int        = 1
+@export var max_health : int   = 100
+@export var health : int      = 100
+@export var max_mana : int     = 100
+@export var mana : int        = 100
+@export var move_speed : float = 5.0
+@export var required_exp: float = 100.0
+@export var current_exp: float = 0.0
+@export var level: int = 1
 ## === Offensive Stats === ##
-@export var PhysicalPower : float = 1.0
-@export var MagicalPower : float = 1.0
-@export var AttackSpeed : float = 1.0
-@export var AttackRange : float = 1.0
-@export var CritChance : float = 0.0
-@export var CritBonus : int = 0
-@export var ProjectileSpeed: float = 5.0
+@export var attack_range : float = 1.0 ## In units
+@export var attack_speed : float = 1.0 ## Attacks per second
+@export var crit_chance : float = 0.0 ## Percentage chance to crit
+@export var crit_bonus : int = 0 ## Flat bonus damage on crit
+@export var true_bonus : int = 0 ## Flat bonus true damage on hit
+@export var magic_power : float = 1.0 # Flat Magic Damage
+@export var physical_power : float = 1.0 # Flat Physical Damage
+@export var projectile_speed: float = 5.0
 ## === Defensive Stats === ##
-@export var Armor: int = 0;
-@export var MagicResist: int = 0;
-@export var Dodge: int = 0;
-
+@export var armor: int = 0;
+@export var magic_resist: int = 0;
+@export var dodge: int = 0;
 ## === Scaling & Utility Stats === ##
-@export var HealthRegen: float = 1.0;
-@export var ManaRegen: float = 1.0;
-@export var LifeSteal: float = 0.0;
-@export var OmniVamp: float = 0.0;
-@export var Resistance: float = 0.0;
-@export var VisionRange: float = 5.0;
+@export var health_regen: float = 1.0;
+@export var mana_regen: float = 1.0;
+@export var life_steal: float = 0.0;
+@export var omni_vamp: float = 0.0;
+@export var resistance: float = 0.0;
+@export var vision_range: float = 5.0;
 
 ## == Scene Requirements == #
-@onready var NavAgent: NavigationAgent3D = $NavigationAgent3D
+@onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 
 ## == Movement & Targeting == #
 @export var target_node : Node3D
@@ -64,15 +64,15 @@ var can_attack:bool = true
 
 # == Engine Functions == #
 func _ready():
-	self.add_to_group(str("team", Team))
+	self.add_to_group(str("team", team))
 	pass;
 func _physics_process(_d):
 	pass;
 func _process(_d):
 	pass;
 func setup_stats():
-	Health = MaxHealth
-	Mana = MaxHealth
+	health = max_health
+	mana = max_mana
 
 # === Effect Functions === #
 func apply_effect(effect: Effect):
@@ -86,9 +86,9 @@ func remove_effect(effect: Effect):
 func handle_effect(effect: Effect):
 	match effect.type:
 		Effect.Type.SLOW:
-			MoveSpeed -= effect.strength
-			if MoveSpeed < 0:
-				MoveSpeed = 0
+			move_speed -= effect.strength
+			if move_speed < 0:
+				move_speed = 0
 		Effect.Type.DAMAGE_OVER_TIME:
 			var damage_per_tick = effect.strength
 			var ticks = int(effect.duration)
@@ -102,13 +102,13 @@ func handle_effect(effect: Effect):
 # === Health Functions === #
 @rpc("authority", "call_local")
 func take_damage(damage: int):
-	Health -= damage
+	health -= damage
 
 @rpc("authority", "call_local")
 func heal(heal_amount: int):
-	Health += heal_amount
-	if Health > MaxHealth:
-		Health = MaxHealth
+	health += heal_amount
+	if health > max_health:
+		health = max_health
 
 # === Experience Functions === #
 func distribute_experience(total_exp: int, entities_in_range: Array):
@@ -117,21 +117,21 @@ func distribute_experience(total_exp: int, entities_in_range: Array):
 		entity.gain_experience(exp_per_entity)
 
 func gain_experience(added_exp: float):
-	CurrentExp += added_exp
+	current_exp += added_exp
 	check_level_up()
 
 func lose_experience(lost_exp: int):
-	CurrentExp -= lost_exp
+	current_exp -= lost_exp
 
 func check_level_up():
-	if CurrentExp >= RequiredExp:
-		Level += 1
-		CurrentExp -= RequiredExp
-		RequiredExp = RequiredExp * 1.2
+	if current_exp >= required_exp:
+		level += 1
+		current_exp -= required_exp
+		required_exp = required_exp * 1.2
 		level_up()
 	
 func level_up():
-	print("Leveled Up to Level ", Level)
+	print("Leveled Up to Level ", level)
 	pass;
 
 
@@ -144,7 +144,7 @@ func set_target_node(node:Node3D):
 	_set_target(node.global_position)
 
 func _set_target(pos:Vector3):
-	NavAgent.set_target_position(pos)
+	nav_agent.set_target_position(pos)
 	
 func die():
 	print("Base level death has been called")
@@ -175,7 +175,7 @@ func update_global_position(new_pos: Vector3) -> void:
 func update_target(new_pos: Vector3) -> void:
 	new_pos.y = .5
 	target_pos = new_pos
-	if NavAgent:
-		NavAgent.set_target_position(target_pos);
+	if nav_agent:
+		nav_agent.set_target_position(target_pos);
 	else:
-		ready.connect(func():NavAgent.set_target_position(target_pos))
+		ready.connect(func():nav_agent.set_target_position(target_pos))

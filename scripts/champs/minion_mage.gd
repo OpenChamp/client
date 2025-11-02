@@ -5,9 +5,9 @@ class_name Minion_Mage
 @export var Projectile_Scene : PackedScene = load("res://scenes/abilities/MageProjectile.tscn")
 
 func setup_stats():
-	AttackRange = 5.0
-	MaxHealth = 100
-	MagicalPower = 25
+	attack_range = 5.0
+	max_health = 100
+	magic_power = 25
 	super()
 	
 func attack(body: Node3D = target_node):
@@ -17,7 +17,7 @@ func attack(body: Node3D = target_node):
 	
 	var distance_to_target = body.global_position.distance_to(global_position)
 	
-	if distance_to_target > AttackRange:
+	if distance_to_target > attack_range:
 		state = STATE.FOLLOWING
 		return
 	
@@ -26,7 +26,7 @@ func attack(body: Node3D = target_node):
 	$FollowTimer.stop()
 	$FollowTimer.start(max_follow_time)
 	
-	print("Minion team ", Team, " attacking ", body.name, " with magical power ", MagicalPower)
+	print("Minion team ", team, " attacking ", body.name, " with magical power ", magic_power)
 	var spawner = get_tree().get_first_node_in_group("game_root")
 	if not spawner:
 		print("Error: Could not find game_root node")
@@ -51,9 +51,9 @@ func spawn_projectile(target_name:String):
 	var direction = (target.global_position - global_position).normalized()
 	new_projectile.spawn_pos = global_position + direction
 	new_projectile.direction = direction
-	new_projectile.team = Team
+	new_projectile.team = team
 	new_projectile.creator = self
 	new_projectile.target_node = target
-	new_projectile.damage = MagicalPower
-	new_projectile.speed = ProjectileSpeed
+	new_projectile.damage = magic_power
+	new_projectile.speed = projectile_speed
 	get_parent().add_child(new_projectile)

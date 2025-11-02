@@ -342,10 +342,10 @@ debug_custom_color = Color(2.5027991e-06, 0.57417166, 0.8241528, 1)
 curve = SubResource("Curve3D_kvq41")
 debug_custom_color = Color(0.57, 0.0342, 0.04312986, 1)
 
-[node name="core1" groups=["team1"] parent="." instance=ExtResource("6_3jmng")]
+[node name="core1" parent="." groups=["team1"] instance=ExtResource("6_3jmng")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -21)
 Team = 1
 
-[node name="core2" groups=["team2"] parent="." instance=ExtResource("6_3jmng")]
+[node name="core2" parent="." groups=["team2"] instance=ExtResource("6_3jmng")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21)
 Team = 2
