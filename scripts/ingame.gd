@@ -1,47 +1,46 @@
+# OpenChamp In-Game Logic Script
+# This script will be auto-launched if the game is started in "In-Game" mode
+class_name GameRoot
 extends Node
+
+# === Default Game Settings === #
+var game_map = "Konda"
+var game_mode = "3v3"
+# === Minion Wave Settings === #
+var minion_wave_interval = 15.0
+var spawn_path = "World/Entities"
+
 
 const MAX_PLAYERS = 2
 const SERVER_TICKRATE = 30
 
 var gamestate = GAME_STATE.LOADING
 
-enum GAME_STATE {
-	LOADING,
-	ONGOING,
-	PAUSED,
-	DONE,
-}
+enum GAME_STATE {LOADING, ONGOING, PAUSED, DONE,}
 
 @export var game_time: float = 0.0
 
-
 func _ready() -> void:
-	set_process(true)
-	await Util.set_up()
-	NetworkManager.player_connected.connect(_on_player_connected)
-	NetworkManager.player_disconnected.connect(_on_player_disconnected)
+	_setup_signals()
 	if Util.dedicated_server:
 		call_deferred("_setup_server")
 	else:
-		# Simulate different player's loading times
-		get_tree().create_timer(randi_range(0, 3)).timeout.connect(setup_client)
+		setup_client()
 
-
-func _physics_process(delta: float) -> void:
-	if Util.dedicated_server:
-		game_time += delta
-
+func _setup_signals():
+	NetworkManager.player_connected.connect(_on_player_connected)
+	NetworkManager.player_disconnected.connect(_on_player_disconnected)
 
 func _setup_server():
-	# 30s Server
-	if Util.debug:
-		get_tree().create_timer(30).timeout.connect(get_tree().quit)
+	# === Engine Settings === #
 	Engine.max_fps = SERVER_TICKRATE
+	# === Game State === #
 	gamestate = GAME_STATE.LOADING
-	$Loading.hide()
+	# === Networking === #
 	NetworkManager._start_gameserver()
-	print("Server Created, Waiting on for players...")
-
+	# === UI/Interface === #
+	$Loading.hide()
+	
 func setup_client():
 	$PlayerRig.use_ability.connect(_on_player_use_ability)
 	$PlayerRig.move_player.connect(_on_player_requests_movement)
@@ -55,21 +54,19 @@ func setup_client():
 		get_tree().quit(1002)
 	multiplayer.multiplayer_peer = peer
 
-
 func start_game():
 	gamestate = GAME_STATE.ONGOING
 	game_time = 0.0
 	rpc("_client_on_game_start")
 	$MinionWaveTimer.start()
+	$SecondTimer.start()
 	## === UNCOMMENT BEFORE PROD === ##
 	#for pid in Util.players.keys():
 	#	if pid == 1:
 	#		continue
 	#	$MultiplayerSpawner.spawn_ranger(str(pid))
 	## === DEBUGGING === ##
-	$MultiplayerSpawner.spawn_minion_test()
 	print("Game Started!")
-
 
 func _on_player_connected(id):
 	if not Util.dedicated_server:
@@ -86,28 +83,22 @@ func _on_player_connected(id):
 			print("Waiting for more players: %d/%d connected" % [connected_players, MAX_PLAYERS])
 			print("Connected players: %s" % JSON.stringify(Util.players.keys()))
 
-
 func _on_player_disconnected(id):
 	print("Player disconnected with ID: %d" % id)
-
 
 func _on_connected_to_server():
 	pass
 
-
 func _on_connection_failed():
 	pass
-
 
 func _on_server_disconnected():
 	$Loading.update_header("Server Lost... Shutting Down.")
 	$Loading.show()
 	get_tree().create_timer(3).timeout.connect(get_tree().quit)
 
-
 func _client_on_connected():
 	$Loading.update_header("Waiting On Players...")
-
 
 @rpc("authority")
 func _client_on_game_start():

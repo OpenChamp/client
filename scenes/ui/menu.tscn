@@ -14,7 +14,6 @@ grow_vertical = 2
 script = ExtResource("1_udkah")
 
 [node name="LogoLabel" type="RichTextLabel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -40,7 +39,6 @@ fit_content = true
 scroll_active = false
 
 [node name="PlayerCount" type="RichTextLabel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -58,7 +56,6 @@ text = "[right]Players Online: ...[/right]"
 fit_content = true
 
 [node name="LocalConnect" type="Button" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -72,7 +69,6 @@ grow_vertical = 0
 text = "Local Server (DEBUG)"
 
 [node name="ConnectionButton" type="Button" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -88,7 +84,6 @@ grow_vertical = 2
 text = "Connect"
 
 [node name="CancelConnectionButton" type="Button" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -104,7 +99,6 @@ grow_vertical = 2
 text = "Cancel"
 
 [node name="Quit" type="Button" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -120,7 +114,6 @@ grow_vertical = 2
 text = "Quit"
 
 [node name="MainMenu" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -156,7 +149,6 @@ text = "Credits
 "
 
 [node name="Settings" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -344,7 +336,6 @@ offset_bottom = 390.0
 text = "Player"
 
 [node name="Credits" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -409,7 +400,6 @@ mad_rad_slav [/right]
 Thibaud Goiffon [/right]"
 
 [node name="ChatContainer" type="Panel" parent="."]
-visible = false
 custom_minimum_size = Vector2(300, 230)
 layout_mode = 1
 anchors_preset = 2
@@ -513,7 +503,6 @@ mouse_filter = 2
 color = Color(0.8, 0.8, 0.8, 1)
 
 [node name="Register" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5

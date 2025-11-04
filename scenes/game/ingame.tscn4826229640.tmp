@@ -40,4 +40,3 @@ one_shot = true
 [node name="SecondTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="MinionWaveTimer" to="MultiplayerSpawner" method="_on_minion_wave_timer_timeout"]
-[connection signal="timeout" from="SecondTimer" to="MultiplayerSpawner" method="_every_second"]

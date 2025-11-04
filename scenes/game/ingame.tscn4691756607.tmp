@@ -29,6 +29,8 @@ replication_config = SubResource("SceneReplicationConfig_2nns3")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
 script = ExtResource("5_sithu")
+max_spawn_timeout = null
+max_wave_size = null
 
 [node name="PingTimer" type="Timer" parent="."]
 script = ExtResource("6_3ywp8")
@@ -38,6 +40,6 @@ wait_time = 20.0
 one_shot = true
 
 [node name="SecondTimer" type="Timer" parent="."]
+autostart = true
 
 [connection signal="timeout" from="MinionWaveTimer" to="MultiplayerSpawner" method="_on_minion_wave_timer_timeout"]
-[connection signal="timeout" from="SecondTimer" to="MultiplayerSpawner" method="_every_second"]

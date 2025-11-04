@@ -22,6 +22,7 @@ var player_id: String = ""
 var map_name: String = ""
 var game_mode: String = ""
 var dedicated_server: bool = false
+var dedicated_client: bool = false
 
 # Server Args Variables
 var port := 7000
@@ -127,15 +128,26 @@ func load_args():
 			player_ids.append(player["id"])
 	for i in range(args.size()):
 		match args[i]:
+			# === Network === #
 			"-ip", "--host":
 				if i + 1 < args.size():
 					ip = args[i + 1]
-			"-sid", "--serverid":
-				if i + 1 < args.size():
-					server_id = args[i + 1]
 			"-ws", "--webid":
 				if i + 1 < args.size():
 					player_id = args[i + 1]
+			# === Auth === #
+			
+			# === Config === #
+			
+			# === Server === #
+			
+			# === Client === #
+			"-c", "--client":
+				dedicated_client = true
+			"-sid", "--serverid":
+				if i + 1 < args.size():
+					server_id = args[i + 1]
+			
 			"-p", "--port":
 				if i + 1 < args.size():
 					port = int(args[i + 1])

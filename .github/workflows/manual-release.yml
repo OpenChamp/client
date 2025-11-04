@@ -14,8 +14,8 @@ on:
         default: true
 
 env:
-  GODOT_VERSION: 4.5.0
-  GODOT_MONO_VERSION: 4.5.0
+  GODOT_VERSION: 4.5.1
+  GODOT_MONO_VERSION: 4.5.1
 
 jobs:
   build:
@@ -28,32 +28,10 @@ jobs:
             export_name: "OpenChamp_Linux_Server"
             preset: "Linux Server"
             artifact_ext: ""
-          - os: windows-latest
-            export_name: "OpenChamp_Win_Server.exe"
-            preset: "Win Server(x86)"
-            artifact_ext: ".exe"
-          - os: macos-latest
-            export_name: "OpenChamp_MacOS_Server.app"
-            preset: "Mac Server (universal)"
-            artifact_ext: ".app"
-          - os: windows-latest
-            export_name: "OpenChamp_Windows_Desktop.exe"
-            preset: "Windows Desktop"
-            artifact_ext: ".exe"
-          - os: macos-latest
-            export_name: "OpenChamp_macOS_Desktop.dmg"
-            preset: "macOS"
-            artifact_ext: ".dmg"
-          - os: ubuntu-latest
-            export_name: "OpenChamp_Linux_Desktop"
-            preset: "Linux"
-            artifact_ext: ""
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
@@ -62,20 +40,23 @@ jobs:
           use-mono: false
           include-templates: true
 
-      - name: Create export output directory
-        run: mkdir -p build/exports
+      - name: Get all export presets
+        run: godot --headless --export-presets-list
+        id: export_presets
 
-      - name: Build Godot project
-        run: |
-          godot --headless --export-release "${{ matrix.preset }}" "build/exports/${{ matrix.export_name }}"
+      - name: Create export output directory
+        run: mkdir -p builds/exports
+
+      - name: Build all exports
+        run: godot --headless --export-release "${{ matrix.preset }}" "builds/exports/${{ matrix.export_name }}"
 
       - name: Package build output
         run: |
-          cd build/exports
+          cd builds/exports
           if [[ "${{ runner.os }}" == "Windows" ]]; then
-            7z a -r "${{ matrix.export_name }}.zip" "${{ matrix.export_name }}"
+          7z a -r "${{ matrix.export_name }}.zip" "${{ matrix.export_name }}"
           else
-            tar -czf "${{ matrix.export_name }}.tar.gz" "${{ matrix.export_name }}"
+          tar -czf "${{ matrix.export_name }}.tar.gz" "${{ matrix.export_name }}"
           fi
         shell: bash
 
@@ -105,7 +86,7 @@ jobs:
         run: |
           # Get the current branch
           BRANCH="${{ github.ref_name }}"
-          
+        
           # Get recent commits
           CHANGELOG=$(git log --pretty=format:"- %s (%an)" --no-merges -20)
           

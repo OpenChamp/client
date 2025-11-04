@@ -59,7 +59,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [node name="Tower2" parent="." groups=["team2"] instance=ExtResource("1_82gln")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
-Team = 2
+team = 2
 
 [node name="MinionSpawn1" type="Marker3D" parent="." groups=["minion_spawn", "team1"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -18)
@@ -344,8 +344,6 @@ debug_custom_color = Color(0.57, 0.0342, 0.04312986, 1)
 
 [node name="core1" parent="." groups=["team1"] instance=ExtResource("6_3jmng")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -21)
-Team = 1
 
 [node name="core2" parent="." groups=["team2"] instance=ExtResource("6_3jmng")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21)
-Team = 2

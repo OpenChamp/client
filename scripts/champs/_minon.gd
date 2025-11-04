@@ -31,7 +31,6 @@ func _physics_process(delta: float) -> void:
 	if not nav_agent: return
 
 	if health <= 0:
-		print("SERVER IS ASKING FOR DEATH")
 		state = STATE.DEAD
 		die.rpc()
 		return
@@ -78,10 +77,10 @@ func _handle_moving_state(delta: float) -> void:
 	var dir := global_position.direction_to(next_path_pos)
 	velocity = dir * move_speed
 	
-	var ROT_SPEED = 4
+	var ROT_SPEED = 60
 	var target_rotation := dir.signed_angle_to(Vector3.MODEL_FRONT, Vector3.DOWN)
-	if abs(target_rotation - rotation.y) > deg_to_rad(60):
-		ROT_SPEED = 20
+	if abs(target_rotation - rotation.y) > deg_to_rad(30):
+		ROT_SPEED = 80
 	rotation.y = move_toward(rotation.y, target_rotation, delta * ROT_SPEED)
 	
 	move_and_slide()
