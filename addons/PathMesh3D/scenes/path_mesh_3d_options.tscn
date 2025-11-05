@@ -1,0 +1,83 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf6p2xos0dryr"]
+
+[ext_resource type="Script" uid="uid://k16bgqnrauft" path="res://addons/PathMesh3D/scripts/path_mesh_3d_options.gd" id="1_ljqft"]
+[ext_resource type="Texture2D" uid="uid://bh5p7hkaa8hie" path="res://addons/PathMesh3D/icons/PathMesh3D.svg" id="1_sjiwc"]
+
+[node name="MenuButton" type="MenuButton"]
+offset_right = 155.0
+offset_bottom = 146.0
+text = "PathMesh3D"
+icon = ExtResource("1_sjiwc")
+switch_on_hover = true
+item_count = 2
+popup/item_0/text = "Bake Extruded Mesh"
+popup/item_0/id = 1
+popup/item_1/text = "Create Collision Shape..."
+popup/item_1/id = 1
+script = ExtResource("1_ljqft")
+
+[node name="CollisionDialog" type="ConfirmationDialog" parent="."]
+title = "Create Collision Shape"
+size = Vector2i(220, 177)
+ok_button_text = "Create"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CollisionDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 212.0
+offset_bottom = 128.0
+
+[node name="Label" type="Label" parent="CollisionDialog/VBoxContainer"]
+layout_mode = 2
+text = "Collision Shape Placement"
+
+[node name="OptionButton" type="OptionButton" parent="CollisionDialog/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Sibling"
+popup/item_1/text = "Static Body Child"
+popup/item_1/id = 1
+
+[node name="Label2" type="Label" parent="CollisionDialog/VBoxContainer"]
+layout_mode = 2
+text = "Collision Shape Type"
+
+[node name="OptionButton2" type="OptionButton" parent="CollisionDialog/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Trimesh"
+popup/item_1/text = "Single Convex"
+popup/item_1/id = 1
+popup/item_2/text = "Simplified Convex"
+popup/item_2/id = 2
+popup/item_3/text = "Multiple Convex"
+popup/item_3/id = 3
+popup/item_3/disabled = true
+
+[node name="BakeDialog" type="ConfirmationDialog" parent="."]
+title = "Bake Extruded Mesh"
+position = Vector2i(0, 36)
+size = Vector2i(200, 115)
+ok_button_text = "Bake"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BakeDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 66.0
+
+[node name="Label" type="Label" parent="BakeDialog/VBoxContainer"]
+layout_mode = 2
+text = "Baked Mesh Placement"
+
+[node name="OptionButton" type="OptionButton" parent="BakeDialog/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Sibling"
+popup/item_1/text = "Child"
+popup/item_1/id = 1
+
+[node name="ErrDialog" type="AcceptDialog" parent="."]

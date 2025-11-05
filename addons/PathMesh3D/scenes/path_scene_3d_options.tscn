@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://ti68eqdjrepf"]
+
+[ext_resource type="Texture2D" uid="uid://chm4bonb3hjnw" path="res://addons/PathMesh3D/icons/PathScene3D.svg" id="1_gjelh"]
+[ext_resource type="Script" uid="uid://cwc5u78hgi17j" path="res://addons/PathMesh3D/scripts/path_scene_3d_options.gd" id="2_jba24"]
+
+[node name="MenuButton" type="MenuButton"]
+offset_right = 155.0
+offset_bottom = 146.0
+text = "PathScene3D"
+icon = ExtResource("1_gjelh")
+switch_on_hover = true
+item_count = 1
+popup/item_0/text = "Bake Instances"
+popup/item_0/id = 1
+script = ExtResource("2_jba24")
+
+[node name="BakeDialog" type="ConfirmationDialog" parent="."]
+auto_translate_mode = 1
+title = "Bake Instanced Scenes"
+position = Vector2i(0, 36)
+size = Vector2i(228, 115)
+ok_button_text = "Bake"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BakeDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 220.0
+offset_bottom = 66.0
+
+[node name="Label" type="Label" parent="BakeDialog/VBoxContainer"]
+layout_mode = 2
+text = "Baked Instance Placement"
+
+[node name="OptionButton" type="OptionButton" parent="BakeDialog/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Sibling"
+popup/item_1/text = "Child"
+popup/item_1/id = 1
+
+[node name="ErrDialog" type="AcceptDialog" parent="."]
+auto_translate_mode = 1

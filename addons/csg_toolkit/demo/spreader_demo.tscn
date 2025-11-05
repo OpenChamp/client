@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bltlelosbn4ky"]
+
+[ext_resource type="Script" uid="uid://rgfomqnhbhpk" path="res://addons/csg_toolkit/scripts/csg_spreader_3d.gd" id="1_kisjt"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kisjt"]
+radius = 8.0
+
+[node name="Node" type="Node3D"]
+
+[node name="CSGSpreader3D" type="CSGCombiner3D" parent="."]
+script = ExtResource("1_kisjt")
+template_node_path = NodePath("CSGBox3D")
+spread_area_3d = SubResource("CylinderShape3D_kisjt")
+max_count = 200
+seed = 300
+avoid_overlaps = true
+metadata/_custom_type_script = "uid://rgfomqnhbhpk"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGSpreader3D"]

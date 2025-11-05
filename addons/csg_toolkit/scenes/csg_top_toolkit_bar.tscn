@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgldacs362p7g"]
+
+[ext_resource type="Script" uid="uid://dk6dt8fk1s43s" path="res://addons/csg_toolkit/scripts/csg_top_toolkit_bar.gd" id="1_154hl"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_154hl")
+
+[node name="Refresh" type="Button" parent="."]
+layout_mode = 2
+text = "Refresh"
+flat = true
+
+[connection signal="pressed" from="Refresh" to="." method="_on_refresh_pressed"]

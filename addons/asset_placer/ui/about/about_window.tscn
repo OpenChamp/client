@@ -1,0 +1,234 @@
+[gd_scene load_steps=8 format=3 uid="uid://dynyrwa38r5ag"]
+
+[ext_resource type="Script" uid="uid://43kdnn7nr2ch" path="res://addons/asset_placer/ui/about/about_window.gd" id="1_namxt"]
+[ext_resource type="Script" uid="uid://dmicn3kmr620j" path="res://addons/asset_placer/utils/system_icon.gd" id="2_r5xs8"]
+[ext_resource type="Texture2D" uid="uid://be61c5ff55gfo" path="res://addons/asset_placer/icon.png" id="3_vijnu"]
+
+[sub_resource type="Texture2D" id="Texture2D_4v60v"]
+resource_local_to_scene = false
+resource_name = ""
+script = ExtResource("2_r5xs8")
+icon_name = &"NodeInfo"
+metadata/_custom_type_script = "uid://dmicn3kmr620j"
+
+[sub_resource type="Texture2D" id="Texture2D_vijnu"]
+resource_local_to_scene = false
+resource_name = ""
+script = ExtResource("2_r5xs8")
+icon_name = &"Favorites"
+metadata/_custom_type_script = "uid://dmicn3kmr620j"
+
+[sub_resource type="Texture2D" id="Texture2D_r5xs8"]
+resource_local_to_scene = false
+resource_name = ""
+script = ExtResource("2_r5xs8")
+icon_name = &"Node3D"
+metadata/_custom_type_script = "uid://dmicn3kmr620j"
+
+[sub_resource type="Texture2D" id="Texture2D_tt7kp"]
+resource_local_to_scene = false
+resource_name = ""
+script = ExtResource("2_r5xs8")
+icon_name = &"Debug"
+metadata/_custom_type_script = "uid://dmicn3kmr620j"
+
+[node name="AboutWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_namxt")
+
+[node name="UpdatePopup" type="PopupPanel" parent="."]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(499, 217)
+
+[node name="MarginContainer" type="MarginContainer" parent="UpdatePopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 495.0
+offset_bottom = 213.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Vbox" type="VBoxContainer" parent="UpdatePopup/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="UpdatePopup/MarginContainer/Vbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Update Available"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UpdatePopup/MarginContainer/Vbox"]
+layout_mode = 2
+
+[node name="UpdateVersionLabel" type="Label" parent="UpdatePopup/MarginContainer/Vbox/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "1.1.5"
+
+[node name="ChangelogLinkButton" type="LinkButton" parent="UpdatePopup/MarginContainer/Vbox/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "View Changelog"
+uri = "https://github.com/levinzonr/godot-asset-placer/blob/main/CHANGELOG.md#115"
+
+[node name="ProgressBar" type="ProgressBar" parent="UpdatePopup/MarginContainer/Vbox"]
+visible = false
+layout_mode = 2
+indeterminate = true
+editor_preview_indeterminate = true
+
+[node name="DownloadUpdateBtn" type="Button" parent="UpdatePopup/MarginContainer/Vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Download Update"
+
+[node name="ApplyUpdateAndRestartBtn" type="Button" parent="UpdatePopup/MarginContainer/Vbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Apply Update and Restart"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "Asset Placer"
+
+[node name="VersionLabel" type="Label" parent="Panel/CenterContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Version 1.2.0"
+
+[node name="UpdateButton" type="Button" parent="Panel/CenterContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 4
+text = "Version 1.1.5 Availalbe"
+icon = SubResource("Texture2D_4v60v")
+
+[node name="Space" type="Control" parent="Panel/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("3_vijnu")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="DiscordLinkButton" type="LinkButton" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "Join our Discord"
+uri = "https://discord.gg/UyYCp53Hym"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Enjoying this Plugin? Please consider leaving a Star on "
+
+[node name="Label3" type="LinkButton" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "GitHub"
+uri = "https://github.com/levinzonr/godot-asset-placer"
+
+[node name="TextureRect" type="TextureRect" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("Texture2D_vijnu")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Or"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="CenterContainer" type="BoxContainer" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FeatureRequestButton" type="Button" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Missing Feature?"
+icon = SubResource("Texture2D_r5xs8")
+alignment = 0
+
+[node name="CenterContainer2" type="BoxContainer" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="IssueButton" type="Button" parent="Panel/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Spotted Bug / Issue?"
+icon = SubResource("Texture2D_tt7kp")
+alignment = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -123.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12

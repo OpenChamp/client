@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj7084thdboiv"]
+
+[ext_resource type="Script" uid="uid://c68dxahp0v5xg" path="res://addons/csg_toolkit/scripts/csg_repeater_3d.gd" id="1_kcw1q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1e2qr"]
+albedo_color = Color(0.8, 0.4, 0.2, 1)
+
+[node name="Node" type="Node3D"]
+
+[node name="CSGRepeater3D" type="CSGCombiner3D" parent="."]
+script = ExtResource("1_kcw1q")
+template_node_path = NodePath("TemplateBox")
+repeat = Vector3(10, 1, 20)
+spacing = Vector3(2, 2, 2)
+circular_radius = 3.0
+randomize_scale = true
+position_jitter = 0.3
+random_seed = 300
+
+[node name="TemplateBox" type="CSGBox3D" parent="CSGRepeater3D"]
+material_override = SubResource("StandardMaterial3D_1e2qr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 5, 0)

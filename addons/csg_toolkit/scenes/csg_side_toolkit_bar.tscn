@@ -1,0 +1,179 @@
+[gd_scene load_steps=15 format=3 uid="uid://cdjxmp0p1bbup"]
+
+[ext_resource type="Script" uid="uid://dr5f1egll7hdq" path="res://addons/csg_toolkit/scripts/csg_side_toolkit_bar.gd" id="1_awo4p"]
+[ext_resource type="Texture2D" uid="uid://cjxx30pcamj36" path="res://addons/csg_toolkit/res/icons/box.svg" id="2_p4f7r"]
+[ext_resource type="Texture2D" uid="uid://dioxt3oaqvsi3" path="res://addons/csg_toolkit/res/icons/cyliner.svg" id="3_j7s68"]
+[ext_resource type="Texture2D" uid="uid://bnpu878eanspj" path="res://addons/csg_toolkit/res/icons/mesh.svg" id="4_328ee"]
+[ext_resource type="Texture2D" uid="uid://cjps2pofcsfc0" path="res://addons/csg_toolkit/res/icons/polygon.svg" id="5_0os5t"]
+[ext_resource type="Texture2D" uid="uid://kpld1ou63wlf" path="res://addons/csg_toolkit/res/icons/sphere.svg" id="6_ju1pi"]
+[ext_resource type="Texture2D" uid="uid://gbgmyv4bknqo" path="res://addons/csg_toolkit/res/icons/torus.svg" id="7_6hoxg"]
+[ext_resource type="Texture2D" uid="uid://sc7itwu80oi3" path="res://addons/csg_toolkit/res/icons/union.svg" id="8_gmt87"]
+[ext_resource type="Texture2D" uid="uid://2kohi3tb3c70" path="res://addons/csg_toolkit/res/icons/intersection.svg" id="9_55ipi"]
+[ext_resource type="Texture2D" uid="uid://snbhkpq6sh4j" path="res://addons/csg_toolkit/res/icons/subtraction.svg" id="10_8u5xb"]
+[ext_resource type="Texture2D" uid="uid://cg5jbylrlg00x" path="res://addons/csg_toolkit/res/icons/empty-material.svg" id="11_ten1m"]
+[ext_resource type="Texture2D" uid="uid://clgooji83dl4u" path="res://addons/csg_toolkit/res/icons/config.svg" id="12_3gawg"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_2ipgb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixko7"]
+
+[node name="MarginContainer" type="MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(52, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_awo4p")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="CSG" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Box" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Box"
+icon = ExtResource("2_p4f7r")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Cylinder" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Cylinder"
+theme_override_constants/icon_max_width = 24
+icon = ExtResource("3_j7s68")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Mesh" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Mesh"
+theme_override_constants/icon_max_width = 24
+icon = ExtResource("4_328ee")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Polygon" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Polygon"
+theme_override_constants/icon_max_width = 24
+icon = ExtResource("5_0os5t")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Sphere" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Sphere"
+theme_override_constants/icon_max_width = 24
+icon = ExtResource("6_ju1pi")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Torus" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Torus"
+theme_override_constants/icon_max_width = 24
+icon = ExtResource("7_6hoxg")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Operation" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Union" type="Button" parent="ScrollContainer/HBoxContainer/Operation"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Union"
+theme_override_constants/icon_max_width = 24
+toggle_mode = true
+button_group = SubResource("ButtonGroup_2ipgb")
+icon = ExtResource("8_gmt87")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Intersection" type="Button" parent="ScrollContainer/HBoxContainer/Operation"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Intersection"
+theme_override_constants/icon_max_width = 24
+toggle_mode = true
+button_group = SubResource("ButtonGroup_2ipgb")
+icon = ExtResource("9_55ipi")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Subtraction" type="Button" parent="ScrollContainer/HBoxContainer/Operation"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Subtraction"
+theme_override_constants/icon_max_width = 24
+toggle_mode = true
+button_group = SubResource("ButtonGroup_2ipgb")
+icon = ExtResource("10_8u5xb")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Material" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MaterialPicker" type="Button" parent="ScrollContainer/HBoxContainer/Material"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Material"
+icon = ExtResource("11_ten1m")
+icon_alignment = 1
+expand_icon = true
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ixko7")
+
+[node name="Options" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Config" type="Button" parent="ScrollContainer/HBoxContainer/Options"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Config"
+theme_override_constants/icon_max_width = 24
+icon = ExtResource("12_3gawg")
+icon_alignment = 1
+
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/CSG/Box" to="." method="_on_box_pressed"]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/CSG/Cylinder" to="." method="_on_cylinder_pressed"]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/CSG/Mesh" to="." method="_on_mesh_pressed"]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/CSG/Polygon" to="." method="_on_polygon_pressed"]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/CSG/Sphere" to="." method="_on_sphere_pressed"]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/CSG/Torus" to="." method="_on_torus_pressed"]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/Operation/Union" to="." method="_on_operation_pressed" binds= [0]]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/Operation/Intersection" to="." method="_on_operation_pressed" binds= [1]]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/Operation/Subtraction" to="." method="_on_operation_pressed" binds= [2]]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/Material/MaterialPicker" to="." method="_on_material_picker_pressed"]
+[connection signal="pressed" from="ScrollContainer/HBoxContainer/Options/Config" to="." method="_on_config_pressed"]
