@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bqt37hw4icbep"
+path="res://.godot/imported/Cliff_Base_Hill_Sharp.obj-9504d52e4e43eaf57b2a930f995cd795.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Cliff_Base_Hill_Sharp.obj-9504d52e4e43eaf57b2a930f995cd795.mesh"]
+
+source_file="res://models/environment/cliff/Cliff_Base_Hill_Sharp.obj"
+dest_files=["res://.godot/imported/Cliff_Base_Hill_Sharp.obj-9504d52e4e43eaf57b2a930f995cd795.mesh", "res://.godot/imported/Cliff_Base_Hill_Sharp.obj-9504d52e4e43eaf57b2a930f995cd795.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://wsquw55cuajg"]
 
-[ext_resource type="Script" uid="uid://cedu4oyudngf3" path="res://scripts/champs/ranger.gd" id="1_shl3n"]
+[ext_resource type="Script" uid="uid://cedu4oyudngf3" path="res://scripts/entities/champions/ranger.gd" id="1_shl3n"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="2_32au6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dvd4r"]

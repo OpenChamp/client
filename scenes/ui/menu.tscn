@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4bcxtr2koou0"]
+[gd_scene load_steps=6 format=3 uid="uid://d4bcxtr2koou0"]
 
 [ext_resource type="Script" uid="uid://qw6fxnfxfk6m" path="res://scripts/ui/menu.gd" id="1_udkah"]
 [ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/fonts/LeagueGothic-Regular.woff2" id="2_2ot4n"]
+[ext_resource type="Shader" uid="uid://8eru0ql7pdnx" path="res://assets/shaders/fade_in.gdshader" id="2_w6y0u"]
 [ext_resource type="Script" uid="uid://dw2odp1h7n1uw" path="res://scripts/ui/chatresizer.gd" id="3_c2n5p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cx0sj"]
+shader = ExtResource("2_w6y0u")
+shader_parameter/fade_time = 0.10000000475
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -14,6 +19,7 @@ grow_vertical = 2
 script = ExtResource("1_udkah")
 
 [node name="LogoLabel" type="RichTextLabel" parent="."]
+material = SubResource("ShaderMaterial_cx0sj")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5

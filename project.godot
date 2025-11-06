@@ -30,11 +30,11 @@ buses/default_bus_layout="uid://ddwso3ogy7vee"
 AudioManager="*res://scripts/managers/_AudioManager.gd"
 GameManager="*res://scripts/managers/_GameManager.gd"
 IOManager="*res://scripts/managers/_IOManager.gd"
-NetworkManager="*res://scripts/globals/_NetworkManager.gd"
 UIManager="*res://scripts/managers/_UIManager.gd"
 Util="*res://scripts/globals/_Utility.gd"
 CombatManager="*res://scripts/managers/_CombatManager.gd"
 CsgToolkitAutoload="*res://addons/csg_toolkit/scripts/csg_toolkit_config.gd"
+WSManager="*res://scripts/managers/_WS_Manager.gd"
 
 [display]
 

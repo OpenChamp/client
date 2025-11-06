@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://c174bg0qcxlu1"]
+
+[ext_resource type="ArrayMesh" uid="uid://bva4x4ord44w6" path="res://models/environment/cliff/Cliff_Base_Waterfall.obj" id="1_dhuas"]
+[ext_resource type="ArrayMesh" uid="uid://teylwo5pt6hj" path="res://models/environment/cliff/Cliff_Mid_Waterfall.obj" id="2_iktj2"]
+[ext_resource type="ArrayMesh" uid="uid://bvpv415tbjb2a" path="res://models/environment/cliff/Cliff_Top_Waterfall.obj" id="3_gr744"]
+
+[sub_resource type="Curve3D" id="Curve3D_rvfwb"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 1, 0, 0, -0.8, 3.75, 0, -0.2, 1, 0, 0, 0, 0, 1.205, 2.395, 0, 0, 0, 0, 0, 0, 0, 1.5, 0, 0),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="PathExtrudeProfileRect" id="PathExtrudeProfileRect_5wt2i"]
+rect = Rect2(-1, 0, 2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lin71"]
+albedo_color = Color(0.30748522, 0.73403823, 1, 1)
+
+[node name="WaterFall" type="Node3D"]
+
+[node name="LeftCliff" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+
+[node name="CliffBaseWaterfall" type="MeshInstance3D" parent="LeftCliff"]
+mesh = ExtResource("1_dhuas")
+skeleton = NodePath("../..")
+
+[node name="CliffMidWaterfall" type="MeshInstance3D" parent="LeftCliff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = ExtResource("2_iktj2")
+skeleton = NodePath("../..")
+
+[node name="CliffTopWaterfall" type="MeshInstance3D" parent="LeftCliff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("3_gr744")
+skeleton = NodePath("../..")
+
+[node name="RightCliff" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="CliffBaseWaterfall" type="MeshInstance3D" parent="RightCliff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
+mesh = ExtResource("1_dhuas")
+skeleton = NodePath("../..")
+
+[node name="CliffMidWaterfall" type="MeshInstance3D" parent="RightCliff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 1, 0)
+mesh = ExtResource("2_iktj2")
+skeleton = NodePath("../..")
+
+[node name="CliffTopWaterfall" type="MeshInstance3D" parent="RightCliff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 2, 0)
+mesh = ExtResource("3_gr744")
+skeleton = NodePath("../..")
+
+[node name="Water" type="Node3D" parent="."]
+
+[node name="WaterPath" type="Path3D" parent="Water"]
+curve = SubResource("Curve3D_rvfwb")
+debug_custom_color = Color(0, 0, 0.9390932, 1)
+
+[node name="PathExtrude3D" type="PathExtrude3D" parent="Water" node_paths=PackedStringArray("path_3d")]
+path_3d = NodePath("../WaterPath")
+mesh_transform = 1
+profile = SubResource("PathExtrudeProfileRect_5wt2i")
+material = SubResource("StandardMaterial3D_lin71")
+
+[node name="PathModifier3D" type="PathModifier3D" parent="Water/PathExtrude3D"]
+curve_offset_end = 5.0705867

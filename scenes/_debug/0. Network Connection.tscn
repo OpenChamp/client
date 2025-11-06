@@ -1,0 +1,201 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvk3tcic5nnyt"]
+
+[ext_resource type="Script" uid="uid://ccbx7gl3mrti0" path="res://scenes/_debug/00._network_connection.gd" id="1_1y2vk"]
+[ext_resource type="Script" uid="uid://bgyeitgs4x4wf" path="res://scripts/managers/_WS_Manager.gd" id="3_x76ek"]
+[ext_resource type="Script" uid="uid://pdk01y27r2rd" path="res://scripts/managers/chat_manager.gd" id="4_sdtp7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1y2vk"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.90939033, 0.9093903, 0.9093903, 0.15294118)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8399404, 0.84099185, 0.5723173, 0.29411766)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_48cpl"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_1y2vk")
+
+[node name="0_NetworkConnection" type="Node"]
+script = ExtResource("1_1y2vk")
+
+[node name="WSManager(global)" type="Node" parent="."]
+script = ExtResource("3_x76ek")
+
+[node name="ChatManager(global)" type="Node" parent="."]
+script = ExtResource("4_sdtp7")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TitlePanel" type="PanelContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_top = 10.0
+offset_right = 104.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="UI/Control/TitlePanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "Websocket Network Test"
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -254.25
+offset_top = -70.5
+offset_right = 254.25
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Packets Sent:"
+
+[node name="PacketsSent" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Packets Received:"
+
+[node name="PacketsReceived" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="ChatWidget" type="PanelContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -385.0
+offset_right = 310.0
+grow_vertical = 0
+theme = SubResource("Theme_48cpl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/ChatWidget"]
+clip_contents = true
+layout_mode = 2
+alignment = 2
+
+[node name="TabBar" type="TabBar" parent="UI/Control/ChatWidget/VBoxContainer"]
+layout_mode = 2
+current_tab = 0
+tab_count = 3
+tab_0/title = "ALL"
+tab_1/title = "TEAM"
+tab_2/title = "DM"
+
+[node name="ChatLog" type="RichTextLabel" parent="UI/Control/ChatWidget/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_following = true
+scroll_following_visible_characters = true
+
+[node name="LineEdit" type="LineEdit" parent="UI/Control/ChatWidget/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Press enter to focus chat..."
+
+[node name="ChatResizer" type="Control" parent="UI/Control/ChatWidget/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/PanelContainer2"]
+layout_mode = 2
+
+[node name="Channel" type="OptionButton" parent="UI/Control/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Global Chat"
+popup/item_0/id = 0
+popup/item_1/text = "Match Chat"
+popup/item_1/id = 1
+popup/item_2/text = "Party Chat"
+popup/item_2/id = 2
+popup/item_3/text = "Private Chat"
+popup/item_3/id = 3
+
+[node name="Type" type="OptionButton" parent="UI/Control/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+selected = 1
+item_count = 2
+popup/item_0/text = "Receive"
+popup/item_0/id = 1
+popup/item_1/text = "Send"
+popup/item_1/id = 0
+
+[node name="User" type="LineEdit" parent="UI/Control/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "User"
+
+[node name="Message" type="LineEdit" parent="UI/Control/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Default Message"
+placeholder_text = "Message"
+
+[node name="Button" type="Button" parent="UI/Control/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Add Timer"
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sent" type="Line2D" parent="Node2D"]
+default_color = Color(1, 0.23488626, 0.17882144, 1)
+
+[node name="Received" type="Line2D" parent="Node2D"]
+default_color = Color(0.51367754, 0.99999994, 0.48175043, 1)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Timer2" type="Timer" parent="."]
+
+[connection signal="button_up" from="UI/Control/PanelContainer2/VBoxContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cx6kwo4nl1kvg"
+path="res://.godot/imported/Prop_Tree_Pine_2.obj-15e98a224a2c25551ff8a1f391648048.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Prop_Tree_Pine_2.obj-15e98a224a2c25551ff8a1f391648048.mesh"]
+
+source_file="res://models/environment/Modular Terrain Hilly/Prop_Tree_Pine_2.obj"
+dest_files=["res://.godot/imported/Prop_Tree_Pine_2.obj-15e98a224a2c25551ff8a1f391648048.mesh", "res://.godot/imported/Prop_Tree_Pine_2.obj-15e98a224a2c25551ff8a1f391648048.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2ylrptjtt7y2"]
+
+[ext_resource type="Theme" uid="uid://dt7ssx4cq6sa6" path="res://assets/styles/themes/ingame_ui.tres" id="1_211ni"]
+
+[node name="IngameUi" type="CanvasLayer"]
+layer = 100
+
+[node name="MainContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_211ni")
+
+[node name="BottomLeftPanel" type="PanelContainer" parent="MainContainer"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_right = 300.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/BottomLeftPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ChampionStatsContainer" type="VBoxContainer" parent="MainContainer/BottomLeftPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Name" type="Label" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Champ Name"
+
+[node name="PanelContainer" type="PanelContainer" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

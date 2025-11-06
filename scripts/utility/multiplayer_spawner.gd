@@ -23,7 +23,6 @@ var minion_spawns = [
 	[]
 ]
 
-@onready var MinionWaveTimer: Timer = $MinionWaveTimer
 func _ready():
 	add_scenes()
 	setup_spawns()

@@ -1,0 +1,412 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwxs0nihljirv"]
+
+[sub_resource type="StyleBoxFlat" id="PanelStyleBox"]
+bg_color = Color(0, 0, 0, 0.7)
+border_color = Color(0.8, 0.65, 0.1, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="AbilityButtonStyle"]
+bg_color = Color(0.15, 0.15, 0.2, 0.9)
+border_color = Color(0.6, 0.6, 0.65, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="PlayerUI" type="CanvasLayer"]
+layer = 100
+
+[node name="MainContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BottomLeftPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 0.35
+anchor_bottom = 1.0
+offset_top = -160.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_minimum_size = Vector2(300, 150)
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BottomLeftPanel"]
+layout_mode = 2
+separation = 8
+theme_override_constants/separation = 8
+
+[node name="ChampionStatsSection" type="VBoxContainer" parent="BottomLeftPanel/VBoxContainer"]
+layout_mode = 2
+separation = 4
+
+[node name="ChampionNameLevel" type="HBoxContainer" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection"]
+layout_mode = 2
+separation = 8
+
+[node name="ChampionName" type="Label" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection/ChampionNameLevel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ahri"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1.0)
+
+[node name="LevelBadge" type="PanelContainer" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection/ChampionNameLevel"]
+layout_mode = 2
+custom_minimum_size = Vector2(32, 32)
+theme_override_styles/panel = SubResource("AbilityButtonStyle")
+
+[node name="LevelLabel" type="Label" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection/ChampionNameLevel/LevelBadge"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.2, 0.2, 0.25, 1.0)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HealthContainer" type="VBoxContainer" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection"]
+layout_mode = 2
+separation = 2
+
+[node name="HealthLabel" type="Label" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection/HealthContainer"]
+layout_mode = 2
+text = "HP"
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1.0)
+
+[node name="HealthBar" type="ProgressBar" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection/HealthContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+show_percentage = false
+custom_minimum_size = Vector2(0, 20)
+theme_override_styles/background = SubResource("AbilityButtonStyle")
+value = 100.0
+
+[node name="HealthText" type="Label" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection/HealthContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100 / 100"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1.0)
+horizontal_alignment = 2
+
+[node name="ManaContainer" type="VBoxContainer" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection"]
+layout_mode = 2
+separation = 2
+
+[node name="ManaLabel" type="Label" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection/ManaContainer"]
+layout_mode = 2
+text = "MANA"
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1.0)
+
+[node name="ManaBar" type="ProgressBar" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection/ManaContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+show_percentage = false
+custom_minimum_size = Vector2(0, 16)
+theme_override_styles/background = SubResource("AbilityButtonStyle")
+value = 100.0
+
+[node name="ManaText" type="Label" parent="BottomLeftPanel/VBoxContainer/ChampionStatsSection/ManaContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100 / 100"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1.0)
+horizontal_alignment = 2
+
+[node name="AbilityPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_left = 0.35
+anchor_right = 0.65
+anchor_bottom = 1.0
+offset_top = -110.0
+offset_left = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+custom_minimum_size = Vector2(250, 100)
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="AbilityContainer" type="HBoxContainer" parent="AbilityPanel"]
+layout_mode = 2
+separation = 8
+alignment = 1
+
+[node name="QAbility" type="Button" parent="AbilityPanel/AbilityContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+text = "Q"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="QCooldown" type="Label" parent="AbilityPanel/AbilityContainer/QAbility"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WAbility" type="Button" parent="AbilityPanel/AbilityContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+text = "W"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="WCooldown" type="Label" parent="AbilityPanel/AbilityContainer/WAbility"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EAbility" type="Button" parent="AbilityPanel/AbilityContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+text = "E"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="ECooldown" type="Label" parent="AbilityPanel/AbilityContainer/EAbility"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RAbility" type="Button" parent="AbilityPanel/AbilityContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+text = "R"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1.0, 0.84, 0.0, 1.0)
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="RCooldown" type="Label" parent="AbilityPanel/AbilityContainer/RAbility"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemsPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_left = 0.65
+anchor_bottom = 1.0
+offset_top = -110.0
+offset_left = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+custom_minimum_size = Vector2(280, 100)
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="ItemsContainer" type="VBoxContainer" parent="ItemsPanel"]
+layout_mode = 2
+separation = 4
+
+[node name="ItemsLabel" type="Label" parent="ItemsPanel/ItemsContainer"]
+layout_mode = 2
+text = "ITEMS"
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1.0)
+
+[node name="ItemSlots" type="GridContainer" parent="ItemsPanel/ItemsContainer"]
+layout_mode = 2
+columns = 4
+separation = 4
+
+[node name="ItemSlot1" type="Button" parent="ItemsPanel/ItemsContainer/ItemSlots"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(56, 56)
+text = ""
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="ItemSlot2" type="Button" parent="ItemsPanel/ItemsContainer/ItemSlots"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(56, 56)
+text = ""
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="ItemSlot3" type="Button" parent="ItemsPanel/ItemsContainer/ItemSlots"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(56, 56)
+text = ""
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="ItemSlot4" type="Button" parent="ItemsPanel/ItemsContainer/ItemSlots"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(56, 56)
+text = ""
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="TrinketSlot" type="Button" parent="ItemsPanel/ItemsContainer/ItemSlots"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(56, 56)
+text = ""
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="GoldContainer" type="HBoxContainer" parent="ItemsPanel/ItemsContainer"]
+layout_mode = 2
+separation = 8
+
+[node name="GoldIcon" type="Label" parent="ItemsPanel/ItemsContainer/GoldContainer"]
+layout_mode = 2
+text = "💰"
+theme_override_font_sizes/font_size = 14
+
+[node name="GoldAmount" type="Label" parent="ItemsPanel/ItemsContainer/GoldContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1.0, 0.84, 0.0, 1.0)
+
+[node name="TopRightPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -230.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 250.0
+grow_horizontal = 0
+grow_vertical = 1
+custom_minimum_size = Vector2(220, 240)
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="TopRightContainer" type="VBoxContainer" parent="TopRightPanel"]
+layout_mode = 2
+separation = 6
+
+[node name="MinimapLabel" type="Label" parent="TopRightPanel/TopRightContainer"]
+layout_mode = 2
+text = "MINIMAP"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1.0)
+
+[node name="MinimapArea" type="ColorRect" parent="TopRightPanel/TopRightContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 200)
+color = Color(0.05, 0.08, 0.1, 0.8)
+
+[node name="TopLeftPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 200.0
+offset_bottom = 120.0
+grow_horizontal = 1
+grow_vertical = 1
+custom_minimum_size = Vector2(190, 110)
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="TopLeftContainer" type="VBoxContainer" parent="TopLeftPanel"]
+layout_mode = 2
+separation = 6
+
+[node name="GameTimer" type="Label" parent="TopLeftPanel/TopLeftContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00:00"
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1.0)
+horizontal_alignment = 1
+
+[node name="ObjectivesLabel" type="Label" parent="TopLeftPanel/TopLeftContainer"]
+layout_mode = 2
+text = "Objectives"
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1.0)
+
+[node name="ObjectivesList" type="VBoxContainer" parent="TopLeftPanel/TopLeftContainer"]
+layout_mode = 2
+separation = 2
+
+[node name="Objective1" type="Label" parent="TopLeftPanel/TopLeftContainer/ObjectivesList"]
+layout_mode = 2
+text = "• Destroy towers"
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1.0)
+
+[node name="Objective2" type="Label" parent="TopLeftPanel/TopLeftContainer/ObjectivesList"]
+layout_mode = 2
+text = "• Secure objectives"
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1.0)

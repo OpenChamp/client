@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dnfgd4spe77la"]
 
-[ext_resource type="Script" uid="uid://2nl4a33gjxy2" path="res://scripts/champs/minion_mage.gd" id="1_qtj5o"]
+[ext_resource type="Script" uid="uid://2nl4a33gjxy2" path="res://scripts/entities/minions/minion_mage.gd" id="1_qtj5o"]
 [ext_resource type="AudioStream" uid="uid://cpnet0bdrym1x" path="res://assets/audio/kill_gold.wav" id="2_1olus"]
 [ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="2_eaxdl"]
 [ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="3_vvu41"]

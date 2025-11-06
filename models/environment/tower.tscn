@@ -1,22 +1,13 @@
-[gd_scene load_steps=28 format=4 uid="uid://c1kj04tpxbmmf"]
+[gd_scene load_steps=26 format=4 uid="uid://c1kj04tpxbmmf"]
 
-[ext_resource type="Script" uid="uid://cky7uy2lqmp8d" path="res://scripts/environment/tower.gd" id="1_r2hyh"]
-[ext_resource type="Shader" uid="uid://bdc4tqvbt6jqn" path="res://assets/shaders/crystal.gdshader" id="2_r2hyh"]
+[ext_resource type="Script" uid="uid://cky7uy2lqmp8d" path="res://scripts/environment/structures/tower.gd" id="1_r2hyh"]
+[ext_resource type="Shader" path="res://assets/shaders/crystal.gdshader" id="2_r2hyh"]
 [ext_resource type="Material" uid="uid://c30nufpn80reo" path="res://assets/materials/environment/tower/tower.tres" id="3_51u6t"]
-[ext_resource type="Shader" uid="uid://pgipy2o7o3eg" path="res://assets/shaders/banner.gdshader" id="4_r2hyh"]
+[ext_resource type="Shader" path="res://assets/shaders/banner.gdshader" id="4_r2hyh"]
 [ext_resource type="Material" uid="uid://sulua6ik03c" path="res://assets/materials/environment/tower/tower_golden_ring.tres" id="5_5qura"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nyolb"]
 radius = 5.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_nyolb"]
-top_radius = 5.0
-bottom_radius = 5.0
-height = 0.1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmdi6"]
-transparency = 1
-albedo_color = Color(0, 1, 1, 0.039215688)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3on5a"]
 radius = 1.0
@@ -251,12 +242,6 @@ collision_mask = 65280
 [node name="CollisionShape3D" type="CollisionShape3D" parent="vision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_nyolb")
-
-[node name="DEBUG_VISION" type="MeshInstance3D" parent="vision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2348758, 0)
-visible = false
-mesh = SubResource("CylinderMesh_nyolb")
-surface_material_override/0 = SubResource("StandardMaterial3D_dmdi6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

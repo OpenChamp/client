@@ -1,7 +1,6 @@
 # === Clients Only === #
 extends Node
 
-var title_fadein: float = 0.0
 var is_queued: bool = false
 var chat_visible: bool = true
 var chat_history: Array = []
@@ -29,7 +28,6 @@ func _ready():
 	match_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	match_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	match_label.add_theme_font_size_override("font_size", 64)
-	match_label.modulate = Color(1, 1, 1, 0)  # Start fully transparent
 	match_label.set_anchors_preset(Control.PRESET_CENTER)
 	
 	match_overlay.add_child(match_label)
@@ -51,10 +49,7 @@ func _ready():
 	_on_connection_button_button_up()
 
 func _process(_delta):
-	# Handle logo fade-in animation
-	if(title_fadein < 255):
-		title_fadein += 0.001
-		$LogoLabel.add_theme_color_override("default_color", Color(255,0,0, title_fadein))
+	pass
 # === UI Management ===
 
 func set_ui(layout: String):
@@ -236,7 +231,6 @@ func _update_chat_display():
 	var display_text = ""
 	for message in chat_history:
 		display_text += message + "\n"
-	
 	$ChatContainer/ChatDisplay.text = display_text
 	$ChatContainer/ChatDisplay.scroll_vertical = $ChatContainer/ChatDisplay.get_v_scroll_bar().max_value
 

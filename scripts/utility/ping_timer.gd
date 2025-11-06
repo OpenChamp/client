@@ -2,6 +2,7 @@ extends Timer
 
 var PING_START:int = 0
 func _ready() -> void:
+	if not Util.dedicated_server: pass;
 	timeout.connect(_on_ping_timer_timeout)
 	start()
 
