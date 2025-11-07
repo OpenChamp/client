@@ -1,13 +1,12 @@
+class_name WebsocketManager
 extends Node
 
 # === Websocket Settings === #
 @export var websocket_url := ""
 @export var token := ""
-var is_ws_connected := false
-
-var connection_time = 0.0
+@export var connection_timeout := 10.0
 var ws := WebSocketPeer.new()
-
+var _packet_buffer: String = ""
 # === Chat Manager Integration === #
 var chat_manager: Node = null
 
@@ -20,40 +19,19 @@ signal ws_connected
 
 signal packet_received
 signal packet_sent
+
 # === Game Server Settings === #
-var in_queue := false
-var player_count = 0
+var in_queue: bool = false
+var player_count: int = 0
 
-class PlayerObject:
-	var name: String = ""
-	var connected: bool = false
-	var node: Node
-	var token: String = ""
-	var ping: int = 0  # MS
-
-	func _init(
-		new_name = "",
-		new_connected = false,
-		new_node: Node = null,
-		new_token = ""
-	) -> void:
-		self.name = new_name
-		self.connected = new_connected
-		self.node = new_node
-		self.token = new_token
-
-func _ready():
+func _ready() -> void:
 	set_process(false)
-	print("NetworkManager Loaded")
-	# Share the WebSocketPeer with the chat manager
+	# Initialize chat manager integration
 	if chat_manager:
 		chat_manager.set_socket(ws)
-		# Connect chat signals to WS_Manager signals
-		chat_manager.connect("chat_message_received", Callable(self, "_on_chat_message_received"))
-		chat_manager.connect("auth_required", Callable(self, "_on_chat_auth_required"))
-		chat_manager.connect("server_error", Callable(self, "_on_chat_server_error"))
+		print("WebsocketManager: Chat manager connected.")
 
-func _process(delta):
+func _process(delta) -> void:
 	ws.poll()
 	connection_time += delta
 	var state = ws.get_ready_state()
@@ -65,107 +43,134 @@ func _process(delta):
 			if chat_manager:
 				chat_manager.packet_sent.connect(func(): emit_signal("packet_sent"))
 				chat_manager.packet_received.connect(func(_packet): emit_signal("packet_received"))
-				chat_manager.set_socket(ws)
 		while ws.get_available_packet_count():
 			var data = ws.get_packet().get_string_from_utf8()
-			var packets = data.split('}{', false)
-			for i in packets.size():
-				var packet_str = packets[i]
-				if i == 0 and packets.size() > 1:
-					packet_str += "}"
-				elif i == packets.size() - 1 and packets.size() > 1:
-					packet_str = "{" + packet_str
-				elif packets.size() > 1:
-					packet_str = "{" + packet_str + "}"
-				var json = JSON.parse_string(packet_str)
-				if json == null:
-					print("Bad Packet: ", packet_str)
-					continue
-				process_packet(json)
+			_packet_buffer += data
+			_parse_buffered_packets()
+	elif state == WebSocketPeer.STATE_CONNECTING:
+		# Check for connection timeout
+		if connection_time > connection_timeout:
+			push_error("WebSocket connection timeout after %.1f seconds" % connection_timeout)
+			ws.close()
+			ws_disconnected.emit()
+			set_process(false)
 	elif state == WebSocketPeer.STATE_CLOSED:
 		var code = ws.get_close_code()
 		ws_disconnected.emit()
 		is_ws_connected = false
-		print("WebSocket closed with code: %d. Clean: %s" % [code, code != -1])
+		push_warning("WebSocket closed with code: %d. Clean: %s" % [code, code != -1])
 		set_process(false)
+
+## Handles incomplete packets that may arrive across multiple frames.
+func _parse_buffered_packets() -> void:
+	var brace_count := 0
+	var current_packet_end := -1
+	
+	for i in range(_packet_buffer.length()):
+		var c = _packet_buffer[i]
+		if c == "{":
+			brace_count += 1
+		elif c == "}":
+			brace_count -= 1
+			if brace_count == 0:
+				current_packet_end = i
+				var packet_str = _packet_buffer.substr(0, current_packet_end + 1)
+				var json = JSON.parse_string(packet_str)
+				if json == null:
+					push_error("Bad Packet (malformed json): %s" % packet_str)
+				else:
+					process_packet(json)
+				_packet_buffer = _packet_buffer.substr(current_packet_end + 1).strip_edges()
+				if _packet_buffer.is_empty():
+					return
+				_parse_buffered_packets()
+				return
 
 
 # === Websocket Connection Management === #
 
-func auth_with_token(auth_token: String = Util.get_token()):
+func auth_with_token(auth_token: String = token) -> void:
+	if auth_token.is_empty():
+		push_error("No auth token provided for authentication")
+		return
 	var packet = {
 		"type": "token_auth",
 		"payload": {
 			"token": auth_token
 		}
 	}
-	ws.send_text(JSON.stringify(packet))
-	packet_sent.emit()
+	_send_packet(packet)
 
-
-func connect_to_server(ws_url:String = websocket_url):
+func connect_to_server(ws_url: String = websocket_url) -> bool:
 	ws_connecting.emit()
 	connection_time = 0.0
-	var err = ws.connect_to_url(ws_url)
+	var err: int = ws.connect_to_url(ws_url)
 	if err != OK:
-		print("Unable to connect")
+		push_error("Unable to connect")
 		return false
 	else:
 		set_process(true)
 		return true
 
-func disconnect_from_server():
+func disconnect_from_server() -> void:
 	ws.close()
 	ws_disconnected.emit()
 	set_process(false)
 
+func _send_packet(packet_data: Dictionary) -> bool:
+	var json_str := JSON.stringify(packet_data)
+	var err := ws.send_text(json_str)
+	
+	if err != OK:
+		push_error("Failed to send packet: %s (Error: %d)" % [json_str, err])
+		return false
+	
+	packet_sent.emit()
+	return true
 
-func fast_registration(username):
+
+### DEBUG ONLY ###
+func fast_registration(username: String) -> void:
+	push_warning("Using fast registration for user: %s" % username)
 	var packet = {
 		"type": "register",
 		"payload": {
 			"username": username,
 			"password": "password123",
-			"email": username + "@techeron.com"
+			"email": username + "@open-champ.com"
 		}
 	}
-	ws.send_text(JSON.stringify(packet))
-	packet_sent.emit()
-
-
-func process_registration(payload):
-	Util.username = payload.username
-	Util.set_token(payload.token)
-	auth_obtained.emit()
-
+	_send_packet(packet)
 
 # === Client Helper Functions === #
 
-func get_player_count():
-	ws.send_text("{\"type\": \"count\"}")
-	packet_sent.emit()
+func get_player_count() -> void:
+	_send_packet({"type": "count"})
 
 
-func set_username(username: String = Util.username):
+func set_username(username: String) -> void:
+	if username.is_empty():
+		push_error("Username cannot be empty")
+		return
 	var packet = {
 		"type": "set_username",
 		"payload": username.replace("\"", "")
 	}
-	ws.send_text(JSON.stringify(packet))
-	packet_sent.emit()
+	_send_packet(packet)
 
 
-func join_queue():
-	ws.send_text("{\"type\": \"join_queue\"}")
-	packet_sent.emit()
+func join_queue() -> void:
+	_send_packet({"type": "join_queue"})
 
 
-func leave_queue():
-	ws.send_text("{\"type\": \"leave_queue\"}")
-	packet_sent.emit()
+func leave_queue() -> void:
+	_send_packet({"type": "leave_queue"})
 
-
-func process_packet(packet: Dictionary):
+func process_packet(packet: Dictionary) -> void:
+	if not packet.has("type"):
+		push_error("Invalid packet: missing 'type' field - %s" % JSON.stringify(packet))
+		return
+	
 	packet_received.emit()
 	match packet["type"]:
 		# Chat packets are now handled by chat_manager in _process
@@ -176,107 +181,36 @@ func process_packet(packet: Dictionary):
 		"match_found":
 			match_found.emit(packet["payload"])
 		"register_success", "auth_success":
-			process_registration(packet["payload"])
-		"user_assigned":
-			Util.username = packet["payload"]
+			if packet["payload"].has("token"):
+				token = packet["payload"]["token"]
+			auth_obtained.emit(packet["payload"])
 		"error":
 			_handle_server_error(packet["payload"])
 		_:
-			if packet["type"] in ["global_chat", "party_chat", "private_chat", "match_chat", "error"]:
+			if packet["type"] in ["global_chat", "party_chat", "private_chat", "match_chat", "error"] and chat_manager:
 				chat_manager.process_packet(packet)
 			else:
-				print("Unknown packet: ", JSON.stringify(packet))
+				print("Unknown packet type: %s" % packet["type"])
 
 # === Chat System === #
 
-## Handles server error packets.
-func _handle_server_error(payload: Dictionary):
+func _handle_server_error(payload: Dictionary) -> void:
 	if payload.has("code"):
 		match payload["code"]:
 			"AUTH_REQUIRED":
-				emit_signal("auth_required")
+				auth_required.emit()
 			"REGISTRATION_FAILED":
-				print(payload)
+				push_error("Registration failed: %s" % JSON.stringify(payload))
 			_:
-				print("Server Error: " + JSON.stringify(payload))
-				emit_signal("server_error", payload)
+				push_error("Server Error: " + JSON.stringify(payload))
 	else:
-		print("Malformed Errror packet was sent")
-		print(payload)
-# === Game Functions === #
-
-
-
-
-
-# === Champion Select ===
-#@rpc("any_peer")
-#func select_champion(champion:String):
-	#print("Selecting Champion")
-	#if multiplayer.is_server():
-		#print("ON SERVER")
-		#var id = multiplayer.get_remote_sender_id()
-		#if not PlayerSpawner:
-			#rpc_id(id, "failed_select_champion", "missing_player_spawner")
-			#return
-		#PlayerSpawner.spawn_player(id, champion)
-		#return;
-	#rpc_id(1, "select_champion", champion)
-
-#@rpc("authority")
-#func failed_select_champion(reason:String):
-	#print("Champion selection failed: %s" % reason)
-	## Wait 3s, then try again
-	#get_tree().create_timer(3.0).timeout.connect(func():
-		#select_champion("ranger")
-	#)	
-
-
-# === Movement ===
-
-
-
-@rpc("any_peer")
-func request_client_username():
-	rpc_id(1, "receive_client_username", Util.username)
-
-
-@rpc("any_peer")
-func receive_client_username(new_name):
-	var id = multiplayer.get_remote_sender_id()
-	Util.players[id]["name"] = new_name
-
-
-@rpc("authority")
-func request_client_token():
-	rpc_id(1, "receive_client_token", Util.get_token())
-
-
-@rpc("any_peer")
-func receive_client_token(client_token):
-	Util.players[multiplayer.get_remote_sender_id()].token = client_token
-
-
-func send_move_command(pos):
-	pos.y = 0
-	rpc_id(1, "execute_move_command", pos)
-
+		push_error("Malformed Error packet: %s" % JSON.stringify(payload))
+		server_error.emit()
 
 # === Sync Function (Client) === #
 
-func sync_player_count():
+## Syncs the player count from the server (client-side only).
+func sync_player_count() -> void:
 	if multiplayer.is_server():
 		return
-	ws.send_text("{\"type\": \"count\"}")
-	packet_sent.emit()
-
-
-# === Setup Functions (Server) === #
-
-func setup_player_count():
-	if not multiplayer.is_server():
-		return
-	var player_count_timer := Timer.new()
-	player_count_timer.one_shot = false
-	player_count_timer.wait_time = 1.0
-	player_count_timer.timeout.connect(func():rpc("sync_player_count", player_count))
+	_send_packet({"type": "count"})
