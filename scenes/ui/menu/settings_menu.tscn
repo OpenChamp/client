@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dkimntulyrjmx"]
+[gd_scene load_steps=2 format=3 uid="uid://dkimntulyrjmx"]
+
+[ext_resource type="Script" uid="uid://dgeq32k5nri4p" path="res://scripts/ui/menu/back_button.gd" id="1_154di"]
 
 [node name="Settings" type="Panel"]
 anchors_preset = 8
@@ -36,6 +38,7 @@ offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Back"
+script = ExtResource("1_154di")
 
 [node name="ApplySettingsButton" type="Button" parent="."]
 layout_mode = 1
