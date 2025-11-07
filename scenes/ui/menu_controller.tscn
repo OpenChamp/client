@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d27xnfsvmpc83"]
+
+[ext_resource type="Theme" uid="uid://e507d8q4wvpm" path="res://assets/styles/themes/default_theme.tres" id="1_tup7k"]
+[ext_resource type="Script" uid="uid://bj8b7h4albfvy" path="res://scripts/ui/menu/main_menu_controller.gd" id="2_b7pgi"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_tup7k")
+script = ExtResource("2_b7pgi")

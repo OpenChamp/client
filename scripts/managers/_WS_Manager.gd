@@ -2,9 +2,11 @@ class_name WebsocketManager
 extends Node
 
 # === Websocket Settings === #
-@export var websocket_url := ""
+@export var websocket_url := "ws://localhost:8080/ws"
 @export var token := ""
 @export var connection_timeout := 10.0
+var connection_time := 0.0
+var is_ws_connected := false
 var ws := WebSocketPeer.new()
 var _packet_buffer: String = ""
 # === Chat Manager Integration === #
@@ -83,7 +85,6 @@ func _parse_buffered_packets() -> void:
 				_packet_buffer = _packet_buffer.substr(current_packet_end + 1).strip_edges()
 				if _packet_buffer.is_empty():
 					return
-				_parse_buffered_packets()
 				return
 
 
@@ -192,8 +193,6 @@ func process_packet(packet: Dictionary) -> void:
 			else:
 				print("Unknown packet type: %s" % packet["type"])
 
-# === Chat System === #
-
 func _handle_server_error(payload: Dictionary) -> void:
 	if payload.has("code"):
 		match payload["code"]:
@@ -205,11 +204,8 @@ func _handle_server_error(payload: Dictionary) -> void:
 				push_error("Server Error: " + JSON.stringify(payload))
 	else:
 		push_error("Malformed Error packet: %s" % JSON.stringify(payload))
-		server_error.emit()
 
 # === Sync Function (Client) === #
-
-## Syncs the player count from the server (client-side only).
 func sync_player_count() -> void:
 	if multiplayer.is_server():
 		return

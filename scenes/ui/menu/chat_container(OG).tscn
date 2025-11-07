@@ -1,0 +1,105 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq08onracg4gi"]
+
+[ext_resource type="Script" uid="uid://dw2odp1h7n1uw" path="res://scripts/ui/menu/chatresizer.gd" id="1_qttrw"]
+
+[node name="ChatContainer" type="Panel"]
+custom_minimum_size = Vector2(300, 230)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -235.0
+offset_right = 305.0
+offset_bottom = -5.0
+grow_vertical = 0
+
+[node name="ChatTitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 5.0
+offset_right = 104.0
+offset_bottom = 31.0
+text = "Chat"
+
+[node name="ToggleButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 35.0
+grow_horizontal = 0
+tooltip_text = "Minimize Chat"
+text = "_"
+
+[node name="ChatDisplay" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = -8.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+editable = false
+wrap_mode = 1
+scroll_smooth = true
+scroll_v_scroll_speed = 120.0
+highlight_all_occurrences = true
+highlight_current_line = true
+
+[node name="ChatInput" type="LineEdit" parent="."]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -32.0
+offset_right = -44.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+placeholder_text = "Type your message..."
+clear_button_enabled = true
+caret_blink = true
+
+[node name="SendButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -32.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+tooltip_text = "Send Message"
+text = "→"
+
+[node name="ResizeHandle" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+tooltip_text = "Resize Chat Window"
+script = ExtResource("1_qttrw")
+
+[node name="ResizeIcon" type="ColorRect" parent="ResizeHandle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.8, 0.8, 0.8, 1)

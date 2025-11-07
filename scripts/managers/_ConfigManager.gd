@@ -12,6 +12,8 @@ var game_config: GameConfiguration = GameConfiguration.new()
 
 var client_mode: CLIENTMODE = CLIENTMODE.CLIENT
 
+var debug = false
+
 enum CLIENTMODE {
 	OFFLINE,
 	CLIENT,

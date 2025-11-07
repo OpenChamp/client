@@ -28,10 +28,10 @@ buses/default_bus_layout="uid://ddwso3ogy7vee"
 [autoload]
 
 CsgToolkitAutoload="*res://addons/csg_toolkit/scripts/csg_toolkit_config.gd"
-Log="*res://addons/logger/logger.gd"
 AudioManager="*res://scripts/managers/_AudioManager.gd"
 ConfigManager="*res://scripts/managers/_ConfigManager.gd"
 WSManager="*res://scripts/managers/_WS_Manager.gd"
+UIManager="*res://scripts/managers/_UIManager.gd"
 
 [display]
 

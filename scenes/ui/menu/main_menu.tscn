@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4bcxtr2koou0"]
+
+[ext_resource type="Script" uid="uid://dr6qor5qrlghy" path="res://scripts/ui/menu/queue_button.gd" id="1_5ssjm"]
+[ext_resource type="Script" uid="uid://ceqk28p7q270j" path="res://scripts/ui/menu/settings_button.gd" id="2_araup"]
+[ext_resource type="Script" uid="uid://bdk20kh4wcrmv" path="res://scripts/ui/menu/quit_button.gd" id="2_eip10"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerCount" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -314.0
+offset_top = -20.0
+offset_right = -8.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+bbcode_enabled = true
+text = "[right]Players Online: ...[/right]"
+fit_content = true
+
+[node name="MainMenu" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartQueue" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Start Queue"
+script = ExtResource("1_5ssjm")
+
+[node name="Practice" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Practice"
+
+[node name="Settings" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Settings"
+script = ExtResource("2_araup")
+
+[node name="Quit" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("2_eip10")
+
+[node name="Credits" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Credits
+"

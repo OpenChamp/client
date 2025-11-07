@@ -6,7 +6,6 @@ var external_client_used: bool = false
 
 func _ready():
 	# Load initial settings and args
-	ConfigManager.load_settings()
 	load_args()
 
 	if ConfigManager.debug:
@@ -15,7 +14,7 @@ func _ready():
 	if ConfigManager.client_mode == ConfigManager.CLIENTMODE.DEDICATED_SERVER || external_client_used:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/game/ingame.tscn")
 	else:
-		get_tree().call_deferred("change_scene_to_file", "res://scenes/ui/menu.tscn")
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/ui/menu_controller.tscn")
 
 func load_args():
 	# Args should only modify Global/ConfigManager variables, as values will change between scenes otherwise.
@@ -80,3 +79,7 @@ func load_args():
 				ConfigManager.client_mode = ConfigManager.CLIENTMODE.DEDICATED_SERVER
 			"-o", "--offline":
 				ConfigManager.client_mode = ConfigManager.CLIENTMODE.OFFLINE
+				
+			# === Debug === #
+			"-debug": # (--debug is used for the engine itself)
+				ConfigManager.debug = true

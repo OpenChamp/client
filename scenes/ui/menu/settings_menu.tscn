@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://dkimntulyrjmx"]
+
+[node name="Settings" type="Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -308.0
+offset_top = -196.0
+offset_right = 308.0
+offset_bottom = 201.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 134.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -35.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Back"
+
+[node name="ApplySettingsButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -35.0
+offset_right = -60.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Apply"
+
+[node name="AudioLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 56.0
+offset_right = 148.0
+offset_bottom = 82.0
+text = "Audio Settings"
+
+[node name="MasterVolumeLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 88.0
+offset_right = 148.0
+offset_bottom = 114.0
+text = "Master Volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 88.0
+offset_right = 470.0
+offset_bottom = 114.0
+value = 100.0
+
+[node name="MusicVolumeLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 120.0
+offset_right = 148.0
+offset_bottom = 146.0
+text = "Music Volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 120.0
+offset_right = 470.0
+offset_bottom = 146.0
+value = 100.0
+
+[node name="SFXVolumeLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 152.0
+offset_right = 148.0
+offset_bottom = 178.0
+text = "SFX Volume"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 152.0
+offset_right = 470.0
+offset_bottom = 178.0
+value = 100.0
+
+[node name="VideoLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 192.0
+offset_right = 148.0
+offset_bottom = 218.0
+text = "Video Settings"
+
+[node name="FullscreenLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 224.0
+offset_right = 148.0
+offset_bottom = 250.0
+text = "Fullscreen"
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 224.0
+offset_right = 192.0
+offset_bottom = 248.0
+
+[node name="VSyncLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 256.0
+offset_right = 148.0
+offset_bottom = 282.0
+text = "VSync"
+
+[node name="VSyncCheckBox" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 256.0
+offset_right = 192.0
+offset_bottom = 280.0
+button_pressed = true
+
+[node name="ShowFPSLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 288.0
+offset_right = 148.0
+offset_bottom = 314.0
+text = "Show FPS"
+
+[node name="ShowFPSCheckBox" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 288.0
+offset_right = 192.0
+offset_bottom = 312.0
+
+[node name="PlayerLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 328.0
+offset_right = 148.0
+offset_bottom = 354.0
+text = "Player Settings"
+
+[node name="UsernameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 360.0
+offset_right = 148.0
+offset_bottom = 386.0
+text = "Username"
+
+[node name="UsernameInput" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 359.0
+offset_right = 453.0
+offset_bottom = 390.0
+text = "Player"
