@@ -14,6 +14,8 @@ var client_mode: CLIENTMODE = CLIENTMODE.CLIENT
 
 var debug = false
 
+var username := "Player" # Possibly temporary
+
 enum CLIENTMODE {
 	OFFLINE,
 	CLIENT,

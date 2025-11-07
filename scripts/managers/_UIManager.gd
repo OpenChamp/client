@@ -172,7 +172,7 @@ func hide_overlay_menu(overlay_menu: Node) -> void:
 func set_ui_root(root_node: Node) -> void:
 	"""Set the root node for UI elements"""
 	ui_root = root_node
-	print("UI root set to: ", root_node.name if root_node else "null")
+	print("UI root set to: ", root_node.name if root_node else StringName("null"))
 
 func get_ui_root() -> Node:
 	"""Get the current UI root node"""

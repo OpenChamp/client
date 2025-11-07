@@ -14,6 +14,7 @@ var chat_manager: Node = null
 
 signal auth_required
 signal auth_obtained
+signal joined_queue
 signal match_found(match: Dictionary)
 signal ws_connecting
 signal ws_disconnected
@@ -23,7 +24,6 @@ signal packet_received
 signal packet_sent
 
 # === Game Server Settings === #
-var in_queue: bool = false
 var player_count: int = 0
 
 func _ready() -> void:
@@ -90,10 +90,10 @@ func _parse_buffered_packets() -> void:
 
 # === Websocket Connection Management === #
 
-func auth_with_token(auth_token: String = token) -> void:
+func auth_with_token(auth_token: String = token) -> bool:
 	if auth_token.is_empty():
 		push_error("No auth token provided for authentication")
-		return
+		return false
 	var packet = {
 		"type": "token_auth",
 		"payload": {
@@ -101,6 +101,7 @@ func auth_with_token(auth_token: String = token) -> void:
 		}
 	}
 	_send_packet(packet)
+	return true
 
 func connect_to_server(ws_url: String = websocket_url) -> bool:
 	ws_connecting.emit()
@@ -178,7 +179,7 @@ func process_packet(packet: Dictionary) -> void:
 		"player_count":
 			player_count = int(packet["payload"])
 		"queued":
-			in_queue = true
+			joined_queue.emit()
 		"match_found":
 			match_found.emit(packet["payload"])
 		"register_success", "auth_success":
@@ -197,6 +198,7 @@ func _handle_server_error(payload: Dictionary) -> void:
 	if payload.has("code"):
 		match payload["code"]:
 			"AUTH_REQUIRED":
+				push_error("Authentication Required")
 				auth_required.emit()
 			"REGISTRATION_FAILED":
 				push_error("Registration failed: %s" % JSON.stringify(payload))

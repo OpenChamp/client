@@ -7,6 +7,9 @@ var external_client_used: bool = false
 func _ready():
 	# Load initial settings and args
 	load_args()
+	
+	# Connect Modules (if needed)
+	WSManager.token = ConfigManager.load_auth_token()
 
 	if ConfigManager.debug:
 		ConfigManager.show_debug_overlay()
