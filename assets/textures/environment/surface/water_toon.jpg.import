@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yq1ogux6pf2k"
-path="res://.godot/imported/background_nine_patch.png-da09f0d56df5e24cef9d80c2ae6ac387.ctex"
+uid="uid://bk8b2qjm1x71m"
+path="res://.godot/imported/water_toon.jpg-fc59e93cb87ced876bcac9d0a4aae53d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/_debug/HP/background_nine_patch.png"
-dest_files=["res://.godot/imported/background_nine_patch.png-da09f0d56df5e24cef9d80c2ae6ac387.ctex"]
+source_file="res://assets/textures/environment/surface/water_toon.jpg"
+dest_files=["res://.godot/imported/water_toon.jpg-fc59e93cb87ced876bcac9d0a4aae53d.ctex"]
 
 [params]
 

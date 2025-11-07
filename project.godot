@@ -27,13 +27,10 @@ buses/default_bus_layout="uid://ddwso3ogy7vee"
 
 [autoload]
 
-AudioManager="*res://scripts/managers/_AudioManager.gd"
-GameManager="*res://scripts/managers/_GameManager.gd"
-IOManager="*res://scripts/managers/_IOManager.gd"
-UIManager="*res://scripts/managers/_UIManager.gd"
-Util="*res://scripts/globals/_Utility.gd"
-CombatManager="*res://scripts/managers/_CombatManager.gd"
 CsgToolkitAutoload="*res://addons/csg_toolkit/scripts/csg_toolkit_config.gd"
+Log="*res://addons/logger/logger.gd"
+AudioManager="*res://scripts/managers/_AudioManager.gd"
+ConfigManager="*res://scripts/managers/_ConfigManager.gd"
 WSManager="*res://scripts/managers/_WS_Manager.gd"
 
 [display]
@@ -49,7 +46,7 @@ project/assembly_name="OpenChamp"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/quill-ide/plugin.cfg", "res://addons/PathMesh3D/plugin.cfg", "res://addons/asset_placer/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg")
+enabled=PackedStringArray("res://addons/PathMesh3D/plugin.cfg", "res://addons/asset_placer/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/quill-ide/plugin.cfg")
 
 [global_group]
 
