@@ -1,3 +1,4 @@
+class_name GameManager
 extends Node
 
 # == Signals == #
@@ -9,7 +10,6 @@ signal resumed
 
 signal slow_tick
 signal half_tick
-signal settings_changed
 
 # === Game State === #
 var gamestate = GAME_STATE.LOADING
@@ -48,15 +48,14 @@ class MinionSettings:
 func _ready():
 	GameManager.server = ServerSettings.new()
 	# == Load Settings == #
-	Util.load_settings()
-	config = Util.get_config()
-	# == Timer Generation == #
+	reload_settings()
+	# == Slow Tick == #
 	slow_tick_timer = Timer.new()
 	slow_tick_timer.wait_time = 1
 	slow_tick_timer.one_shot = false
 	slow_tick_timer.timeout.connect(slow_tick_timeout)
 	
-	print("GameManager: Initialized with settings: ", config)
+	print("GameManager: Initialized")
 
 func on_game_start():
 	game_root = get_tree().get_first_node_in_group("game_root")
@@ -79,17 +78,16 @@ func on_game_start():
 	print("GameManager: Game started")
 
 func reload_settings() -> void:
-	Util.load_settings()
-	config = Util.get_config()
-	settings_changed.emit()
+	ConfigManager.load_settings()
+	config = ConfigManager.config
 	print("GameManager: Settings reloaded")
 
 func apply_settings() -> void:
-	Util.apply_settings(config)
+	ConfigManager.apply_settings(config)
 	print("GameManager: Settings applied")
 
 func save_settings() -> void:
-	Util.save_settings(config)
+	ConfigManager.save_settings(config)
 	print("GameManager: Settings saved")
 
 func slow_tick_timeout():
