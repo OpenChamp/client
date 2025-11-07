@@ -65,3 +65,29 @@ extends Node
 		#player_node.set_move_target(pos)
 	#else:
 		#print("No player node found for move command")
+
+
+#@rpc("any_peer")
+#func request_client_username():
+	#rpc_id(1, "receive_client_username", Util.username)
+#
+#
+#@rpc("any_peer")
+#func receive_client_username(new_name):
+	#var id = multiplayer.get_remote_sender_id()
+	#Util.players[id]["name"] = new_name
+#
+#
+#@rpc("authority")
+#func request_client_token():
+	#rpc_id(1, "receive_client_token", Util.get_token())
+#
+#
+#@rpc("any_peer")
+#func receive_client_token(client_token):
+	#Util.players[multiplayer.get_remote_sender_id()].token = client_token
+#
+#
+#func send_move_command(pos):
+	#pos.y = 0
+	#rpc_id(1, "execute_move_command", pos)

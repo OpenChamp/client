@@ -54,7 +54,8 @@ func _ready():
 	
 	# Register with game manager if available
 	if GameManager:
-		GameManager.slow_tick.connect(_on_slow_tick)
+		if GameManager.has_signal("slow_tick"):
+			GameManager.slow_tick.connect(_on_slow_tick)
 	
 	is_ready = true
 	print("CombatManager: Initialized successfully")
@@ -120,13 +121,12 @@ func apply_healing(healer: Creature, target: Creature, heal_amount: int) -> int:
 	return modified_heal
 
 ## ============================================================================
-## STAT MODIFICATION SYSTEM
+## STAT MODIFICATION SYSTEM (Buff/Debuff/Items)
 ## ============================================================================
 
 ## Add a temporary or permanent stat modifier
 func add_stat_modifier(creature: Creature, modifier: StatModifier) -> void:
-	if not creature or not modifier:
-		return
+	if not creature or not modifier: return
 	
 	var creature_id = creature.creature_id
 	
@@ -202,8 +202,7 @@ func calculate_stat_total_modifier(creature: Creature, stat_name: String) -> flo
 
 ## Apply an effect to a target
 func apply_effect(target: Creature, effect: Effect) -> void:
-	if not target or not effect:
-		return
+	if not target or not effect: return;
 	
 	var creature_id = target.creature_id
 	
