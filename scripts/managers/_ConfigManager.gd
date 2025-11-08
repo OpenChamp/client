@@ -150,6 +150,6 @@ func get_game_setting(section: String, key: String):
 	"""Get an in-game configuration value."""
 	return game_config.get_value(section, key)
 
-func get_in_game_configuration() -> GameConfiguration:
-	"""Get the entire game configuration object."""
-	return game_config
+func get_ingame_configuration() -> Dictionary:
+	"""Get the entire game configuration object as a dictionary."""
+	return game_config._config_map

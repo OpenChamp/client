@@ -33,50 +33,49 @@ func load_args():
 					WSManager.websocket_url = args[i + 1]
 			# === Config === #
 			"--fullscreen":
-				ConfigManager.update_in_game_setting("video", "fullscreen", true)
+				ConfigManager.set_setting("video", "fullscreen", true)
 			"--windowed":
-				ConfigManager.update_in_game_setting("video", "fullscreen", false)
+				ConfigManager.set_setting("video", "fullscreen", false)
 			"--vsync":
-				ConfigManager.update_in_game_setting("video", "vsync", true)
+				ConfigManager.set_setting("video", "vsync", true)
 			"--novsync":
-				ConfigManager.update_in_game_setting("video", "vsync", false)
+				ConfigManager.set_setting("video", "vsync", false)
 			"--showfps":
-				ConfigManager.update_in_game_setting("video", "show_fps", true)
+				ConfigManager.set_setting("video", "show_fps", true)
 			"--hidefps":
-				ConfigManager.update_in_game_setting("video", "show_fps", false)
+				ConfigManager.set_setting("video", "show_fps", false)
 			# === Audio === #
 			"-mv", "--mastervolume":
 				if i + 1 < args.size():
-					ConfigManager.update_in_game_setting("audio", "master_volume", float(args[i + 1]))
+					ConfigManager.set_setting("audio", "master_volume", float(args[i + 1]))
 			"-muv", "--musicvolume":
 				if i + 1 < args.size():
-					ConfigManager.update_in_game_setting("audio", "music_volume", float(args[i + 1]))
+					ConfigManager.set_setting("audio", "music_volume", float(args[i + 1]))
 			"-sfxv", "--sfxvolume":
 				if i + 1 < args.size():
-					ConfigManager.update_in_game_setting("audio", "sfx_volume", float(args[i + 1]))
+					ConfigManager.set_setting("audio", "sfx_volume", float(args[i + 1]))
 			# === Game Server === #
 			"-gm", "--gamemode":
 				if i + 1 < args.size():
-					ConfigManager.update_in_game_setting("game", "game_mode", args[i + 1])
+					ConfigManager.set_game_setting("game", "game_mode", args[i + 1])
 			"-ip", "--host":
 				if i + 1 < args.size():
-					ConfigManager.update_in_game_setting("network", "server_ip", args[i + 1])
+					ConfigManager.set_game_setting("network", "server_ip", args[i + 1])
 					external_client_used = true
 			"-m", "--map":
 				if i + 1 < args.size():
-					ConfigManager.update_in_game_setting("game", "map_name", args[i + 1])
+					ConfigManager.set_game_setting("game", "map_name", args[i + 1])
 			"-mp", "--maxplayers":
 				if i + 1 < args.size():
-					ConfigManager.update_in_game_setting("game", "max_players", int(args[i + 1]))
+					ConfigManager.set_game_setting("game", "max_players", int(args[i + 1]))
 			"-p", "--port":
 				if i + 1 < args.size():
-					ConfigManager.update_in_game_setting("network", "port", int(args[i + 1]))
+					ConfigManager.set_game_setting("network", "port", int(args[i + 1]))
 			"-sid", "--serverid":
 				if i + 1 < args.size():
-					ConfigManager.update_in_game_setting("network", "server_id", args[i + 1])
+					ConfigManager.set_game_setting("network", "server_id", args[i + 1])
 			# === Client === #
 			"-c", "--client":
-				# Set mode to client
 				ConfigManager.client_mode = ConfigManager.CLIENTMODE.CLIENT
 			"-ds", "--dedicated":
 				ConfigManager.client_mode = ConfigManager.CLIENTMODE.DEDICATED_SERVER

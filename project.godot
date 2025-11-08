@@ -32,6 +32,7 @@ AudioManager="*res://scripts/managers/_AudioManager.gd"
 ConfigManager="*res://scripts/managers/_ConfigManager.gd"
 WSManager="*res://scripts/managers/_WS_Manager.gd"
 UIManager="*res://scripts/managers/_UIManager.gd"
+GameManager="*res://scripts/managers/game_manager.gd"
 
 [display]
 
@@ -43,6 +44,10 @@ window/stretch/aspect="expand"
 [dotnet]
 
 project/assembly_name="OpenChamp"
+
+[editor]
+
+run/main_run_args="-ip 127.0.0.1"
 
 [editor_plugins]
 

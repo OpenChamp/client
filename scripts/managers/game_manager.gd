@@ -1,4 +1,4 @@
-class_name GameManager
+class_name GameplayManager
 extends Node
 
 # == Signals == #
@@ -9,7 +9,6 @@ signal paused
 signal resumed
 
 signal slow_tick
-signal half_tick
 
 # === Game State === #
 var gamestate = GAME_STATE.LOADING
@@ -61,25 +60,12 @@ func on_game_start():
 	game_root = get_tree().get_first_node_in_group("game_root")
 	slow_tick_timer.start()
 	half_tick_timer.start()
-	
-	# Notify GameManager of game start
-	GameManager.on_game_start()
-	
-	# Broadcast to all clients
-	rpc("_client_on_game_start")
-	
-	# Start game timers
-	if has_node("MinionWaveTimer"):
-		$MinionWaveTimer.start()
-	if has_node("SecondTimer"):
-		$SecondTimer.start()
-	
-	print("GameRoot: Game started!")
+	start.emit()
 	print("GameManager: Game started")
 
 func reload_settings() -> void:
 	ConfigManager.load_settings()
-	config = ConfigManager.config
+	config = ConfigManager.get_ingame_configuration()
 	print("GameManager: Settings reloaded")
 
 func apply_settings() -> void:
