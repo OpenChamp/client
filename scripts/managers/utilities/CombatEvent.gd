@@ -209,4 +209,3 @@ func matches_filter(attacker: int = -1, defender: int = -1,
 		return false
 	
 	return true
-

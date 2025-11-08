@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjlryqf2s7uaw"]
+[gd_scene load_steps=9 format=3 uid="uid://bjlryqf2s7uaw"]
 
 [ext_resource type="Script" uid="uid://vtnwe3wqf1tn" path="res://scripts/ingame.gd" id="1_s2j7k"]
+[ext_resource type="Script" uid="uid://dox3a18bmfevq" path="res://scripts/managers/_CombatManager.gd" id="2_68f7v"]
 [ext_resource type="PackedScene" uid="uid://di7n0t2bypmdy" path="res://scenes/ui/loading.tscn" id="2_s2j7k"]
 [ext_resource type="Script" uid="uid://b6cxkavkom84s" path="res://scripts/systems/lifecycle.gd" id="2_y1sin"]
+[ext_resource type="Script" uid="uid://dousyg4dep1s" path="res://scripts/managers/_NetworkManager.gd" id="3_3ywp8"]
 [ext_resource type="Script" uid="uid://d2g2rg81od5l5" path="res://scripts/utility/game_timer.gd" id="4_y1sin"]
+[ext_resource type="Script" uid="uid://dg7g5jy7atgfy" path="res://scripts/managers/_SpawnManager.gd" id="5_kbgji"]
 [ext_resource type="Script" uid="uid://b51yh5k56lj12" path="res://scripts/utility/ping_timer.gd" id="6_3ywp8"]
 
 [node name="Ingame" type="Node" groups=["game_root"]]
@@ -11,16 +14,17 @@ script = ExtResource("1_s2j7k")
 
 [node name="Systems" type="Node" parent="."]
 
+[node name="Combat" type="Node" parent="Systems"]
+script = ExtResource("2_68f7v")
+
 [node name="Lifecycle" type="Node" parent="Systems"]
 script = ExtResource("2_y1sin")
 
+[node name="Network" type="Node" parent="Systems"]
+script = ExtResource("3_3ywp8")
+
 [node name="Spawn" type="Node" parent="Systems"]
-
-[node name="Waves" type="Node" parent="Systems"]
-
-[node name="Session" type="Node" parent="Systems"]
-
-[node name="Combat" type="Node" parent="Systems"]
+script = ExtResource("5_kbgji")
 
 [node name="Spawners" type="Node" parent="."]
 

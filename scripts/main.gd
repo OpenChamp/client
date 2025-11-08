@@ -68,7 +68,7 @@ func load_args():
 			"-mp", "--maxplayers":
 				if i + 1 < args.size():
 					ConfigManager.set_game_setting("game", "max_players", int(args[i + 1]))
-			"-p", "--port":
+			"--port":
 				if i + 1 < args.size():
 					ConfigManager.set_game_setting("network", "port", int(args[i + 1]))
 			"-sid", "--serverid":

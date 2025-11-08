@@ -63,10 +63,10 @@ func _init(p_stat_name: String = "", p_value: float = 0.0, p_duration: float = 0
 ## ============================================================================
 
 ## Set the modifier as stackable
-func set_stackable(max: int = -1) -> StatModifier:
+func set_stackable(max_stack: int = -1) -> StatModifier:
 	is_stackable = true
-	if max > 0:
-		max_stacks = max
+	if max_stack > 0:
+		max_stacks = max_stack
 	return self
 
 ## Set the stacking group for this modifier
@@ -200,49 +200,48 @@ func _hash() -> int:
 ## ============================================================================
 
 ## Create a flat stat modifier
-static func create_flat(stat: String, amount: float, duration: float = 0.0) -> StatModifier:
-	return StatModifier.new(stat, amount, duration, ModifierType.FLAT)
+static func create_flat(stat: String, amount: float, dur: float = 0.0) -> StatModifier:
+	return StatModifier.new(stat, amount, dur, ModifierType.FLAT)
 
 ## Create a percentage modifier
-static func create_percentage(stat: String, percent: float, duration: float = 0.0) -> StatModifier:
-	return StatModifier.new(stat, percent, duration, ModifierType.PERCENTAGE)
+static func create_percentage(stat: String, percent: float, dur: float = 0.0) -> StatModifier:
+	return StatModifier.new(stat, percent, dur, ModifierType.PERCENTAGE)
 
 ## Create a multiplicative modifier
-static func create_multiplicative(stat: String, multiplier: float, duration: float = 0.0) -> StatModifier:
-	return StatModifier.new(stat, multiplier - 1.0, duration, ModifierType.MULTIPLICATIVE)
+static func create_multiplicative(stat: String, multiplier: float, dur: float = 0.0) -> StatModifier:
+	return StatModifier.new(stat, multiplier - 1.0, dur, ModifierType.MULTIPLICATIVE)
 
 ## Create an armor buff
-static func create_armor_buff(amount: int, duration: float) -> StatModifier:
-	var mod = create_flat("armor", amount, duration)
+static func create_armor_buff(amount: int, dur: float) -> StatModifier:
+	var mod = create_flat("armor", amount, dur)
 	mod.set_source(ModifierSource.BUFF, "armor_buff")
 	mod.set_description("+%d Armor" % amount)
 	return mod
 
 ## Create an attack damage buff
-static func create_damage_buff(amount: float, duration: float) -> StatModifier:
-	var mod = create_flat("physical_power", amount, duration)
+static func create_damage_buff(amount: float, dur: float) -> StatModifier:
+	var mod = create_flat("physical_power", amount, dur)
 	mod.set_source(ModifierSource.BUFF, "damage_buff")
 	mod.set_description("+%.1f Damage" % amount)
 	return mod
 
 ## Create a movement speed buff
-static func create_speed_buff(amount: float, duration: float) -> StatModifier:
-	var mod = create_flat("move_speed", amount, duration)
+static func create_speed_buff(amount: float, dur: float) -> StatModifier:
+	var mod = create_flat("move_speed", amount, dur)
 	mod.set_source(ModifierSource.BUFF, "speed_buff")
 	mod.set_description("+%.1f Speed" % amount)
 	return mod
 
 ## Create a slow debuff
-static func create_slow(amount: float, duration: float) -> StatModifier:
-	var mod = create_flat("move_speed", -amount, duration)
+static func create_slow(amount: float, dur: float) -> StatModifier:
+	var mod = create_flat("move_speed", -amount, dur)
 	mod.set_source(ModifierSource.DEBUFF, "slow")
 	mod.set_description("Slowed -%.1f Speed" % amount)
 	return mod
 
 ## Create a damage reduction debuff
-static func create_damage_reduction(percent: float, duration: float) -> StatModifier:
-	var mod = create_percentage("physical_power", -percent, duration)
+static func create_damage_reduction(percent: float, dur: float) -> StatModifier:
+	var mod = create_percentage("physical_power", -percent, dur)
 	mod.set_source(ModifierSource.DEBUFF, "damage_reduction")
 	mod.set_description("Weakened -%d%% Damage" % int(percent))
 	return mod
-

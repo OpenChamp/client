@@ -1,10 +1,10 @@
 [gd_scene load_steps=26 format=4 uid="uid://c1kj04tpxbmmf"]
 
-[ext_resource type="Script" uid="uid://cky7uy2lqmp8d" path="res://scripts/environment/structures/tower.gd" id="1_r2hyh"]
-[ext_resource type="Shader" path="res://assets/shaders/crystal.gdshader" id="2_r2hyh"]
-[ext_resource type="Material" uid="uid://c30nufpn80reo" path="res://assets/materials/environment/tower/tower.tres" id="3_51u6t"]
-[ext_resource type="Shader" path="res://assets/shaders/banner.gdshader" id="4_r2hyh"]
-[ext_resource type="Material" uid="uid://sulua6ik03c" path="res://assets/materials/environment/tower/tower_golden_ring.tres" id="5_5qura"]
+[ext_resource type="Script" uid="uid://cky7uy2lqmp8d" path="res://scripts/environment/tower.gd" id="1_xvvt6"]
+[ext_resource type="Material" uid="uid://c30nufpn80reo" path="res://assets/materials/environment/tower/tower.tres" id="2_s06dd"]
+[ext_resource type="Shader" uid="uid://pgipy2o7o3eg" path="res://assets/shaders/banner.gdshader" id="3_p232b"]
+[ext_resource type="Material" uid="uid://sulua6ik03c" path="res://assets/materials/environment/tower/tower_golden_ring.tres" id="4_fuv3k"]
+[ext_resource type="Shader" uid="uid://bdc4tqvbt6jqn" path="res://assets/shaders/crystal.gdshader" id="5_s06dd"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nyolb"]
 radius = 5.0
@@ -14,34 +14,10 @@ radius = 1.0
 
 [sub_resource type="Animation" id="Animation_tqtlk"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Main Crystal:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_r2hyh"]
 resource_name = "attack"
 step = 0.033
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Main Crystal:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.23333333, 0.92),
-"transitions": PackedFloat32Array(-2, -2, 2),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 1, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_dmdi6"]
 resource_name = "idle"
@@ -55,50 +31,6 @@ _data = {
 &"attack": SubResource("Animation_r2hyh"),
 &"idle": SubResource("Animation_dmdi6")
 }
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_si8hg"]
-resource_name = "Mat.TowerCrystal"
-cull_mode = 2
-metallic = 0.41886184
-roughness = 0.34982106
-emission_enabled = true
-emission = Color(0.4845292, 0.4845292, 0.4845292, 1)
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_54smf"]
-_surfaces = [{
-"aabb": AABB(-0.4815358, 4.2747335, -0.44714904, 0.97045505, 0.9162979, 0.90849924),
-"format": 34896613377,
-"index_count": 96,
-"index_data": PackedByteArray("AAABAAIAAQADAAIAAgADAAQABAADAAUAAwABAAUABAAFAAYAAAAHAAEACAAHAAAACQAHAAgACQAKAAcABwAKAAEACwAKAAkABQAMAAYABgAMAA0AAQAOAAUADgABAAoADAAFAA8ABQAOAA8ADQAMABAADAAPABAADQAQABEAEAASABEAEAAPABIAEQASABMADwAOABQAEgAPABQAFAAOAAoAEwASABUAEgAUABUAFQAUAAoAEwAVAAsAFQAKAAsA"),
-"name": "Mat.TowerCrystal",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 22,
-"vertex_data": PackedByteArray("fbp/CooXAABrjw6d4xQAAD93AADlCgAAhE9LRgAAAAAENn8KciAAAPAjB7imQgAA+hUAANtgAAD//0tGo3QAANbhAAAlUwAAXOt/Cl6bAAAB5paM55kAAHLCAADD1QAAAABLRtqFAAACFX8KyKkAAM9+//9HiwAAJRqWjJynAAC5HEtGV9MAAHREAAA83gAAml5LRv//AAAWhX8KwfUAAD6FlYxn+AAAeKxLRsL6AAA=")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_sayw3"]
-resource_name = "tower_Main_Crystal"
-_surfaces = [{
-"aabb": AABB(-0.4815358, 4.2747335, -0.44714904, 0.97045505, 0.9162979, 0.90849924),
-"attribute_data": PackedByteArray("cs0ISPuCDh7O4PNCl8Nzgbm1unCpxrVjs9xQrIbG+rzWzKOawB5Jhzkp7J8BFEqeiBj9TMRMl1MdHZFpcs0ISLm1unD7gg4el8NzgbijIYa5tbpws9xQrGPxF8GGxvq8wB5Jh64swng5KeyfiBj9TFwd6C7ETJdTsD4gjtxwFHyifybb+4IOHtxwFHzETJdTxEyXU9xwFHywPiCOon8m29xwFHy4oyGG3HAUfPuCDh64oyGGXB3oLvuCDh7ETJdTrizCeMRMl1OwPiCOrizCeLA+II45KeyfNBcXwbA+II6ifybbY/EXwaJ/JtuGxvq8hsb6vKJ/Jtu4oyGGubW6cLijIYb7gg4exEyXU64swngdHZFpHR2Raa4swnjAHkmHOSnsn7A+II40FxfBOSnsnzQXF8EBFEqeMO5KnmPxF8Gz3FCshsb6vLijIYbWzKOa1syjmrijIYaXw3OBqca1Y7m1unByzQhI+4IOHlwd6C6eBvNCngbzQlwd6C6IGP1M"),
-"format": 34896613399,
-"index_count": 96,
-"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcAGAAZABoAGwAcAB0AHgAfACAAIQAiACMAJAAlACYAJwAoACkAKgArACwALQAuAC8AMAAxADIAMwA0ADUANgA3ADgAOQA6ADsAPAA9AD4APwBAAEEAQgBDAEQARQBGAEcASABJAEoASwBMAE0ATgBPAFAAUQBSAFMAVABVAFYAVwBYAFkAWgBbAFwAXQBeAF8A"),
-"material": SubResource("StandardMaterial3D_si8hg"),
-"name": "Mat.TowerCrystal",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 96,
-"vertex_data": PackedByteArray("fbp/CooX9fhrjw6d4xT1+D93AADlCvX4XOt/Cl6bzN///0tGo3TM39bhAAAlU8zfFoV/CsH1S/B4rEtGwvpL8HLCAADD1UvwAhV/Csipjd65HEtGV9ON3nREAAA83o3eBDZ/CnIg1N/wIwe4pkLU3/oVAADbYNTffbp/CooX/+D//0tGo3T/4GuPDp3jFP/gXOt/Cl6b8MoB5paM55nwyv//S0ajdPDKFoV/CsH1svmaXktG//+y+XisS0bC+rL5AhV/CsipBNUAAEtG2oUE1bkcS0ZX0wTVBDZ/CnIgQOOET0tGAABA4/AjB7imQkDjJRqWjJynR63Pfv//R4tHrT6FlYxn+Eeta48OneMU59zPfv//R4vn3PAjB7imQufc8CMHuKZCo73Pfv//R4ujvSUaloycp6O9PoWVjGf4ibDPfv//R4uJsAHmloznmYmwz37//0eLvtVrjw6d4xS+1QHmloznmb7VhE9LRgAAuutrjw6d4xS66/AjB7imQrrrAABLRtqFzMzwIwe4pkLMzCUaloycp8zMAABLRtqFCMslGpaMnKcIy7kcS0ZX0wjLml5LRv//usglGpaMnKe6yD6FlYxn+LrIml5LRv//2vo+hZWMZ/ja+nisS0bC+tr6eKxLRsL6Fso+hZWMZ/gWygHmloznmRbK//9LRqN06tYB5paM55nq1muPDp3jFOrW8CMHuKZC4eEAAEtG2oXh4foVAADbYOHh+hUAANtgIt0AAEtG2oUi3QIVfwrIqSLduRxLRlfT8LclGpaMnKfwt5peS0b///C3uRxLRlfTFduaXktG//8V23REAAA83hXbdEQAADzeUPWaXktG//9Q9RaFfwrB9VD1eKxLRsL6W9EB5paM55lb0XLCAADD1VvRcsIAAMPVQ8oB5paM55lDylzrfwpem0PK1uEAACVTmOX//0tGo3SY5X26fwqKF5jla48OneMUxwCET0tGAADHAD93AADlCscAP3cAAOUKpvWET0tGAACm9QQ2fwpyIKb1uZW2FbmVthW5lbYVYaAETmGgBE5hoAROFI/eaxSP3msUj95rXuFl517hZede4WXn4spV0eLKVdHiylXRFLFAPRSxQD0UsUA9Y6OKYWOjimFjo4phF4NQeBeDUHgXg1B4tNwN3bTcDd203A3dzMcvz8zHL8/Mxy/Ple0zxJXtM8SV7TPE4ehSk+HoUpPh6FKT7OPYvezj2L3s49i947rZaeO62WnjutlpTslAX07JQF9OyUBfAse0tgLHtLYCx7S2WdwOy1ncDstZ3A7L0eBk1NHgZNTR4GTUxPuD1sT7g9bE+4PWCIT5gwiE+YMIhPmDHKw5eBysOXgcrDl4vcN1V73DdVe9w3VX4sp/0OLKf9Diyn/QdtHY3nbR2N520djepvXT0ab109Gm9dPRZ+rB62fqwetn6sHrMe379DHt+/Qx7fv0gKMVZICjFWSAoxVk/6FGY/+hRmP/oUZjtq0nSLatJ0i2rSdI7AzkZOwM5GTsDORkqKZc7KimXOyoplzs")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_54smf")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgbjh"]
-render_priority = 0
-shader = ExtResource("2_r2hyh")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xufod"]
 resource_name = "Mat.Tower"
@@ -182,7 +114,7 @@ shadow_mesh = SubResource("ArrayMesh_cdd7d")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_51u6t"]
 render_priority = 0
-shader = ExtResource("4_r2hyh")
+shader = ExtResource("3_p232b")
 shader_parameter/wind_strength = 0.5
 shader_parameter/wind_speed = 1.0
 shader_parameter/wind_direction = Vector2(1, 0.5)
@@ -229,9 +161,53 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_rwjnh")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_si8hg"]
+resource_name = "Mat.TowerCrystal"
+cull_mode = 2
+metallic = 0.41886184
+roughness = 0.34982106
+emission_enabled = true
+emission = Color(0.4845292, 0.4845292, 0.4845292, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_54smf"]
+_surfaces = [{
+"aabb": AABB(-0.4815358, 4.2747335, -0.44714904, 0.97045505, 0.9162979, 0.90849924),
+"format": 34896613377,
+"index_count": 96,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAgADAAQABAADAAUAAwABAAUABAAFAAYAAAAHAAEACAAHAAAACQAHAAgACQAKAAcABwAKAAEACwAKAAkABQAMAAYABgAMAA0AAQAOAAUADgABAAoADAAFAA8ABQAOAA8ADQAMABAADAAPABAADQAQABEAEAASABEAEAAPABIAEQASABMADwAOABQAEgAPABQAFAAOAAoAEwASABUAEgAUABUAFQAUAAoAEwAVAAsAFQAKAAsA"),
+"name": "Mat.TowerCrystal",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 22,
+"vertex_data": PackedByteArray("fbp/CooXAABrjw6d4xQAAD93AADlCgAAhE9LRgAAAAAENn8KciAAAPAjB7imQgAA+hUAANtgAAD//0tGo3QAANbhAAAlUwAAXOt/Cl6bAAAB5paM55kAAHLCAADD1QAAAABLRtqFAAACFX8KyKkAAM9+//9HiwAAJRqWjJynAAC5HEtGV9MAAHREAAA83gAAml5LRv//AAAWhX8KwfUAAD6FlYxn+AAAeKxLRsL6AAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_p232b"]
+resource_name = "tower_Main_Crystal"
+_surfaces = [{
+"aabb": AABB(-0.4815358, 4.2747335, -0.44714904, 0.97045505, 0.9162979, 0.90849924),
+"attribute_data": PackedByteArray("cs0ISPuCDh7O4PNCl8Nzgbm1unCpxrVjs9xQrIbG+rzWzKOawB5Jhzkp7J8BFEqeiBj9TMRMl1MdHZFpcs0ISLm1unD7gg4el8NzgbijIYa5tbpws9xQrGPxF8GGxvq8wB5Jh64swng5KeyfiBj9TFwd6C7ETJdTsD4gjtxwFHyifybb+4IOHtxwFHzETJdTxEyXU9xwFHywPiCOon8m29xwFHy4oyGG3HAUfPuCDh64oyGGXB3oLvuCDh7ETJdTrizCeMRMl1OwPiCOrizCeLA+II45KeyfNBcXwbA+II6ifybbY/EXwaJ/JtuGxvq8hsb6vKJ/Jtu4oyGGubW6cLijIYb7gg4exEyXU64swngdHZFpHR2Raa4swnjAHkmHOSnsn7A+II40FxfBOSnsnzQXF8EBFEqeMO5KnmPxF8Gz3FCshsb6vLijIYbWzKOa1syjmrijIYaXw3OBqca1Y7m1unByzQhI+4IOHlwd6C6eBvNCngbzQlwd6C6IGP1M"),
+"format": 34896613399,
+"index_count": 96,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcAGAAZABoAGwAcAB0AHgAfACAAIQAiACMAJAAlACYAJwAoACkAKgArACwALQAuAC8AMAAxADIAMwA0ADUANgA3ADgAOQA6ADsAPAA9AD4APwBAAEEAQgBDAEQARQBGAEcASABJAEoASwBMAE0ATgBPAFAAUQBSAFMAVABVAFYAVwBYAFkAWgBbAFwAXQBeAF8A"),
+"material": SubResource("StandardMaterial3D_si8hg"),
+"name": "Mat.TowerCrystal",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 96,
+"vertex_data": PackedByteArray("fbp/CooX9fhrjw6d4xT1+D93AADlCvX4XOt/Cl6bzN///0tGo3TM39bhAAAlU8zfFoV/CsH1S/B4rEtGwvpL8HLCAADD1UvwAhV/Csipjd65HEtGV9ON3nREAAA83o3eBDZ/CnIg1N/wIwe4pkLU3/oVAADbYNTffbp/CooX/+D//0tGo3T/4GuPDp3jFP/gXOt/Cl6b8MoB5paM55nwyv//S0ajdPDKFoV/CsH1svmaXktG//+y+XisS0bC+rL5AhV/CsipBNUAAEtG2oUE1bkcS0ZX0wTVBDZ/CnIgQOOET0tGAABA4/AjB7imQkDjJRqWjJynR63Pfv//R4tHrT6FlYxn+Eeta48OneMU59zPfv//R4vn3PAjB7imQufc8CMHuKZCo73Pfv//R4ujvSUaloycp6O9PoWVjGf4ibDPfv//R4uJsAHmloznmYmwz37//0eLvtVrjw6d4xS+1QHmloznmb7VhE9LRgAAuutrjw6d4xS66/AjB7imQrrrAABLRtqFzMzwIwe4pkLMzCUaloycp8zMAABLRtqFCMslGpaMnKcIy7kcS0ZX0wjLml5LRv//usglGpaMnKe6yD6FlYxn+LrIml5LRv//2vo+hZWMZ/ja+nisS0bC+tr6eKxLRsL6Fso+hZWMZ/gWygHmloznmRbK//9LRqN06tYB5paM55nq1muPDp3jFOrW8CMHuKZC4eEAAEtG2oXh4foVAADbYOHh+hUAANtgIt0AAEtG2oUi3QIVfwrIqSLduRxLRlfT8LclGpaMnKfwt5peS0b///C3uRxLRlfTFduaXktG//8V23REAAA83hXbdEQAADzeUPWaXktG//9Q9RaFfwrB9VD1eKxLRsL6W9EB5paM55lb0XLCAADD1VvRcsIAAMPVQ8oB5paM55lDylzrfwpem0PK1uEAACVTmOX//0tGo3SY5X26fwqKF5jla48OneMUxwCET0tGAADHAD93AADlCscAP3cAAOUKpvWET0tGAACm9QQ2fwpyIKb1uZW2FbmVthW5lbYVYaAETmGgBE5hoAROFI/eaxSP3msUj95rXuFl517hZede4WXn4spV0eLKVdHiylXRFLFAPRSxQD0UsUA9Y6OKYWOjimFjo4phF4NQeBeDUHgXg1B4tNwN3bTcDd203A3dzMcvz8zHL8/Mxy/Ple0zxJXtM8SV7TPE4ehSk+HoUpPh6FKT7OPYvezj2L3s49i947rZaeO62WnjutlpTslAX07JQF9OyUBfAse0tgLHtLYCx7S2WdwOy1ncDstZ3A7L0eBk1NHgZNTR4GTUxPuD1sT7g9bE+4PWCIT5gwiE+YMIhPmDHKw5eBysOXgcrDl4vcN1V73DdVe9w3VX4sp/0OLKf9Diyn/QdtHY3nbR2N520djepvXT0ab109Gm9dPRZ+rB62fqwetn6sHrMe379DHt+/Qx7fv0gKMVZICjFWSAoxVk/6FGY/+hRmP/oUZjtq0nSLatJ0i2rSdI7AzkZOwM5GTsDORkqKZc7KimXOyoplzs")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_54smf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fuv3k"]
+render_priority = 0
+shader = ExtResource("5_s06dd")
+
 [node name="Tower" type="StaticBody3D"]
 collision_layer = 3
-script = ExtResource("1_r2hyh")
+script = ExtResource("1_xvvt6")
 blue_color = Color(0, 0, 1, 1)
 red_color = Color(1, 0, 0, 1)
 
@@ -254,16 +230,10 @@ libraries = {
 }
 speed_scale = 0.5
 
-[node name="Main Crystal" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("ArrayMesh_sayw3")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_xgbjh")
-
 [node name="Tower" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_crc4b")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("3_51u6t")
+surface_material_override/0 = ExtResource("2_s06dd")
 
 [node name="Banners" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_5w86q")
@@ -273,4 +243,10 @@ surface_material_override/0 = SubResource("ShaderMaterial_51u6t")
 [node name="GondelRings_Tower" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_8mkts")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("5_5qura")
+surface_material_override/0 = ExtResource("4_fuv3k")
+
+[node name="Main Crystal" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("ArrayMesh_p232b")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_fuv3k")

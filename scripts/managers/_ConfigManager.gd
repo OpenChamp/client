@@ -25,6 +25,8 @@ enum CLIENTMODE {
 func _ready() -> void:
 	load_settings()
 
+func is_server() -> bool:
+	return client_mode == CLIENTMODE.DEDICATED_SERVER
 
 ##===== Settings File =====##
 
@@ -114,7 +116,7 @@ class GameConfiguration:
 	var player_auth_token: String = ""
 	var map_name: String = ""
 	var game_mode: String = ""
-	var max_players: int = 10
+	var max_players: int = 2
 	
 	# Dictionary mapping for cleaner access
 	var _config_map := {

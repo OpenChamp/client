@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://b3ocvxpgupua2"]
 
 [ext_resource type="Script" uid="uid://c1al734tyi6f0" path="res://scripts/champs/minion_melee.gd" id="1_sbons"]
-[ext_resource type="AudioStream" uid="uid://cpnet0bdrym1x" path="res://assets/audio/kill_gold.wav" id="2_sbons"]
+[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://assets/audio/sfx/game/kill_gold.wav" id="2_sbons"]
 [ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="3_u8jig"]
 [ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="4_i1k7y"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="5_j8cma"]
@@ -55,6 +55,7 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n1ca0"]
+height = 1.0007324
 
 [node name="MeleeMinion" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -105,6 +106,7 @@ collision_layer = 0
 collision_mask = 65280
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Vision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005004883, 0)
 shape = SubResource("CylinderShape3D_n1ca0")
 
 [node name="MoneyEmitter" parent="." instance=ExtResource("5_j8cma")]

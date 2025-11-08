@@ -104,7 +104,7 @@ func _apply_defense_reductions(base_damage: float, defender: Creature,
 
 ## Calculate defense reduction based on defense type
 func calculate_defense_reduction(base_damage: int, defense_value: int, 
-								 defense_type: String = "armor") -> int:
+								 _defense_type: String = "armor") -> int:
 	
 	if defense_value <= 0:
 		return base_damage
@@ -301,4 +301,3 @@ func test_damage_scenario(base_damage: int, attacker_power: float = 1.0,
 		"was_critical": is_crit,
 		"armor_reduction_percent": armor_reduction * 100.0
 	}
-

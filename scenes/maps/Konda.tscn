@@ -1,18 +1,18 @@
 [gd_scene load_steps=26 format=3 uid="uid://q6einnml1qx8"]
 
-[ext_resource type="PackedScene" uid="uid://c1kj04tpxbmmf" path="res://models/environment/tower.tscn" id="1_82gln"]
+[ext_resource type="PackedScene" uid="uid://c1kj04tpxbmmf" path="res://scenes/environment/structures/tower.tscn" id="1_82gln"]
 [ext_resource type="PackedScene" uid="uid://tcuki7sy0jps" path="res://scenes/environment/bush.tscn" id="1_lof5r"]
 [ext_resource type="ArrayMesh" uid="uid://b0lkocesjfk6k" path="res://models/environment/foliage/Prop_Tree_Pine_1.obj" id="3_saiab"]
 [ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://assets/materials/dirt_material.tres" id="5_fsqvq"]
-[ext_resource type="PackedScene" uid="uid://ck2ucwywmbfg0" path="res://scenes/environment/core.tscn" id="6_3jmng"]
+[ext_resource type="PackedScene" uid="uid://ck2ucwywmbfg0" path="res://scenes/environment/structures/core.tscn" id="6_3jmng"]
 [ext_resource type="ArrayMesh" uid="uid://clmcir5n6ckk2" path="res://models/environment/foliage/Prop_Stump.obj" id="7_yqddd"]
-[ext_resource type="PackedScene" uid="uid://dllct7woktl6v" path="res://scenes/environment/walls/cliff_straight.tscn" id="9_2to88"]
-[ext_resource type="PackedScene" uid="uid://dj2ni5penwvl7" path="res://scenes/environment/walls/cliff_inner_lg.tscn" id="10_ba7uw"]
-[ext_resource type="PackedScene" uid="uid://cv5a7ab84hip0" path="res://scenes/environment/walls/cliff_hill_sharp.tscn" id="11_kkoog"]
+[ext_resource type="PackedScene" path="res://scenes/environment/walls/cliff_straight.tscn" id="9_2to88"]
+[ext_resource type="PackedScene" path="res://scenes/environment/walls/cliff_inner_lg.tscn" id="10_ba7uw"]
+[ext_resource type="PackedScene" path="res://scenes/environment/walls/cliff_hill_sharp.tscn" id="11_kkoog"]
 [ext_resource type="PackedScene" uid="uid://c174bg0qcxlu1" path="res://scenes/environment/water_fall.tscn" id="12_kkoog"]
-[ext_resource type="PackedScene" uid="uid://h8r055e8u676" path="res://scenes/environment/walls/cliff_hill_gentle.tscn" id="12_tabry"]
-[ext_resource type="PackedScene" uid="uid://bomfpcbp7w70j" path="res://scenes/environment/structures/torch.tscn" id="13_1gevs"]
-[ext_resource type="Shader" uid="uid://bdc728rsisdht" path="res://assets/shaders/environment/dirt_path.gdshader" id="13_tabry"]
+[ext_resource type="PackedScene" path="res://scenes/environment/walls/cliff_hill_gentle.tscn" id="12_tabry"]
+[ext_resource type="PackedScene" path="res://scenes/environment/structures/torch.tscn" id="13_1gevs"]
+[ext_resource type="Shader" uid="uid://btuxaffuqfkjl" path="res://assets/shaders/environment/dirt_path.gdshader" id="13_tabry"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_fsqvq"]
 geometry_collision_mask = 15
@@ -554,6 +554,3 @@ transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, 1.509958e-07, 0, 1, 10.5, 
 
 [node name="cliff_corner2" parent="top_cliff" instance=ExtResource("10_ba7uw")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 10.5, 0, -18.25)
-
-[node name="Torch" parent="top_cliff" instance=ExtResource("13_1gevs")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.1908889, 0.2750001, 13.391731)

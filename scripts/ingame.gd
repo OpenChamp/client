@@ -1,6 +1,5 @@
 # OpenChamp In-Game Logic Script
 # Orchestrates game startup and lifecycle management
-#
 class_name GameRoot
 extends Node
 """
@@ -17,15 +16,35 @@ Gameplay Lifecycle
 	- Minions should start spawning after 15s of movement
 	- Game state updates every tick
 """
+@onready var NetworkManager = $Systems/Network
+@onready var LifecycleManager = $Systems/Lifecycle
+@onready var CombatManager = $Systems/Combat
+@onready var SpawnManager = $Systems/Spawn
 
+# === SETUP FUNCTIONS === #
 func _ready() -> void:
 	print("GameRoot: Initializing in-game scene")
+	if ConfigManager.is_server():
+		GameManager.initialize()
+		
+	# == Network Setup == #
+	NetworkManager.server_ready.connect(self._on_server_ready)
+	NetworkManager.player_connected.connect(GameManager._on_player_connected)
+	NetworkManager.quit.connect(get_tree().quit)
 	# == Load Config == #
 	var config = ConfigManager.get_ingame_configuration()
 	print("GameRoot: Loaded in-game configuration: %s" % str(config))
+	
 	# == Connect to Server == #
-	if config["network"]["server_ip"] != "":
-		print("GameRoot: Connecting to server at %s" % config["network"]["server_ip"])
-	else:
-		print("GameRoot: No server IP provided, quitting")
-		get_tree().quit()
+	NetworkManager._start.call_deferred()
+
+func _on_server_ready():
+	"""
+	1. Spawn in the map
+	2. Wait for all players to connect
+	3. Trigger gameManager start
+	"""
+	# === 1 === #
+	SpawnManager.spawn_map(ConfigManager.get_game_setting("game","map_name"))
+	# === 2 === #
+	# NetworkManager.lobby_full.connect(GameManager.game_start)

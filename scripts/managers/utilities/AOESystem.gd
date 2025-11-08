@@ -379,7 +379,7 @@ static func apply_chain_damage(caster: Creature, initial_target: Creature,
 
 ## Knockback effect - push creatures away from center
 static func apply_aoe_knockback(center: Vector3, radius: float, 
-							    knockback_force: float, 
+								knockback_force: float, 
 								upward_force: float = 0.0) -> Array[Creature]:
 	
 	var creatures = get_creatures_in_range(center, radius)
@@ -479,4 +479,3 @@ static func debug_draw_rectangle(center: Vector3, width: float, height: float,
 	
 	for i in range(4):
 		DebugDraw.line(corners[i], corners[(i + 1) % 4], color, duration)
-

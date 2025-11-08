@@ -17,7 +17,7 @@ func _ready():
 		global_position = spawn_point
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 	setup_stats()
-	if Util.dedicated_server:
+	if ConfigManager.is_server():
 		call_deferred("_setup_navigation")
 		_setup_vision_range()
 		$AttackTimeout.timeout.connect(func(): can_attack_now = true)

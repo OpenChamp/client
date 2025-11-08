@@ -47,7 +47,7 @@ project/assembly_name="OpenChamp"
 
 [editor]
 
-run/main_run_args="-ip 127.0.0.1"
+run/main_run_args="-ip 127.0.0.1 --port 7000"
 
 [editor_plugins]
 
