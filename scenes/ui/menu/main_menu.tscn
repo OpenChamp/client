@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ceqk28p7q270j" path="res://scripts/ui/menu/settings_button.gd" id="2_araup"]
 [ext_resource type="Script" uid="uid://bdk20kh4wcrmv" path="res://scripts/ui/menu/quit_button.gd" id="2_eip10"]
 
-[node name="Menu" type="Control"]
+[node name="Menu" type="Control" unique_id=1365009488]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerCount" type="RichTextLabel" parent="."]
+[node name="PlayerCount" type="RichTextLabel" parent="." unique_id=420364814]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -29,7 +29,7 @@ bbcode_enabled = true
 text = "[right]Players Online: ...[/right]"
 fit_content = true
 
-[node name="MainMenu" type="VBoxContainer" parent="."]
+[node name="MainMenu" type="VBoxContainer" parent="." unique_id=1254138045]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -43,26 +43,26 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StartQueue" type="Button" parent="MainMenu"]
+[node name="StartQueue" type="Button" parent="MainMenu" unique_id=523874733]
 layout_mode = 2
 text = "Start Queue"
 script = ExtResource("1_5ssjm")
 
-[node name="Practice" type="Button" parent="MainMenu"]
+[node name="Practice" type="Button" parent="MainMenu" unique_id=1919086095]
 layout_mode = 2
 text = "Practice"
 
-[node name="Settings" type="Button" parent="MainMenu"]
+[node name="Settings" type="Button" parent="MainMenu" unique_id=2100201799]
 layout_mode = 2
 text = "Settings"
 script = ExtResource("2_araup")
 
-[node name="Quit" type="Button" parent="MainMenu"]
+[node name="Quit" type="Button" parent="MainMenu" unique_id=1955994723]
 layout_mode = 2
 text = "Quit"
 script = ExtResource("2_eip10")
 
-[node name="Credits" type="Button" parent="MainMenu"]
+[node name="Credits" type="Button" parent="MainMenu" unique_id=764534739]
 layout_mode = 2
 text = "Credits
 "

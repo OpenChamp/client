@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://drnx15ttfbml8"]
+
+[ext_resource type="ArrayMesh" uid="uid://ctnawx48ai01n" path="res://assets/models/environment/cliff/Cliff_Base_Straight.obj" id="1_diabc"]
+[ext_resource type="ArrayMesh" uid="uid://dn2f5baah7w8j" path="res://assets/models/environment/cliff/Cliff_Mid_Straight.obj" id="2_1hhao"]
+[ext_resource type="ArrayMesh" uid="uid://cb77d5oa3a11h" path="res://assets/models/environment/cliff/Cliff_Top_Straight.obj" id="3_ufylc"]
+
+[node name="CliffStraight" type="Node3D" unique_id=705029410]
+
+[node name="CliffBaseStraight" type="MeshInstance3D" parent="." unique_id=922388029]
+mesh = ExtResource("1_diabc")
+
+[node name="CliffMidStraight" type="MeshInstance3D" parent="." unique_id=1520970136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = ExtResource("2_1hhao")
+
+[node name="CliffTopStraight" type="MeshInstance3D" parent="." unique_id=1573158826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("3_ufylc")

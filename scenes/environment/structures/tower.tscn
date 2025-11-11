@@ -205,48 +205,44 @@ shadow_mesh = SubResource("ArrayMesh_54smf")
 render_priority = 0
 shader = ExtResource("5_s06dd")
 
-[node name="Tower" type="StaticBody3D"]
+[node name="Tower" type="StaticBody3D" unique_id=609144380]
 collision_layer = 3
 script = ExtResource("1_xvvt6")
 blue_color = Color(0, 0, 1, 1)
 red_color = Color(1, 0, 0, 1)
 
-[node name="vision" type="Area3D" parent="."]
+[node name="vision" type="Area3D" parent="." unique_id=1273267923]
 collision_layer = 0
 collision_mask = 65280
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="vision"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="vision" unique_id=634268880]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_nyolb")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=898154695]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_3on5a")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1838691461]
 reset_on_save = false
 libraries = {
 &"": SubResource("AnimationLibrary_pphlw")
 }
 speed_scale = 0.5
 
-[node name="Tower" type="MeshInstance3D" parent="."]
+[node name="Tower" type="MeshInstance3D" parent="." unique_id=2114607941]
 mesh = SubResource("ArrayMesh_crc4b")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_s06dd")
 
-[node name="Banners" type="MeshInstance3D" parent="."]
+[node name="Banners" type="MeshInstance3D" parent="." unique_id=1666775255]
 mesh = SubResource("ArrayMesh_5w86q")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_51u6t")
 
-[node name="GondelRings_Tower" type="MeshInstance3D" parent="."]
+[node name="GondelRings_Tower" type="MeshInstance3D" parent="." unique_id=342426208]
 mesh = SubResource("ArrayMesh_8mkts")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("4_fuv3k")
 
-[node name="Main Crystal" type="MeshInstance3D" parent="."]
+[node name="Main Crystal" type="MeshInstance3D" parent="." unique_id=688280161]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("ArrayMesh_p232b")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_fuv3k")

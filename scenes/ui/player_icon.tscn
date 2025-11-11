@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b16c5nj81xhrv"]
 
-[node name="PlayerIcon" type="ColorRect"]
+[node name="PlayerIcon" type="ColorRect" unique_id=2129023805]
 custom_minimum_size = Vector2(64, 64)
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1486516317]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0

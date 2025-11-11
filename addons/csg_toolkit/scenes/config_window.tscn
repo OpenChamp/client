@@ -6,14 +6,15 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vj6tm"]
 
-[node name="ConfigWindow" type="Window"]
+[node name="ConfigWindow" type="Window" unique_id=1395048884]
+oversampling_override = 1.0
 title = "CSG Toolit Configuration"
 initial_position = 1
 size = Vector2i(480, 360)
 popup_window = true
 script = ExtResource("1_pigko")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1355353583]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,76 +25,77 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1235416213]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1311327823]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=924837885]
 layout_mode = 2
 text = "Default Behavior"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1281980575]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ng5lh")
 
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=570506701]
 layout_mode = 2
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "Sibling"
 popup/item_0/id = 0
 popup/item_1/text = "Child"
 popup/item_1/id = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1725652876]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=364372220]
 layout_mode = 2
 text = "Action Key"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1478825714]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ng5lh")
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=702787026]
 layout_mode = 2
 text = "Shift"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1803992575]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1052480631]
 layout_mode = 2
 text = "Auto Hide"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1153904759]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ng5lh")
 
-[node name="CheckButton" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="CheckButton" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1681647591]
 layout_mode = 2
+button_pressed = true
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=643320609]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_vj6tm")
 
-[node name="Save" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Save" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1472301859]
 layout_mode = 2
 text = "Save"
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=377536449]
 layout_mode = 2
 
-[node name="Ko-Fi" type="LinkButton" parent="MarginContainer/VBoxContainer"]
+[node name="Ko-Fi" type="LinkButton" parent="MarginContainer/VBoxContainer" unique_id=1862608432]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Support me on Ko-Fi"

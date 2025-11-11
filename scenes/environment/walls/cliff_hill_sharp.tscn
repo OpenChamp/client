@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://xj0n7j5bo8y0"]
+
+[ext_resource type="ArrayMesh" uid="uid://bqt37hw4icbep" path="res://assets/models/environment/cliff/Cliff_Base_Hill_Sharp.obj" id="1_460d7"]
+[ext_resource type="ArrayMesh" uid="uid://ddt4f3nj0trf" path="res://assets/models/environment/cliff/Cliff_Top_Hill_Sharp.obj" id="2_k311y"]
+
+[node name="CliffHillSharp" type="Node3D" unique_id=1604488888]
+
+[node name="CliffBaseHillSharp" type="MeshInstance3D" parent="." unique_id=673986215]
+mesh = ExtResource("1_460d7")
+
+[node name="CliffTopHillSharp" type="MeshInstance3D" parent="." unique_id=1622689152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = ExtResource("2_k311y")

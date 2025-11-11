@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://wsquw55cuajg"]
 
-[ext_resource type="Script" uid="uid://cedu4oyudngf3" path="res://scripts/entities/champions/ranger.gd" id="1_shl3n"]
+[ext_resource type="Script" uid="uid://cedu4oyudngf3" path="res://scripts/champs/ranger.gd" id="1_shl3n"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="2_32au6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dvd4r"]
@@ -33,40 +33,40 @@ height = 0.01
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3pwj2"]
 
-[node name="Ranger" type="CharacterBody3D"]
+[node name="Ranger" type="CharacterBody3D" unique_id=99925526]
 transform = Transform3D(0.99999994, -0.00036651915, 0, 0.00036651915, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_shl3n")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=358827354]
 mesh = SubResource("CapsuleMesh_dvd4r")
 surface_material_override/0 = SubResource("StandardMaterial3D_jsdwf")
 
-[node name="Wreath" type="MeshInstance3D" parent="Body"]
+[node name="Wreath" type="MeshInstance3D" parent="Body" unique_id=1086069201]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.589684, 0)
 mesh = SubResource("TorusMesh_ijs6c")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body" unique_id=1537053116]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.458617, 0.405842, -0.175302)
 mesh = SubResource("SphereMesh_ua723")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D" unique_id=632985173]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0500978, 0, 0)
 mesh = SubResource("SphereMesh_k8kie")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Body"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Body" unique_id=2057649218]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.458617, 0.405842, 0.162471)
 mesh = SubResource("SphereMesh_ua723")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D3" unique_id=1118771999]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0500978, 0, 0)
 mesh = SubResource("SphereMesh_k8kie")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=257152229]
 shape = SubResource("CapsuleShape3D_epftc")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1971262947]
 
-[node name="MoneyEmitter" parent="." instance=ExtResource("2_32au6")]
+[node name="MoneyEmitter" parent="." unique_id=118436400 instance=ExtResource("2_32au6")]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=323136172]
 replication_config = SubResource("SceneReplicationConfig_3pwj2")

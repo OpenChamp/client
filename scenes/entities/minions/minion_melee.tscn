@@ -57,67 +57,67 @@ properties/3/replication_mode = 1
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n1ca0"]
 height = 1.0007324
 
-[node name="MeleeMinion" type="CharacterBody3D"]
+[node name="MeleeMinion" type="CharacterBody3D" unique_id=1796443505]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 collision_layer = 256
 collision_mask = 65281
 script = ExtResource("1_sbons")
 death_sound = ExtResource("2_sbons")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1066451900]
 mesh = SubResource("SphereMesh_3o8tx")
 surface_material_override/0 = SubResource("StandardMaterial3D_vvu41")
 
-[node name="Hat" type="MeshInstance3D" parent="Body"]
+[node name="Hat" type="MeshInstance3D" parent="Body" unique_id=165032012]
 transform = Transform3D(0.32, 0, 0, 0, 0.3, 0, 0, 0, 0.32, 0, 0.65487057, 0)
 mesh = SubResource("TorusMesh_u8jig")
 surface_material_override/0 = ExtResource("4_i1k7y")
 
-[node name="Eye" type="MeshInstance3D" parent="Body"]
+[node name="Eye" type="MeshInstance3D" parent="Body" unique_id=1404826605]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169789, 0.0850159, 0.465818)
 mesh = SubResource("SphereMesh_mro74")
 
-[node name="Eye2" type="MeshInstance3D" parent="Body"]
+[node name="Eye2" type="MeshInstance3D" parent="Body" unique_id=545202050]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199696, 0.084904, 0.45354)
 mesh = SubResource("SphereMesh_mro74")
 
-[node name="Hand" type="MeshInstance3D" parent="Body"]
+[node name="Hand" type="MeshInstance3D" parent="Body" unique_id=309709802]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5932214, 0, 0.14769208)
 mesh = SubResource("SphereMesh_wqyuh")
 
-[node name="Stick" type="MeshInstance3D" parent="Body/Hand"]
+[node name="Stick" type="MeshInstance3D" parent="Body/Hand" unique_id=957954203]
 transform = Transform3D(1, 0, 0, 0, 0.4829629, 0.25881904, 0, -0.12940952, 0.9659258, 0, 0.46393037, -0.13461374)
 material_override = ExtResource("5_sbons")
 mesh = SubResource("CylinderMesh_sbons")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1871439459]
 physics_interpolation_mode = 1
 shape = SubResource("ConvexPolygonShape3D_chs0q")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=174449266]
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2077281129]
 replication_config = SubResource("SceneReplicationConfig_vvu41")
 
-[node name="Vision" type="Area3D" parent="."]
+[node name="Vision" type="Area3D" parent="." unique_id=971685276]
 collision_layer = 0
 collision_mask = 65280
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Vision"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Vision" unique_id=1619601637]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005004883, 0)
 shape = SubResource("CylinderShape3D_n1ca0")
 
-[node name="MoneyEmitter" parent="." instance=ExtResource("5_j8cma")]
+[node name="MoneyEmitter" parent="." unique_id=1449550465 instance=ExtResource("5_j8cma")]
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1425153955]
 stream = ExtResource("2_sbons")
 pitch_scale = 0.75
 max_distance = 20.0
 
-[node name="AttackTimeout" type="Timer" parent="."]
+[node name="AttackTimeout" type="Timer" parent="." unique_id=1158903778]
 one_shot = true
 
-[node name="FollowTimer" type="Timer" parent="."]
+[node name="FollowTimer" type="Timer" parent="." unique_id=676366597]
 one_shot = true

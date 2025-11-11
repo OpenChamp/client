@@ -1,99 +1,99 @@
 [gd_scene load_steps=7 format=3 uid="uid://tcuki7sy0jps"]
 
-[ext_resource type="ArrayMesh" uid="uid://d1061usi6uuxh" path="res://models/environment/foliage/Prop_Bush_1.obj" id="1_1710o"]
-[ext_resource type="ArrayMesh" uid="uid://djjiqiythmb24" path="res://models/environment/foliage/Prop_Rock_2.obj" id="2_y6bdk"]
-[ext_resource type="ArrayMesh" uid="uid://dbsarfmcbiyay" path="res://models/environment/foliage/Prop_Rock_3.obj" id="3_6mqnv"]
-[ext_resource type="ArrayMesh" uid="uid://b0lkocesjfk6k" path="res://models/environment/foliage/Prop_Tree_Pine_1.obj" id="4_36rj3"]
+[ext_resource type="ArrayMesh" uid="uid://d1061usi6uuxh" path="res://assets/models/environment/foliage/Prop_Bush_1.obj" id="1_1710o"]
+[ext_resource type="ArrayMesh" uid="uid://djjiqiythmb24" path="res://assets/models/environment/foliage/Prop_Rock_2.obj" id="2_y6bdk"]
+[ext_resource type="ArrayMesh" uid="uid://dbsarfmcbiyay" path="res://assets/models/environment/foliage/Prop_Rock_3.obj" id="3_6mqnv"]
+[ext_resource type="ArrayMesh" uid="uid://b0lkocesjfk6k" path="res://assets/models/environment/foliage/Prop_Tree_Pine_1.obj" id="4_36rj3"]
 [ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://assets/materials/dirt_material.tres" id="5_pt14j"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ba7uw"]
 
-[node name="Bush" type="Node3D"]
+[node name="Bush" type="Node3D" unique_id=1412376525]
 
-[node name="PropBush1" type="MeshInstance3D" parent="."]
+[node name="PropBush1" type="MeshInstance3D" parent="." unique_id=161998318]
 transform = Transform3D(1.6, 0, 0, 0, 1.5, 0, 0, 0, 2.7, -1.3148745, 0, 0)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush2" type="MeshInstance3D" parent="."]
+[node name="PropBush2" type="MeshInstance3D" parent="." unique_id=1425986836]
 transform = Transform3D(1.6, 0, 0, 0, 1.5, 0, 0, 0, 2.7, 1.6851255, 0, 0)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush3" type="MeshInstance3D" parent="."]
+[node name="PropBush3" type="MeshInstance3D" parent="." unique_id=1380418493]
 transform = Transform3D(1.5454808, 0, 0.6988112, 0, 1.4999996, 0, -0.41411024, 0, 2.6079988, 1.4678613, 0, -2)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush4" type="MeshInstance3D" parent="."]
+[node name="PropBush4" type="MeshInstance3D" parent="." unique_id=1425648841]
 transform = Transform3D(1.3856404, 0, 1.3499999, 0, 1.4999998, 0, -0.79999983, 0, 2.338268, 0.68512547, 0, -3.831306)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush5" type="MeshInstance3D" parent="."]
+[node name="PropBush5" type="MeshInstance3D" parent="." unique_id=219936445]
 transform = Transform3D(-1.3856403, 0, 1.3499994, 0, 1.4999996, 0, -0.7999997, 0, -2.3382678, -0.47761285, 0, -3.9151163)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush6" type="MeshInstance3D" parent="."]
+[node name="PropBush6" type="MeshInstance3D" parent="." unique_id=1908174254]
 transform = Transform3D(-1.545481, 0, 0.69881105, 0, 1.4999995, 0, -0.4141102, 0, -2.6079986, -1.1601609, 0, -2.0526845)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush7" type="MeshInstance3D" parent="."]
+[node name="PropBush7" type="MeshInstance3D" parent="." unique_id=1345066348]
 transform = Transform3D(1.5454808, 0, 0.6988112, 0, 1.4999996, 0, -0.41411024, 0, 2.6079988, 1.4678613, 0, -2)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush11" type="MeshInstance3D" parent="."]
+[node name="PropBush11" type="MeshInstance3D" parent="." unique_id=1689349005]
 transform = Transform3D(1.5454807, 0, -0.6988112, 0, 1.4999996, 0, 0.41411033, 0, 2.6079988, 1.4681255, 0, 2)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush8" type="MeshInstance3D" parent="."]
+[node name="PropBush8" type="MeshInstance3D" parent="." unique_id=833101565]
 transform = Transform3D(1.3856404, 0, 1.3499999, 0, 1.4999998, 0, -0.79999983, 0, 2.338268, 0.68512547, 0, -3.831306)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush12" type="MeshInstance3D" parent="."]
+[node name="PropBush12" type="MeshInstance3D" parent="." unique_id=702925061]
 transform = Transform3D(1.3856404, 0, -1.3499998, 0, 1.4999998, 0, 0.79999983, 0, 2.3382683, 0.68512547, 0, 3.831)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush9" type="MeshInstance3D" parent="."]
+[node name="PropBush9" type="MeshInstance3D" parent="." unique_id=1018377823]
 transform = Transform3D(-1.3856403, 0, -1.3499997, 0, 1.4999996, 0, 0.7999999, 0, -2.3382678, -0.47787464, 0, 3.915)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush10" type="MeshInstance3D" parent="."]
+[node name="PropBush10" type="MeshInstance3D" parent="." unique_id=1238888622]
 transform = Transform3D(-1.545481, 0, 0.69881105, 0, 1.4999995, 0, -0.4141102, 0, -2.6079986, -1.1601609, 0, -2.0526845)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropBush13" type="MeshInstance3D" parent="."]
+[node name="PropBush13" type="MeshInstance3D" parent="." unique_id=964197974]
 transform = Transform3D(-1.545481, 0, -0.69881135, 0, 1.4999995, 0, 0.41411054, 0, -2.6079986, -1.1598743, 0, 2.053)
 mesh = ExtResource("1_1710o")
 skeleton = NodePath("../..")
 
-[node name="PropRock2" type="MeshInstance3D" parent="."]
+[node name="PropRock2" type="MeshInstance3D" parent="." unique_id=1488551074]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7731079, 0, -0.9158344)
 mesh = ExtResource("2_y6bdk")
 
-[node name="PropRock3" type="MeshInstance3D" parent="."]
+[node name="PropRock3" type="MeshInstance3D" parent="." unique_id=172401115]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63633, 0, 0.6669665)
 mesh = ExtResource("3_6mqnv")
 
-[node name="PropTreePine1" type="MeshInstance3D" parent="."]
+[node name="PropTreePine1" type="MeshInstance3D" parent="." unique_id=77462051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18669689, 0, -1.0897003)
 mesh = ExtResource("4_36rj3")
 skeleton = NodePath("../..")
 
-[node name="PropTreePine2" type="MeshInstance3D" parent="."]
+[node name="PropTreePine2" type="MeshInstance3D" parent="." unique_id=427371779]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.008069873, 0, 1.458873)
 mesh = ExtResource("4_36rj3")
 skeleton = NodePath("../..")
 
-[node name="floor" type="MeshInstance3D" parent="."]
+[node name="floor" type="MeshInstance3D" parent="." unique_id=603856227]
 transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 3.731, 0.061344743, 0, 0)
 mesh = SubResource("PlaneMesh_ba7uw")
 surface_material_override/0 = ExtResource("5_pt14j")

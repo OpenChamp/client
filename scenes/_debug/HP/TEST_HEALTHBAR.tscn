@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://4fqm0o8i8f46" path="res://scenes/entities/minions/minion_mage.tscn" id="1_2qxfi"]
 [ext_resource type="PackedScene" uid="uid://b3ocvxpgupua2" path="res://scenes/entities/minions/minion_melee.tscn" id="2_p8d3a"]
 
-[node name="TestHealthbar" type="Node3D"]
+[node name="TestHealthbar" type="Node3D" unique_id=2125107954]
 
-[node name="MageMinion" parent="." instance=ExtResource("1_2qxfi")]
+[node name="MageMinion" parent="." unique_id=616359224 instance=ExtResource("1_2qxfi")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2, 0, 0)
 
-[node name="MeleeMinion" parent="." instance=ExtResource("2_p8d3a")]
+[node name="MeleeMinion" parent="." unique_id=894456342 instance=ExtResource("2_p8d3a")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2, 0, 0)

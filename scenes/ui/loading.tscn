@@ -11,7 +11,7 @@ default_font = ExtResource("1_wkfxc")
 font = ExtResource("1_wkfxc")
 font_size = 52
 
-[node name="Loading" type="Control"]
+[node name="Loading" type="Control" unique_id=484814769]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,7 @@ grow_vertical = 2
 theme = SubResource("Theme_2b8us")
 script = ExtResource("2_sjr32")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1881316280]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,23 +29,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RedTeam" type="VBoxContainer" parent="Panel"]
+[node name="RedTeam" type="VBoxContainer" parent="Panel" unique_id=1835835216]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
 alignment = 1
 
-[node name="PlayerIcon" parent="Panel/RedTeam" instance=ExtResource("3_gbjog")]
+[node name="PlayerIcon" parent="Panel/RedTeam" unique_id=945044154 instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="PlayerIcon2" parent="Panel/RedTeam" instance=ExtResource("3_gbjog")]
+[node name="PlayerIcon2" parent="Panel/RedTeam" unique_id=182507235 instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="PlayerIcon3" parent="Panel/RedTeam" instance=ExtResource("3_gbjog")]
+[node name="PlayerIcon3" parent="Panel/RedTeam" unique_id=92518255 instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="BlueTeam" type="VBoxContainer" parent="Panel"]
+[node name="BlueTeam" type="VBoxContainer" parent="Panel" unique_id=492973933]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -55,16 +55,16 @@ grow_horizontal = 0
 grow_vertical = 2
 alignment = 1
 
-[node name="PlayerIcon4" parent="Panel/BlueTeam" instance=ExtResource("3_gbjog")]
+[node name="PlayerIcon4" parent="Panel/BlueTeam" unique_id=259735360 instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="PlayerIcon5" parent="Panel/BlueTeam" instance=ExtResource("3_gbjog")]
+[node name="PlayerIcon5" parent="Panel/BlueTeam" unique_id=1524238110 instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="PlayerIcon6" parent="Panel/BlueTeam" instance=ExtResource("3_gbjog")]
+[node name="PlayerIcon6" parent="Panel/BlueTeam" unique_id=4045597 instance=ExtResource("3_gbjog")]
 layout_mode = 2
 
-[node name="MiddleHeader" type="Label" parent="Panel"]
+[node name="MiddleHeader" type="Label" parent="Panel" unique_id=1394989376]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

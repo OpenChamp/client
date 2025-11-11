@@ -90,7 +90,7 @@ shader_parameter/duration = 2.000000095
 shader_parameter/text_color = Color(1, 0, 0, 1)
 shader_parameter/use_vertex_color = true
 
-[node name="Connecting" type="Control"]
+[node name="Connecting" type="Control" unique_id=1203765113]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,16 +98,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Champeye" type="Sprite2D" parent="."]
+[node name="Champeye" type="Sprite2D" parent="." unique_id=310296151]
 position = Vector2(632, 342)
 texture = ExtResource("1_ct4eq")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Champeye"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Champeye" unique_id=109659168]
 libraries = {
 &"": SubResource("AnimationLibrary_1lh2i")
 }
 
-[node name="LogoLabel" type="RichTextLabel" parent="."]
+[node name="LogoLabel" type="RichTextLabel" parent="." unique_id=916330236]
 material = SubResource("ShaderMaterial_cx0sj")
 layout_mode = 1
 anchors_preset = 5
@@ -129,7 +129,7 @@ text = "[center]OpenChamp[/center]
 fit_content = true
 scroll_active = false
 
-[node name="LocalConnect" type="Button" parent="."]
+[node name="LocalConnect" type="Button" parent="." unique_id=796901380]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -142,7 +142,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Local Server (DEBUG)"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1303048718]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -156,12 +156,12 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ConnectionButton" type="Button" parent="VBoxContainer"]
+[node name="ConnectionButton" type="Button" parent="VBoxContainer" unique_id=1839142983]
 layout_mode = 2
 text = "Connect"
 script = ExtResource("4_6l3is")
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=757041294]
 layout_mode = 2
 text = "Quit"
 script = ExtResource("5_1lh2i")

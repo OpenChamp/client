@@ -10,7 +10,7 @@ script = ExtResource("2_jdl0x")
 icon_name = &"Add"
 metadata/_custom_type_script = "uid://dmicn3kmr620j"
 
-[node name="AssetCollectionWindow" type="Control"]
+[node name="AssetCollectionWindow" type="Control" unique_id=2033877136]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g1b7h")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=520576125]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,7 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=896922666]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,28 +39,28 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1867600633]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer2" unique_id=600664519]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="NameTextField" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="NameTextField" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=1145435284]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 placeholder_text = "New Collection Name"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=1040115862]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Color"
 color = Color(0.6156863, 0, 0, 1)
 edit_intensity = false
 
-[node name="AddButton" type="Button" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer"]
+[node name="AddButton" type="Button" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=963543645]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Godot"
@@ -69,23 +69,23 @@ text = "Add"
 icon = SubResource("Texture2D_x040h")
 icon_alignment = 2
 
-[node name="EmptyView" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer2"]
+[node name="EmptyView" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer2" unique_id=115633451]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer2/EmptyView"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer2/EmptyView" unique_id=644743664]
 layout_mode = 2
 size_flags_vertical = 6
 text = "No collections yet"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer2"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer2" unique_id=2045152926]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CollectionsContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer2/ScrollContainer"]
+[node name="CollectionsContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer2/ScrollContainer" unique_id=1397428130]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

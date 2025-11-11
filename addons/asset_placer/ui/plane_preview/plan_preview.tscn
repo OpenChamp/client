@@ -9,11 +9,11 @@
 material = SubResource("StandardMaterial3D_aho0j")
 size = Vector2(200, 200)
 
-[node name="PlanPreview" type="Node3D"]
+[node name="PlanPreview" type="Node3D" unique_id=1261138596]
 visible = false
 script = ExtResource("1_ldq3v")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1462823520]
 transform = Transform3D(0, 0, -1, 0, 1, 0, -1, 0, 0, 0, 2.4, 0)
 mesh = SubResource("PlaneMesh_h6n2v")
 surface_material_override/0 = ExtResource("2_ldq3v")

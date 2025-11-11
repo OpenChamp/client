@@ -10,20 +10,20 @@ script = ExtResource("1_20mcy")
 icon_name = &"Save"
 metadata/_custom_type_script = "uid://dmicn3kmr620j"
 
-[node name="CollectionEditPopup" type="Popup"]
+[node name="CollectionEditPopup" type="Popup" unique_id=11441954]
 oversampling_override = 1.0
 size = Vector2i(500, 300)
 visible = true
 script = ExtResource("1_jhaji")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=2027444101]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1653169346]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,26 +35,26 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=860569600]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=1838465957]
 layout_mode = 2
 text = "Edit Collection"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1547327446]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=399948637]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="TextEdit" type="TextEdit" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=156671476]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
@@ -63,10 +63,10 @@ size_flags_vertical = 4
 placeholder_text = "Type new Collectio Name
 "
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=151520101]
 layout_mode = 2
 
-[node name="SaveButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="SaveButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=296177858]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10

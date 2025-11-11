@@ -182,7 +182,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_mc40f")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_12brt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjepa"]
 render_priority = 0
 shader = ExtResource("2_gchl0")
 
@@ -306,43 +306,37 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1gqw4")
 
-[node name="core" type="StaticBody3D"]
+[node name="core" type="StaticBody3D" unique_id=1154357177]
 script = ExtResource("2_0hmbs")
+team = 1
 blue_color = Color(0, 0, 1, 1)
 red_color = Color(1, 0, 0, 1)
 
-[node name="Core" type="MeshInstance3D" parent="."]
+[node name="Core" type="MeshInstance3D" parent="." unique_id=1361379402]
 mesh = SubResource("ArrayMesh_gk7nm")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_cgfw8")
 
-[node name="Portal_Banners" type="MeshInstance3D" parent="."]
+[node name="Portal_Banners" type="MeshInstance3D" parent="." unique_id=1955965000]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19244313, 0)
 mesh = SubResource("ArrayMesh_3jlsp")
-skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_dh3ea")
 
-[node name="Portal" type="MeshInstance3D" parent="."]
+[node name="Portal" type="MeshInstance3D" parent="." unique_id=282940286]
 material_override = ExtResource("4_gchl0")
 mesh = SubResource("ArrayMesh_vftkg")
-skeleton = NodePath("")
 
-[node name="MinorCrystals" type="MeshInstance3D" parent="."]
+[node name="MinorCrystals" type="MeshInstance3D" parent="." unique_id=110006417]
 mesh = SubResource("ArrayMesh_v6hja")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_12brt")
+surface_material_override/0 = SubResource("ShaderMaterial_cjepa")
 
-[node name="CoreTower02" type="MeshInstance3D" parent="."]
+[node name="CoreTower02" type="MeshInstance3D" parent="." unique_id=499197340]
 material_override = ExtResource("5_cgfw8")
 mesh = SubResource("ArrayMesh_a72yy")
-skeleton = NodePath("")
 
-[node name="GoldenRings_Small" type="MeshInstance3D" parent="."]
+[node name="GoldenRings_Small" type="MeshInstance3D" parent="." unique_id=1446568394]
 material_override = ExtResource("6_odehj")
 mesh = SubResource("ArrayMesh_2bm4q")
-skeleton = NodePath("")
 
-[node name="GondelRings_Core" type="MeshInstance3D" parent="."]
+[node name="GondelRings_Core" type="MeshInstance3D" parent="." unique_id=1570428552]
 material_override = ExtResource("7_sukxs")
 mesh = SubResource("ArrayMesh_7d10e")
-skeleton = NodePath("")

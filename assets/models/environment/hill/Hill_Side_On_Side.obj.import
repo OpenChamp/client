@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c4hlee4onb3qe"
+path="res://.godot/imported/Hill_Side_On_Side.obj-3cff00765d4a4342b7c25083561e98ef.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Hill_Side_On_Side.obj-3cff00765d4a4342b7c25083561e98ef.mesh"]
+
+source_file="res://assets/models/environment/hill/Hill_Side_On_Side.obj"
+dest_files=["res://.godot/imported/Hill_Side_On_Side.obj-3cff00765d4a4342b7c25083561e98ef.mesh", "res://.godot/imported/Hill_Side_On_Side.obj-3cff00765d4a4342b7c25083561e98ef.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,72 +1,58 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjlryqf2s7uaw"]
+[gd_scene load_steps=5 format=3 uid="uid://bjlryqf2s7uaw"]
 
 [ext_resource type="Script" uid="uid://vtnwe3wqf1tn" path="res://scripts/ingame.gd" id="1_s2j7k"]
-[ext_resource type="Script" uid="uid://dox3a18bmfevq" path="res://scripts/managers/_CombatManager.gd" id="2_68f7v"]
 [ext_resource type="PackedScene" uid="uid://di7n0t2bypmdy" path="res://scenes/ui/loading.tscn" id="2_s2j7k"]
-[ext_resource type="Script" uid="uid://b6cxkavkom84s" path="res://scripts/systems/lifecycle.gd" id="2_y1sin"]
-[ext_resource type="Script" uid="uid://dousyg4dep1s" path="res://scripts/managers/_NetworkManager.gd" id="3_3ywp8"]
 [ext_resource type="Script" uid="uid://d2g2rg81od5l5" path="res://scripts/utility/game_timer.gd" id="4_y1sin"]
-[ext_resource type="Script" uid="uid://dg7g5jy7atgfy" path="res://scripts/managers/_SpawnManager.gd" id="5_kbgji"]
 [ext_resource type="Script" uid="uid://b51yh5k56lj12" path="res://scripts/utility/ping_timer.gd" id="6_3ywp8"]
 
-[node name="Ingame" type="Node" groups=["game_root"]]
+[node name="Ingame" type="Node" unique_id=1688817966 groups=["game_root"]]
 script = ExtResource("1_s2j7k")
 
-[node name="Systems" type="Node" parent="."]
+[node name="Spawners" type="Node" parent="." unique_id=1642873171]
 
-[node name="Combat" type="Node" parent="Systems"]
-script = ExtResource("2_68f7v")
-
-[node name="Lifecycle" type="Node" parent="Systems"]
-script = ExtResource("2_y1sin")
-
-[node name="Network" type="Node" parent="Systems"]
-script = ExtResource("3_3ywp8")
-
-[node name="Spawn" type="Node" parent="Systems"]
-script = ExtResource("5_kbgji")
-
-[node name="Spawners" type="Node" parent="."]
-
-[node name="Player" type="MultiplayerSpawner" parent="Spawners"]
+[node name="Player" type="MultiplayerSpawner" parent="Spawners" unique_id=840524176]
 spawn_path = NodePath("../..")
 
-[node name="Map" type="MultiplayerSpawner" parent="Spawners"]
+[node name="Map" type="MultiplayerSpawner" parent="Spawners" unique_id=1658761083]
+_spawnable_scenes = PackedStringArray("uid://q6einnml1qx8")
+spawn_path = NodePath("../../World")
+spawn_limit = 1
+
+[node name="Minion" type="MultiplayerSpawner" parent="Spawners" unique_id=1037057260]
 spawn_path = NodePath("../..")
 
-[node name="Minion" type="MultiplayerSpawner" parent="Spawners"]
-spawn_path = NodePath("../..")
+[node name="Jungle" type="MultiplayerSpawner" parent="Spawners" unique_id=81788086]
 
-[node name="Jungle" type="MultiplayerSpawner" parent="Spawners"]
+[node name="Timers" type="Node" parent="." unique_id=362314982]
 
-[node name="Timers" type="Node" parent="."]
-
-[node name="Ping" type="Timer" parent="Timers"]
+[node name="Ping" type="Timer" parent="Timers" unique_id=1702046188]
 script = ExtResource("6_3ywp8")
 
-[node name="Second" type="Timer" parent="Timers"]
+[node name="Second" type="Timer" parent="Timers" unique_id=1303554306]
 
-[node name="MinionWave" type="Timer" parent="Timers"]
+[node name="MinionWave" type="Timer" parent="Timers" unique_id=1298541402]
 wait_time = 20.0
 one_shot = true
 
-[node name="GameTime" type="Node" parent="Timers"]
+[node name="GameTime" type="Node" parent="Timers" unique_id=1872876254]
 script = ExtResource("4_y1sin")
 
-[node name="UI" type="Node" parent="."]
+[node name="UI" type="Node" parent="." unique_id=724723262]
 
-[node name="DebugUI" type="CanvasLayer" parent="UI"]
+[node name="DebugUI" type="CanvasLayer" parent="UI" unique_id=1965256411]
 
-[node name="HealthBars" type="CanvasLayer" parent="UI"]
+[node name="HealthBars" type="CanvasLayer" parent="UI" unique_id=1870248860]
 
-[node name="PlayerUI" type="CanvasLayer" parent="UI"]
+[node name="PlayerUI" type="CanvasLayer" parent="UI" unique_id=1985538614]
 
-[node name="Entities" type="Node3D" parent="."]
+[node name="World" type="Node3D" parent="." unique_id=1703776802]
 
-[node name="Loading" parent="." instance=ExtResource("2_s2j7k")]
+[node name="Entities" type="Node3D" parent="." unique_id=1659416924]
+
+[node name="Loading" parent="." unique_id=336148137 instance=ExtResource("2_s2j7k")]
 script = null
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1364364256]
 spawn_path = NodePath("..")
 
 [connection signal="timeout" from="Timers/Second" to="MultiplayerSpawner" method="_every_second"]

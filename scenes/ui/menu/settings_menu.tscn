@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgeq32k5nri4p" path="res://scripts/ui/menu/back_button.gd" id="1_154di"]
 
-[node name="Settings" type="Panel"]
+[node name="Settings" type="Panel" unique_id=530581649]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -15,7 +15,7 @@ offset_bottom = 201.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1011411249]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 5.0
@@ -24,7 +24,7 @@ offset_bottom = 50.0
 theme_override_font_sizes/font_size = 32
 text = "Settings"
 
-[node name="BackButton" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="." unique_id=701476550]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -40,7 +40,7 @@ grow_vertical = 0
 text = "Back"
 script = ExtResource("1_154di")
 
-[node name="ApplySettingsButton" type="Button" parent="."]
+[node name="ApplySettingsButton" type="Button" parent="." unique_id=942813099]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -55,7 +55,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Apply"
 
-[node name="AudioLabel" type="Label" parent="."]
+[node name="AudioLabel" type="Label" parent="." unique_id=623036172]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 56.0
@@ -63,7 +63,7 @@ offset_right = 148.0
 offset_bottom = 82.0
 text = "Audio Settings"
 
-[node name="MasterVolumeLabel" type="Label" parent="."]
+[node name="MasterVolumeLabel" type="Label" parent="." unique_id=535084049]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 88.0
@@ -71,7 +71,7 @@ offset_right = 148.0
 offset_bottom = 114.0
 text = "Master Volume"
 
-[node name="MasterVolumeSlider" type="HSlider" parent="."]
+[node name="MasterVolumeSlider" type="HSlider" parent="." unique_id=205842369]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 88.0
@@ -79,7 +79,7 @@ offset_right = 470.0
 offset_bottom = 114.0
 value = 100.0
 
-[node name="MusicVolumeLabel" type="Label" parent="."]
+[node name="MusicVolumeLabel" type="Label" parent="." unique_id=1144024070]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 120.0
@@ -87,7 +87,7 @@ offset_right = 148.0
 offset_bottom = 146.0
 text = "Music Volume"
 
-[node name="MusicVolumeSlider" type="HSlider" parent="."]
+[node name="MusicVolumeSlider" type="HSlider" parent="." unique_id=1304468647]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 120.0
@@ -95,7 +95,7 @@ offset_right = 470.0
 offset_bottom = 146.0
 value = 100.0
 
-[node name="SFXVolumeLabel" type="Label" parent="."]
+[node name="SFXVolumeLabel" type="Label" parent="." unique_id=2018897024]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 152.0
@@ -103,7 +103,7 @@ offset_right = 148.0
 offset_bottom = 178.0
 text = "SFX Volume"
 
-[node name="SFXVolumeSlider" type="HSlider" parent="."]
+[node name="SFXVolumeSlider" type="HSlider" parent="." unique_id=1717043663]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 152.0
@@ -111,7 +111,7 @@ offset_right = 470.0
 offset_bottom = 178.0
 value = 100.0
 
-[node name="VideoLabel" type="Label" parent="."]
+[node name="VideoLabel" type="Label" parent="." unique_id=1369170537]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 192.0
@@ -119,7 +119,7 @@ offset_right = 148.0
 offset_bottom = 218.0
 text = "Video Settings"
 
-[node name="FullscreenLabel" type="Label" parent="."]
+[node name="FullscreenLabel" type="Label" parent="." unique_id=1341496808]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 224.0
@@ -127,14 +127,14 @@ offset_right = 148.0
 offset_bottom = 250.0
 text = "Fullscreen"
 
-[node name="FullscreenCheckBox" type="CheckBox" parent="."]
+[node name="FullscreenCheckBox" type="CheckBox" parent="." unique_id=1154661199]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 224.0
 offset_right = 192.0
 offset_bottom = 248.0
 
-[node name="VSyncLabel" type="Label" parent="."]
+[node name="VSyncLabel" type="Label" parent="." unique_id=1790395165]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 256.0
@@ -142,7 +142,7 @@ offset_right = 148.0
 offset_bottom = 282.0
 text = "VSync"
 
-[node name="VSyncCheckBox" type="CheckBox" parent="."]
+[node name="VSyncCheckBox" type="CheckBox" parent="." unique_id=820774974]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 256.0
@@ -150,7 +150,7 @@ offset_right = 192.0
 offset_bottom = 280.0
 button_pressed = true
 
-[node name="ShowFPSLabel" type="Label" parent="."]
+[node name="ShowFPSLabel" type="Label" parent="." unique_id=225144541]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 288.0
@@ -158,14 +158,14 @@ offset_right = 148.0
 offset_bottom = 314.0
 text = "Show FPS"
 
-[node name="ShowFPSCheckBox" type="CheckBox" parent="."]
+[node name="ShowFPSCheckBox" type="CheckBox" parent="." unique_id=44464193]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 288.0
 offset_right = 192.0
 offset_bottom = 312.0
 
-[node name="PlayerLabel" type="Label" parent="."]
+[node name="PlayerLabel" type="Label" parent="." unique_id=24980549]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 328.0
@@ -173,7 +173,7 @@ offset_right = 148.0
 offset_bottom = 354.0
 text = "Player Settings"
 
-[node name="UsernameLabel" type="Label" parent="."]
+[node name="UsernameLabel" type="Label" parent="." unique_id=1678516844]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 360.0
@@ -181,7 +181,7 @@ offset_right = 148.0
 offset_bottom = 386.0
 text = "Username"
 
-[node name="UsernameInput" type="LineEdit" parent="."]
+[node name="UsernameInput" type="LineEdit" parent="." unique_id=64412922]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 359.0

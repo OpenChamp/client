@@ -7,14 +7,15 @@
 [sub_resource type="LabelSettings" id="LabelSettings_55ohh"]
 font_size = 14
 
-[node name="AssetResourcePreview" type="Button"]
+[node name="AssetResourcePreview" type="Button" unique_id=1775741666]
+custom_minimum_size = Vector2(150, 194.33)
 offset_right = 150.0
 offset_bottom = 194.33
 theme_type_variation = &"FlatButton"
 toggle_mode = true
 script = ExtResource("1_q3676")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1062042385]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,10 +27,10 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1148577434]
 layout_mode = 2
 
-[node name="AssetThumbnail" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="AssetThumbnail" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=2000789219]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("2_55ohh")
@@ -37,7 +38,7 @@ expand_mode = 4
 script = ExtResource("2_xdgah")
 metadata/_custom_type_script = "uid://dephufwlu765k"
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=856606246]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1

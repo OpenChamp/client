@@ -99,6 +99,7 @@ func get_state() -> GAME_STATE:
 	return gamestate
 
 func _on_player_connected(id):
+	if not multiplayer.is_server(): return;
 	if not id in server.player_ids:
 		push_warning("Unauthorized player is connecting... allowing for alpha")
 	var player = PlayerObject.new()

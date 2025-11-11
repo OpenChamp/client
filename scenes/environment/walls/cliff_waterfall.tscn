@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbtko86eradki"]
+
+[ext_resource type="ArrayMesh" uid="uid://bva4x4ord44w6" path="res://assets/models/environment/cliff/Cliff_Base_Waterfall.obj" id="1_jfcqm"]
+[ext_resource type="ArrayMesh" uid="uid://teylwo5pt6hj" path="res://assets/models/environment/cliff/Cliff_Mid_Waterfall.obj" id="2_0mabr"]
+[ext_resource type="ArrayMesh" uid="uid://bvpv415tbjb2a" path="res://assets/models/environment/cliff/Cliff_Top_Waterfall.obj" id="3_e8cxf"]
+
+[node name="CliffWaterfall" type="Node3D" unique_id=1482778726]
+
+[node name="CliffBaseWaterfall" type="MeshInstance3D" parent="." unique_id=612280595]
+mesh = ExtResource("1_jfcqm")
+
+[node name="CliffMidWaterfall" type="MeshInstance3D" parent="." unique_id=29283169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = ExtResource("2_0mabr")
+
+[node name="CliffTopWaterfall" type="MeshInstance3D" parent="." unique_id=478786756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("3_e8cxf")

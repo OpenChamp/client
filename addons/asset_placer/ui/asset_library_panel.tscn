@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dynyrwa38r5ag" path="res://addons/asset_placer/ui/about/about_window.tscn" id="5_rgwf1"]
 [ext_resource type="PackedScene" uid="uid://ckokuu85fua3" path="res://addons/asset_placer/ui/settings/settings_panel.tscn" id="5_wbjry"]
 
-[node name="AssetLibraryPanel" type="Control"]
+[node name="AssetLibraryPanel" type="Control" unique_id=1499194465]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 3
 anchors_preset = 15
@@ -17,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_otjr6")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1484808190]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TabContainer" type="TabContainer" parent="Panel"]
+[node name="TabContainer" type="TabContainer" parent="Panel" unique_id=239994530]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,26 +34,26 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
 
-[node name="Assets" parent="Panel/TabContainer" instance=ExtResource("1_535dl")]
+[node name="Assets" parent="Panel/TabContainer" unique_id=608305534 instance=ExtResource("1_535dl")]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Folders" parent="Panel/TabContainer" instance=ExtResource("2_otjr6")]
+[node name="Folders" parent="Panel/TabContainer" unique_id=2126727792 instance=ExtResource("2_otjr6")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Collections" parent="Panel/TabContainer" instance=ExtResource("4_lanc6")]
+[node name="Collections" parent="Panel/TabContainer" unique_id=1899884826 instance=ExtResource("4_lanc6")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Settings" parent="Panel/TabContainer" instance=ExtResource("5_wbjry")]
+[node name="Settings" parent="Panel/TabContainer" unique_id=668154919 instance=ExtResource("5_wbjry")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="About" parent="Panel/TabContainer" instance=ExtResource("5_rgwf1")]
+[node name="About" parent="Panel/TabContainer" unique_id=1109793037 instance=ExtResource("5_rgwf1")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4

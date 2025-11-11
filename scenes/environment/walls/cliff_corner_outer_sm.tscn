@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://crnwmnksjry3l"]
+
+[ext_resource type="ArrayMesh" uid="uid://pknbxp0jotw6" path="res://assets/models/environment/cliff/Cliff_Base_Corner_Outer_Sm.obj" id="1_mqt6u"]
+[ext_resource type="ArrayMesh" uid="uid://bhxrlxvdx8oyq" path="res://assets/models/environment/cliff/Cliff_Mid_Corner_Outer_Sm.obj" id="2_srgcl"]
+[ext_resource type="ArrayMesh" uid="uid://cfa3ocygwmcbg" path="res://assets/models/environment/cliff/Cliff_Top_Corner_Outer_Sm.obj" id="3_pjr6r"]
+
+[node name="CliffCornerOuterSm" type="Node3D" unique_id=364952468]
+
+[node name="CliffBaseCornerOuterSm" type="MeshInstance3D" parent="." unique_id=965703300]
+mesh = ExtResource("1_mqt6u")
+
+[node name="CliffMidCornerOuterSm" type="MeshInstance3D" parent="." unique_id=424034478]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = ExtResource("2_srgcl")
+
+[node name="CliffTopCornerOuterSm" type="MeshInstance3D" parent="." unique_id=907320664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = ExtResource("3_pjr6r")

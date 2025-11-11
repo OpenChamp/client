@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dk6dt8fk1s43s" path="res://addons/csg_toolkit/scripts/csg_top_toolkit_bar.gd" id="1_154hl"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" unique_id=1983959070]
 visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_154hl")
 
-[node name="Refresh" type="Button" parent="."]
+[node name="Refresh" type="Button" parent="." unique_id=1535869848]
 layout_mode = 2
 text = "Refresh"
 flat = true

@@ -15,14 +15,14 @@ tonemap_mode = 2
 glow_enabled = true
 glow_bloom = 0.2
 
-[node name="Sky" type="Node3D"]
+[node name="Sky" type="Node3D" unique_id=1588574254]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=640401754]
 environment = SubResource("Environment_1eoep")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=265146890]
 transform = Transform3D(0.045833018, -0.9058958, -0.42101368, 0.17105138, -0.40811506, 0.8967628, -0.9841954, -0.113115825, 0.13624923, 0, 374.22, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1105537626]
 transform = Transform3D(-1, -1.77636e-15, -8.74228e-08, 2.26267e-08, 0.965926, -0.258819, 8.44439e-08, -0.258819, -0.965926, 0.118164, 101.589, 0.644348)

@@ -17,7 +17,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ixko7"]
 
-[node name="MarginContainer" type="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" unique_id=66807725]
 visible = false
 custom_minimum_size = Vector2(52, 0)
 anchors_preset = 15
@@ -30,11 +30,11 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_bottom = 8
 script = ExtResource("1_awo4p")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1938083294]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="HBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=272848532]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -42,11 +42,11 @@ size_flags_vertical = 3
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="CSG" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+[node name="CSG" type="VBoxContainer" parent="ScrollContainer/HBoxContainer" unique_id=378367933]
 layout_mode = 2
 alignment = 1
 
-[node name="Box" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+[node name="Box" type="Button" parent="ScrollContainer/HBoxContainer/CSG" unique_id=928792171]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Box"
@@ -54,7 +54,7 @@ icon = ExtResource("2_p4f7r")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Cylinder" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+[node name="Cylinder" type="Button" parent="ScrollContainer/HBoxContainer/CSG" unique_id=591852735]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Cylinder"
@@ -63,7 +63,7 @@ icon = ExtResource("3_j7s68")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Mesh" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+[node name="Mesh" type="Button" parent="ScrollContainer/HBoxContainer/CSG" unique_id=325549515]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Mesh"
@@ -72,7 +72,7 @@ icon = ExtResource("4_328ee")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Polygon" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+[node name="Polygon" type="Button" parent="ScrollContainer/HBoxContainer/CSG" unique_id=1278590639]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Polygon"
@@ -81,7 +81,7 @@ icon = ExtResource("5_0os5t")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Sphere" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+[node name="Sphere" type="Button" parent="ScrollContainer/HBoxContainer/CSG" unique_id=448935134]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Sphere"
@@ -90,7 +90,7 @@ icon = ExtResource("6_ju1pi")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Torus" type="Button" parent="ScrollContainer/HBoxContainer/CSG"]
+[node name="Torus" type="Button" parent="ScrollContainer/HBoxContainer/CSG" unique_id=657601789]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Torus"
@@ -99,11 +99,11 @@ icon = ExtResource("7_6hoxg")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Operation" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+[node name="Operation" type="VBoxContainer" parent="ScrollContainer/HBoxContainer" unique_id=1645399064]
 layout_mode = 2
 alignment = 1
 
-[node name="Union" type="Button" parent="ScrollContainer/HBoxContainer/Operation"]
+[node name="Union" type="Button" parent="ScrollContainer/HBoxContainer/Operation" unique_id=1910264230]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Union"
@@ -114,7 +114,7 @@ icon = ExtResource("8_gmt87")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Intersection" type="Button" parent="ScrollContainer/HBoxContainer/Operation"]
+[node name="Intersection" type="Button" parent="ScrollContainer/HBoxContainer/Operation" unique_id=434138873]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Intersection"
@@ -125,7 +125,7 @@ icon = ExtResource("9_55ipi")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Subtraction" type="Button" parent="ScrollContainer/HBoxContainer/Operation"]
+[node name="Subtraction" type="Button" parent="ScrollContainer/HBoxContainer/Operation" unique_id=315837182]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Subtraction"
@@ -136,11 +136,11 @@ icon = ExtResource("10_8u5xb")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Material" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+[node name="Material" type="VBoxContainer" parent="ScrollContainer/HBoxContainer" unique_id=850944369]
 layout_mode = 2
 alignment = 1
 
-[node name="MaterialPicker" type="Button" parent="ScrollContainer/HBoxContainer/Material"]
+[node name="MaterialPicker" type="Button" parent="ScrollContainer/HBoxContainer/Material" unique_id=1410384645]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Material"
@@ -148,17 +148,17 @@ icon = ExtResource("11_ten1m")
 icon_alignment = 1
 expand_icon = true
 
-[node name="HSeparator" type="HSeparator" parent="ScrollContainer/HBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/HBoxContainer" unique_id=1794329245]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ixko7")
 
-[node name="Options" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+[node name="Options" type="VBoxContainer" parent="ScrollContainer/HBoxContainer" unique_id=1272493648]
 layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1
 
-[node name="Config" type="Button" parent="ScrollContainer/HBoxContainer/Options"]
+[node name="Config" type="Button" parent="ScrollContainer/HBoxContainer/Options" unique_id=192706827]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
 tooltip_text = "Config"

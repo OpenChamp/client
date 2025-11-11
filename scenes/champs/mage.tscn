@@ -48,57 +48,57 @@ properties/3/replication_mode = 1
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n1ca0"]
 
-[node name="Mage" type="CharacterBody3D"]
+[node name="Mage" type="CharacterBody3D" unique_id=554374614]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 collision_layer = 256
 collision_mask = 65281
 script = ExtResource("1_qtj5o")
 death_sound = ExtResource("2_1olus")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1439547453]
 mesh = SubResource("SphereMesh_3o8tx")
 surface_material_override/0 = SubResource("StandardMaterial3D_vvu41")
 
-[node name="Hat" type="MeshInstance3D" parent="Body"]
+[node name="Hat" type="MeshInstance3D" parent="Body" unique_id=640202193]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 0, 0.505964, 0)
 mesh = SubResource("CylinderMesh_8jkwl")
 surface_material_override/0 = ExtResource("3_vvu41")
 
-[node name="Eye" type="MeshInstance3D" parent="Body"]
+[node name="Eye" type="MeshInstance3D" parent="Body" unique_id=382932531]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169789, 0.0850159, 0.465818)
 mesh = SubResource("SphereMesh_mro74")
 
-[node name="Eye2" type="MeshInstance3D" parent="Body"]
+[node name="Eye2" type="MeshInstance3D" parent="Body" unique_id=1571706304]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199696, 0.084904, 0.45354)
 mesh = SubResource("SphereMesh_mro74")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=334376983]
 physics_interpolation_mode = 1
 shape = SubResource("ConvexPolygonShape3D_chs0q")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=107951366]
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=794786097]
 replication_config = SubResource("SceneReplicationConfig_vvu41")
 
-[node name="Vision" type="Area3D" parent="."]
+[node name="Vision" type="Area3D" parent="." unique_id=1625126246]
 collision_layer = 0
 collision_mask = 65280
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Vision"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Vision" unique_id=1517531006]
 shape = SubResource("CylinderShape3D_n1ca0")
 
-[node name="MoneyEmitter" parent="." instance=ExtResource("4_n1ca0")]
+[node name="MoneyEmitter" parent="." unique_id=670456791 instance=ExtResource("4_n1ca0")]
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1395482333]
 stream = ExtResource("2_1olus")
 pitch_scale = 0.75
 max_distance = 20.0
 
-[node name="AttackTimeout" type="Timer" parent="."]
+[node name="AttackTimeout" type="Timer" parent="." unique_id=1463604975]
 one_shot = true
 
-[node name="FollowTimer" type="Timer" parent="."]
+[node name="FollowTimer" type="Timer" parent="." unique_id=1697656919]
 one_shot = true

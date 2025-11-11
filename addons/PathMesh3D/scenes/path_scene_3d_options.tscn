@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://chm4bonb3hjnw" path="res://addons/PathMesh3D/icons/PathScene3D.svg" id="1_gjelh"]
 [ext_resource type="Script" uid="uid://cwc5u78hgi17j" path="res://addons/PathMesh3D/scripts/path_scene_3d_options.gd" id="2_jba24"]
 
-[node name="MenuButton" type="MenuButton"]
+[node name="MenuButton" type="MenuButton" unique_id=936134079]
 offset_right = 155.0
 offset_bottom = 146.0
 text = "PathScene3D"
@@ -14,30 +14,31 @@ popup/item_0/text = "Bake Instances"
 popup/item_0/id = 1
 script = ExtResource("2_jba24")
 
-[node name="BakeDialog" type="ConfirmationDialog" parent="."]
+[node name="BakeDialog" type="ConfirmationDialog" parent="." unique_id=1778031944]
 auto_translate_mode = 1
 title = "Bake Instanced Scenes"
 position = Vector2i(0, 36)
 size = Vector2i(228, 115)
 ok_button_text = "Bake"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BakeDialog"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BakeDialog" unique_id=975592640]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 220.0
 offset_bottom = 66.0
 
-[node name="Label" type="Label" parent="BakeDialog/VBoxContainer"]
+[node name="Label" type="Label" parent="BakeDialog/VBoxContainer" unique_id=20713555]
 layout_mode = 2
 text = "Baked Instance Placement"
 
-[node name="OptionButton" type="OptionButton" parent="BakeDialog/VBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="BakeDialog/VBoxContainer" unique_id=762840865]
 layout_mode = 2
 selected = 0
 item_count = 2
 popup/item_0/text = "Sibling"
+popup/item_0/id = 0
 popup/item_1/text = "Child"
 popup/item_1/id = 1
 
-[node name="ErrDialog" type="AcceptDialog" parent="."]
+[node name="ErrDialog" type="AcceptDialog" parent="." unique_id=2026640412]
 auto_translate_mode = 1

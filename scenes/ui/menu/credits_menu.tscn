@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dk164x7splscc"]
 
-[node name="Credits" type="Panel"]
+[node name="Credits" type="Panel" unique_id=204229855]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -13,7 +13,7 @@ offset_bottom = 196.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=320759517]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 5.0
@@ -22,7 +22,7 @@ offset_bottom = 50.0
 theme_override_font_sizes/font_size = 32
 text = "Credits"
 
-[node name="BackButton" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="." unique_id=1049417102]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -37,7 +37,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Back"
 
-[node name="Accreditations" type="RichTextLabel" parent="."]
+[node name="Accreditations" type="RichTextLabel" parent="." unique_id=81116959]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5

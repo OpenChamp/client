@@ -4,10 +4,15 @@ extends Node
 signal player_connected(id)
 signal player_disconnected(id)
 
+signal connected_to_server
+signal connection_failed
+signal disconnected_from_server
+
 signal server_ready
 signal quit
 
 const default_port = 7000
+
 func _start():
 	if ConfigManager.client_mode == ConfigManager.CLIENTMODE.DEDICATED_SERVER:
 		_start_gameserver(ConfigManager.get_game_setting("network", "port"), ConfigManager.get_game_setting("game", "max_players"))
@@ -42,16 +47,14 @@ func _start_client(server_ip, port):
 	# Connect Signals
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	# Start Client
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_client(server_ip, port)
 	multiplayer.multiplayer_peer = peer
 	print("Client Created, Connecting to server at %s:%d..." % [server_ip, port])
-	multiplayer.connected_to_server.connect(_on_connected_to_server)
-	multiplayer.connection_failed.connect(_on_connection_failed)
-	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
-	print("Client Created, Connecting to server at %s:%d..." % [server_ip, port])
+# === Networking Signals === #
 
 func _on_connected_to_server():
 	print("Successfully connected to server")
@@ -107,6 +110,6 @@ func execute_move_command(pos):
 # 	Util.players[multiplayer.get_remote_sender_id()].token = client_token
 
 
-func send_move_command(pos):
-	pos.y = 0
-	rpc_id(1, "execute_move_command", pos)
+#func send_move_command(pos):
+	#pos.y = 0
+	#rpc_id(1, "execute_move_command", pos)

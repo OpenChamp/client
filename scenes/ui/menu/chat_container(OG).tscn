@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dw2odp1h7n1uw" path="res://scripts/ui/menu/chatresizer.gd" id="1_qttrw"]
 
-[node name="ChatContainer" type="Panel"]
+[node name="ChatContainer" type="Panel" unique_id=547686821]
 custom_minimum_size = Vector2(300, 230)
 anchors_preset = 2
 anchor_top = 1.0
@@ -13,7 +13,7 @@ offset_right = 305.0
 offset_bottom = -5.0
 grow_vertical = 0
 
-[node name="ChatTitle" type="Label" parent="."]
+[node name="ChatTitle" type="Label" parent="." unique_id=370569905]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 5.0
@@ -21,7 +21,7 @@ offset_right = 104.0
 offset_bottom = 31.0
 text = "Chat"
 
-[node name="ToggleButton" type="Button" parent="."]
+[node name="ToggleButton" type="Button" parent="." unique_id=965772473]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -34,7 +34,7 @@ grow_horizontal = 0
 tooltip_text = "Minimize Chat"
 text = "_"
 
-[node name="ChatDisplay" type="TextEdit" parent="."]
+[node name="ChatDisplay" type="TextEdit" parent="." unique_id=150575288]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,7 +52,7 @@ scroll_v_scroll_speed = 120.0
 highlight_all_occurrences = true
 highlight_current_line = true
 
-[node name="ChatInput" type="LineEdit" parent="."]
+[node name="ChatInput" type="LineEdit" parent="." unique_id=1565324355]
 layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -67,7 +67,7 @@ placeholder_text = "Type your message..."
 clear_button_enabled = true
 caret_blink = true
 
-[node name="SendButton" type="Button" parent="."]
+[node name="SendButton" type="Button" parent="." unique_id=2119733317]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -83,7 +83,7 @@ grow_vertical = 0
 tooltip_text = "Send Message"
 text = "→"
 
-[node name="ResizeHandle" type="Control" parent="."]
+[node name="ResizeHandle" type="Control" parent="." unique_id=1713613754]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -94,7 +94,7 @@ grow_horizontal = 0
 tooltip_text = "Resize Chat Window"
 script = ExtResource("1_qttrw")
 
-[node name="ResizeIcon" type="ColorRect" parent="ResizeHandle"]
+[node name="ResizeIcon" type="ColorRect" parent="ResizeHandle" unique_id=705442890]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

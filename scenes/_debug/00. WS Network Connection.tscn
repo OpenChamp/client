@@ -5,18 +5,18 @@
 [ext_resource type="PackedScene" uid="uid://bcrjmpxm6fxha" path="res://scenes/ui/menu/chat_widget.tscn" id="4_s58jc"]
 [ext_resource type="Script" uid="uid://pdk01y27r2rd" path="res://scripts/managers/chat_manager.gd" id="4_sdtp7"]
 
-[node name="0_NetworkConnection" type="Node"]
+[node name="0_NetworkConnection" type="Node" unique_id=838913300]
 script = ExtResource("1_48cpl")
 
-[node name="WSManager(global)" type="Node" parent="."]
+[node name="WSManager(global)" type="Node" parent="." unique_id=378303765]
 script = ExtResource("3_x76ek")
 
-[node name="ChatManager(global)" type="Node" parent="."]
+[node name="ChatManager(global)" type="Node" parent="." unique_id=1078096528]
 script = ExtResource("4_sdtp7")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=520018073]
 
-[node name="Control" type="Control" parent="UI"]
+[node name="Control" type="Control" parent="UI" unique_id=926914156]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="TitlePanel" type="PanelContainer" parent="UI/Control"]
+[node name="TitlePanel" type="PanelContainer" parent="UI/Control" unique_id=32721902]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -36,12 +36,12 @@ offset_right = 104.0
 offset_bottom = 50.0
 grow_horizontal = 2
 
-[node name="Label" type="Label" parent="UI/Control/TitlePanel"]
+[node name="Label" type="Label" parent="UI/Control/TitlePanel" unique_id=547794199]
 layout_mode = 2
 theme_override_font_sizes/font_size = 46
 text = "Websocket Network Test"
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/Control"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/Control" unique_id=1896271488]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,36 +55,41 @@ offset_bottom = 70.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/PanelContainer" unique_id=1650809733]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/PanelContainer/VBoxContainer" unique_id=1413181969]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1843343255]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Packets Sent:"
 
-[node name="PacketsSent" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="PacketsSent" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1021782170]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/Control/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/Control/PanelContainer/VBoxContainer" unique_id=578138993]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=556535703]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Packets Received:"
 
-[node name="PacketsReceived" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="PacketsReceived" type="Label" parent="UI/Control/PanelContainer/VBoxContainer/HBoxContainer2" unique_id=152395859]
 layout_mode = 2
 
-[node name="ChatWidget" parent="UI/Control" instance=ExtResource("4_s58jc")]
+[node name="ChatWidget" parent="UI/Control" unique_id=418175070 instance=ExtResource("4_s58jc")]
 layout_mode = 0
 anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 0.0
+offset_bottom = 385.0
+grow_vertical = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="UI/Control"]
+[node name="PanelContainer2" type="PanelContainer" parent="UI/Control" unique_id=358696205]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -93,10 +98,10 @@ anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/PanelContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/PanelContainer2" unique_id=342763884]
 layout_mode = 2
 
-[node name="Channel" type="OptionButton" parent="UI/Control/PanelContainer2/VBoxContainer"]
+[node name="Channel" type="OptionButton" parent="UI/Control/PanelContainer2/VBoxContainer" unique_id=2138168583]
 layout_mode = 2
 selected = 0
 item_count = 4
@@ -109,7 +114,7 @@ popup/item_2/id = 2
 popup/item_3/text = "Private Chat"
 popup/item_3/id = 3
 
-[node name="Type" type="OptionButton" parent="UI/Control/PanelContainer2/VBoxContainer"]
+[node name="Type" type="OptionButton" parent="UI/Control/PanelContainer2/VBoxContainer" unique_id=1800536248]
 layout_mode = 2
 selected = 1
 item_count = 2
@@ -118,30 +123,30 @@ popup/item_0/id = 1
 popup/item_1/text = "Send"
 popup/item_1/id = 0
 
-[node name="User" type="LineEdit" parent="UI/Control/PanelContainer2/VBoxContainer"]
+[node name="User" type="LineEdit" parent="UI/Control/PanelContainer2/VBoxContainer" unique_id=342531278]
 layout_mode = 2
 placeholder_text = "User"
 
-[node name="Message" type="LineEdit" parent="UI/Control/PanelContainer2/VBoxContainer"]
+[node name="Message" type="LineEdit" parent="UI/Control/PanelContainer2/VBoxContainer" unique_id=1569381136]
 layout_mode = 2
 text = "Default Message"
 placeholder_text = "Message"
 
-[node name="Button" type="Button" parent="UI/Control/PanelContainer2/VBoxContainer"]
+[node name="Button" type="Button" parent="UI/Control/PanelContainer2/VBoxContainer" unique_id=1379652350]
 layout_mode = 2
 text = "Add Timer"
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=1830947030]
 
-[node name="Sent" type="Line2D" parent="Node2D"]
+[node name="Sent" type="Line2D" parent="Node2D" unique_id=233432367]
 default_color = Color(1, 0.23488626, 0.17882144, 1)
 
-[node name="Received" type="Line2D" parent="Node2D"]
+[node name="Received" type="Line2D" parent="Node2D" unique_id=1774941673]
 default_color = Color(0.51367754, 0.99999994, 0.48175043, 1)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1068503927]
 
-[node name="Timer2" type="Timer" parent="."]
+[node name="Timer2" type="Timer" parent="." unique_id=960239737]
 
 [connection signal="button_up" from="UI/Control/PanelContainer2/VBoxContainer/Button" to="." method="_on_button_button_up"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

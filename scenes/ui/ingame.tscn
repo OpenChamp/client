@@ -2,10 +2,10 @@
 
 [ext_resource type="Theme" uid="uid://dt7ssx4cq6sa6" path="res://assets/styles/themes/ingame_ui.tres" id="1_211ni"]
 
-[node name="IngameUi" type="CanvasLayer"]
+[node name="IngameUi" type="CanvasLayer" unique_id=1824765163]
 layer = 100
 
-[node name="MainContainer" type="Control" parent="."]
+[node name="MainContainer" type="Control" parent="." unique_id=925289432]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_211ni")
 
-[node name="BottomLeftPanel" type="PanelContainer" parent="MainContainer"]
+[node name="BottomLeftPanel" type="PanelContainer" parent="MainContainer" unique_id=1098982625]
 custom_minimum_size = Vector2(300, 150)
 layout_mode = 1
 anchors_preset = 2
@@ -25,28 +25,28 @@ offset_right = 300.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/BottomLeftPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/BottomLeftPanel" unique_id=428312489]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="ChampionStatsContainer" type="VBoxContainer" parent="MainContainer/BottomLeftPanel/VBoxContainer"]
+[node name="ChampionStatsContainer" type="VBoxContainer" parent="MainContainer/BottomLeftPanel/VBoxContainer" unique_id=780225993]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer" unique_id=1272401025]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Name" type="Label" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer/HBoxContainer"]
+[node name="Name" type="Label" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer/HBoxContainer" unique_id=2072914249]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
 text = "Champ Name"
 
-[node name="PanelContainer" type="PanelContainer" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer/HBoxContainer" unique_id=1711584484]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer/HBoxContainer/PanelContainer"]
+[node name="Label" type="Label" parent="MainContainer/BottomLeftPanel/VBoxContainer/ChampionStatsContainer/HBoxContainer/PanelContainer" unique_id=704217052]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "1"
