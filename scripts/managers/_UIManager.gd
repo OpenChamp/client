@@ -2,14 +2,14 @@ class_name UserInterfaceManager
 extends Node
 
 # Signals for UI events
-signal menu_changed(menu_name: String)
-signal ui_transition_started(from_menu: String, to_menu: String)
-signal ui_transition_completed(menu_name: String)
+signal interface_changed(interface_name: String)
+signal ui_transition_started(from_interface: String, to_interface: String)
+signal ui_transition_completed(interface_name: String)
 
-# Menu scene paths - updated to match actual project structure
-const Menu = {
+# Interface scene paths - updated to match actual project structure
+const Interface = {
 	"Connect": "res://scenes/ui/menu/connecting_menu.tscn",
-	"MainMenu": "res://scenes/ui/menu/main_menu.tscn", 
+	"Maininterface": "res://scenes/ui/menu/main_menu.tscn", 
 	"Settings": "res://scenes/ui/menu/settings_menu.tscn",
 	"Registration": "res://scenes/ui/menu/registration_menu.tscn",
 	"Credits": "res://scenes/ui/menu/credits_menu.tscn",
@@ -19,9 +19,9 @@ const Menu = {
 
 # UI state management
 var ui_root: Node
-var current_menu: Node
-var current_menu_name: String = ""
-var menu_stack: Array[String] = []
+var current_interface: Node
+var current_interface_name: String = ""
+var interface_stack: Array[String] = []
 var is_transitioning: bool = false
 
 # Transition settings
@@ -29,63 +29,64 @@ var is_transitioning: bool = false
 @export var fade_color: Color = Color.BLACK
 
 # Preloaded scenes for better performance
-var preloaded_menus: Dictionary = {}
+var preloaded_interfaces: Dictionary = {}
 
 func _ready() -> void:
 	print("UI Manager ready")
-	# Preload commonly used menus
-	preload_menu("MainMenu")
-	preload_menu("Settings")
-	preload_menu("InGame")
+	# Preload commonly used interfaces
+	preload_interface("Maininterface")
+	preload_interface("Settings")
+	preload_interface("InGame")
 
-func preload_menu(menu_name: String) -> void:
-	"""Preload a menu scene for faster access"""
-	var menu_path = Menu.get(menu_name)
-	if menu_path and not preloaded_menus.has(menu_name):
-		if ResourceLoader.exists(menu_path):
-			preloaded_menus[menu_name] = load(menu_path)
+func preload_interface(interface_name: String) -> void:
+	"""Preload a interface scene for faster access"""
+	var interface_path = Interface.get(interface_name)
+	if interface_path and not preloaded_interfaces.has(interface_name):
+		if ResourceLoader.exists(interface_path):
+			preloaded_interfaces[interface_name] = load(interface_path)
 		else:
-			push_warning("Menu scene not found: " + menu_path)
+			push_warning("interface scene not found: " + interface_path)
 
-func change_menu(menu_name: String, add_to_stack: bool = false) -> bool:
-	"""Change to a different menu with optional transition"""
+func change_interface(interface_name: String, add_to_stack: bool = false) -> bool:
+	"""Change to a different interface with optional transition"""
+	print("Changing Interface To ", interface_name)
 	if is_transitioning:
-		push_warning("Cannot change menu while transitioning")
+		push_warning("Cannot change interface while transitioning")
 		return false
-		
-	var menu_path = Menu.get(menu_name)
-	if not menu_path:
-		push_error("Unknown menu: " + menu_name)
-		return false
-	
-	if not ResourceLoader.exists(menu_path):
-		push_error("Menu scene not found: " + menu_path)
+
+	var interface_path = Interface.get(interface_name)
+	if not interface_path:
+		push_error("Unknown interface: " + interface_name)
 		return false
 	
-	# Add current menu to stack if requested
-	if add_to_stack and current_menu_name != "":
-		menu_stack.push_back(current_menu_name)
+	if not ResourceLoader.exists(interface_path):
+		push_error("interface scene not found: " + interface_path)
+		return false
+	
+	# Add current interface to stack if requested
+	if add_to_stack and current_interface_name != "":
+		interface_stack.push_back(current_interface_name)
 	
 	# Start transition
 	is_transitioning = true
-	ui_transition_started.emit(current_menu_name, menu_name)
+	ui_transition_started.emit(current_interface_name, interface_name)
 	
-	# Load new menu scene
-	var new_menu_scene: PackedScene
-	if preloaded_menus.has(menu_name):
-		new_menu_scene = preloaded_menus[menu_name]
+	# Load new interface scene
+	var new_interface_scene: PackedScene
+	if preloaded_interfaces.has(interface_name):
+		new_interface_scene = preloaded_interfaces[interface_name]
 	else:
-		new_menu_scene = load(menu_path)
+		new_interface_scene = load(interface_path)
 	
-	var new_menu = new_menu_scene.instantiate()
+	var new_interface = new_interface_scene.instantiate()
 	
 	# Perform transition
-	await _perform_menu_transition(new_menu, menu_name)
+	await _perform_interface_transition(new_interface, interface_name)
 	
 	return true
 
-func _perform_menu_transition(new_menu: Node, menu_name: String) -> void:
-	"""Handle the actual menu transition with fade effect"""
+func _perform_interface_transition(new_interface: Node, interface_name: String) -> void:
+	"""Handle the actual interface transition with fade effect"""
 	if not ui_root:
 		push_error("UI root not set")
 		return
@@ -103,14 +104,14 @@ func _perform_menu_transition(new_menu: Node, menu_name: String) -> void:
 	tween.tween_property(fade_overlay, "color:a", 1.0, transition_duration * 0.5)
 	await tween.finished
 	
-	# Remove old menu
-	if current_menu and is_instance_valid(current_menu):
-		current_menu.queue_free()
+	# Remove old interface
+	if current_interface and is_instance_valid(current_interface):
+		current_interface.queue_free()
 	
-	# Add new menu
-	ui_root.add_child(new_menu)
-	current_menu = new_menu
-	current_menu_name = menu_name
+	# Add new interface
+	ui_root.add_child(new_interface)
+	current_interface = new_interface
+	current_interface_name = interface_name
 	
 	# Fade in
 	tween = create_tween()
@@ -122,52 +123,52 @@ func _perform_menu_transition(new_menu: Node, menu_name: String) -> void:
 	is_transitioning = false
 	
 	# Emit signals
-	menu_changed.emit(menu_name)
-	ui_transition_completed.emit(menu_name)
+	interface_changed.emit(interface_name)
+	ui_transition_completed.emit(interface_name)
 
 func go_back() -> bool:
-	"""Return to the previous menu in the stack"""
-	if menu_stack.is_empty():
-		push_warning("No previous menu in stack")
+	"""Return to the previous interface in the stack"""
+	if interface_stack.is_empty():
+		push_warning("No previous interface in stack")
 		return false
 	
-	var previous_menu = menu_stack.pop_back()
-	return await change_menu(previous_menu)
+	var previous_interface = interface_stack.pop_back()
+	return await change_interface(previous_interface)
 
-func clear_menu_stack() -> void:
-	"""Clear the menu navigation stack"""
-	menu_stack.clear()
+func clear_interface_stack() -> void:
+	"""Clear the interface navigation stack"""
+	interface_stack.clear()
 
-func show_overlay_menu(menu_name: String) -> Node:
-	"""Show a menu as an overlay without replacing the current menu"""
-	var menu_path = Menu.get(menu_name)
-	if not menu_path:
-		push_error("Unknown overlay menu: " + menu_name)
+func show_overlay_interface(interface_name: String) -> Node:
+	"""Show a interface as an overlay without replacing the current interface"""
+	var interface_path = Interface.get(interface_name)
+	if not interface_path:
+		push_error("Unknown overlay interface: " + interface_name)
 		return null
 	
-	if not ResourceLoader.exists(menu_path):
-		push_error("Overlay menu scene not found: " + menu_path)
+	if not ResourceLoader.exists(interface_path):
+		push_error("Overlay interface scene not found: " + interface_path)
 		return null
 	
 	var overlay_scene: PackedScene
-	if preloaded_menus.has(menu_name):
-		overlay_scene = preloaded_menus[menu_name]
+	if preloaded_interfaces.has(interface_name):
+		overlay_scene = preloaded_interfaces[interface_name]
 	else:
-		overlay_scene = load(menu_path)
+		overlay_scene = load(interface_path)
 	
-	var overlay_menu = overlay_scene.instantiate()
+	var overlay_interface = overlay_scene.instantiate()
 	
 	if ui_root:
-		ui_root.add_child(overlay_menu)
+		ui_root.add_child(overlay_interface)
 		# Ensure overlay appears on top
-		ui_root.move_child(overlay_menu, -1)
+		ui_root.move_child(overlay_interface, -1)
 	
-	return overlay_menu
+	return overlay_interface
 
-func hide_overlay_menu(overlay_menu: Node) -> void:
-	"""Remove an overlay menu"""
-	if overlay_menu and is_instance_valid(overlay_menu):
-		overlay_menu.queue_free()
+func hide_overlay_interface(overlay_interface: Node) -> void:
+	"""Remove an overlay interface"""
+	if overlay_interface and is_instance_valid(overlay_interface):
+		overlay_interface.queue_free()
 
 func set_ui_root(root_node: Node) -> void:
 	"""Set the root node for UI elements"""
@@ -178,33 +179,33 @@ func get_ui_root() -> Node:
 	"""Get the current UI root node"""
 	return ui_root
 
-func get_current_menu() -> Node:
-	"""Get the currently active menu"""
-	return current_menu
+func get_current_interface() -> Node:
+	"""Get the currently active interface"""
+	return current_interface
 
-func get_current_menu_name() -> String:
-	"""Get the name of the currently active menu"""
-	return current_menu_name
+func get_current_interface_name() -> String:
+	"""Get the name of the currently active interface"""
+	return current_interface_name
 
-func is_menu_loaded(menu_name: String) -> bool:
-	"""Check if a menu is currently loaded"""
-	return current_menu_name == menu_name
+func is_interface_loaded(interface_name: String) -> bool:
+	"""Check if a interface is currently loaded"""
+	return current_interface_name == interface_name
 
-func preload_all_menus() -> void:
-	"""Preload all menu scenes for better performance"""
-	for menu_name in Menu.keys():
-		preload_menu(menu_name)
+func preload_all_interfaces() -> void:
+	"""Preload all interface scenes for better performance"""
+	for interface_name in Interface.keys():
+		preload_interface(interface_name)
 
-func unload_preloaded_menus() -> void:
-	"""Clear all preloaded menus to free memory"""
-	preloaded_menus.clear()
+func unload_preloaded_interfaces() -> void:
+	"""Clear all preloaded interfaces to free memory"""
+	preloaded_interfaces.clear()
 
-func get_menu_stack_size() -> int:
-	"""Get the current size of the menu stack"""
-	return menu_stack.size()
+func get_interface_stack_size() -> int:
+	"""Get the current size of the interface stack"""
+	return interface_stack.size()
 
 func _exit_tree() -> void:
 	"""Clean up when the manager is removed"""
-	unload_preloaded_menus()
-	if current_menu and is_instance_valid(current_menu):
-		current_menu.queue_free()
+	unload_preloaded_interfaces()
+	if current_interface and is_instance_valid(current_interface):
+		current_interface.queue_free()

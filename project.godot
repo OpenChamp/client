@@ -34,6 +34,13 @@ ConfigManager="*res://scripts/managers/_ConfigManager.gd"
 CombatManager="*res://scripts/managers/_CombatManager.gd"
 UIManager="*res://scripts/managers/_UIManager.gd"
 WSManager="*res://scripts/managers/_WS_Manager.gd"
+SpawnManager="*res://scripts/managers/_SpawnManager.gd"
+NetworkManager="*res://scripts/managers/_NetworkManager.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+
+[debug]
+
+gdscript/warnings/shadowed_variable=0
 
 [display]
 
@@ -46,13 +53,9 @@ window/stretch/aspect="expand"
 
 project/assembly_name="OpenChamp"
 
-[editor]
-
-run/main_run_args="-ip 127.0.0.1 --port 7000"
-
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/PathMesh3D/plugin.cfg", "res://addons/asset_placer/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/quill-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/PathMesh3D/plugin.cfg", "res://addons/asset_placer/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/quill-ide/plugin.cfg")
 
 [global_group]
 
@@ -134,6 +137,26 @@ utility_3={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
 ]
 }
+camera_pan_up={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194320,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+camera_pan_down={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194322,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+camera_pan_left={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194319,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+camera_pan_right={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194321,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -157,5 +180,4 @@ utility_3={
 
 [rendering]
 
-renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

@@ -146,7 +146,7 @@ func _customize_tabbar(tab_bar: TabBar) -> void:
 	
 	sb_focus.corner_radius_top_left = 14
 	sb_focus.corner_radius_top_right = 14
-	sb_focus.expand_margin_bottom = 100
+	sb_focus.expand_margin_bottom = 1
 	sb_focus.content_margin_top = 3
 
 	tab_bar.add_theme_stylebox_override("tab_unselected", sb_normal)
