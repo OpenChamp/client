@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://c1kj04tpxbmmf"]
+[gd_scene load_steps=31 format=4 uid="uid://c1kj04tpxbmmf"]
 
 [ext_resource type="Script" uid="uid://cky7uy2lqmp8d" path="res://scripts/environment/tower.gd" id="1_xvvt6"]
 [ext_resource type="Material" uid="uid://c30nufpn80reo" path="res://assets/materials/environment/tower/tower.tres" id="2_s06dd"]
@@ -14,6 +14,18 @@ radius = 1.0
 
 [sub_resource type="Animation" id="Animation_tqtlk"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Main Crystal:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_r2hyh"]
 resource_name = "attack"
@@ -21,9 +33,33 @@ step = 0.033
 
 [sub_resource type="Animation" id="Animation_dmdi6"]
 resource_name = "idle"
-length = 4.0
+length = 3.0
 loop_mode = 1
 step = 0.033
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Main Crystal:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.2831855, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Main Crystal:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.5, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pphlw"]
 _data = {
@@ -205,6 +241,41 @@ shadow_mesh = SubResource("ArrayMesh_54smf")
 render_priority = 0
 shader = ExtResource("5_s06dd")
 
+[sub_resource type="Curve" id="Curve_s06dd"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.87024903, 0.8961466), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_p232b"]
+curve = SubResource("Curve_s06dd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fuv3k"]
+resource_local_to_scene = true
+lifetime_randomness = 0.1
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 1.9999977
+radial_accel_min = -2.2351742e-06
+radial_accel_max = 2.9999976
+scale_min = 0.01
+scale_max = 0.099999994
+color = Color(0.5858467, 1.8049031e-06, 4.3317675e-07, 1)
+alpha_curve = SubResource("CurveTexture_p232b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5261"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_vkc1v"]
+material = SubResource("StandardMaterial3D_s5261")
+
 [node name="Tower" type="StaticBody3D" unique_id=609144380]
 collision_layer = 3
 script = ExtResource("1_xvvt6")
@@ -243,6 +314,15 @@ mesh = SubResource("ArrayMesh_8mkts")
 surface_material_override/0 = ExtResource("4_fuv3k")
 
 [node name="Main Crystal" type="MeshInstance3D" parent="." unique_id=688280161]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(0.119368404, 0, -0.99285, 0, 1, 0, 0.99285, 0, 0.119368404, 0, 0.2133637, 0)
+instance_shader_parameters/rim_enabled = true
+instance_shader_parameters/rim_exponent = 1.0
+instance_shader_parameters/rim_strength = 1.0
 mesh = SubResource("ArrayMesh_p232b")
 surface_material_override/0 = SubResource("ShaderMaterial_fuv3k")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Main Crystal" unique_id=318670721]
+transform = Transform3D(-0.9816273, 0, -0.1908089, 0, 1, 0, 0.1908089, 0, -0.9816273, 0, 4.4943433, 0)
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_fuv3k")
+draw_pass_1 = SubResource("QuadMesh_vkc1v")

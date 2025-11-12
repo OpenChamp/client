@@ -60,6 +60,8 @@ func _ready():
 	is_ready = true
 	print("CombatManager: Initialized successfully")
 
+func reset():
+	pass; # May be needed later
 ## ============================================================================
 ## PRIMARY API - DAMAGE APPLICATION
 ## ============================================================================

@@ -1,27 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjlryqf2s7uaw"]
+[gd_scene load_steps=7 format=3 uid="uid://bjlryqf2s7uaw"]
 
 [ext_resource type="Script" uid="uid://vtnwe3wqf1tn" path="res://scripts/ingame.gd" id="1_s2j7k"]
-[ext_resource type="PackedScene" uid="uid://di7n0t2bypmdy" path="res://scenes/ui/loading.tscn" id="2_s2j7k"]
-[ext_resource type="Script" uid="uid://d2g2rg81od5l5" path="res://scripts/utility/game_timer.gd" id="4_y1sin"]
+[ext_resource type="Script" uid="uid://cjbi6fk47g5ak" path="res://scripts/utility/player_spawner.gd" id="2_3ywp8"]
+[ext_resource type="Script" uid="uid://clhq1p5ob8yua" path="res://scripts/utility/map_spawner.gd" id="2_sithu"]
+[ext_resource type="Script" uid="uid://c8h3vmuqr2pr8" path="res://scripts/utility/minion_spawner.gd" id="4_3ywp8"]
 [ext_resource type="Script" uid="uid://b51yh5k56lj12" path="res://scripts/utility/ping_timer.gd" id="6_3ywp8"]
+[ext_resource type="PackedScene" uid="uid://bp0xm6giuadt" path="res://scenes/environment/skies/defafult_environment.tscn" id="6_s2j7k"]
 
 [node name="Ingame" type="Node" unique_id=1688817966 groups=["game_root"]]
 script = ExtResource("1_s2j7k")
 
 [node name="Spawners" type="Node" parent="." unique_id=1642873171]
 
-[node name="Player" type="MultiplayerSpawner" parent="Spawners" unique_id=840524176]
-spawn_path = NodePath("../..")
+[node name="Player" type="MultiplayerSpawner" parent="Spawners" unique_id=840524176 groups=["player_spawner"]]
+spawn_path = NodePath("../../Entities")
+script = ExtResource("2_3ywp8")
 
-[node name="Map" type="MultiplayerSpawner" parent="Spawners" unique_id=1658761083]
+[node name="Map" type="MultiplayerSpawner" parent="Spawners" unique_id=1658761083 groups=["map_spawner"]]
 _spawnable_scenes = PackedStringArray("uid://q6einnml1qx8")
 spawn_path = NodePath("../../World")
 spawn_limit = 1
+script = ExtResource("2_sithu")
 
-[node name="Minion" type="MultiplayerSpawner" parent="Spawners" unique_id=1037057260]
+[node name="Minion" type="MultiplayerSpawner" parent="Spawners" unique_id=1037057260 groups=["minion_spawner"]]
 spawn_path = NodePath("../..")
+script = ExtResource("4_3ywp8")
 
-[node name="Jungle" type="MultiplayerSpawner" parent="Spawners" unique_id=81788086]
+[node name="Jungle" type="MultiplayerSpawner" parent="Spawners" unique_id=81788086 groups=["jungle_spawner"]]
+spawn_path = NodePath("../../Entities")
 
 [node name="Timers" type="Node" parent="." unique_id=362314982]
 
@@ -31,13 +37,11 @@ script = ExtResource("6_3ywp8")
 [node name="Second" type="Timer" parent="Timers" unique_id=1303554306]
 
 [node name="MinionWave" type="Timer" parent="Timers" unique_id=1298541402]
-wait_time = 20.0
-one_shot = true
-
-[node name="GameTime" type="Node" parent="Timers" unique_id=1872876254]
-script = ExtResource("4_y1sin")
+wait_time = 3.0
 
 [node name="UI" type="Node" parent="." unique_id=724723262]
+
+[node name="UIRoot" type="CanvasLayer" parent="UI" unique_id=996385770]
 
 [node name="DebugUI" type="CanvasLayer" parent="UI" unique_id=1965256411]
 
@@ -49,12 +53,10 @@ script = ExtResource("4_y1sin")
 
 [node name="Entities" type="Node3D" parent="." unique_id=1659416924]
 
-[node name="Loading" parent="." unique_id=336148137 instance=ExtResource("2_s2j7k")]
-script = null
-
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1364364256]
 spawn_path = NodePath("..")
 
+[node name="WorldEnvironment" parent="." unique_id=312480994 instance=ExtResource("6_s2j7k")]
+
 [connection signal="timeout" from="Timers/Second" to="MultiplayerSpawner" method="_every_second"]
-[connection signal="timeout" from="Timers/MinionWave" to="Spawners/Minion" method="spawn_minion_wave"]
-[connection signal="timeout" from="Timers/MinionWave" to="MultiplayerSpawner" method="_on_minion_wave_timer_timeout"]
+[connection signal="timeout" from="Timers/MinionWave" to="Spawners/Minion" method="_on_minion_wave_timer_timeout"]

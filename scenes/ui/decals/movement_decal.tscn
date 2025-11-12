@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsdehbrtpaip2"]
+
+[ext_resource type="Texture2D" uid="uid://p00q1t0d0js2" path="res://assets/textures/openchamp.png" id="1_8k6ja"]
+
+[sub_resource type="Curve" id="Curve_6exsn"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1askp"]
+curve = SubResource("Curve_6exsn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hs5ht"]
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.1, 0.5)
+direction = Vector3(0, 4, 0)
+initial_velocity_min = 0.01
+initial_velocity_max = 0.59999996
+angular_velocity_min = -1.0000161
+angular_velocity_max = 0.9999839
+angular_velocity_curve = SubResource("CurveTexture_1askp")
+gravity = Vector3(0, 0, 0)
+turbulence_influence_min = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_diewf"]
+transparency = 1
+shading_mode = 0
+diffuse_mode = 2
+specular_mode = 1
+albedo_color = Color(0.432765, 0.847778, 0.32086813, 0.439)
+
+[sub_resource type="SphereMesh" id="SphereMesh_cow1h"]
+material = SubResource("StandardMaterial3D_diewf")
+radius = 0.04
+height = 0.08
+radial_segments = 4
+rings = 4
+
+[node name="Decal" type="Decal" unique_id=1539904060]
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("1_8k6ja")
+cull_mask = 1
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1968475820]
+emitting = false
+amount = 15
+explosiveness = 0.1
+process_material = SubResource("ParticleProcessMaterial_hs5ht")
+draw_pass_1 = SubResource("SphereMesh_cow1h")

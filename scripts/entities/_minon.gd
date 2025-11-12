@@ -17,7 +17,7 @@ func _ready():
 		global_position = spawn_point
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 	setup_stats()
-	if ConfigManager.is_server():
+	if multiplayer.is_server():
 		call_deferred("_setup_navigation")
 		_setup_vision_range()
 		$AttackTimeout.timeout.connect(func(): can_attack_now = true)
@@ -26,7 +26,7 @@ func _ready():
 			_set_target(enemy_node_pos)
 
 func _physics_process(delta: float) -> void:
-	if not Util.dedicated_server: return
+	if not multiplayer.is_server(): return
 	if state == STATE.DEAD: return
 	if not nav_agent: return
 
@@ -129,11 +129,13 @@ func _handle_attacking_state(_delta: float) -> void:
 ## == Setup Functions == ##
 func setup_stats():
 	super()
+
 func _setup_navigation():
 	await get_tree().process_frame
-	
 	if target_node:
 		_set_target(target_node.position)
+	elif enemy_node_pos:
+		_set_target(enemy_node_pos)
 
 func _setup_vision_range():
 	vision_area.get_node("CollisionShape3D").shape.radius = vision_range
@@ -142,7 +144,7 @@ func _setup_vision_range():
 @rpc("authority", "call_local")
 func die():
 	print(str(multiplayer.get_unique_id(), ": Death Called"))
-	if Util.dedicated_server:
+	if multiplayer.is_server():
 		_distribute_experience()
 		died.emit()
 		$MoneyEmitter.finished.connect(cleanup)

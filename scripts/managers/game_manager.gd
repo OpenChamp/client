@@ -55,13 +55,14 @@ func _ready():
 	slow_tick_timer.wait_time = 1
 	slow_tick_timer.one_shot = false
 	slow_tick_timer.timeout.connect(slow_tick_timeout)
-	
 	print("GameManager: Initialized")
 
 func initialize():
 	set_state(GAME_STATE.LOADING)
+	Engine.max_fps = 30 # TICK RATE
 
 func game_start():
+	gamestate = GAME_STATE.ONGOING
 	game_root = get_tree().get_first_node_in_group("game_root")
 	slow_tick_timer.start()
 	start.emit()
@@ -109,6 +110,7 @@ func _on_player_connected(id):
 	lobby_check.call_deferred()
 
 func lobby_check():
+	if gamestate != GAME_STATE.LOADING: return
 	var total_players = multiplayer.get_peers().size()
 	if total_players == ConfigManager.game_config.max_players:
 		game_start()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://ck2ucwywmbfg0"]
+[gd_scene load_steps=34 format=4 uid="uid://ck2ucwywmbfg0"]
 
 [ext_resource type="Script" uid="uid://dkgvqlylqnosc" path="res://scripts/environment/core.gd" id="2_0hmbs"]
 [ext_resource type="Shader" uid="uid://bdc4tqvbt6jqn" path="res://assets/shaders/crystal.gdshader" id="2_gchl0"]
@@ -306,6 +306,28 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1gqw4")
 
+[sub_resource type="Animation" id="Animation_cjepa"]
+resource_name = "idle"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Core:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28144, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vhigi"]
+_data = {
+&"idle": SubResource("Animation_cjepa")
+}
+
 [node name="core" type="StaticBody3D" unique_id=1154357177]
 script = ExtResource("2_0hmbs")
 team = 1
@@ -313,6 +335,7 @@ blue_color = Color(0, 0, 1, 1)
 red_color = Color(1, 0, 0, 1)
 
 [node name="Core" type="MeshInstance3D" parent="." unique_id=1361379402]
+transform = Transform3D(0.8476006, 0, 0.53063476, 0, 1, 0, -0.53063476, 0, 0.8476006, 0, 0, 0)
 mesh = SubResource("ArrayMesh_gk7nm")
 surface_material_override/0 = SubResource("ShaderMaterial_cgfw8")
 
@@ -340,3 +363,8 @@ mesh = SubResource("ArrayMesh_2bm4q")
 [node name="GondelRings_Core" type="MeshInstance3D" parent="." unique_id=1570428552]
 material_override = ExtResource("7_sukxs")
 mesh = SubResource("ArrayMesh_7d10e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=758011407]
+libraries = {
+&"": SubResource("AnimationLibrary_vhigi")
+}

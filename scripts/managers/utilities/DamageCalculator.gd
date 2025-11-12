@@ -17,6 +17,7 @@ func calculate_damage(base_damage: int, damage_type: OC.DAMAGE_TYPE,
 					  extra_data: Dictionary = {}) -> int:
 	
 	if base_damage <= 0:
+		push_error("Attempted to do 0 damage or less")
 		return 0
 	
 	var final_damage = float(base_damage)

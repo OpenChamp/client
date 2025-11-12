@@ -11,11 +11,10 @@ _data = {
 }
 point_count = 3
 
-[sub_resource type="PathExtrudeProfileRect" id="PathExtrudeProfileRect_5wt2i"]
-rect = Rect2(-1, 0, 2, 0.2)
+[sub_resource type="PathExtrudeProfileRect" id="PathExtrudeProfileRect_lin71"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lin71"]
-albedo_color = Color(0.30748522, 0.73403823, 1, 1)
+albedo_color = Color(0.5085073, 1, 1, 1)
 
 [node name="WaterFall" type="Node3D" unique_id=1701407686]
 
@@ -62,9 +61,5 @@ debug_custom_color = Color(0, 0, 0.9390932, 1)
 
 [node name="PathExtrude3D" type="PathExtrude3D" parent="Water" unique_id=1381502823 node_paths=PackedStringArray("path_3d")]
 path_3d = NodePath("../WaterPath")
-mesh_transform = 1
-profile = SubResource("PathExtrudeProfileRect_5wt2i")
+profile = SubResource("PathExtrudeProfileRect_lin71")
 material = SubResource("StandardMaterial3D_lin71")
-
-[node name="PathModifier3D" type="PathModifier3D" parent="Water/PathExtrude3D" unique_id=404274647]
-curve_offset_end = 5.0705867

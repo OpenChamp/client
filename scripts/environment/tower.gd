@@ -7,6 +7,7 @@ const TOTAL_HP = 1000
 @export var blue_color: Color
 @export var red_color: Color
 
+@onready var process_material: ParticleProcessMaterial = $"Main Crystal/GPUParticles3D".get_process_material()
 
 func _ready() -> void:
 	var color: Vector4 = (func() -> Vector4:
@@ -17,6 +18,10 @@ func _ready() -> void:
 		).call()
 	$"Main Crystal".set_instance_shader_parameter("team_color", color)
 	$Banners.set_instance_shader_parameter("team_color", color)
+	if team == 1:
+		process_material.color = blue_color
+	else:
+		process_material.color = red_color
 	# Listeners
 	# $Vision.body_entered.connect(_on_body_entered_range)
 
