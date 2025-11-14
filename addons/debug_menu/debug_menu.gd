@@ -1,5 +1,5 @@
 extends CanvasLayer
-
+@export_category("Engine Statistics")
 @export var fps: Label
 @export var frame_time: Label
 @export var frame_number: Label
@@ -19,8 +19,34 @@ extends CanvasLayer
 @export var total_graph: Panel
 @export var cpu_graph: Panel
 @export var gpu_graph: Panel
+@export_category("Network Statistics")
+@export var ping_average: Label
+@export var ping_min: Label
+@export var ping_max: Label
+@export var ping_last: Label
+@export var ping_graph: Panel
+@export_category("System Statistics")
 @export var information: Label
 @export var settings: Label
+
+const peerStatisticDictionary = { # Taken from ENetPacketPeer.PeerStatistic
+	0: "Packet Loss (Mean)",
+	1: "Packet Loss Variance",
+	2: "Packet Loss Epoch",
+	3: "RTT",
+	4: "RTT Variance",
+	5: "RTT (Last)",
+	6: "RTT (Last Variance)",
+	7: "Packet Throttle",
+	8: "Packet Throttle Limit",
+	9: "Packet Throttle Counter",
+	10: "Packet Throttle Epoch",
+	11: "Packet Throttle Acceleration",
+	12: "Packet Throttle Decel",
+	13: "Packet Throttle Interval"
+}
+
+
 
 ## The number of frames to keep in history for graph drawing and best/worst calculations.
 ## Currently, this also affects how FPS is measured.
@@ -35,7 +61,7 @@ const GRAPH_MAX_FRAMETIME = 1.0 / GRAPH_MAX_FPS
 ## Debug menu display style.
 enum Style {
 	HIDDEN,  ## Debug menu is hidden.
-	VISIBLE_COMPACT,  ## Debug menu is visible, with only the FPS, FPS cap (if any) and time taken to render the last frame.
+	VISIBLE_COMPACT,  ## Debug menu is visible, with only the FPS, FPS cap (if any), ping, rtt, and time taken to render the last frame.
 	VISIBLE_DETAILED,  ## Debug menu is visible with full information, including graphs.
 	MAX,  ## Represents the size of the Style enum.
 }
@@ -78,6 +104,8 @@ var frametime_gpu_avg := GRAPH_MIN_FRAMETIME
 var frames_per_second := float(GRAPH_MIN_FPS)
 var frame_time_gradient := Gradient.new()
 
+var ping_history: Array[float] = []
+var ping_time_gradient := Gradient.new()
 func _init() -> void:
 	# This must be done here instead of `_ready()` to avoid having `visibility_changed` be emitted immediately.
 	visible = false
@@ -96,11 +124,13 @@ func _ready() -> void:
 	total_graph.draw.connect(_total_graph_draw)
 	cpu_graph.draw.connect(_cpu_graph_draw)
 	gpu_graph.draw.connect(_gpu_graph_draw)
+	ping_graph.draw.connect(_ping_graph_draw)
 
 	fps_history.resize(HISTORY_NUM_FRAMES)
 	frame_history_total.resize(HISTORY_NUM_FRAMES)
 	frame_history_cpu.resize(HISTORY_NUM_FRAMES)
 	frame_history_gpu.resize(HISTORY_NUM_FRAMES)
+	ping_history.resize(HISTORY_NUM_FRAMES)
 
 	# NOTE: Both FPS and frametimes are colored following FPS logic
 	# (red = 10 FPS, yellow = 60 FPS, green = 110 FPS, cyan = 160 FPS).
@@ -110,6 +140,14 @@ func _ready() -> void:
 	frame_time_gradient.set_color(1, Color8(56, 189, 248))  # light-blue-400
 	frame_time_gradient.add_point(0.3333, Color8(250, 204, 21))  # yellow-400
 	frame_time_gradient.add_point(0.6667, Color8(128, 226, 95))  # 50-50 mix of lime-400 and green-400
+	
+	# Green (<30ms), Yellow (<70ms), Red (>70ms)
+	ping_time_gradient.set_color(0, Color8(0, 166, 62))   # green
+	ping_time_gradient.add_point(0.0, Color8(0, 166, 62)) # green at 0ms
+	ping_time_gradient.add_point(0.2, Color8(0, 166, 62)) # green at 30ms
+	ping_time_gradient.add_point(0.3333, Color8(250, 204, 21)) # yellow at 50ms
+	ping_time_gradient.add_point(0.5833, Color8(250, 204, 21)) # yellow at 70ms
+	ping_time_gradient.add_point(1.0, Color8(239, 68, 68))   # red at 150ms+
 
 	get_viewport().size_changed.connect(update_settings_label)
 
@@ -308,7 +346,6 @@ func _fps_graph_draw() -> void:
 	# viewport scale to keep the line easily readable on hiDPI displays.
 	fps_graph.draw_polyline(fps_polyline, frame_time_gradient.sample(remap(frames_per_second, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0)), 1.0)
 
-
 func _total_graph_draw() -> void:
 	var total_polyline := PackedVector2Array()
 	total_polyline.resize(HISTORY_NUM_FRAMES)
@@ -320,7 +357,6 @@ func _total_graph_draw() -> void:
 	# Don't use antialiasing to speed up line drawing, but use a width that scales with
 	# viewport scale to keep the line easily readable on hiDPI displays.
 	total_graph.draw_polyline(total_polyline, frame_time_gradient.sample(remap(1000.0 / frametime_avg, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0)), 1.0)
-
 
 func _cpu_graph_draw() -> void:
 	var cpu_polyline := PackedVector2Array()
@@ -334,7 +370,6 @@ func _cpu_graph_draw() -> void:
 	# viewport scale to keep the line easily readable on hiDPI displays.
 	cpu_graph.draw_polyline(cpu_polyline, frame_time_gradient.sample(remap(1000.0 / frametime_cpu_avg, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0)), 1.0)
 
-
 func _gpu_graph_draw() -> void:
 	var gpu_polyline := PackedVector2Array()
 	gpu_polyline.resize(HISTORY_NUM_FRAMES)
@@ -347,6 +382,22 @@ func _gpu_graph_draw() -> void:
 	# viewport scale to keep the line easily readable on hiDPI displays.
 	gpu_graph.draw_polyline(gpu_polyline, frame_time_gradient.sample(remap(1000.0 / frametime_gpu_avg, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0)), 1.0)
 
+func _ping_graph_draw() -> void:
+	var ping_polyline := PackedVector2Array()
+	var ping_min_value := float(ping_min.text)
+	var ping_max_value := float(ping_max.text)
+	ping_polyline.resize(HISTORY_NUM_FRAMES)
+	for ping_index in ping_history.size():
+		var ping_val = ping_history[ping_index]
+		var y_val = GRAPH_SIZE.y if ping_val == -1.0 else remap(clampf(ping_val, ping_min_value, ping_max_value), ping_min_value, ping_max_value, GRAPH_SIZE.y, 0.0)
+		ping_polyline[ping_index] = Vector2(
+			remap(ping_index, 0, ping_history.size(), 0, GRAPH_SIZE.x),
+			y_val
+		)
+	# Remap ping to gradient: 0ms-30ms=green, 30ms-70ms=yellow, >70ms=red
+	var ping_value = float(ping_average.text)
+	var ping_color_pos = 1.0 if (ping_value == -1.0 or ping_value == 0.0) else clampf((ping_value - 30.0) / 120.0, 0.0, 1.0) # 30ms=0, 150ms=1
+	ping_graph.draw_polyline(ping_polyline, ping_time_gradient.sample(ping_color_pos), 1.0)
 
 func _process(_delta: float) -> void:
 	if visible:
@@ -354,6 +405,7 @@ func _process(_delta: float) -> void:
 		total_graph.queue_redraw()
 		cpu_graph.queue_redraw()
 		gpu_graph.queue_redraw()
+		ping_graph.queue_redraw()
 
 		# Difference between the last two rendered frames in milliseconds.
 		var frametime := (Time.get_ticks_usec() - last_tick) * 0.001
@@ -431,6 +483,28 @@ func _process(_delta: float) -> void:
 
 		frame_time.text = str(frametime).pad_decimals(2) + " mspf"
 		frame_time.modulate = frame_time_color
+
+		if $"/root".has_node("NetworkManager"):
+			if NetworkManager.peer != null:
+				var rtt := NetworkManager.peer.get_statistic(ENetPacketPeer.PeerStatistic.PEER_ROUND_TRIP_TIME)
+				var rtt_variance := NetworkManager.peer.get_statistic(ENetPacketPeer.PeerStatistic.PEER_ROUND_TRIP_TIME_VARIANCE)
+				ping_average.text = str(rtt).pad_decimals(2)
+				ping_min.text = str(rtt - rtt_variance).pad_decimals(2)
+				ping_max.text = str(rtt + rtt_variance).pad_decimals(2)
+				var rtt_last := NetworkManager.peer.get_statistic(ENetPacketPeer.PeerStatistic.PEER_LAST_ROUND_TRIP_TIME)
+				ping_last.text = str(rtt_last).pad_decimals(2)
+				ping_history.push_back(float(rtt))
+				if ping_history.size() > HISTORY_NUM_FRAMES:
+					ping_history.pop_front()
+			else:
+				ping_average.text = "N/A"
+				ping_min.text = "N/A"
+				ping_max.text = "N/A"
+				ping_last.text = "N/A"
+				ping_history.push_back(-1.0)
+				if ping_history.size() > HISTORY_NUM_FRAMES:
+					ping_history.pop_front()
+
 
 		var vsync_string := ""
 		match DisplayServer.window_get_vsync_mode():

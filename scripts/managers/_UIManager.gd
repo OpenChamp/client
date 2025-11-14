@@ -51,8 +51,7 @@ func change_interface(interface_name: String, add_to_stack: bool = false) -> boo
 	"""Change to a different interface with optional transition"""
 	print("Changing Interface To ", interface_name)
 	if is_transitioning:
-		push_warning("Cannot change interface while transitioning")
-		return false
+		push_warning("Interruping ongoing transition: " + interface_name)
 
 	var interface_path = Interface.get(interface_name)
 	if not interface_path:

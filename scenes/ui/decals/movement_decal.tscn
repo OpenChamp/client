@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsdehbrtpaip2"]
+[gd_scene load_steps=8 format=3 uid="uid://dsdehbrtpaip2"]
 
 [ext_resource type="Texture2D" uid="uid://p00q1t0d0js2" path="res://assets/textures/openchamp.png" id="1_8k6ja"]
+[ext_resource type="Script" uid="uid://dlt7fqtl3eaac" path="res://scripts/ui/movement_decal.gd" id="2_6exsn"]
 
 [sub_resource type="Curve" id="Curve_6exsn"]
 _limits = [-360.0, 360.0, 0.0, 1.0]
@@ -40,10 +41,17 @@ rings = 4
 size = Vector3(1, 1, 1)
 texture_albedo = ExtResource("1_8k6ja")
 cull_mask = 1
+script = ExtResource("2_6exsn")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1968475820]
 emitting = false
 amount = 15
+one_shot = true
 explosiveness = 0.1
 process_material = SubResource("ParticleProcessMaterial_hs5ht")
 draw_pass_1 = SubResource("SphereMesh_cow1h")
+
+[node name="Timer" type="Timer" parent="." unique_id=1510194052]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

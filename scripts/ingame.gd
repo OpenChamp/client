@@ -31,29 +31,13 @@ func _ready() -> void:
 	UIManager.change_interface("Loading")
 	UIManager.preload_interface("InGame")
 	# == Network Setup == #
-	NetworkManager.server_ready.connect(self._on_server_ready)
 	NetworkManager.player_connected.connect(GameManager._on_player_connected)
-	NetworkManager.quit.connect(get_tree().quit)
+	NetworkManager.disconnected_from_server.connect(get_tree().quit)
 	# == Load Config == #
 	var config = ConfigManager.get_ingame_configuration()
 	print("GameRoot: Loaded in-game configuration: %s" % str(config))
-	# == Server Init == #
-	if ConfigManager.is_server():
-		# == Setup Spawners == #
-		GameManager.slow_tick_timer = $Timers/Second
-		GameManager.start.connect(_on_game_start)
-		GameManager.initialize()
 	# == Client Init == #
 	NetworkManager._start.call_deferred()
-
-func _on_server_ready():
-	"""
-	1. Spawn in the map
-	2. Wait for all players to connect
-	3. Trigger gameManager start
-	"""
-	# === 1 === #
-	map_spawner.spawn_map("Konda")
 
 func _on_game_start():
 	"""

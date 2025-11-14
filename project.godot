@@ -37,6 +37,7 @@ WSManager="*res://scripts/managers/_WS_Manager.gd"
 SpawnManager="*res://scripts/managers/_SpawnManager.gd"
 NetworkManager="*res://scripts/managers/_NetworkManager.gd"
 DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+IOManager="*res://scripts/managers/_IOManager.gd"
 
 [debug]
 
@@ -46,12 +47,17 @@ gdscript/warnings/shadowed_variable=0
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/initial_position_type=5
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [dotnet]
 
 project/assembly_name="OpenChamp"
+
+[editor]
+
+run/main_run_args="-ip 127.0.0.1 --port 7000"
 
 [editor_plugins]
 
