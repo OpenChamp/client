@@ -104,9 +104,22 @@ func process_packet(packet:PackedByteArray):
 			UIManager.change_interface("InGame")
 			get_tree().current_scene.add_child(map)
 			get_tree().current_scene.add_child(player_controller)
+			player_controller.rotate_y(deg_to_rad(-90))
+			send_ready()
 
-func ping():
+func send_ready():
+	var data = PackedByteArray()
+	data.append(1) # 1 byte to indicate ready
+	send_packet(PACKET_TYPE.PLAYER_READY, data);
+
+func send_packet(type: PACKET_TYPE, data: PackedByteArray, reliable: bool = true):
 	if peer == null:
 		return
-	peer.send(1, PackedByteArray([PACKET_TYPE.HEARTBEAT_PING]), ENetPacketPeer.FLAG_UNSEQUENCED)
-	
+	var reliable_int = int(reliable)
+	var packet = PackedByteArray()
+	packet.append(type)
+	for byte in data:
+		packet.append(byte)
+	if not reliable:
+		reliable_int = 2 # ENetPacketPeer.FLAG_UNSEQUENCED
+	peer.send(1, packet, reliable_int)
