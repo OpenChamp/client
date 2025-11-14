@@ -1,11 +1,21 @@
-extends CharacterBody3D
+extends Node3D
 
-var team := 1
-var creature_id := 1
+enum STATES {
+	alive,
+	dead
+}
+var state := STATES.alive
+@export var movement_comp: MovementComponent
+@export var speed: float = 5.0
+@export var health:int = 0
+# TODO: Create enum for minion states
+@export var minion_state: int = 0
 
-func _process(delta: float) -> void:
-	if team == 1:
-		position += Vector3(0,0,1) * delta
-	else:
-		position += Vector3(0, 0, -1) * delta
-	pass
+func die():
+	if state == STATES.dead: return
+	state = STATES.dead
+	print("Minion Death")
+	$Body.hide()
+	$MoneyEmitter.emitting = true
+	$AudioStreamPlayer3D.play()
+	$AudioStreamPlayer3D.finished.connect(queue_free)

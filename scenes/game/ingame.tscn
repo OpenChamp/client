@@ -27,6 +27,8 @@ wait_time = 3.0
 
 [node name="Entities" type="Node3D" parent="." unique_id=1659416924]
 
+[node name="Minions" type="Node3D" parent="Entities" unique_id=807445230]
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1364364256]
 spawn_path = NodePath("..")
 

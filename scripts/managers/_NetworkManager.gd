@@ -8,6 +8,7 @@ signal connected_to_server
 signal connection_failed
 signal disconnected_from_server
 
+var game_root:Node
 const default_port = 7000
 # === Updated from packet_validator.hpp in GameServer === #
 enum PACKET_TYPE {
@@ -17,9 +18,7 @@ enum PACKET_TYPE {
 	SPAWN_MAP,
 	SPAWN_ENTITY,
 	PLAYER_DISCONNECT,
-	HEARTBEAT_PING,
-	HEARTBEAT_PONG,
-	MINION_STATE,
+	MINION_STATE
 };
 
 var connection: ENetConnection
@@ -27,12 +26,7 @@ var peer: ENetPacketPeer
 
 func _process(_delta:float) -> void:
 	if connection == null: return
-	check_connection()
 	handle_packets()
-
-func check_connection():
-	if peer == null: return
-	print(peer.get_statistic(ENetPacketPeer.PeerStatistic.PEER_LAST_ROUND_TRIP_TIME))
 
 func handle_packets():
 	var packet_event = connection.service()
@@ -106,6 +100,49 @@ func process_packet(packet:PackedByteArray):
 			get_tree().current_scene.add_child(player_controller)
 			player_controller.rotate_y(deg_to_rad(-90))
 			send_ready()
+		PACKET_TYPE.MINION_STATE:
+			handle_minion_packet(packet)
+
+func handle_minion_packet(packet:PackedByteArray):
+	# First byte is packet type
+	# Next 4 bytes are number of minions (little-endian)
+	# 21 bytes per minion:
+	#   4 bytes: minion ID (little-endian)
+	#   4 bytes: position x (float)
+	#   4 bytes: position y (float)
+	#   4 bytes: position z (float)
+	#   4 bytes: health (float)
+	#   1 byte: minion_state
+	var num_minions = packet[1] | packet[2] << 8 | packet[3] << 16 | packet[4] << 24
+	var offset = 5
+	var minion_nodes = game_root.get_node("Entities/Minions").get_children()
+	var alive_ids:Array = []
+	for i in range(num_minions):
+		var minion_id = packet[offset] | packet[offset + 1] << 8 | packet[offset + 2] << 16 | packet[offset + 3] << 24
+		var pos_x = packet.decode_float(offset + 4)
+		var pos_y = packet.decode_float(offset + 8)
+		var pos_z = packet.decode_float(offset + 12)
+		var health = packet.decode_float(offset + 16)
+		var minion_state = packet[offset + 20]
+		# Does minion already exist?
+		var minion_node = game_root.get_node_or_null("Entities/Minions/%d" % minion_id)
+		if minion_node == null:
+			# Create new minion
+			var minion_scene = load("res://scenes/entities/minions/minion_entity_mage.tscn")
+			minion_node = minion_scene.instantiate()
+			minion_node.name = str(minion_id)
+			game_root.get_node("Entities/Minions").add_child(minion_node)
+		# Update minion state
+		alive_ids.push_back(minion_id)
+		minion_node.global_position = Vector3(pos_z, pos_y, pos_x) # TODO: Will use Vect2 
+		minion_node.health = health
+		minion_node.minion_state = minion_state
+		offset += 21
+	
+	for node in minion_nodes:
+		var node_id = int(node.name)
+		if not alive_ids.has(node_id):
+			node.die()
 
 func send_ready():
 	var data = PackedByteArray()
