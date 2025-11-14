@@ -25,28 +25,10 @@ extends CanvasLayer
 @export var ping_max: Label
 @export var ping_last: Label
 @export var ping_graph: Panel
+@export var detailed_network_stats: DetailedNetworkGrid
 @export_category("System Statistics")
 @export var information: Label
 @export var settings: Label
-
-const peerStatisticDictionary = { # Taken from ENetPacketPeer.PeerStatistic
-	0: "Packet Loss (Mean)",
-	1: "Packet Loss Variance",
-	2: "Packet Loss Epoch",
-	3: "RTT",
-	4: "RTT Variance",
-	5: "RTT (Last)",
-	6: "RTT (Last Variance)",
-	7: "Packet Throttle",
-	8: "Packet Throttle Limit",
-	9: "Packet Throttle Counter",
-	10: "Packet Throttle Epoch",
-	11: "Packet Throttle Acceleration",
-	12: "Packet Throttle Decel",
-	13: "Packet Throttle Interval"
-}
-
-
 
 ## The number of frames to keep in history for graph drawing and best/worst calculations.
 ## Currently, this also affects how FPS is measured.
@@ -62,7 +44,8 @@ const GRAPH_MAX_FRAMETIME = 1.0 / GRAPH_MAX_FPS
 enum Style {
 	HIDDEN,  ## Debug menu is hidden.
 	VISIBLE_COMPACT,  ## Debug menu is visible, with only the FPS, FPS cap (if any), ping, rtt, and time taken to render the last frame.
-	VISIBLE_DETAILED,  ## Debug menu is visible with full information, including graphs.
+	VISIBLE_DETAILED,  ## Debug menu is visible with full information, including graphs and basic Network Stats.
+	VISIBLE_DETAILED_NETWORK, ## Debug menu is visible with full information including detailed network stats.
 	MAX,  ## Represents the size of the Style enum.
 }
 
@@ -73,17 +56,17 @@ var style := Style.HIDDEN:
 		match style:
 			Style.HIDDEN:
 				visible = false
-			Style.VISIBLE_COMPACT, Style.VISIBLE_DETAILED:
+			Style.VISIBLE_COMPACT, Style.VISIBLE_DETAILED, Style.VISIBLE_DETAILED_NETWORK:
 				visible = true
-				frame_number.visible = style == Style.VISIBLE_DETAILED
-				$DebugMenu/VBoxContainer/FrameTimeHistory.visible = style == Style.VISIBLE_DETAILED
-				$DebugMenu/VBoxContainer/FPSGraph.visible = style == Style.VISIBLE_DETAILED
-				$DebugMenu/VBoxContainer/TotalGraph.visible = style == Style.VISIBLE_DETAILED
-				$DebugMenu/VBoxContainer/CPUGraph.visible = style == Style.VISIBLE_DETAILED
-				$DebugMenu/VBoxContainer/GPUGraph.visible = style == Style.VISIBLE_DETAILED
-				information.visible = style == Style.VISIBLE_DETAILED
-				settings.visible = style == Style.VISIBLE_DETAILED
-
+				frame_number.visible = style == Style.VISIBLE_DETAILED || style == Style.VISIBLE_DETAILED_NETWORK
+				$DebugMenu/VBoxContainer/FrameTimeHistory.visible = style == Style.VISIBLE_DETAILED || style == Style.VISIBLE_DETAILED_NETWORK
+				$DebugMenu/VBoxContainer/FPSGraph.visible = style == Style.VISIBLE_DETAILED || style == Style.VISIBLE_DETAILED_NETWORK
+				$DebugMenu/VBoxContainer/TotalGraph.visible = style == Style.VISIBLE_DETAILED || style == Style.VISIBLE_DETAILED_NETWORK
+				$DebugMenu/VBoxContainer/CPUGraph.visible = style == Style.VISIBLE_DETAILED  || style == Style.VISIBLE_DETAILED_NETWORK
+				$DebugMenu/VBoxContainer/GPUGraph.visible = style == Style.VISIBLE_DETAILED || style == Style.VISIBLE_DETAILED_NETWORK
+				information.visible = style == Style.VISIBLE_DETAILED || style == Style.VISIBLE_DETAILED_NETWORK
+				settings.visible = style == Style.VISIBLE_DETAILED || style == Style.VISIBLE_DETAILED_NETWORK
+				detailed_network_stats.visible = style == Style.VISIBLE_DETAILED_NETWORK
 # Value of `Time.get_ticks_usec()` on the previous frame.
 var last_tick := 0
 
@@ -405,7 +388,7 @@ func _process(_delta: float) -> void:
 		total_graph.queue_redraw()
 		cpu_graph.queue_redraw()
 		gpu_graph.queue_redraw()
-		ping_graph.queue_redraw()
+		# Queue ping if networkManager exists
 
 		# Difference between the last two rendered frames in milliseconds.
 		var frametime := (Time.get_ticks_usec() - last_tick) * 0.001
@@ -486,6 +469,9 @@ func _process(_delta: float) -> void:
 
 		if $"/root".has_node("NetworkManager"):
 			if NetworkManager.peer != null:
+				# Graph
+				ping_graph.queue_redraw()
+				# Stats
 				var rtt := NetworkManager.peer.get_statistic(ENetPacketPeer.PeerStatistic.PEER_ROUND_TRIP_TIME)
 				var rtt_variance := NetworkManager.peer.get_statistic(ENetPacketPeer.PeerStatistic.PEER_ROUND_TRIP_TIME_VARIANCE)
 				ping_average.text = str(rtt).pad_decimals(2)
@@ -496,6 +482,9 @@ func _process(_delta: float) -> void:
 				ping_history.push_back(float(rtt))
 				if ping_history.size() > HISTORY_NUM_FRAMES:
 					ping_history.pop_front()
+				# Detailed stats
+				detailed_network_stats.update_stats(NetworkManager.peer)
+				
 			else:
 				ping_average.text = "N/A"
 				ping_min.text = "N/A"

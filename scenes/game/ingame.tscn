@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjlryqf2s7uaw"]
+[gd_scene load_steps=3 format=3 uid="uid://bjlryqf2s7uaw"]
 
 [ext_resource type="Script" uid="uid://vtnwe3wqf1tn" path="res://scripts/ingame.gd" id="1_s2j7k"]
-[ext_resource type="Script" uid="uid://bf5cu11o7lejb" path="res://scripts/ui/interface/ping_label.gd" id="5_3ywp8"]
 [ext_resource type="PackedScene" uid="uid://bp0xm6giuadt" path="res://scenes/environment/skies/defafult_environment.tscn" id="6_s2j7k"]
 
 [node name="Ingame" type="Node" unique_id=1688817966 groups=["game_root"]]
@@ -19,20 +18,6 @@ wait_time = 3.0
 [node name="UIRoot" type="CanvasLayer" parent="UI" unique_id=996385770]
 
 [node name="DebugUI" type="CanvasLayer" parent="UI" unique_id=1965256411]
-
-[node name="Control" type="Control" parent="UI/DebugUI" unique_id=950466687]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="GridContainer" parent="UI/DebugUI/Control" unique_id=1767317473]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-script = ExtResource("5_3ywp8")
 
 [node name="HealthBars" type="CanvasLayer" parent="UI" unique_id=1870248860]
 

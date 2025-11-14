@@ -1,11 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://cggqb75a8w8r"]
+[gd_scene load_steps=4 format=3 uid="uid://cggqb75a8w8r"]
 
 [ext_resource type="Script" uid="uid://dc4d7py3orjps" path="res://addons/debug_menu/debug_menu.gd" id="1_p440y"]
+[ext_resource type="Script" uid="uid://bf5cu11o7lejb" path="res://scripts/ui/interface/detailed_network.gd" id="2_mp16e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ki0n8"]
 bg_color = Color(0, 0, 0, 0.25098)
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=806499688 node_paths=PackedStringArray("fps", "frame_time", "frame_number", "frame_history_total_avg", "frame_history_total_min", "frame_history_total_max", "frame_history_total_last", "frame_history_cpu_avg", "frame_history_cpu_min", "frame_history_cpu_max", "frame_history_cpu_last", "frame_history_gpu_avg", "frame_history_gpu_min", "frame_history_gpu_max", "frame_history_gpu_last", "fps_graph", "total_graph", "cpu_graph", "gpu_graph", "ping_average", "ping_min", "ping_max", "ping_last", "ping_graph", "information", "settings")]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=806499688 node_paths=PackedStringArray("fps", "frame_time", "frame_number", "frame_history_total_avg", "frame_history_total_min", "frame_history_total_max", "frame_history_total_last", "frame_history_cpu_avg", "frame_history_cpu_min", "frame_history_cpu_max", "frame_history_cpu_last", "frame_history_gpu_avg", "frame_history_gpu_min", "frame_history_gpu_max", "frame_history_gpu_last", "fps_graph", "total_graph", "cpu_graph", "gpu_graph", "ping_average", "ping_min", "ping_max", "ping_last", "ping_graph", "detailed_network_stats", "information", "settings")]
 layer = 128
 script = ExtResource("1_p440y")
 fps = NodePath("DebugMenu/VBoxContainer/FPS")
@@ -32,6 +33,7 @@ ping_min = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/PingMin")
 ping_max = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/PingMax")
 ping_last = NodePath("DebugMenu/VBoxContainer/FrameTimeHistory/PingLast")
 ping_graph = NodePath("DebugMenu/VBoxContainer/PingGraph/Graph")
+detailed_network_stats = NodePath("DebugMenu/VBoxContainer/DetailedNetworkStatistics")
 information = NodePath("DebugMenu/VBoxContainer/Information")
 settings = NodePath("DebugMenu/VBoxContainer/Settings")
 
@@ -332,6 +334,16 @@ theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 12
 text = "123.45"
 horizontal_alignment = 2
+
+[node name="DetailedNetworkStatistics" type="GridContainer" parent="DebugMenu/VBoxContainer" unique_id=1684237003]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+script = ExtResource("2_mp16e")
+metadata/_custom_type_script = "uid://bf5cu11o7lejb"
 
 [node name="FPSGraph" type="HBoxContainer" parent="DebugMenu/VBoxContainer" unique_id=593422251]
 layout_mode = 2
