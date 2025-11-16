@@ -5,7 +5,6 @@ enum STATES {
 	dead
 }
 var state := STATES.alive
-@export var movement_comp: MovementComponent
 @export var speed: float = 5.0
 @export var health:int = 0
 # TODO: Create enum for minion states

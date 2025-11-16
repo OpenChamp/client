@@ -1,17 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://b3ocvxpgupua3"]
+[gd_scene load_steps=17 format=3 uid="uid://b3ocvxpgupua3"]
 
 [ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/minion_test.gd" id="1_46l12"]
-[ext_resource type="Script" uid="uid://bpy11slg1fndi" path="res://scripts/components/movement.gd" id="2_dq7kq"]
 [ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="3_u8jig"]
 [ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="4_i1k7y"]
 [ext_resource type="Material" uid="uid://c82oohji8rcpv" path="res://assets/materials/misc/wood.tres" id="5_sbons"]
 [ext_resource type="PackedScene" uid="uid://0kn044mnc5ja" path="res://assets/models/environment/crystalexport.glb" id="6_dq7kq"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="7_3xu8f"]
 [ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://assets/audio/sfx/game/kill_gold.wav" id="8_8g1k3"]
-
-[sub_resource type="Resource" id="Resource_6acv0"]
-script = ExtResource("2_dq7kq")
-metadata/_custom_type_script = "uid://bpy11slg1fndi"
 
 [sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
 
@@ -54,7 +49,6 @@ properties/1/replication_mode = 1
 
 [node name="MinionEntityMage" type="Node3D" unique_id=38201347]
 script = ExtResource("1_46l12")
-movement_comp = SubResource("Resource_6acv0")
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=1534131562]
 mesh = SubResource("SphereMesh_3o8tx")

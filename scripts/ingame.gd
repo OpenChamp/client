@@ -46,9 +46,6 @@ func _on_game_start():
 	2. Start the pregame timer
 	3. Transition to PREGAME state
 	"""
-	if not multiplayer.is_server():
-		push_error("Only the server can start the game!")
-		return
 	# === 1 === #
 	for id in GameManager.players.keys():
 		player_spawner.spawn_player(id)

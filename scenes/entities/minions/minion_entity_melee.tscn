@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c1q03yxr2xno5"]
+[gd_scene load_steps=19 format=3 uid="uid://c1q03yxr2xno5"]
 
 [ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/minion_test.gd" id="1_52j74"]
 [ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="3_u8jig"]
@@ -52,6 +52,43 @@ properties/2/path = NodePath(".:team")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
+[sub_resource type="Animation" id="Animation_52j74"]
+resource_name = "minion_attack"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.5932214, 0, 0.14769208), Vector3(-0.5932214, 0.10531539, -0.020849347), Vector3(-0.7404069, 0.10531539, -0.020849347)]
+}
+
+[sub_resource type="Animation" id="Animation_n2yh3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.5932214, 0.10531539, -0.020849347)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3d61g"]
+_data = {
+&"RESET": SubResource("Animation_n2yh3"),
+&"minion_attack": SubResource("Animation_52j74")
+}
+
 [node name="MinionEntityMelee" type="CharacterBody3D" unique_id=382786361]
 collision_layer = 256
 collision_mask = 65281
@@ -75,7 +112,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199696, 0.084904, 0.45354)
 mesh = SubResource("SphereMesh_mro74")
 
 [node name="Hand" type="MeshInstance3D" parent="Body" unique_id=210951933]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5932214, 0, 0.14769208)
+transform = Transform3D(1, 0, 0, 0, 0.84938645, 0.5277714, 0, -0.5277714, 0.84938645, -0.5932214, 0.10531539, -0.020849347)
 mesh = SubResource("SphereMesh_wqyuh")
 
 [node name="Stick" type="MeshInstance3D" parent="Body/Hand" unique_id=1777179363]
@@ -107,3 +144,8 @@ one_shot = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1656166970]
 replication_config = SubResource("SceneReplicationConfig_vvu41")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=877391508]
+libraries = {
+&"": SubResource("AnimationLibrary_3d61g")
+}
