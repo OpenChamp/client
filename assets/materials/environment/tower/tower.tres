@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c30nufpn80reo"]
+
+[ext_resource type="Texture2D" uid="uid://bha524ummksto" path="res://assets/textures/environment/tower/diffuse.tower.webp" id="1_slcfy"]
+[ext_resource type="Texture2D" uid="uid://cuuqqfnfewb72" path="res://assets/textures/environment/tower/normal.tower.webp" id="2_jhj20"]
+
+[resource]
+resource_name = "Mat.Tower"
+cull_mode = 2
+albedo_texture = ExtResource("1_slcfy")
+roughness = 0.5
+normal_enabled = true
+normal_texture = ExtResource("2_jhj20")

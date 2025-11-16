@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://8psqwm80u3qb" path="res://ui/champ_select.gd" id="1_ghrd5"]
 [ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/fonts/LeagueGothic-Regular.woff2" id="2_wqrtw"]
-[ext_resource type="Texture2D" uid="uid://crh8sb1tbjko7" path="res://ui/icons/ranger.png" id="3_0u0ku"]
-[ext_resource type="Texture2D" uid="uid://b6am7d8s7vxha" path="res://ui/icons/Mage.png" id="4_ock6e"]
+[ext_resource type="Texture2D" uid="uid://crh8sb1tbjko7" path="res://assets/textures/ranger.png" id="3_0u0ku"]
+[ext_resource type="Texture2D" uid="uid://b6am7d8s7vxha" path="res://assets/textures/Mage.png" id="4_ock6e"]
 
-[node name="ChampSelect" type="Control"]
+[node name="ChampSelect" type="Control" groups=["champion_select"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -133,10 +133,13 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="RangerChamp" type="TextureButton" parent="PanelContainer/Panel/HBoxContainer"]
+z_index = 10
+z_as_relative = false
 layout_mode = 2
 texture_normal = ExtResource("3_0u0ku")
 
 [node name="MageChamp" type="TextureButton" parent="PanelContainer/Panel/HBoxContainer"]
+z_index = 10
 layout_mode = 2
 texture_normal = ExtResource("4_ock6e")
 

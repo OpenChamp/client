@@ -1,0 +1,19 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:blueberry_runic_jelly",
+        "texture": "openchamp:items/blueberry_runic_jelly",
+        "recipe": {
+            "gold_cost": 200,
+            "components": [
+                "openchamp:common_strawberry",
+                "openchamp:mysterious_blue_orb"
+            ]
+        },
+        "stats": {
+            "health_regen": 15,
+            "mana_regen": 5
+        }
+    }
+}

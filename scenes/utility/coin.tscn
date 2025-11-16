@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7r603or0u7pc"]
+
+[ext_resource type="ArrayMesh" path="res://models/misc/coin.obj" id="1_87nls"]
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="2_c47h8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_heb4r"]
+albedo_color = Color(0.85, 0.85, 0.41650003, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i1su6"]
+render_priority = 0
+shader = ExtResource("2_c47h8")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3q2k5"]
+next_pass = SubResource("ShaderMaterial_i1su6")
+albedo_color = Color(0.66, 0.60456, 0.18479998, 1)
+
+[node name="Coin" type="MeshInstance3D"]
+mesh = ExtResource("1_87nls")
+surface_material_override/0 = SubResource("StandardMaterial3D_heb4r")
+surface_material_override/1 = SubResource("StandardMaterial3D_3q2k5")

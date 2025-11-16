@@ -1,4 +1,4 @@
-[gd_scene load_steps=152 format=3 uid="uid://b2modf00tfqsd"]
+[gd_scene load_steps=154 format=3 uid="uid://b2modf00tfqsd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c87gu"]
 albedo_color = Color(0.8, 0.85, 0.9, 1)
@@ -688,14 +688,20 @@ top_radius = 0.0
 bottom_radius = 0.495098
 height = 2.06774
 
-[node name="Bridge" type="Node3D"]
+[sub_resource type="NavigationMesh" id="NavigationMesh_w70us"]
+vertices = PackedVector3Array(-3.3081017, 0.73200226, -49.5, -3.3081017, 0.73200226, 49.5, 3.4418983, 0.73200226, 49.5, 3.4418983, 0.73200226, -49.5, -27.558102, 16.732002, -24.5, -28.558102, 16.732002, -24.5, -29.058102, 16.732002, -23.75, -28.558102, 16.732002, -22.75, -27.058102, 16.732002, -23.25, -26.808102, -0.76799774, -3.75, -26.558102, -0.76799774, -2.5, -25.808102, -0.76799774, -2, -24.058102, -0.76799774, -3, -24.808102, -0.76799774, -4.75, -26.058102, -0.76799774, -4.75, -24.558102, -0.76799774, -2.25, 34.1919, -11.267998, 23.5, 33.6919, -11.267998, 21.75, 31.941898, -11.267998, 22.25, 31.941898, -11.267998, 23.5, 32.4419, -11.267998, 24, 33.6919, -11.267998, 24, 32.4419, -11.267998, 21.75, 34.1919, -11.267998, 22.25, -14.558102, -18.267998, 44.25, -13.808102, -18.267998, 43.25, -13.808102, -18.267998, 42.25, -14.808102, -18.267998, 41, -16.308102, -18.267998, 41, -17.308102, -18.267998, 42, -17.308102, -18.267998, 43.5, -16.058102, -18.267998, 44.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(7, 4, 8), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 14), PackedInt32Array(11, 14, 13), PackedInt32Array(11, 13, 12), PackedInt32Array(12, 15, 11), PackedInt32Array(21, 20, 16), PackedInt32Array(16, 20, 19), PackedInt32Array(16, 19, 18), PackedInt32Array(16, 18, 17), PackedInt32Array(18, 22, 17), PackedInt32Array(17, 23, 16), PackedInt32Array(26, 25, 24), PackedInt32Array(29, 28, 27), PackedInt32Array(30, 29, 31), PackedInt32Array(31, 29, 24), PackedInt32Array(24, 29, 26), PackedInt32Array(26, 29, 27)]
+geometry_source_geometry_mode = 1
+geometry_source_group_name = &"navmesh_region"
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.705117, 0.709091, 0, -0.709091, 0.705117, 0, 1.88312, 0)
+[sub_resource type="Environment" id="Environment_w70us"]
+fog_enabled = true
+
+[node name="Bridge" type="Node3D"]
 
 [node name="TerrainManager2" type="Node3D" parent="."]
 
-[node name="Bridge" type="Node3D" parent="TerrainManager2"]
+[node name="Bridge" type="Node3D" parent="TerrainManager2" groups=["navmesh_region"]]
 
 [node name="BridgePath" type="MeshInstance3D" parent="TerrainManager2/Bridge"]
 material_override = SubResource("StandardMaterial3D_c87gu")
@@ -977,7 +983,7 @@ transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -25
 material_override = SubResource("StandardMaterial3D_tvpbl")
 mesh = SubResource("CylinderMesh_pwaki")
 
-[node name="IcePillars" type="Node3D" parent="TerrainManager2"]
+[node name="IcePillars" type="Node3D" parent="TerrainManager2" groups=["navmesh_region"]]
 
 [node name="_MeshInstance3D_57" type="MeshInstance3D" parent="TerrainManager2/IcePillars"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, -40)
@@ -1024,7 +1030,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5972, -61.207, 42.7037)
 material_override = SubResource("StandardMaterial3D_etu77")
 mesh = SubResource("CylinderMesh_ub0vy")
 
-[node name="Decorations" type="Node3D" parent="TerrainManager2"]
+[node name="Decorations" type="Node3D" parent="TerrainManager2" groups=["navmesh_region"]]
 
 [node name="_MeshInstance3D_66" type="MeshInstance3D" parent="TerrainManager2/Decorations"]
 transform = Transform3D(1.35465, 0, 0, 0, 0.406854, 0, 0, 0, 1.05117, 3.9566, 0.25, 16.5676)
@@ -1088,6 +1094,9 @@ mesh = SubResource("CylinderMesh_f5ajm")
 
 [node name="Particles" type="Node3D" parent="TerrainManager2"]
 
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_w70us")
+
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 0, 0)
 light_color = Color(1, 0.98, 0.95, 1)
@@ -1100,3 +1109,10 @@ light_color = Color(0.5, 0.7, 1, 1)
 light_energy = 0.4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w70us")
+
+[node name="PlayerSpawn2" type="Marker3D" parent="." groups=["t2_player_spawn"]]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.3043375, 46.563892)
+
+[node name="PlayerSpawn1" type="Marker3D" parent="." groups=["t1_player_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15216875, -44.65371)

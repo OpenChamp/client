@@ -1,0 +1,22 @@
+{
+    "SETTINGS_TAB_DISPLAY": "görünüm",
+    "SETTING:FULLSCREEN": "tam ekran",
+    "SETTINGS_TAB_CAMERA": "kamera",
+    "SETTING:CAMERA_SPEED_LABEL": "kamera hızı:",
+    "SETTING:CAMERA_EDGE_MARGIN_LABEL": "kamera hareketi kenar marjı:",
+    "SETTING:CAMERA_MAX_ZOOM_LABEL": "maksimum uzaklaştırma mesafesi:",
+    "SETTING:CAMERA_CENTERED": "kamerayı oyuncu üzerinde ortalayın",
+    "SETTING:CAMERA_PAN_SENSITIVITY_LABEL": "kamera kaydırma hassasiyeti:",
+    "SETTINGS_MENU_CONFIRM": "Onayla",
+    "SETTINGS_MENU_EXIT_GAME": "Oyundan çık",
+
+    "STARTUP:STATUS_CONNECTING": "Bağlanılıyor...",
+    "STARTUP:STATUS_CONNECT_CLIENT": "İstemci bağlantısı yapılıyor...",
+    "STARTUP:STATUS_CLIENT_FAILED": "Sunucuya bağlanılamadı",
+    "STARTUP:STATUS_CREATE_SERVER": "Sunucu oluşturuluyor...",
+    "STARTUP:STATUS_CLIENT_CONNECTED": "Bağlantı kuruldu.",
+    "STARTUP:ATTEMPTS": "Deneme: %d",
+    "STARTUP:HOST_GAME": "Sunucu kur",
+    "STARTUP:RECONNECT": "Yeniden bağlan",
+    "STARTUP:EXIT": "Çıkış"
+}

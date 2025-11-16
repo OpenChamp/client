@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://di7n0t2bypmdy"]
+
+[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/fonts/LeagueGothic-Regular.woff2" id="1_wkfxc"]
+[ext_resource type="Script" uid="uid://dq5mc3dxwderc" path="res://scripts/ui/loading.gd" id="2_sjr32"]
+[ext_resource type="PackedScene" uid="uid://b16c5nj81xhrv" path="res://scenes/ui/player_icon.tscn" id="3_gbjog"]
+
+[sub_resource type="Theme" id="Theme_2b8us"]
+default_font = ExtResource("1_wkfxc")
+
+[sub_resource type="LabelSettings" id="LabelSettings_vky50"]
+font = ExtResource("1_wkfxc")
+font_size = 52
+
+[node name="Loading" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_2b8us")
+script = ExtResource("2_sjr32")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RedTeam" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+alignment = 1
+
+[node name="PlayerIcon" parent="Panel/RedTeam" instance=ExtResource("3_gbjog")]
+layout_mode = 2
+
+[node name="PlayerIcon2" parent="Panel/RedTeam" instance=ExtResource("3_gbjog")]
+layout_mode = 2
+
+[node name="PlayerIcon3" parent="Panel/RedTeam" instance=ExtResource("3_gbjog")]
+layout_mode = 2
+
+[node name="BlueTeam" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="PlayerIcon4" parent="Panel/BlueTeam" instance=ExtResource("3_gbjog")]
+layout_mode = 2
+
+[node name="PlayerIcon5" parent="Panel/BlueTeam" instance=ExtResource("3_gbjog")]
+layout_mode = 2
+
+[node name="PlayerIcon6" parent="Panel/BlueTeam" instance=ExtResource("3_gbjog")]
+layout_mode = 2
+
+[node name="MiddleHeader" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Joining Match"
+label_settings = SubResource("LabelSettings_vky50")

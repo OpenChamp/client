@@ -1,0 +1,112 @@
+[gd_scene load_steps=17 format=3 uid="uid://dnfgd4spe77la"]
+
+[ext_resource type="Script" uid="uid://2nl4a33gjxy2" path="res://scripts/champs/minion_mage.gd" id="1_qtj5o"]
+[ext_resource type="AudioStream" uid="uid://cpnet0bdrym1x" path="res://assets/audio/kill_gold.wav" id="2_1olus"]
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="2_eaxdl"]
+[ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="3_vvu41"]
+[ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="4_n1ca0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vvu41"]
+render_priority = 0
+shader = ExtResource("2_eaxdl")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvu41"]
+next_pass = SubResource("ShaderMaterial_vvu41")
+albedo_color = Color(0, 0, 0.27450982, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8jkwl"]
+top_radius = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ub1fe"]
+albedo_color = Color(1, 1, 0.27451, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mro74"]
+material = SubResource("StandardMaterial3D_ub1fe")
+radius = 0.02
+height = 0.08
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_chs0q"]
+points = PackedVector3Array(0.4578707, 0.19807906, 0.01578243, -0.48873997, -0.09168735, -0.04518683, -0.47150937, -0.1370268, -0.090701535, 0.07635914, -0.33327514, 0.36417928, 0.13656896, -0.33242497, -0.3469059, -0.15161654, 0.47198188, -0.060245913, -0.10534735, 0.21193622, 0.43966028, -0.045016855, 0.19809827, -0.4564163, 0.4090765, -0.15116782, 0.2425159, -0.27137637, -0.37776056, 0.18187061, 0.41147974, -0.07598096, -0.27324012, 0.19819722, -0.4561612, -0.04493101, -0.24064063, -0.33167413, -0.2857683, 0.22713655, 0.2567203, 0.36304116, 0.22752243, 0.42360392, -0.13548777, -0.37899047, 0.060702223, 0.31946206, -0.40674683, 0.18104935, -0.22569102, -0.014631338, -0.09176946, 0.49022886, -0.37785473, 0.30279276, 0.121712334, 0.046232317, 0.45601088, 0.19818504, -0.22746402, -0.060786348, -0.44034815, 0.22845526, 0.06072284, -0.43988743, -0.09113759, -0.48924586, -0.045174047, 0.44186506, -0.22821625, -0.044958085, 0.31717873, 0.24121423, -0.30081153, -0.044848714, 0.39473665, -0.30295488, -0.316348, -0.19622163, 0.33255145, 0.19844188, -0.03042933, 0.45723665, 0.061471395, -0.1522456, -0.47130713, 0.36308852, 0.25670764, 0.22707908, 0.15213433, -0.43948856, 0.18237916, -0.21072462, 0.36227608, 0.2722302)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvu41"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:State")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vvu41"]
+radius = 10.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_n1ca0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1olus"]
+
+[node name="Mage" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+collision_layer = 256
+collision_mask = 65281
+script = ExtResource("1_qtj5o")
+death_sound = ExtResource("2_1olus")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_3o8tx")
+surface_material_override/0 = SubResource("StandardMaterial3D_vvu41")
+
+[node name="Hat" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 0, 0.505964, 0)
+mesh = SubResource("CylinderMesh_8jkwl")
+surface_material_override/0 = ExtResource("3_vvu41")
+
+[node name="Eye" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169789, 0.0850159, 0.465818)
+mesh = SubResource("SphereMesh_mro74")
+
+[node name="Eye2" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199696, 0.084904, 0.45354)
+mesh = SubResource("SphereMesh_mro74")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+physics_interpolation_mode = 1
+shape = SubResource("ConvexPolygonShape3D_chs0q")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_vvu41")
+
+[node name="ExperienceZone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExperienceZone"]
+shape = SubResource("CylinderShape3D_vvu41")
+
+[node name="Vision" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 65280
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Vision"]
+shape = SubResource("CylinderShape3D_n1ca0")
+
+[node name="Range" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Range"]
+shape = SubResource("CylinderShape3D_1olus")
+
+[node name="MoneyEmitter" parent="." instance=ExtResource("4_n1ca0")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_1olus")
+pitch_scale = 0.75
+max_distance = 20.0
+
+[node name="AttackTimeout" type="Timer" parent="."]
+one_shot = true

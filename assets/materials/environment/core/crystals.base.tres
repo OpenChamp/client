@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b6i2os10kthkv"]
+
+[resource]
+resource_name = "Mat.Crystals"
+cull_mode = 2
+albedo_color = Color(0.776471, 0, 0, 1)
+metallic_specular = 1.0
+roughness = 0.13
+emission_enabled = true
+emission = Color(0.735435, 2.77233e-05, 0.137497, 1)
+emission_energy_multiplier = 0.64

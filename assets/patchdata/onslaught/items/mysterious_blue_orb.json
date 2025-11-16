@@ -1,0 +1,15 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:mysterious_blue_orb",
+        "texture": "openchamp:items/mysterious_blue_orb",
+        "recipe": {
+            "gold_cost": 500,
+            "components": []
+        },
+        "stats": {
+            "mana_regen": 4
+        }
+    }
+}

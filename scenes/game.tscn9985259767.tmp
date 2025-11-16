@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://cox1hp6n0afel"]
+
+[ext_resource type="Script" uid="uid://b1ylskjqvyq3g" path="res://scripts/game.gd" id="1_5kiuu"]
+[ext_resource type="PackedScene" uid="uid://dnfgd4spe77la" path="res://scenes/champs/Mage.tscn" id="2_33cqm"]
+[ext_resource type="PackedScene" uid="uid://doxl5p8jmoqs3" path="res://ui/ingame.tscn" id="2_dbls1"]
+[ext_resource type="PackedScene" uid="uid://bg02bjhjj4g74" path="res://ui/ChampSelect.tscn" id="3_u5sy4"]
+[ext_resource type="Script" uid="uid://clhq1p5ob8yua" path="res://scenes/map_spawner.gd" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://b2modf00tfqsd" path="res://scenes/maps/bridge.tscn" id="5_iywne"]
+[ext_resource type="Script" uid="uid://cjbi6fk47g5ak" path="res://scenes/player_spawner.gd" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://wl05dexb5smc" path="res://scripts/game_controller.tscn" id="8_gee14"]
+
+[node name="Game" type="Node3D" groups=["game_root"]]
+script = ExtResource("1_5kiuu")
+caster_minion = ExtResource("2_33cqm")
+
+[node name="ChampSelect" parent="." instance=ExtResource("3_u5sy4")]
+visible = false
+
+[node name="UI" parent="." instance=ExtResource("2_dbls1")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="PingTimer" type="Timer" parent="."]
+
+[node name="MapSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://msc37o8s4pow", "uid://b2modf00tfqsd")
+spawn_path = NodePath("..")
+spawn_limit = 1
+script = ExtResource("4_lbhrr")
+map_scene = ExtResource("5_iywne")
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+script = ExtResource("6_p57ef")
+
+[node name="game_controller" parent="." instance=ExtResource("8_gee14")]
+
+[connection signal="timeout" from="Timer" to="." method="spawn_minion"]
+[connection signal="timeout" from="PingTimer" to="." method="_on_ping_timer_timeout"]

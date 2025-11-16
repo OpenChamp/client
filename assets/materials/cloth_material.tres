@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bj31adv6yhavv"]
+
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="1_jikov"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ntnam"]
+render_priority = 0
+shader = ExtResource("1_jikov")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 2.0
+
+[resource]
+next_pass = SubResource("ShaderMaterial_ntnam")
+albedo_color = Color(0.727094, 0.599393, 0.341582, 1)

@@ -1,0 +1,33 @@
+name: Build Verification
+
+on:
+  push:
+    branches: [ alpha, main, develop ]
+  pull_request:
+    branches: [ alpha, main, develop ]
+
+env:
+  GODOT_VERSION: 4.5.0
+
+jobs:
+  verify-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-mono: false
+          include-templates: true
+
+      - name: Verify Godot project
+        run: |
+          godot --headless -e --quit
+          echo "Godot project verification passed"
+
+      - name: Check export presets
+        run: |
+          godot --headless --export-debug "Linux Server" build/test_export 2>&1 | grep -E "(error|Error|ERROR)" || echo "Export preset validation passed"

@@ -1,0 +1,79 @@
+{
+    "type": "map",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:onslaught",
+        "teams": 1,
+        "max_players": 10,
+        "require_all_players": false,
+        "join_wait_time": 10,
+        "allow_join_in_progress": true,
+        "player_passive_item_slots": 4,
+        "end_conditions": [
+            {
+                "type": "team_elimination",
+                "team": 1
+            }
+        ],
+        "features": [
+            {
+                "type": "player_spawn",
+                "team": 1,
+                "name": "player_spawn",
+                "position": {
+                    "x": 50,
+                    "y": 0,
+                    "z": 0
+                },
+                "spawn_behaviour": {
+                    "respawn_enabled": true,
+                    "respawn_time": 30,
+                    "respawn_time_growth_level": 5,
+                    "respawn_time_growth_time": 0.1
+                }
+            },
+            {
+                "type": "unit_spawn",
+                "team": -1,
+                "name": "minion_spawn_1",
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "spawn_behaviour": {
+                    "unit_type": "openchamp:ranged_minion",
+                    "unit_level": 1,
+                    "unit_level_growth": 1,
+                    "unit_level_growth_time": 0,
+                    "initial_cooldown": 10,
+                    "wave_interval": 10,
+                    "wave_size": 1,
+                    "wave_growth": 1,
+                    "require_clear": true
+                }
+            },
+            {
+                "type": "unit_spawn",
+                "team": -1,
+                "name": "minion_spawn_2",
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "spawn_behaviour": {
+                    "unit_type": "openchamp:melee_minion",
+                    "unit_level": 1,
+                    "unit_level_growth": 1,
+                    "unit_level_growth_time": 0,
+                    "initial_cooldown": 10,
+                    "wave_interval": 10,
+                    "wave_size": 2,
+                    "wave_growth": 1,
+                    "require_clear": true
+                }
+            }
+        ]
+    }
+}

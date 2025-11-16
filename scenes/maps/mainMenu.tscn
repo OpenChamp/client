@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://duvf74qe1iq2p"]
+
+[ext_resource type="PackedScene" uid="uid://d4bcxtr2koou0" path="res://scenes/ui/menu.tscn" id="1_48ign"]
+[ext_resource type="PackedScene" uid="uid://cg3m5qnyxjev4" path="res://scenes/environment/sky.tscn" id="2_l7wge"]
+[ext_resource type="AudioStream" uid="uid://dsievv3jxm0bo" path="res://assets/audio/Heroic Demise (New).mp3" id="3_7nrmo"]
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="Menu" parent="." instance=ExtResource("1_48ign")]
+
+[node name="Sky" parent="." instance=ExtResource("2_l7wge")]
+
+[node name="HeroicDemise(new)" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7nrmo")
+autoplay = true
+bus = &"Music"
+parameters/looping = false

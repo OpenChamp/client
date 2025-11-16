@@ -1,0 +1,21 @@
+{
+    "SETTINGS_TAB_DISPLAY": "affichage",
+    "SETTING:FULLSCREEN": "plein écran",
+    "SETTINGS_TAB_CAMERA": "caméra",
+    "SETTING:CAMERA_SPEED_LABEL": "vitesse de la caméra:",
+    "SETTING:CAMERA_EDGE_MARGIN_LABEL": "bordure de la caméra:",
+    "SETTING:CAMERA_MAX_ZOOM_LABEL": "distance maximale du zoom:",
+    "SETTING:CAMERA_CENTERED": "centrer la caméra sur le joueur",
+    "SETTING:CAMERA_PAN_SENSITIVITY_LABEL": "sensibilité de la caméra:",
+    "SETTINGS_MENU_CONFIRM": "confirmer",
+    "SETTINGS_MENU_EXIT_GAME": "quitter le jeu",
+
+    "STARTUP:STATUS_CONNECTING": "connexion en cours...",
+    "STARTUP:STATUS_CONNECT_CLIENT": "connexion au client...",
+    "STARTUP:STATUS_CLIENT_FAILED": "échec de connexion au serveur",
+    "STARTUP:STATUS_CREATE_SERVER": "création du serveur...",
+    "STARTUP:ATTEMPTS": "tentatives: %d",
+    "STARTUP:HOST_GAME": "créer une partie",
+    "STARTUP:RECONNECT": "reconnexion",
+    "STARTUP:EXIT": "quitter"
+}

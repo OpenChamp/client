@@ -1,0 +1,15 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:metal_padded_leather_armor",
+        "texture": "openchamp:items/metal_padded_leather_armor",
+        "recipe": {
+            "gold_cost": 500,
+            "components": []
+        },
+        "stats": {
+            "armor": 10
+        }
+    }
+}

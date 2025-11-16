@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://beuqmvvdrimp6"]
+
+[ext_resource type="Script" uid="uid://bl5ninh6setrf" path="res://scenes/abilities/meteor.gd" id="1_0e1c0"]
+[ext_resource type="Texture2D" uid="uid://cme53aa4kl4ij" path="res://assets/textures/summon_circle.png" id="2_5iv3c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxcsg"]
+transparency = 1
+albedo_color = Color(1, 0.34509805, 0.34509805, 1)
+albedo_texture = ExtResource("2_5iv3c")
+emission_enabled = true
+uv1_scale = Vector3(2, 2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7lhhd"]
+top_radius = 2.0
+bottom_radius = 2.0
+height = 0.1
+
+[node name="Meteor" type="Node3D"]
+script = ExtResource("1_0e1c0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_mxcsg")
+mesh = SubResource("CylinderMesh_7lhhd")
