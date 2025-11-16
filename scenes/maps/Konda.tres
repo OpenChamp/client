@@ -1,0 +1,54 @@
+[gd_resource type="VisualShader" load_steps=9 format=3 uid="uid://d3ko7n5gmspq6"]
+
+[ext_resource type="Script" uid="uid://biwr8xhxy7cml" path="res://addons/VisualShaderExtras/BlendModes/hard_mix_blend.gd" id="1_mgq36"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_7y7op"]
+input_name = "sky_coords"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_mdka2"]
+
+[sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_mqbo2"]
+default_input_values = [0, 0.0, 1, 0.8, 2, 0.5]
+
+[sub_resource type="VisualShaderNodeCustom" id="VisualShaderNodeCustom_5dar1"]
+default_input_values = [2, 0.5]
+initialized = true
+script = ExtResource("1_mgq36")
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_mbvii"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_ib5q7"]
+parameter_name = "Zenith"
+default_value_enabled = true
+default_value = Color(0.061978675, 0.03516465, 0.20846784, 1)
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_e711e"]
+output_port_for_preview = 0
+parameter_name = "Horizon"
+default_value_enabled = true
+default_value = Color(0.769897, 0.33871827, 0.26478475, 1)
+
+[resource]
+mode = 3
+flags/use_half_res_pass = false
+flags/use_quarter_res_pass = false
+flags/disable_fog = false
+flags/use_debanding = false
+nodes/sky/0/position = Vector2(1920, 160)
+nodes/sky/3/node = SubResource("VisualShaderNodeInput_7y7op")
+nodes/sky/3/position = Vector2(600, 60)
+nodes/sky/4/node = SubResource("VisualShaderNodeVectorDecompose_mdka2")
+nodes/sky/4/position = Vector2(1000, 40)
+nodes/sky/5/node = SubResource("VisualShaderNodeSmoothStep_mqbo2")
+nodes/sky/5/position = Vector2(1220, 40)
+nodes/sky/6/node = SubResource("VisualShaderNodeCustom_5dar1")
+nodes/sky/6/position = Vector2(420, 700)
+nodes/sky/7/node = SubResource("VisualShaderNodeMix_mbvii")
+nodes/sky/7/position = Vector2(1540, 120)
+nodes/sky/8/node = SubResource("VisualShaderNodeColorParameter_ib5q7")
+nodes/sky/8/position = Vector2(920, 260)
+nodes/sky/9/node = SubResource("VisualShaderNodeColorParameter_e711e")
+nodes/sky/9/position = Vector2(600, 220)
+nodes/sky/connections = PackedInt32Array(3, 0, 4, 0, 4, 1, 5, 2, 8, 0, 7, 1, 9, 0, 7, 0, 7, 0, 0, 0, 5, 0, 7, 2)

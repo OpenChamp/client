@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://dk164x7splscc"]
+
+[node name="Credits" type="Panel" unique_id=204229855]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -308.0
+offset_top = -196.5
+offset_right = 308.0
+offset_bottom = 196.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="." unique_id=320759517]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 134.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 32
+text = "Credits"
+
+[node name="BackButton" type="Button" parent="." unique_id=1049417102]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -35.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Back"
+
+[node name="Accreditations" type="RichTextLabel" parent="." unique_id=81116959]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = -126.5
+offset_right = -12.0
+offset_bottom = 150.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[left]Developers:[/left]
+[right]Cody Krist 
+Leah Lundqvist 
+Noah Kirschmann [/right]
+
+[left]Music:[/left]
+[right]Matthew Pablo (opengameart) 
+mad_rad_slav [/right]
+
+[left]Art:[/left]
+[right]gkaps 
+Thibaud Goiffon [/right]"

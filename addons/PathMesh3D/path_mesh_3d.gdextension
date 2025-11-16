@@ -1,0 +1,43 @@
+[configuration]
+
+entry_symbol = "path_mesh_3d_init"
+compatibility_minimum = "4.3"
+reloadable = true
+
+[libraries]
+
+macos.debug = "res://addons/PathMesh3D/bin/path_mesh_3d.macos.template_debug.framework"
+macos.release = "res://addons/PathMesh3D/bin/path_mesh_3d.macos.template_release.framework"
+ios.debug = "res://addons/PathMesh3D/bin/path_mesh_3d.ios.template_debug.xcframework"
+ios.release = "res://addons/PathMesh3D/bin/path_mesh_3d.ios.template_release.xcframework"
+windows.debug.x86_32 = "res://addons/PathMesh3D/bin/path_mesh_3d.windows.template_debug.x86_32.dll"
+windows.release.x86_32 = "res://addons/PathMesh3D/bin/path_mesh_3d.windows.template_release.x86_32.dll"
+windows.debug.x86_64 = "res://addons/PathMesh3D/bin/path_mesh_3d.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/PathMesh3D/bin/path_mesh_3d.windows.template_release.x86_64.dll"
+linux.debug.x86_64 = "res://addons/PathMesh3D/bin/libpath_mesh_3d.linux.template_debug.x86_64.so"
+linux.release.x86_64 = "res://addons/PathMesh3D/bin/libpath_mesh_3d.linux.template_release.x86_64.so"
+linux.debug.arm64 = "res://addons/PathMesh3D/bin/libpath_mesh_3d.linux.template_debug.arm64.so"
+linux.release.arm64 = "res://addons/PathMesh3D/bin/libpath_mesh_3d.linux.template_release.arm64.so"
+linux.debug.rv64 = "res://addons/PathMesh3D/bin/libpath_mesh_3d.linux.template_debug.rv64.so"
+linux.release.rv64 = "res://addons/PathMesh3D/bin/libpath_mesh_3d.linux.template_release.rv64.so"
+android.debug.x86_64 = "res://addons/PathMesh3D/bin/path_mesh_3d.android.template_debug.x86_64.so"
+android.release.x86_64 = "res://addons/PathMesh3D/bin/path_mesh_3d.android.template_release.x86_64.so"
+android.debug.arm64 = "res://addons/PathMesh3D/bin/path_mesh_3d.android.template_debug.arm64.so"
+android.release.arm64 = "res://addons/PathMesh3D/bin/path_mesh_3d.android.template_release.arm64.so"
+
+[dependencies]
+ios.debug = {
+    "res://addons/PathMesh3D/bin/libgodot-cpp.ios.template_debug.xcframework": ""
+}
+ios.release = {
+    "res://addons/PathMesh3D/bin/libgodot-cpp.ios.template_release.xcframework": ""
+}
+
+[icons]
+PathMesh3D = "res://addons/PathMesh3D/icons/PathMesh3D.svg"
+PathExtrude3D = "res://addons/PathMesh3D/icons/PathExtrude3D.svg"
+PathMultiMesh3D = "res://addons/PathMesh3D/icons/PathMultiMesh3D.svg"
+PathScene3D = "res://addons/PathMesh3D/icons/PathScene3D.svg"
+PathModifier3D = "res://addons/PathMesh3D/icons/PathModifier3D.svg"
+PathStaticBody3D = "res://addons/PathMesh3D/icons/PathStaticBody3D.svg"
+PathArea3D = "res://addons/PathMesh3D/icons/PathArea3D.svg"

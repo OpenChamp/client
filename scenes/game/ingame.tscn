@@ -1,39 +1,35 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjlryqf2s7uaw"]
+[gd_scene load_steps=3 format=3 uid="uid://bjlryqf2s7uaw"]
 
-[ext_resource type="Script" uid="uid://vtnwe3wqf1tn" path="res://scripts/ingame.gd" id="1_ls5gx"]
-[ext_resource type="PackedScene" uid="uid://q6einnml1qx8" path="res://scenes/maps/Konda.tscn" id="2_5lq18"]
-[ext_resource type="PackedScene" uid="uid://cf7brgwaxlmud" path="res://scenes/utility/gamecam.tscn" id="2_i5nu4"]
-[ext_resource type="PackedScene" uid="uid://di7n0t2bypmdy" path="res://scenes/ui/loading.tscn" id="2_s2j7k"]
-[ext_resource type="PackedScene" uid="uid://cg3m5qnyxjev4" path="res://scenes/environment/sky.tscn" id="3_5lq18"]
-[ext_resource type="Script" uid="uid://wv3ssgt68co2" path="res://scripts/utility/multiplayer_spawner.gd" id="5_sithu"]
-[ext_resource type="Script" uid="uid://b51yh5k56lj12" path="res://scripts/utility/ping_timer.gd" id="6_3ywp8"]
+[ext_resource type="Script" uid="uid://vtnwe3wqf1tn" path="res://scripts/ingame.gd" id="1_s2j7k"]
+[ext_resource type="PackedScene" uid="uid://bp0xm6giuadt" path="res://scenes/environment/skies/defafult_environment.tscn" id="6_s2j7k"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2nns3"]
+[node name="Ingame" type="Node" unique_id=1688817966 groups=["game_root"]]
+script = ExtResource("1_s2j7k")
 
-[node name="Ingame" type="Node" groups=["game_root"]]
-script = ExtResource("1_ls5gx")
+[node name="Timers" type="Node" parent="." unique_id=362314982]
 
-[node name="Loading" parent="." instance=ExtResource("2_s2j7k")]
+[node name="Second" type="Timer" parent="Timers" unique_id=1303554306]
 
-[node name="Konda" parent="." instance=ExtResource("2_5lq18")]
+[node name="MinionWave" type="Timer" parent="Timers" unique_id=1298541402]
+wait_time = 3.0
 
-[node name="Sky" parent="." instance=ExtResource("3_5lq18")]
+[node name="UI" type="Node" parent="." unique_id=724723262]
 
-[node name="PlayerRig" parent="." instance=ExtResource("2_i5nu4")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
-current = true
+[node name="UIRoot" type="CanvasLayer" parent="UI" unique_id=996385770]
 
-[node name="GameSync" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_2nns3")
+[node name="DebugUI" type="CanvasLayer" parent="UI" unique_id=1965256411]
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="HealthBars" type="CanvasLayer" parent="UI" unique_id=1870248860]
+
+[node name="PlayerUI" type="CanvasLayer" parent="UI" unique_id=1985538614]
+
+[node name="World" type="Node3D" parent="." unique_id=1703776802]
+
+[node name="Entities" type="Node3D" parent="." unique_id=1659416924]
+
+[node name="Minions" type="Node3D" parent="Entities" unique_id=807445230]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1364364256]
 spawn_path = NodePath("..")
-script = ExtResource("5_sithu")
 
-[node name="PingTimer" type="Timer" parent="."]
-script = ExtResource("6_3ywp8")
-
-[node name="MinionWaveTimer" type="Timer" parent="."]
-wait_time = 10.0
-
-[connection signal="timeout" from="MinionWaveTimer" to="MultiplayerSpawner" method="_on_minion_wave_timer_timeout"]
+[node name="WorldEnvironment" parent="." unique_id=312480994 instance=ExtResource("6_s2j7k")]

@@ -15,9 +15,9 @@ top_radius = 2.0
 bottom_radius = 2.0
 height = 0.1
 
-[node name="Meteor" type="Node3D"]
+[node name="Meteor" type="Node3D" unique_id=587606076]
 script = ExtResource("1_0e1c0")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2073201293]
 material_override = SubResource("StandardMaterial3D_mxcsg")
 mesh = SubResource("CylinderMesh_7lhhd")

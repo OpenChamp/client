@@ -1,0 +1,277 @@
+[gd_scene load_steps=16 format=3 uid="uid://dfsmoawod804w"]
+
+[ext_resource type="PackedScene" uid="uid://ck2ucwywmbfg0" path="res://scenes/environment/structures/core.tscn" id="1_kjwde"]
+[ext_resource type="Texture2D" uid="uid://cw0peh472bnuj" path="res://assets/textures/maps/4tfi63sywzy31.webp" id="2_jrrjd"]
+[ext_resource type="PackedScene" uid="uid://c1kj04tpxbmmf" path="res://scenes/environment/structures/tower.tscn" id="3_1gw6y"]
+[ext_resource type="ArrayMesh" uid="uid://bxj1ovu0lfjv3" path="res://assets/models/environment/Modular Terrain Hilly/Prop_Fence_Curve_3x3.obj" id="4_o1jv3"]
+[ext_resource type="ArrayMesh" uid="uid://dhlcdgga0hxls" path="res://assets/models/environment/Modular Terrain Hilly/Prop_Fence_Boards_1.obj" id="5_65eqq"]
+[ext_resource type="ArrayMesh" uid="uid://bq73b7tin06iv" path="res://assets/models/environment/Modular Terrain Hilly/Prop_Fence_Curve_1x1.obj" id="6_bco4m"]
+[ext_resource type="ArrayMesh" uid="uid://c0la1fksbilw8" path="res://assets/models/environment/Modular Terrain Hilly/Prop_Fence_Post_4.obj" id="7_f72gt"]
+[ext_resource type="ArrayMesh" uid="uid://bokeuchhnkbc3" path="res://assets/models/environment/Modular Terrain Hilly/Prop_Fence_Curve_2x2.obj" id="8_8i6a5"]
+[ext_resource type="ArrayMesh" uid="uid://byv4eyum3nq5a" path="res://assets/models/environment/Modular Terrain Hilly/Prop_Fence_Post_1.obj" id="9_u27i3"]
+[ext_resource type="ArrayMesh" uid="uid://bmfc5550jy5kk" path="res://assets/models/environment/Modular Terrain Hilly/Prop_Fence_Gate_1.obj" id="10_hpd05"]
+[ext_resource type="ArrayMesh" uid="uid://3fru8bjosbdr" path="res://assets/models/environment/Modular Terrain Hilly/Prop_Fence_Gate_2.obj" id="11_x68ue"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gw6y"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.024)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3tydh"]
+top_radius = 15.0
+bottom_radius = 15.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bia04"]
+albedo_texture = ExtResource("2_jrrjd")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qwlcj"]
+size = Vector2(320, 460)
+
+[node name="Map2" type="Node3D" unique_id=835378861]
+
+[node name="Decorations" type="Node" parent="." unique_id=248069227]
+
+[node name="Geometry" type="Node" parent="." unique_id=1631554598]
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Geometry" unique_id=867574350]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 75)
+polygon = PackedVector2Array(-10.843206, -4.3551865, -13.308741, 3.4309464, -14.207953, 4.6795883, -20.573986, 7.538162, -22.786886, 10.015663, -24.318253, 14.716934, -24.390009, 26.063225, -26.09724, 30.478508, -30.764341, 33.87323, -35.251972, 39.8619, -35.626446, 42.717678, -35.645233, 47.24811, -34.073635, 51.451527, -32.018772, 53.81511, -35.320995, 58.22872, -38.947098, 56.791862, -42.975014, 56.947227, -45.564873, 60.344646, -48.275486, 64.534454, -52.905228, 66.373184, -56.4337, 70.55709, -57.505154, 73.42502, -57.065773, 81.46001, -54.222073, 85.35405, -48.31437, 87.96095, -46.09587, 93.06395, -42.946877, 95.88111, -38.69885, 96.537186, -35.836273, 94.83119, -32.165997, 99.42741, -35.24146, 103.096985, -36.518402, 105.250244, -36.26647, 113.209045, -33.354057, 117.57941, -25.96164, 123.82448, -24.192465, 127.63335, -24.086922, 139.7655, -21.49425, 144.80984, -13.991203, 148.74937, -11.155901, 156.26205, 6.4725876, 156.13214, 9.145264, 152.9017, 19.86984, 149.4252, 27.114496, 141.58328, 28.09406, 131.31447, 37.67833, 122.75274, 38.91254, 117.12381, 38.441795, 110.67435, 38.590645, 107.48815, 43.963383, 107.19981, 46.839653, 104.19953, 45.522102, 100.003334, 42.15547, 97.40692, 35.133316, 99.23668, 35.435406, 94.21817, 39.601814, 84.93064, 43.807705, 84.033615, 46.77237, 80.161575, 46.465923, 73.31426, 43.536266, 69.22023, 39.62689, 67.98791, 35.029766, 59.039593, 34.997803, 55.515945, 36.382484, 53.75312, 37.854378, 53.780144, 40.6216, 55.91808, 43.519817, 55.692604, 45.814423, 53.348965, 46.495926, 50.41321, 45.161694, 46.78114, 42.723137, 45.068, 38.50486, 45.805927, 38.66617, 34.66256, 34.195995, 27.551704, 27.861193, 21.249763, 27.939291, 15.039124, 26.594488, 11.179356, 22.665306, 5.7854614, 18.411219, 3.1020966, 7.933322, 0.054153442, 7.5838404, -2.1430893)
+material = SubResource("StandardMaterial3D_1gw6y")
+
+[node name="Structures" type="Node" parent="." unique_id=545016594]
+
+[node name="Core1" parent="Structures" unique_id=1154357177 instance=ExtResource("1_kjwde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 100)
+
+[node name="Floor1" type="MeshInstance3D" parent="Structures" unique_id=1121088777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 90)
+mesh = SubResource("CylinderMesh_3tydh")
+
+[node name="Core2" parent="Structures" unique_id=1946211176 instance=ExtResource("1_kjwde")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1, -100)
+
+[node name="Floor2" type="MeshInstance3D" parent="Structures" unique_id=627372676]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -90)
+mesh = SubResource("CylinderMesh_3tydh")
+
+[node name="Tower" parent="Structures" unique_id=609144380 instance=ExtResource("3_1gw6y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 33)
+
+[node name="Tower2" parent="Structures" unique_id=798924398 instance=ExtResource("3_1gw6y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 60)
+
+[node name="Tower3" parent="Structures" unique_id=118194860 instance=ExtResource("3_1gw6y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -32)
+
+[node name="Tower4" parent="Structures" unique_id=610225846 instance=ExtResource("3_1gw6y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -64)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2030473004]
+transform = Transform3D(0.525, 0, 0, 0, 0.525, 0, 0, 0, 0.525, -0.064071655, -0.3450451, -0.0043029785)
+material_override = SubResource("StandardMaterial3D_bia04")
+mesh = SubResource("PlaneMesh_qwlcj")
+
+[node name="Pen" type="Node3D" parent="." unique_id=704437066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
+
+[node name="PropFenceCurve3x3" type="MeshInstance3D" parent="Pen" unique_id=2002137300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5539472, 0, 7.650607)
+mesh = ExtResource("4_o1jv3")
+
+[node name="PropFenceBoards1" type="MeshInstance3D" parent="Pen" unique_id=1119578912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5746987, 0, 9.611269)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceCurve1x1" type="MeshInstance3D" parent="Pen" unique_id=1099270109]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.6276774, 0, 9.611912)
+mesh = ExtResource("6_bco4m")
+
+[node name="PropFenceCurve1x2" type="MeshInstance3D" parent="Pen" unique_id=291807020]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.6276774, 0, 2.6119118)
+mesh = ExtResource("6_bco4m")
+
+[node name="PropFencePost4" type="MeshInstance3D" parent="Pen" unique_id=1867402115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5486398, 0, 9.600086)
+mesh = ExtResource("7_f72gt")
+
+[node name="PropFenceBoards2" type="MeshInstance3D" parent="Pen" unique_id=798015127]
+transform = Transform3D(0.9997104, 0, 0.024065768, 0, 1, 0, -0.024065768, 0, 0.9997104, -0.51363325, 0, 9.629884)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost5" type="MeshInstance3D" parent="Pen" unique_id=390863621]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.50399876, 0, 1.2992175)
+mesh = ExtResource("7_f72gt")
+
+[node name="PropFenceBoards6" type="MeshInstance3D" parent="Pen" unique_id=2051804051]
+transform = Transform3D(0.9997104, 0, 0.024065768, 0, 1, 0, -0.024065768, 0, 0.9997104, -1.5662718, 0, 1.329015)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceBoards8" type="MeshInstance3D" parent="Pen" unique_id=470292075]
+transform = Transform3D(0.97466755, 0, -0.22365841, 0, 1, 0, 0.22365841, 0, 0.97466755, 0.74179137, 0, 1.5442281)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost6" type="MeshInstance3D" parent="Pen" unique_id=1735835621]
+transform = Transform3D(0.9916959, 0, -0.12860522, 0, 1, 0, 0.12860522, 0, 0.9916959, 0.6656982, 0, 1.4878925)
+mesh = ExtResource("7_f72gt")
+
+[node name="PropFenceBoards7" type="MeshInstance3D" parent="Pen" unique_id=2082566974]
+transform = Transform3D(0.9945036, 0, -0.10470204, 0, 1, 0, 0.10470204, 0, 0.9945036, -0.39158583, 0, 1.3808287)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceCurve2x2" type="MeshInstance3D" parent="Pen" unique_id=881309602]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.6116333, 2.3841858e-07, 3.3383334)
+mesh = ExtResource("8_8i6a5")
+
+[node name="PropFenceBoards3" type="MeshInstance3D" parent="Pen" unique_id=1197234729]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.552989, 2.3841858e-07, 6.6054363)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost1" type="MeshInstance3D" parent="Pen" unique_id=882218537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5795403, 1.1920929e-07, 5.541938)
+mesh = ExtResource("9_u27i3")
+
+[node name="PropFenceBoards4" type="MeshInstance3D" parent="Pen" unique_id=1533547113]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.5707788, 0, 5.495602)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost2" type="MeshInstance3D" parent="Pen" unique_id=2139145150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5938115, 0, 4.485447)
+mesh = ExtResource("9_u27i3")
+
+[node name="PropFenceBoards5" type="MeshInstance3D" parent="Pen" unique_id=1593012808]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.618637, 0, 4.4252825)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceGate1" type="MeshInstance3D" parent="Pen" unique_id=640609442]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.6219857, 0, 6.5534997)
+mesh = ExtResource("10_hpd05")
+
+[node name="PropFenceGate2" type="MeshInstance3D" parent="Pen" unique_id=1235003000]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6167717, -2.3841858e-07, 7.5658584)
+mesh = ExtResource("11_x68ue")
+
+[node name="PropFenceBoards9" type="MeshInstance3D" parent="Pen" unique_id=1476070788]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.634479, 0, 8.564352)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceBoards10" type="MeshInstance3D" parent="Pen" unique_id=1297111325]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6343787, 0, 3.661307)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceBoards11" type="MeshInstance3D" parent="Pen" unique_id=1840754267]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6343787, 0, 4.729004)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceBoards12" type="MeshInstance3D" parent="Pen" unique_id=1527858601]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6343787, 0, 5.48075)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost3" type="MeshInstance3D" parent="Pen" unique_id=990474098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6171446, 0, 3.6980762)
+mesh = ExtResource("9_u27i3")
+
+[node name="PropFencePost7" type="MeshInstance3D" parent="Pen" unique_id=662633362]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6171446, 0, 4.7762356)
+mesh = ExtResource("9_u27i3")
+
+[node name="Pen2" type="Node3D" parent="." unique_id=1010751349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -14)
+
+[node name="PropFenceCurve3x3" type="MeshInstance3D" parent="Pen2" unique_id=1785103641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5539472, 0, 7.650607)
+mesh = ExtResource("4_o1jv3")
+
+[node name="PropFenceBoards1" type="MeshInstance3D" parent="Pen2" unique_id=644910400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5746987, 0, 9.611269)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceCurve1x1" type="MeshInstance3D" parent="Pen2" unique_id=767208330]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.6276774, 0, 9.611912)
+mesh = ExtResource("6_bco4m")
+
+[node name="PropFenceCurve1x2" type="MeshInstance3D" parent="Pen2" unique_id=1757469154]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.6276774, 0, 2.6119118)
+mesh = ExtResource("6_bco4m")
+
+[node name="PropFencePost4" type="MeshInstance3D" parent="Pen2" unique_id=1266044242]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5486398, 0, 9.600086)
+mesh = ExtResource("7_f72gt")
+
+[node name="PropFenceBoards2" type="MeshInstance3D" parent="Pen2" unique_id=1238695803]
+transform = Transform3D(0.9997104, 0, 0.024065768, 0, 1, 0, -0.024065768, 0, 0.9997104, -0.51363325, 0, 9.629884)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost5" type="MeshInstance3D" parent="Pen2" unique_id=1341523360]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.50399876, 0, 1.2992175)
+mesh = ExtResource("7_f72gt")
+
+[node name="PropFenceBoards6" type="MeshInstance3D" parent="Pen2" unique_id=1109449763]
+transform = Transform3D(0.9997104, 0, 0.024065768, 0, 1, 0, -0.024065768, 0, 0.9997104, -1.5662718, 0, 1.329015)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceBoards8" type="MeshInstance3D" parent="Pen2" unique_id=688579793]
+transform = Transform3D(0.97466755, 0, -0.22365841, 0, 1, 0, 0.22365841, 0, 0.97466755, 0.74179137, 0, 1.5442281)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost6" type="MeshInstance3D" parent="Pen2" unique_id=673214236]
+transform = Transform3D(0.9916959, 0, -0.12860522, 0, 1, 0, 0.12860522, 0, 0.9916959, 0.6656982, 0, 1.4878925)
+mesh = ExtResource("7_f72gt")
+
+[node name="PropFenceBoards7" type="MeshInstance3D" parent="Pen2" unique_id=782963340]
+transform = Transform3D(0.9945036, 0, -0.10470204, 0, 1, 0, 0.10470204, 0, 0.9945036, -0.39158583, 0, 1.3808287)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceCurve2x2" type="MeshInstance3D" parent="Pen2" unique_id=1147750922]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.6116333, 2.3841858e-07, 3.3383334)
+mesh = ExtResource("8_8i6a5")
+
+[node name="PropFenceBoards3" type="MeshInstance3D" parent="Pen2" unique_id=542995804]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.552989, 2.3841858e-07, 6.6054363)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost1" type="MeshInstance3D" parent="Pen2" unique_id=1796134373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5795403, 1.1920929e-07, 5.541938)
+mesh = ExtResource("9_u27i3")
+
+[node name="PropFenceBoards4" type="MeshInstance3D" parent="Pen2" unique_id=2051933811]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.5707788, 0, 5.495602)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost2" type="MeshInstance3D" parent="Pen2" unique_id=1032853623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5938115, 0, 4.485447)
+mesh = ExtResource("9_u27i3")
+
+[node name="PropFenceBoards5" type="MeshInstance3D" parent="Pen2" unique_id=193299731]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.618637, 0, 4.4252825)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceGate1" type="MeshInstance3D" parent="Pen2" unique_id=127964024]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.6219857, 0, 6.5534997)
+mesh = ExtResource("10_hpd05")
+
+[node name="PropFenceGate2" type="MeshInstance3D" parent="Pen2" unique_id=203423005]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6167717, -2.3841858e-07, 7.5658584)
+mesh = ExtResource("11_x68ue")
+
+[node name="PropFenceBoards9" type="MeshInstance3D" parent="Pen2" unique_id=1734697586]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.634479, 0, 8.564352)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceBoards10" type="MeshInstance3D" parent="Pen2" unique_id=1378307358]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6343787, 0, 3.661307)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceBoards11" type="MeshInstance3D" parent="Pen2" unique_id=139511214]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6343787, 0, 4.729004)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFenceBoards12" type="MeshInstance3D" parent="Pen2" unique_id=516119233]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.6343787, 0, 5.48075)
+mesh = ExtResource("5_65eqq")
+
+[node name="PropFencePost3" type="MeshInstance3D" parent="Pen2" unique_id=865938106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6171446, 0, 3.6980762)
+mesh = ExtResource("9_u27i3")
+
+[node name="PropFencePost7" type="MeshInstance3D" parent="Pen2" unique_id=1551332292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6171446, 0, 4.7762356)
+mesh = ExtResource("9_u27i3")

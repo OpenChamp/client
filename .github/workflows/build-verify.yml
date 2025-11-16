@@ -7,7 +7,7 @@ on:
     branches: [ alpha, main, develop ]
 
 env:
-  GODOT_VERSION: 4.5.0
+  GODOT_VERSION: 4.5.1
 
 jobs:
   verify-build:
@@ -30,4 +30,4 @@ jobs:
 
       - name: Check export presets
         run: |
-          godot --headless --export-debug "Linux Server" build/test_export 2>&1 | grep -E "(error|Error|ERROR)" || echo "Export preset validation passed"
+          godot --headless --export-debug "Linux Server" builds/test_export 2>&1 | grep -E "(error|Error|ERROR)" || echo "Export preset validation passed"

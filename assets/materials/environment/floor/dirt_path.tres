@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://du4kpdsx8rwdu"]
+
+[ext_resource type="Shader" uid="uid://btuxaffuqfkjl" path="res://assets/shaders/environment/dirt_path.gdshader" id="1_r6mgw"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_r6mgw")
+shader_parameter/dirt_color_light = Color(0.55, 0.42, 0.32, 1)
+shader_parameter/dirt_color_dark = Color(0.4, 0.3, 0.2, 1)
+shader_parameter/rock_color_light = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/rock_color_dark = Color(0.3, 0.3, 0.3, 1)
+shader_parameter/dirt_patch_scale = 7.0
+shader_parameter/rock_scale = 40.0
+shader_parameter/rock_threshold = 0.99
+shader_parameter/rock_height = 0.8
+shader_parameter/rock_sharpness = 1.0

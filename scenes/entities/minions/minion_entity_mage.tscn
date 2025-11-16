@@ -1,0 +1,90 @@
+[gd_scene load_steps=17 format=3 uid="uid://b3ocvxpgupua3"]
+
+[ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/minion_test.gd" id="1_46l12"]
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="3_u8jig"]
+[ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="4_i1k7y"]
+[ext_resource type="Material" uid="uid://c82oohji8rcpv" path="res://assets/materials/misc/wood.tres" id="5_sbons"]
+[ext_resource type="PackedScene" uid="uid://0kn044mnc5ja" path="res://assets/models/environment/crystalexport.glb" id="6_dq7kq"]
+[ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="7_3xu8f"]
+[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://assets/audio/sfx/game/kill_gold.wav" id="8_8g1k3"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vvu41"]
+render_priority = 0
+shader = ExtResource("3_u8jig")
+shader_parameter/outline_color = Color(0.7, 0, 1, 1)
+shader_parameter/outline_width = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvu41"]
+next_pass = SubResource("ShaderMaterial_vvu41")
+albedo_color = Color(0.5, 0, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6acv0"]
+top_radius = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ub1fe"]
+albedo_color = Color(1, 1, 0.27451, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mro74"]
+material = SubResource("StandardMaterial3D_ub1fe")
+radius = 0.02
+height = 0.08
+
+[sub_resource type="SphereMesh" id="SphereMesh_wqyuh"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sbons"]
+top_radius = 0.05
+bottom_radius = 0.05
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvu41"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="MinionEntityMage" type="Node3D" unique_id=38201347]
+script = ExtResource("1_46l12")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1534131562]
+mesh = SubResource("SphereMesh_3o8tx")
+surface_material_override/0 = SubResource("StandardMaterial3D_vvu41")
+
+[node name="Hat" type="MeshInstance3D" parent="Body" unique_id=444793574]
+transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 1, 0, 0.505964, 0)
+mesh = SubResource("CylinderMesh_6acv0")
+surface_material_override/0 = ExtResource("4_i1k7y")
+
+[node name="Eye" type="MeshInstance3D" parent="Body" unique_id=1066956009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169789, 0.0850159, 0.465818)
+mesh = SubResource("SphereMesh_mro74")
+
+[node name="Eye2" type="MeshInstance3D" parent="Body" unique_id=1982444215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199696, 0.084904, 0.45354)
+mesh = SubResource("SphereMesh_mro74")
+
+[node name="Hand" type="MeshInstance3D" parent="Body" unique_id=1995887975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5932214, 0, 0.14769208)
+mesh = SubResource("SphereMesh_wqyuh")
+
+[node name="Staff" type="MeshInstance3D" parent="Body/Hand" unique_id=1320346074]
+transform = Transform3D(1, 0, 0, 0, 0.50000006, 0, 0, 0, 1.0000001, 0, 0.07581371, 0.0043186545)
+material_override = ExtResource("5_sbons")
+mesh = SubResource("CylinderMesh_sbons")
+
+[node name="crystalexport" parent="Body/Hand/Staff" unique_id=1280859527 instance=ExtResource("6_dq7kq")]
+transform = Transform3D(0.01, 0, 0, 0, 0.019999998, 0, 0, 0, 0.009999999, -0.0024383068, 1.4679443, -0.0059393644)
+
+[node name="MoneyEmitter" parent="." unique_id=905247835 instance=ExtResource("7_3xu8f")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=165465111]
+stream = ExtResource("8_8g1k3")
+pitch_scale = 0.75
+max_distance = 20.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1073303335]
+replication_config = SubResource("SceneReplicationConfig_vvu41")

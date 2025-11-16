@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://wl05dexb5smc"]
+
+[ext_resource type="Script" uid="uid://dok76cpnjacve" path="res://scripts/ui/game_controller.gd" id="1_i3130"]
+[ext_resource type="PackedScene" uid="uid://dsdehbrtpaip2" path="res://scenes/ui/decals/movement_decal.tscn" id="2_cpwyl"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_g43t7"]
+slide_on_slope = true
+
+[node name="game_controller" type="Node3D" unique_id=689224279]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+script = ExtResource("1_i3130")
+speed = null
+mmb_sensitivity = null
+camera_path = NodePath("SpringArm3D/Camera3D")
+lerp_speed = 10.0
+mmb_lerp_speed = null
+movement_decal_scene = ExtResource("2_cpwyl")
+attack_move_decal_scene = ExtResource("2_cpwyl")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=403810186]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
+collision_mask = 0
+shape = SubResource("SeparationRayShape3D_g43t7")
+spring_length = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=303945916]

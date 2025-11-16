@@ -1,0 +1,167 @@
+[gd_scene load_steps=10 format=3 uid="uid://3eh5iwr3xark"]
+
+[ext_resource type="Texture2D" uid="uid://cx3e2xhw48c6m" path="res://assets/textures/champeye.webp" id="1_ct4eq"]
+[ext_resource type="Shader" uid="uid://8eru0ql7pdnx" path="res://assets/shaders/fade_in.gdshader" id="2_6l3is"]
+[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/fonts/LeagueGothic-Regular.woff2" id="3_1lh2i"]
+[ext_resource type="Script" uid="uid://btigfb1oy84ae" path="res://scripts/ui/menu/connection_button.gd" id="4_6l3is"]
+[ext_resource type="Script" uid="uid://bdk20kh4wcrmv" path="res://scripts/ui/menu/quit_button.gd" id="5_1lh2i"]
+
+[sub_resource type="Animation" id="Animation_6l3is"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_ct4eq"]
+resource_name = "spin_and_grow"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.5, 0, 1, -0.16666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.5, 0, 1, -0.16666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(0, 0, 0, 0.16666667, 0, 6.2831855, -0.16666667, -1.0471976, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1lh2i"]
+_data = {
+&"RESET": SubResource("Animation_6l3is"),
+&"spin_and_grow": SubResource("Animation_ct4eq")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cx0sj"]
+shader = ExtResource("2_6l3is")
+shader_parameter/duration = 2.000000095
+shader_parameter/text_color = Color(1, 0, 0, 1)
+shader_parameter/use_vertex_color = true
+
+[node name="Connecting" type="Control" unique_id=1203765113]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Champeye" type="Sprite2D" parent="." unique_id=310296151]
+position = Vector2(632, 342)
+texture = ExtResource("1_ct4eq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Champeye" unique_id=109659168]
+libraries = {
+&"": SubResource("AnimationLibrary_1lh2i")
+}
+
+[node name="LogoLabel" type="RichTextLabel" parent="." unique_id=916330236]
+material = SubResource("ShaderMaterial_cx0sj")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -339.75
+offset_top = 10.0
+offset_right = 339.75
+offset_bottom = 164.0
+grow_horizontal = 2
+theme_override_colors/table_odd_row_bg = Color(0.847528, 0.254038, 0.54182, 1)
+theme_override_colors/table_even_row_bg = Color(0.496475, 0.21976, 0.219295, 1)
+theme_override_colors/table_border = Color(0, 0, 0.862745, 1)
+theme_override_fonts/normal_font = ExtResource("3_1lh2i")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[center]OpenChamp[/center]
+"
+fit_content = true
+scroll_active = false
+
+[node name="LocalConnect" type="Button" parent="." unique_id=796901380]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -171.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Local Server (DEBUG)"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1303048718]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConnectionButton" type="Button" parent="VBoxContainer" unique_id=1839142983]
+layout_mode = 2
+text = "Connect"
+script = ExtResource("4_6l3is")
+
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=757041294]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("5_1lh2i")

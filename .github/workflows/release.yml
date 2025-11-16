@@ -6,8 +6,8 @@ on:
       - 'v*.*.*'
 
 env:
-  GODOT_VERSION: 4.5.0
-  GODOT_MONO_VERSION: 4.5.0
+  GODOT_VERSION: 4.5.1
+  GODOT_MONO_VERSION: 4.5.1
 
 jobs:
   build:

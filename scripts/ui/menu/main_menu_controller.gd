@@ -1,0 +1,5 @@
+extends Control
+
+func _ready() -> void:
+	UIManager.set_ui_root(self)
+	UIManager.change_interface("Connect")

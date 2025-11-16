@@ -1,7 +1,8 @@
 extends MultiplayerSpawner
 
 # Champions
-var CHAMPION_MAGE_SCENE = load("res://scenes/champs/mage.tscn")
+var MINION_MAGE_SCENE = load("res://scenes/entities/minions/minion_mage.tscn")
+var MINION_MELEE_SCENE = load("res://scenes/entities/minions/minion_melee.tscn")
 var CHAMPION_RANGER_SCENE = load("res://scenes/champs/ranger.tscn")
 
 # Abilities
@@ -12,9 +13,11 @@ var ABILITY_METEOR_SCENE = load("res://scenes/abilities/meteor.tscn")
 var spawn_timeout = 0.0
 var wave_size = 0
 var current_minion_index = 0
-# === Ingame Stats === #
-var waves_spawned = 0
 
+# === Ingame Stats === #
+var spawning_wave : bool = false
+var waves_spawned = 0
+var minions_to_spawn = []
 var minion_spawns = [
 	[],
 	[]
@@ -35,7 +38,7 @@ func _physics_process(delta):
 			
 			# Spawn one minion for each team at the current spawn index
 			for team in range(1, 3):
-				var minion = CHAMPION_MAGE_SCENE.instantiate()
+				var minion = MINION_MAGE_SCENE.instantiate()
 				minion.Team = team
 				minion.name = str(waves_spawned, "_", team, "_", current_minion_index)
 				await get_node(spawn_path).call_deferred("add_child", minion, true)
@@ -57,7 +60,8 @@ func _physics_process(delta):
 		
 	
 func add_scenes():
-	add_spawnable_scene(CHAMPION_MAGE_SCENE.resource_path)
+	add_spawnable_scene(MINION_MAGE_SCENE.resource_path)
+	add_spawnable_scene(MINION_MELEE_SCENE.resource_path)
 	add_spawnable_scene(CHAMPION_RANGER_SCENE.resource_path)
 	add_spawnable_scene(ABILITY_METEOR_SCENE.resource_path)
 
@@ -78,20 +82,25 @@ func spawn_ranger(entity_name:String="Ranger"):
 	if Util.players.has(name):
 		Util.players[name]["Node"] = ranger
 	
-func spawn_mage(entity_name:String="Mage"):
+func spawn_minion(minion_scene: PackedScene):
 	if not multiplayer.is_server(): return
-	print("SPAWNING MAGE")
-	var mage:CharacterBody3D = CHAMPION_MAGE_SCENE.instantiate()
-	mage.name = entity_name
-	await get_node(spawn_path).call_deferred("add_child", mage, true)
-	if Util.players.has(entity_name):
-		Util.players[entity_name]["Node"] = mage
+	
+	for i in range(1, 3):
+		var minion := minion_scene.instantiate()
+		minion.team = i
+		minion.name = str("M", i, "_", waves_spawned, minions_to_spawn.size())
+		minion.spawn_point = minion_spawns[i-1][0]
+		if i == 2:
+			minion.enemy_node_pos = minion_spawns[0][0]
+		else:
+			minion.enemy_node_pos = minion_spawns[1][0]
+		get_node(spawn_path).call_deferred("add_child", minion, true)
 		
 func spawn_minion_test(entity_name:String="Mage"):
 	if not multiplayer.is_server(): return
 	print("SPAWNING MINION FOR TEST")
 	for i in range(1, 3):
-		var mage:CharacterBody3D = CHAMPION_MAGE_SCENE.instantiate()
+		var mage:CharacterBody3D = MINION_MAGE_SCENE.instantiate()
 		mage.name = entity_name + str(i) + "_" + str(randi())
 		mage.team = i
 		if i == 2:
@@ -108,6 +117,17 @@ func spawn_ability(pos):
 	await get_node(spawn_path).call_deferred("add_child", ability, true)
 	ability.position = pos
 
+# Minion wave spawning (1shot timer)
 func _on_minion_wave_timer_timeout():
 	print("SPAWNING WAVE")
-	spawn_minion_test()
+	# 3 Melee first
+	for i in range(0, 3):
+		minions_to_spawn.push_back(MINION_MELEE_SCENE)
+	# 3 Magic Next
+	for i in range(0, 3):
+		minions_to_spawn.push_back(MINION_MAGE_SCENE)
+
+func _every_second():
+	# Called each time the SecondTimer goes off
+	if minions_to_spawn.size() > 0:
+		spawn_minion(minions_to_spawn.pop_front())

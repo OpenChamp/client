@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://biie41eopftcn"]
 
 [ext_resource type="Script" uid="uid://d2wlmrahtf4p4" path="res://scripts/abilities/mage_projectile.gd" id="1_dsmo4"]
-[ext_resource type="AudioStream" uid="uid://bf3eavg0ftu75" path="res://assets/audio/hit_magic.wav" id="2_edh1y"]
+[ext_resource type="AudioStream" uid="uid://bf3eavg0ftu75" path="res://assets/audio/sfx/game/hit_magic.wav" id="2_edh1y"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_i1cmi"]
 radius = 0.125
@@ -19,7 +19,7 @@ emission_energy_multiplier = 15.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_dsmo4"]
 radius = 0.3
 
-[node name="MageProjectile" type="RigidBody3D"]
+[node name="MageProjectile" type="RigidBody3D" unique_id=1152177239]
 physics_interpolation_mode = 1
 collision_layer = 0
 collision_mask = 256
@@ -28,13 +28,13 @@ contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_dsmo4")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=959087095]
 mesh = SubResource("SphereMesh_i1cmi")
 surface_material_override/0 = SubResource("StandardMaterial3D_dsmo4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1415225374]
 shape = SubResource("SphereShape3D_dsmo4")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=32010048]
 stream = ExtResource("2_edh1y")
 volume_db = -25.0

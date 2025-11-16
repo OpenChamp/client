@@ -1,0 +1,339 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwxs0nihljirv"]
+
+[sub_resource type="StyleBoxFlat" id="PanelStyleBox"]
+bg_color = Color(0, 0, 0, 0.7)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.65, 0.1, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="AbilityButtonStyle"]
+bg_color = Color(0.15, 0.15, 0.2, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.6, 0.65, 0.8)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="PlayerUI" type="CanvasLayer" unique_id=1148111329]
+layer = 100
+
+[node name="MainContainer" type="Control" parent="." unique_id=747862089]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BottomLeftPanel" type="PanelContainer" parent="MainContainer" unique_id=647349469]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.35
+anchor_bottom = 1.0
+offset_top = -160.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="AbilityPanel" type="PanelContainer" parent="MainContainer" unique_id=2053170069]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 1.0
+anchor_right = 0.65
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -110.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="ItemsPanel" type="PanelContainer" parent="MainContainer" unique_id=291435096]
+custom_minimum_size = Vector2(280, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -110.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="TopRightPanel" type="PanelContainer" parent="MainContainer" unique_id=1100183587]
+custom_minimum_size = Vector2(220, 240)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -230.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 250.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="TopLeftPanel" type="PanelContainer" parent="MainContainer" unique_id=913249829]
+custom_minimum_size = Vector2(190, 110)
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 200.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("PanelStyleBox")
+
+[node name="BottomLeftPanel#VBoxContainer" type="VBoxContainer" parent="." unique_id=1880902763]
+theme_override_constants/separation = 8
+
+[node name="BottomLeftPanel_VBoxContainer#ChampionStatsSection" type="VBoxContainer" parent="." unique_id=1803333467]
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection#ChampionNameLevel" type="HBoxContainer" parent="." unique_id=1468833092]
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection_ChampionNameLevel#ChampionName" type="Label" parent="." unique_id=56206160]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 18
+text = "Ahri"
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection_ChampionNameLevel#LevelBadge" type="PanelContainer" parent="." unique_id=273940490]
+custom_minimum_size = Vector2(32, 32)
+theme_override_styles/panel = SubResource("AbilityButtonStyle")
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection_ChampionNameLevel_LevelBadge#LevelLabel" type="Label" parent="." unique_id=775183160]
+unique_name_in_owner = true
+theme_override_colors/font_color = Color(0.2, 0.2, 0.25, 1)
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection#HealthContainer" type="VBoxContainer" parent="." unique_id=1709913382]
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection_HealthContainer#HealthLabel" type="Label" parent="." unique_id=952889314]
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "HP"
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection_HealthContainer#HealthBar" type="ProgressBar" parent="." unique_id=1855775307]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+theme_override_styles/background = SubResource("AbilityButtonStyle")
+value = 100.0
+show_percentage = false
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection_HealthContainer#HealthText" type="Label" parent="." unique_id=863364751]
+unique_name_in_owner = true
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 11
+text = "100 / 100"
+horizontal_alignment = 2
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection#ManaContainer" type="VBoxContainer" parent="." unique_id=1709368985]
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection_ManaContainer#ManaLabel" type="Label" parent="." unique_id=1169134879]
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "MANA"
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection_ManaContainer#ManaBar" type="ProgressBar" parent="." unique_id=971340422]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+theme_override_styles/background = SubResource("AbilityButtonStyle")
+value = 100.0
+show_percentage = false
+
+[node name="BottomLeftPanel_VBoxContainer_ChampionStatsSection_ManaContainer#ManaText" type="Label" parent="." unique_id=1932234407]
+unique_name_in_owner = true
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 11
+text = "100 / 100"
+horizontal_alignment = 2
+
+[node name="AbilityPanel#AbilityContainer" type="HBoxContainer" parent="." unique_id=2143195687]
+alignment = 1
+
+[node name="AbilityPanel_AbilityContainer#QAbility" type="Button" parent="." unique_id=1619796342]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+text = "Q"
+
+[node name="AbilityPanel_AbilityContainer_QAbility#QCooldown" type="Label" parent="." unique_id=762236919]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AbilityPanel_AbilityContainer#WAbility" type="Button" parent="." unique_id=1220387909]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+text = "W"
+
+[node name="AbilityPanel_AbilityContainer_WAbility#WCooldown" type="Label" parent="." unique_id=1047400528]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AbilityPanel_AbilityContainer#EAbility" type="Button" parent="." unique_id=1363406563]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+text = "E"
+
+[node name="AbilityPanel_AbilityContainer_EAbility#ECooldown" type="Label" parent="." unique_id=725875276]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AbilityPanel_AbilityContainer#RAbility" type="Button" parent="." unique_id=1633318522]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+text = "R"
+
+[node name="AbilityPanel_AbilityContainer_RAbility#RCooldown" type="Label" parent="." unique_id=306949032]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemsPanel#ItemsContainer" type="VBoxContainer" parent="." unique_id=2007479185]
+
+[node name="ItemsPanel_ItemsContainer#ItemsLabel" type="Label" parent="." unique_id=1161187572]
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "ITEMS"
+
+[node name="ItemsPanel_ItemsContainer#ItemSlots" type="GridContainer" parent="." unique_id=1085787154]
+columns = 4
+
+[node name="ItemsPanel_ItemsContainer_ItemSlots#ItemSlot1" type="Button" parent="." unique_id=146176509]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="ItemsPanel_ItemsContainer_ItemSlots#ItemSlot2" type="Button" parent="." unique_id=1422620207]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="ItemsPanel_ItemsContainer_ItemSlots#ItemSlot3" type="Button" parent="." unique_id=653169839]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="ItemsPanel_ItemsContainer_ItemSlots#ItemSlot4" type="Button" parent="." unique_id=2027442364]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="ItemsPanel_ItemsContainer_ItemSlots#TrinketSlot" type="Button" parent="." unique_id=1829299328]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+theme_override_styles/normal = SubResource("AbilityButtonStyle")
+
+[node name="ItemsPanel_ItemsContainer#GoldContainer" type="HBoxContainer" parent="." unique_id=228425851]
+
+[node name="ItemsPanel_ItemsContainer_GoldContainer#GoldIcon" type="Label" parent="." unique_id=9802137]
+theme_override_font_sizes/font_size = 14
+text = "💰"
+
+[node name="ItemsPanel_ItemsContainer_GoldContainer#GoldAmount" type="Label" parent="." unique_id=1943757611]
+unique_name_in_owner = true
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+theme_override_font_sizes/font_size = 14
+text = "0"
+
+[node name="TopRightPanel#TopRightContainer" type="VBoxContainer" parent="." unique_id=389951307]
+
+[node name="TopRightPanel_TopRightContainer#MinimapLabel" type="Label" parent="." unique_id=1909612288]
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 11
+text = "MINIMAP"
+
+[node name="TopRightPanel_TopRightContainer#MinimapArea" type="ColorRect" parent="." unique_id=597222936]
+custom_minimum_size = Vector2(200, 200)
+color = Color(0.05, 0.08, 0.1, 0.8)
+
+[node name="TopLeftPanel#TopLeftContainer" type="VBoxContainer" parent="." unique_id=1568116813]
+
+[node name="TopLeftPanel_TopLeftContainer#GameTimer" type="Label" parent="." unique_id=1903169245]
+unique_name_in_owner = true
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+horizontal_alignment = 1
+
+[node name="TopLeftPanel_TopLeftContainer#ObjectivesLabel" type="Label" parent="." unique_id=2127177870]
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "Objectives"
+
+[node name="TopLeftPanel_TopLeftContainer#ObjectivesList" type="VBoxContainer" parent="." unique_id=2022126865]
+
+[node name="TopLeftPanel_TopLeftContainer_ObjectivesList#Objective1" type="Label" parent="." unique_id=1274255850]
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 10
+text = "• Destroy towers"
+
+[node name="TopLeftPanel_TopLeftContainer_ObjectivesList#Objective2" type="Label" parent="." unique_id=2125754997]
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 10
+text = "• Secure objectives"

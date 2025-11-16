@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://by3wirsvr71w0"]
+
+[ext_resource type="ArrayMesh" uid="uid://c8aachrkw2nx3" path="res://assets/models/environment/cliff/Cliff_Base_Hill_Gentle.obj" id="1_c3jni"]
+[ext_resource type="ArrayMesh" uid="uid://cdgvvrpb6mlxs" path="res://assets/models/environment/cliff/Cliff_Top_Hill_Gentle.obj" id="2_qpc6d"]
+
+[node name="CliffHillGentle" type="Node3D" unique_id=699087884]
+
+[node name="CliffBaseHillGentle" type="MeshInstance3D" parent="." unique_id=112430389]
+mesh = ExtResource("1_c3jni")
+
+[node name="CliffTopHillGentle" type="MeshInstance3D" parent="." unique_id=772338539]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = ExtResource("2_qpc6d")

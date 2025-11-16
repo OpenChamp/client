@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://cs4qnd2nvpr4i" path="res://scripts/utility/gamecam.gd" id="1_sfvaa"]
 
-[node name="RTScamera" type="Camera3D"]
+[node name="RTScamera" type="Camera3D" unique_id=431386178]
 script = ExtResource("1_sfvaa")

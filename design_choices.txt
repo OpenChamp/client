@@ -1,2 +1,0 @@
-- All stats are to be lowercase and underscored
-- Team group is to be assigned on ready, not in the editor (stats.team)

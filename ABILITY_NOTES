@@ -1,5 +1,0 @@
-# ABILITY NOTES
-- When a player hits an ability key (1-4), the client emits a signal from the camera.
-- The ingame.gd scene connects to this signal and handles sending the ability use to the server.
-- The server receives the ability use request, validates it, and executes the ability on the Champion.
-- The champion.gd script would contain the actual ability logic (damage, effects, cooldowns, etc.) and a scene if a projectile is required.

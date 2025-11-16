@@ -10,11 +10,16 @@ config_version=5
 
 [application]
 
-config/name="OpenChamp_PrimaryClient"
-run/main_scene="uid://bjlryqf2s7uaw"
+config/name="OpenChamp"
+config/description="An open-source Multiplayer Online Battle Arena writtin with Godot and GDScript"
+config/version="0.0.1"
+run/main_scene="uid://bxm57ka4nof1o"
 config/use_custom_user_dir=true
-config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/features=PackedStringArray("4.6", "Forward Plus")
+boot_splash/bg_color=Color(0.14117648, 0.14117648, 0.14117648, 0)
+boot_splash/image="uid://p00q1t0d0js2"
+config/icon="res://assets/textures/openchamp.png"
+boot/splash="res://assets/textures/openchamp.png"
 
 [audio]
 
@@ -22,22 +27,49 @@ buses/default_bus_layout="uid://ddwso3ogy7vee"
 
 [autoload]
 
-Util="*res://scripts/globals/_Utility.gd"
-NetworkManager="*res://scripts/globals/_NetworkManager.gd"
+CsgToolkitAutoload="*res://addons/csg_toolkit/scripts/csg_toolkit_config.gd"
+GameManager="*res://scripts/managers/game_manager.gd"
+AudioManager="*res://scripts/managers/_AudioManager.gd"
+ConfigManager="*res://scripts/managers/_ConfigManager.gd"
+CombatManager="*res://scripts/managers/_CombatManager.gd"
+UIManager="*res://scripts/managers/_UIManager.gd"
+WSManager="*res://scripts/managers/_WS_Manager.gd"
+SpawnManager="*res://scripts/managers/_SpawnManager.gd"
+NetworkManager="*res://scripts/managers/_NetworkManager.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+IOManager="*res://scripts/managers/_IOManager.gd"
+
+[debug]
+
+gdscript/warnings/shadowed_variable=0
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/initial_position_type=5
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
-project/assembly_name="WrathOfChampions"
+project/assembly_name="OpenChamp"
+
+[editor]
+
+run/main_run_args="-ip 127.0.0.1 --port 7000"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/PathMesh3D/plugin.cfg", "res://addons/asset_placer/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/quill-ide/plugin.cfg")
 
 [global_group]
 
-champion_select=""
-game_root=""
-navmesh_region=""
-team1=""
-team2=""
-minion_spawn=""
-map_root=""
+game_root="The root of the game scene"
+team1="Red Team"
+team2="Blue Team"
+minion_spawn="Minion Spawn Points"
+map_root="The root of the map scene"
 
 [input]
 
@@ -111,8 +143,47 @@ utility_3={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
 ]
 }
+camera_pan_up={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194320,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+camera_pan_down={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194322,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+camera_pan_left={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194319,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+camera_pan_right={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194321,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+
+[layer_names]
+
+3d_physics/layer_1="Environment Static"
+3d_navigation/layer_1="Environment Static"
+3d_physics/layer_5="Structures"
+3d_navigation/layer_5="Structures"
+3d_physics/layer_9="Blue Team (1) Entites"
+3d_navigation/layer_9="Blue Team (1) Entites"
+3d_physics/layer_10="Red Team (2) Entities"
+3d_navigation/layer_10="Red Team (2) Entites"
+
+[navigation]
+
+3d/default_cell_size=0.5
+
+[physics]
+
+3d/default_gravity=0.0
+3d/default_gravity_vector=Vector3(0, 0, 0)
 
 [rendering]
 
-renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
