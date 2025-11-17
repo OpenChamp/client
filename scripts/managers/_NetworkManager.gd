@@ -19,6 +19,7 @@ enum PACKET_TYPE {
 	GAME_START,
 	GAME_STATE,
 	GAME_TIME,
+	LOBBY_FULL,
 	MAP_SPAWN,
 	MAP_LOAD,
 	# Spawn packets
@@ -30,6 +31,14 @@ enum PACKET_TYPE {
 	PLAYER_READY,
 	PLAYER_DISCONNECT,
 };
+
+const ENTITY_SCENES = {
+	"champion" : preload("res://scenes/champs/ranger.tscn"),
+	"melee-minion" : preload("res://scenes/entities/minions/minion_entity_melee.tscn"),
+	"ranged_minion" : preload("res://scenes/entities/minions/minion_entity_ranged.tscn"),
+	"magic-minion" : preload("res://scenes/entities/minions/minion_entity_mage.tscn"),
+	"cannon-minion" : preload("res://scenes/entities/minions/minion_entity_cannon.tscn"),
+}
 
 var connection: ENetConnection
 var peer: ENetPacketPeer
@@ -93,6 +102,7 @@ func _start_client(server_ip, port):
 	print("Client Created, Connecting to server at %s:%d..." % [server_ip, port])
 
 func process_packet(packet:PackedByteArray):
+	print("Packet In")
 	match packet[0]:
 		PACKET_TYPE.MAP_LOAD:
 			# Next 2 bytes are the length of the map name (Big-endian)
@@ -113,6 +123,8 @@ func process_packet(packet:PackedByteArray):
 			handle_entity_spawn_packet(packet)
 		PACKET_TYPE.ENTITY_POSITION:
 			handle_entity_position_packet(packet)
+		_:
+			push_error(packet)
 
 func handle_entity_spawn_packet(packet:PackedByteArray):
 	# (1) Type
@@ -136,11 +148,10 @@ func handle_entity_spawn_packet(packet:PackedByteArray):
 	var size = packet.decode_u32(offset);
 	offset += 4;
 	var template_id = packet.slice(offset, offset + size).get_string_from_utf8()
-	var minion_scene = load("res://scenes/entities/minions/minion_entity_melee.tscn")
-	var minion = minion_scene.instantiate();
-	minion.name = str(entity_id)
-	game_root.get_node("Entities").add_child(minion)
-	minion.global_position = entity_pos;
+	var entity = ENTITY_SCENES[template_id].instantiate()
+	entity.name = str(entity_id)
+	game_root.get_node("Entities").add_child(entity)
+	entity.global_position = entity_pos;
 	
 	
 

@@ -1,0 +1,174 @@
+[gd_scene load_steps=20 format=3 uid="uid://csdsv85iamww8"]
+
+[ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/minion_test.gd" id="1_6g8bo"]
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="2_ki85r"]
+[ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="3_ksxkq"]
+[ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://assets/materials/dirt_material.tres" id="4_ki85r"]
+[ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="6_op3rf"]
+[ext_resource type="Material" uid="uid://bcxkuilnhd5hs" path="res://assets/materials/entities/pupil_black.tres" id="7_ksxkq"]
+[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://assets/audio/sfx/game/kill_gold.wav" id="7_x3m6h"]
+[ext_resource type="Material" uid="uid://bfjai1d06f4ec" path="res://assets/materials/entities/white.tres" id="8_0pldu"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvu41"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kt6s7"]
+render_priority = 0
+shader = ExtResource("2_ki85r")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_op3rf"]
+size = Vector3(0.5, 0.25, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_x3m6h"]
+top_radius = 0.2
+bottom_radius = 0.15
+height = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ly747"]
+render_priority = 0
+shader = ExtResource("2_ki85r")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jn4o3"]
+top_radius = 0.0
+bottom_radius = 0.175
+height = 0.175
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_473du"]
+top_radius = 0.18
+bottom_radius = 0.155
+height = 1.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_ynscl"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wxkyo"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_rgxb6"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_nad7k"]
+radius = 0.01
+height = 0.02
+
+[node name="MinionEntityCannon" type="Node3D" unique_id=38201347]
+script = ExtResource("1_6g8bo")
+
+[node name="MoneyEmitter" parent="." unique_id=905247835 instance=ExtResource("6_op3rf")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=165465111]
+stream = ExtResource("7_x3m6h")
+pitch_scale = 0.75
+max_distance = 20.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1073303335]
+replication_config = SubResource("SceneReplicationConfig_vvu41")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=936524432]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3487609, 0)
+material_override = ExtResource("4_ki85r")
+material_overlay = SubResource("ShaderMaterial_kt6s7")
+mesh = SubResource("BoxMesh_op3rf")
+
+[node name="Wheels" type="Node3D" parent="MeshInstance3D" unique_id=72977903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09757173, -0.17825651)
+
+[node name="Wheel" type="MeshInstance3D" parent="MeshInstance3D/Wheels" unique_id=728189491]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.3, 0, 0)
+material_override = ExtResource("3_ksxkq")
+mesh = SubResource("CylinderMesh_x3m6h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Wheels/Wheel" unique_id=804394025]
+material_override = ExtResource("4_ki85r")
+material_overlay = SubResource("ShaderMaterial_ly747")
+mesh = SubResource("CylinderMesh_jn4o3")
+
+[node name="Wheel2" type="MeshInstance3D" parent="MeshInstance3D/Wheels" unique_id=1176786754]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.3, 0, 0)
+material_override = ExtResource("3_ksxkq")
+mesh = SubResource("CylinderMesh_x3m6h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Wheels/Wheel2" unique_id=386308182]
+material_override = ExtResource("4_ki85r")
+material_overlay = SubResource("ShaderMaterial_ly747")
+mesh = SubResource("CylinderMesh_jn4o3")
+
+[node name="Wheel3" type="MeshInstance3D" parent="MeshInstance3D/Wheels" unique_id=552429033]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.3, 0, 0.568023)
+material_override = ExtResource("3_ksxkq")
+mesh = SubResource("CylinderMesh_x3m6h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Wheels/Wheel3" unique_id=1207709154]
+material_override = ExtResource("4_ki85r")
+material_overlay = SubResource("ShaderMaterial_ly747")
+mesh = SubResource("CylinderMesh_jn4o3")
+
+[node name="Wheel4" type="MeshInstance3D" parent="MeshInstance3D/Wheels" unique_id=446753632]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.3, 0, 0.568023)
+material_override = ExtResource("3_ksxkq")
+mesh = SubResource("CylinderMesh_x3m6h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Wheels/Wheel4" unique_id=1233412143]
+material_override = ExtResource("4_ki85r")
+material_overlay = SubResource("ShaderMaterial_ly747")
+mesh = SubResource("CylinderMesh_jn4o3")
+
+[node name="Barrel" type="Node3D" parent="MeshInstance3D" unique_id=407518596]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Barrel" unique_id=954885640]
+transform = Transform3D(1, 0, 0, 0, 0.0595154, -0.99822736, 0, 0.99822736, 0.0595154, 0, 0.2672308, 0.13707751)
+material_override = ExtResource("7_ksxkq")
+mesh = SubResource("CylinderMesh_473du")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=26997724]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2185235, -0.41685426)
+material_override = ExtResource("7_ksxkq")
+mesh = SubResource("SphereMesh_ynscl")
+
+[node name="Node3D" type="Node3D" parent="MeshInstance3D" unique_id=186790243]
+transform = Transform3D(1, -1.4901161e-08, 0, -1.4901161e-08, 1.0000001, 0, -7.450581e-09, 0, 1, -0.14213234, 0.5301197, -0.30311295)
+
+[node name="Stalk" type="MeshInstance3D" parent="MeshInstance3D/Node3D" unique_id=783318809]
+transform = Transform3D(0.96592593, -0.25881907, -5.328928e-09, 0.24170281, 0.9020471, -0.3576183, 0.092558436, 0.34543276, 0.9338679, 0.031174093, -0.07963401, -0.028598279)
+material_override = ExtResource("7_ksxkq")
+mesh = SubResource("CylinderMesh_wxkyo")
+
+[node name="Eye" type="MeshInstance3D" parent="MeshInstance3D/Node3D" unique_id=1299836750]
+material_override = ExtResource("8_0pldu")
+mesh = SubResource("SphereMesh_rgxb6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Node3D/Eye" unique_id=903007939]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09641299)
+material_override = ExtResource("7_ksxkq")
+mesh = SubResource("SphereMesh_nad7k")
+
+[node name="Node3D2" type="Node3D" parent="MeshInstance3D" unique_id=1368895131]
+transform = Transform3D(1, -1.4901161e-08, 0, -1.4901161e-08, 1.0000001, 0, -7.450581e-09, 0, 1, 0.142, 0.53, -0.303)
+
+[node name="Stalk" type="MeshInstance3D" parent="MeshInstance3D/Node3D2" unique_id=2033411367]
+transform = Transform3D(0.09275241, 0.34615687, 0.9335804, 0.24162841, 0.9017694, -0.35836795, -0.96592593, 0.258819, -4.0808096e-08, 0.001999259, -0.08747268, -0.028598279)
+material_override = ExtResource("7_ksxkq")
+mesh = SubResource("CylinderMesh_wxkyo")
+
+[node name="Eye" type="MeshInstance3D" parent="MeshInstance3D/Node3D2" unique_id=250215753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03162408, 0, 0)
+material_override = ExtResource("8_0pldu")
+mesh = SubResource("SphereMesh_rgxb6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Node3D2/Eye" unique_id=542054433]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09641299)
+material_override = ExtResource("7_ksxkq")
+mesh = SubResource("SphereMesh_nad7k")

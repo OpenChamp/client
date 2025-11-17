@@ -20,7 +20,7 @@ var target: Vector3 = Vector3.ZERO
 @export var attack_move_decal_scene : PackedScene
 
 var camera: Camera3D = null
-
+const enable_panning : bool = false
 @onready var game_root:Node = get_tree().get_first_node_in_group("game_root")
 var movement_decal: Decal
 var attack_move_decal: Decal
@@ -78,6 +78,8 @@ func _input(event: InputEvent) -> void:
 			params.collide_with_bodies = true
 			var result = space_state.intersect_ray(params)
 			if result.size() > 0:
+				# Check node type
+				
 				movement_decal.move_to(result.position)
 				IOManager.move_champion.rpc_id(1, result.position)
 				
@@ -92,7 +94,8 @@ func _process(delta: float) -> void:
 		delta_move = get_mmb_pan()
 	else:
 		var dir = get_keyboard_pan()
-		dir += get_edge_pan()
+		if enable_panning:
+			dir += get_edge_pan()
 		if dir != Vector3.ZERO:
 			dir = dir.normalized()
 			var cam = camera
