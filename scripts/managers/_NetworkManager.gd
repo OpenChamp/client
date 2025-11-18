@@ -30,14 +30,16 @@ enum PACKET_TYPE {
 	# Player related packets
 	PLAYER_READY,
 	PLAYER_DISCONNECT,
+	# Player Actions
+	PLAYER_MOVE
 };
 
 const ENTITY_SCENES = {
 	"champion" : preload("res://scenes/champs/ranger.tscn"),
-	"melee-minion" : preload("res://scenes/entities/minions/minion_entity_melee.tscn"),
+	"melee_minion" : preload("res://scenes/entities/minions/minion_entity_melee.tscn"),
 	"ranged_minion" : preload("res://scenes/entities/minions/minion_entity_ranged.tscn"),
-	"magic-minion" : preload("res://scenes/entities/minions/minion_entity_mage.tscn"),
-	"cannon-minion" : preload("res://scenes/entities/minions/minion_entity_cannon.tscn"),
+	"magic_minion" : preload("res://scenes/entities/minions/minion_entity_mage.tscn"),
+	"cannon_minion" : preload("res://scenes/entities/minions/minion_entity_cannon.tscn"),
 }
 
 var connection: ENetConnection

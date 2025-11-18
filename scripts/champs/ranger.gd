@@ -1,4 +1,4 @@
-extends Creature
+extends Node3D
 class_name Ranger
 
 # var debug_target_indicator: MeshInstance3D

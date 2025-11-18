@@ -114,8 +114,3 @@ func lobby_check():
 	var total_players = multiplayer.get_peers().size()
 	if total_players == ConfigManager.game_config.max_players:
 		game_start()
-
-func set_player_node(node:Creature):
-	if node.name in player_ids:
-		players[node.name]["node"] = node
-		print("Player node updated")

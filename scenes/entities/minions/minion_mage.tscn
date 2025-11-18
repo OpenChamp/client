@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://4fqm0o8i8f46"]
+[gd_scene load_steps=15 format=3 uid="uid://bfw52jupnhk44"]
 
 [ext_resource type="Script" uid="uid://2nl4a33gjxy2" path="res://scripts/entities/minion_mage.gd" id="1_m186x"]
 [ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://assets/audio/sfx/game/kill_gold.wav" id="2_nvmyo"]

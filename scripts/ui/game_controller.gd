@@ -79,9 +79,8 @@ func _input(event: InputEvent) -> void:
 			var result = space_state.intersect_ray(params)
 			if result.size() > 0:
 				# Check node type
-				
 				movement_decal.move_to(result.position)
-				IOManager.move_champion.rpc_id(1, result.position)
+				IOManager.move_champion(result.position)
 				
 	if event is InputEventMouseMotion and is_mmb_panning:
 		get_viewport().set_input_as_handled()
