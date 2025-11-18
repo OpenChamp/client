@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6dc1hvgja2op"]
+
+[ext_resource type="Script" uid="uid://bpwtupv2ld5sy" path="res://addons/eam/eam_dock.gd" id="1_1bg6n"]
+
+[node name="EAMDock" type="Control" unique_id=561335262]
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_1bg6n")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="." unique_id=986512910]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 131.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VSplitContainer" unique_id=680018289]
+layout_mode = 2
+
+[node name="ReloadBtn" type="Button" parent="VSplitContainer/HBoxContainer" unique_id=1890942719]
+layout_mode = 2
+text = "Reload Assets"
+
+[node name="ManageBtn" type="Button" parent="VSplitContainer/HBoxContainer" unique_id=1127690509]
+layout_mode = 2
+text = "Manage Asset Locations"
+
+[node name="AssetTabContainer" type="TabContainer" parent="VSplitContainer" unique_id=1343509294]
+custom_minimum_size = Vector2(47.41, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0

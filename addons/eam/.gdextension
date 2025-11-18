@@ -1,0 +1,15 @@
+[configuration]
+entry_symbol = "external_asset_manager_library_init"
+compatibility_minimum = "4.5"
+reloadable = true
+
+[libraries]
+windows.debug.x86_64 = "res://addons/eam/bin/external_asset_manager.windows.template_debug.amd64.dll"
+windows.release.x86_64 = "res://addons/eam/bin/external_asset_manager.windows.template_release.amd64.dll"
+linux.debug.x86_64 = "res://addons/eam/bin/external_asset_manager.linux.template_debug.x86_64.so"
+linux.release.x86_64 = "res://addons/eam/bin/external_asset_manager.linux.template_release.x86_64.so"
+macos.debug = "res://addons/eam/bin/external_asset_manager.macos.template_debug.arm64.dylib"
+macos.release = "res://addons/eam/bin/external_asset_manager.macos.template_release.arm64.dylib"
+
+[icons]
+PluginIcon = "res://addons/eam/icons/plugin_icon.svg"

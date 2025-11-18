@@ -60,7 +60,7 @@ run/main_run_args="-ip 127.0.0.1 --port 7000"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/PathMesh3D/plugin.cfg", "res://addons/asset_placer/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/quill-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/PathMesh3D/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/eam/plugin.cfg")
 
 [global_group]
 
