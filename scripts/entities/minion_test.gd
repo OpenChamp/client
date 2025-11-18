@@ -9,6 +9,63 @@ var state := STATES.alive
 @export var health:int = 0
 # TODO: Create enum for minion states
 @export var minion_state: int = 0
+var server_position : Vector3
+
+# === Core Stats ===
+var max_health: float = 1.0
+var max_mana: float = 0.0
+var mana: float = 0.0
+var move_speed: float = 0.0
+var level: int = 1
+
+# === Offensive Stats ===
+var attack_range: float = 1.0
+var attack_speed: float = 1.0
+var auto_damage_type # DamageType enum reference - needs to be defined
+var crit_chance: float = 0.0
+var crit_bonus: int = 0
+var true_bonus: int = 0
+var magic_power: float = 1.0
+var physical_power: float = 1.0
+var projectile_speed: float = 5.0
+
+# === Defensive Stats ===
+var armor: int = 0 # Percentage physical damage reduction
+var magic_resist: int = 0 # Percentage magic damage reduction
+var dodge: int = 0 # Percentage chance to dodge
+
+# === Scaling & Utility Stats ===
+var health_regen: float = 1.0
+var mana_regen: float = 1.0
+var life_steal: float = 0.0 # Percentage of physical damage dealt returned as health
+var spell_vamp: float = 0.0 # Percentage of magic damage dealt returned as health
+var omni_vamp: float = 0.0 # Percentage of damage dealt returned as health
+var leech: float = 0.0 # Percentage of damage dealt returned as mana
+var vision_range: float = 1.0
+
+# === Team & Faction ===
+var team_id: int = 0 # [0 = Neutral, 1 = Team 1, 2 = Team 2] -- cmkrist 15/11/2025
+
+
+func _process(delta):
+	# Movement logic here
+	if server_position:
+		# Simple interpolation towards server position
+		global_position = global_position.lerp(server_position, speed * delta)
+
+func set_stat(stat_name: String, stat_value: String) -> void:
+	if self[stat_name] == null:
+		push_error("Stat %s does not exist on Ranger!" % stat_name)
+		return
+	var value = null
+	# Attempt to convert to int or float if applicable
+	if stat_value.is_valid_int():
+		value = int(stat_value)
+	elif stat_value.is_valid_float():
+		value = float(stat_value)
+	else:
+		value = stat_value
+	self[stat_name] = value
 
 func die():
 	if state == STATES.dead: return

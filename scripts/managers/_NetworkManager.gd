@@ -12,7 +12,7 @@ var game_root:Node
 const default_port = 7000
 # ======================================================= #
 # === Updated from packet_validator.hpp in GameServer === # 
-# ===      Last Updated: 15/11/2025 - CMKRIST         === #
+# ===      Last Updated: 18/11/2025 - CMKRIST         === #
 # ======================================================= #
 enum PACKET_TYPE {
 	# Engine reserved packet types
@@ -123,6 +123,8 @@ func process_packet(packet:PackedByteArray):
 			send_ready()
 		PACKET_TYPE.ENTITY_SPAWN:
 			handle_entity_spawn_packet(packet)
+		PACKET_TYPE.ENTITY_STATS:
+			handle_entity_stats_packet(packet)
 		PACKET_TYPE.ENTITY_POSITION:
 			handle_entity_position_packet(packet)
 		_:
@@ -132,30 +134,56 @@ func handle_entity_spawn_packet(packet:PackedByteArray):
 	# (1) Type
 	# (4) EntityID
 	# (4) Float PosX
-	# (4) Float PosZ
+	# (4) Float PosY
 	# (1) u8int Team
 	# (4) u32 template_id length
 	# (-) template_id (char[])
 	var offset = 1
-	var entity_id = packet.decode_u32(offset);
+	var entity_id = packet.decode_u32(offset)
 	offset += 4
-	var entity_pos = Vector3(
-		packet.decode_u32(offset),
-		1,
-		packet.decode_u32(offset + 4)
-	)
-	offset += 8;
+	var pos_x = packet.decode_float(offset)
+	offset += 4
+	var pos_y = packet.decode_float(offset)
+	offset += 4
+	var entity_pos = Vector3(pos_x, 1, pos_y)
 	var entity_team = packet.decode_u8(offset)
-	offset+=1;
-	var size = packet.decode_u32(offset);
-	offset += 4;
+	offset += 1
+	var size = packet.decode_u32(offset)
+	offset += 4
 	var template_id = packet.slice(offset, offset + size).get_string_from_utf8()
 	var entity = ENTITY_SCENES[template_id].instantiate()
 	entity.name = str(entity_id)
 	game_root.get_node("Entities").add_child(entity)
-	entity.global_position = entity_pos;
+	entity.global_position = entity_pos
+	print("Spawned entity %d (%s) at (%.1f, %.1f)" % [entity_id, template_id, pos_x, pos_y])
 	
-	
+func handle_entity_stats_packet(packet:PackedByteArray):
+	# Type (1 byte) + Entity ID (4) + Name Length (4) + Name + Value Length (4) + Value
+	var offset = 1
+	var entity_id = packet.decode_u32(offset)
+	offset += 4
+	var name_length = packet.decode_u32(offset)
+	offset += 4
+	var stat_name = ""
+	for i in range(offset, offset + name_length):
+		stat_name += char(packet[i])
+	offset += name_length
+	var value_length = packet.decode_u32(offset)
+	offset += 4
+	var stat_value = ""
+	for i in range(offset, offset + value_length):
+		stat_value += char(packet[i])
+	# Verify Existence
+	var entity_node = game_root.get_node_or_null("Entities/%d" % entity_id)
+	if entity_node == null:
+		push_error("Entity with ID %d not found!" % entity_id)
+		return;
+	# Update Stat
+	if not entity_node.has_method("set_stat"):
+		push_error("Entity with ID %d has no set_stat method!" % entity_id)
+		return;
+	entity_node.set_stat(stat_name, stat_value)
+	# First byte is packet type
 
 func handle_entity_position_packet(packet:PackedByteArray):
 	# First byte is packet type
@@ -174,7 +202,7 @@ func handle_entity_position_packet(packet:PackedByteArray):
 		push_error("Entity with ID %d not found!" % entity_id)
 		return;
 	# Update Position
-	entity_node.global_position = Vector3(pos_x, entity_node.global_position.y, pos_y)
+	entity_node.server_position = Vector3(pos_x, entity_node.global_position.y, pos_y)
 
 func send_ready():
 	var data = PackedByteArray()
