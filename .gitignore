@@ -5,3 +5,4 @@
 .hidden/
 builds/
 *.TMP
+settings.json
