@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bd85umke10mtt"
+path="res://.godot/imported/grass_straw.obj-900b6e1ac965ef1fa90f8dc417c43fde.mesh"
+
+[deps]
+
+files=["res://.godot/imported/grass_straw.obj-900b6e1ac965ef1fa90f8dc417c43fde.mesh"]
+
+source_file="res://default_assets/models/props/grass_straw.obj"
+dest_files=["res://.godot/imported/grass_straw.obj-900b6e1ac965ef1fa90f8dc417c43fde.mesh", "res://.godot/imported/grass_straw.obj-900b6e1ac965ef1fa90f8dc417c43fde.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

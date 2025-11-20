@@ -9,11 +9,11 @@ signal ui_transition_completed(interface_name: String)
 # Interface scene paths - updated to match actual project structure
 const Interface = {
 	"Connect": "res://scenes/ui/menu/connecting_menu.tscn",
-	"Maininterface": "res://scenes/ui/menu/main_menu.tscn", 
+	"MainMenu": "res://scenes/ui/menu/main_menu_new.tscn", 
 	"Settings": "res://scenes/ui/menu/settings_menu.tscn",
 	"Registration": "res://scenes/ui/menu/registration_menu.tscn",
 	"Credits": "res://scenes/ui/menu/credits_menu.tscn",
-	"InGame": "res://scenes/ui/ingame.tscn",
+	"Ingame": "res://scenes/ui/ingame.tscn",
 	"Loading": "res://scenes/ui/loading.tscn"
 }
 

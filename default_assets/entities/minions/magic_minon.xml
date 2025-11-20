@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity
+    xmlns="https://open-champ.com/mySchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://open-champ.com/mySchema ../_entity.xsd"
+    id="magic_minion"
+>
+    <movement />
+    <stats
+        max_health="100"
+        health="100"
+        move_speed="4.0"
+    />
+    <pathfinding />
+</entity>
+
+<!-- Add multiple minion entities -->

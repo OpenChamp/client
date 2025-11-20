@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbhtm2c8qiif"]
+
+[ext_resource type="Script" uid="uid://dw5lfhshgd3tp" path="res://scenes/_debug/HP/Healthbar.gd" id="1_vb1hh"]
+
+[node name="HealthBar" type="Node2D" unique_id=1996912880 node_paths=PackedStringArray("foreground")]
+script = ExtResource("1_vb1hh")
+foreground = NodePath("Control")
+
+[node name="Control" type="Control" parent="." unique_id=1321137702]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1396833410]
+custom_minimum_size = Vector2(100, 0)
+offset_right = 4.0
+offset_bottom = 27.0

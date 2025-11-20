@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://dnfgd4spe77la"]
 
 [ext_resource type="Script" uid="uid://2nl4a33gjxy2" path="res://scripts/entities/minion_mage.gd" id="1_qtj5o"]
-[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://assets/audio/sfx/game/kill_gold.wav" id="2_1olus"]
-[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="2_eaxdl"]
-[ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="3_vvu41"]
+[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://default_assets/audio/sfx/game/kill_gold.wav" id="2_1olus"]
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://default_assets/shaders/outline.gdshader" id="2_eaxdl"]
+[ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://default_assets/materials/cloth_material.tres" id="3_vvu41"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="4_n1ca0"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]

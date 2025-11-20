@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://yppvjf6x1akx"
+path="res://.godot/imported/Prop_Fence_Hill_Gentle.obj-54a980fcab48b38089063535bfa418d5.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Prop_Fence_Hill_Gentle.obj-54a980fcab48b38089063535bfa418d5.mesh"]
+
+source_file="res://default_assets/models/environment/Modular Terrain Hilly/Prop_Fence_Hill_Gentle.obj"
+dest_files=["res://.godot/imported/Prop_Fence_Hill_Gentle.obj-54a980fcab48b38089063535bfa418d5.mesh", "res://.godot/imported/Prop_Fence_Hill_Gentle.obj-54a980fcab48b38089063535bfa418d5.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

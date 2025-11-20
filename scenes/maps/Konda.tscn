@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://c1kj04tpxbmmf" path="res://scenes/environment/structures/tower.tscn" id="1_82gln"]
 [ext_resource type="PackedScene" uid="uid://tcuki7sy0jps" path="res://scenes/environment/bush.tscn" id="1_lof5r"]
-[ext_resource type="ArrayMesh" uid="uid://b0lkocesjfk6k" path="res://assets/models/environment/foliage/Prop_Tree_Pine_1.obj" id="3_saiab"]
-[ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://assets/materials/dirt_material.tres" id="5_fsqvq"]
+[ext_resource type="ArrayMesh" uid="uid://b0lkocesjfk6k" path="res://default_assets/models/environment/foliage/Prop_Tree_Pine_1.obj" id="3_saiab"]
+[ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://default_assets/materials/dirt_material.tres" id="5_fsqvq"]
 [ext_resource type="PackedScene" uid="uid://ck2ucwywmbfg0" path="res://scenes/environment/structures/core.tscn" id="6_3jmng"]
 [ext_resource type="PackedScene" uid="uid://drnx15ttfbml8" path="res://scenes/environment/walls/cliff_straight.tscn" id="9_2to88"]
 [ext_resource type="PackedScene" uid="uid://cljrjqk0g8k6t" path="res://scenes/environment/walls/cliff_corner_inner_lg.tscn" id="10_ba7uw"]

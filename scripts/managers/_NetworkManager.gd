@@ -6,10 +6,12 @@ signal player_disconnected(id)
 
 signal connected_to_server
 signal connection_failed
+signal game_start
 signal disconnected_from_server
 
 var game_root:Node
 const default_port = 7000
+var packets : Array = [];
 # ======================================================= #
 # === Updated from packet_validator.hpp in GameServer === # 
 # ===      Last Updated: 18/11/2025 - CMKRIST         === #
@@ -52,10 +54,8 @@ func _process(_delta:float) -> void:
 func handle_packets():
 	var packet_event = connection.service()
 	var event_type = packet_event[0]
-	
 	while event_type != ENetConnection.EVENT_NONE:
 		var peer = packet_event[1]
-		
 		match event_type:
 			ENetConnection.EVENT_ERROR:
 				push_warning("Packet Error")
@@ -77,12 +77,11 @@ func on_connection_established():
 	pass;
 
 func on_disconnect():
-	print("Disconnected from server");
+	disconnected_from_server.emit()
 	pass;
 
 	
 func _start():
-	#_start_gameserver(ConfigManager.get_game_setting("network", "port"), ConfigManager.get_game_setting("game", "max_players"))
 	_start_client(ConfigManager.get_game_setting("network", "server_ip"), ConfigManager.get_game_setting("network", "port"))
 
 func _stop():
@@ -104,8 +103,14 @@ func _start_client(server_ip, port):
 	print("Client Created, Connecting to server at %s:%d..." % [server_ip, port])
 
 func process_packet(packet:PackedByteArray):
-	print("Packet In")
+	packets.append(packet)
 	match packet[0]:
+		PACKET_TYPE.GAME_START:
+			game_start.emit()
+			UIManager.change_interface("Ingame")
+			var player_controller = load("res://scenes/ui/game_controller.tscn").instantiate()
+			get_tree().current_scene.add_child(player_controller)
+			player_controller.rotate_y(deg_to_rad(-90))
 		PACKET_TYPE.MAP_LOAD:
 			# Next 2 bytes are the length of the map name (Big-endian)
 			var name_length = packet[1] << 8 | packet[2]
@@ -115,11 +120,7 @@ func process_packet(packet:PackedByteArray):
 			print("Spawning map: %s" % map_name)
 			# Here you would call your map spawning logic
 			var map = load("res://scenes/maps/%s.tscn" % map_name).instantiate()
-			var player_controller = load("res://scenes/ui/game_controller.tscn").instantiate()
-			UIManager.change_interface("InGame")
 			get_tree().current_scene.add_child(map)
-			get_tree().current_scene.add_child(player_controller)
-			player_controller.rotate_y(deg_to_rad(-90))
 			send_ready()
 		PACKET_TYPE.ENTITY_SPAWN:
 			handle_entity_spawn_packet(packet)
@@ -151,7 +152,25 @@ func handle_entity_spawn_packet(packet:PackedByteArray):
 	var size = packet.decode_u32(offset)
 	offset += 4
 	var template_id = packet.slice(offset, offset + size).get_string_from_utf8()
-	var entity = ENTITY_SCENES[template_id].instantiate()
+	var entity : Entity = ENTITY_SCENES[template_id].instantiate()
+	var entity_template = EntityTemplates.get_entity_template(template_id)
+	var components = entity_template.get("_children")
+	if not components:
+		push_warning("Entity: ", entity.name , " Template: ", template_id, " Error: Failed to initialize XML Components")
+		return
+	for key in components:
+		match key:
+			"stats":
+				print(components["stats"]);
+				for stat_name in components["stats"]:
+					if entity[stat_name]:
+						# Typecast everything to string for consistency -- cmkrist 19/11/2025
+						var value : String = str(components["stats"][stat_name])
+						entity.set_stat(stat_name, value)
+			_:
+				print(key, components[key])
+		pass;
+	
 	entity.name = str(entity_id)
 	game_root.get_node("Entities").add_child(entity)
 	entity.global_position = entity_pos

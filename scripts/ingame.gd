@@ -32,7 +32,6 @@ func _ready() -> void:
 	UIManager.preload_interface("InGame")
 	# == Network Setup == #
 	NetworkManager.player_connected.connect(GameManager._on_player_connected)
-	NetworkManager.disconnected_from_server.connect(get_tree().quit)
 	NetworkManager.game_root = self
 	# == Load Config == #
 	var config = ConfigManager.get_ingame_configuration()

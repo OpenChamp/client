@@ -1,0 +1,15 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:silk_toga",
+        "texture": "openchamp:items/silk_toga",
+        "recipe": {
+            "gold_cost": 500,
+            "components": []
+        },
+        "stats": {
+            "magic_resist": 10
+        }
+    }
+}

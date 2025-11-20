@@ -5,9 +5,10 @@ extends Node
 var external_client_used: bool = false
 
 func _ready():
+	# Index Data
+	AssetIndexer.index_files()
 	# Load initial settings and args
 	load_args()
-	
 	# Connect Modules (if needed)
 	WSManager.token = ConfigManager.load_auth_token()
 
@@ -31,19 +32,6 @@ func load_args():
 			"-ws", "--websocket":
 				if i + 1 < args.size():
 					WSManager.websocket_url = args[i + 1]
-			# === Config === #
-			"--fullscreen":
-				ConfigManager.set_setting("video", "fullscreen", true)
-			"--windowed":
-				ConfigManager.set_setting("video", "fullscreen", false)
-			"--vsync":
-				ConfigManager.set_setting("video", "vsync", true)
-			"--novsync":
-				ConfigManager.set_setting("video", "vsync", false)
-			"--showfps":
-				ConfigManager.set_setting("video", "show_fps", true)
-			"--hidefps":
-				ConfigManager.set_setting("video", "show_fps", false)
 			# === Audio === #
 			"-mv", "--mastervolume":
 				if i + 1 < args.size():

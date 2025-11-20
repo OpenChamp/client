@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cbtko86eradki"]
 
-[ext_resource type="ArrayMesh" uid="uid://bva4x4ord44w6" path="res://assets/models/environment/cliff/Cliff_Base_Waterfall.obj" id="1_jfcqm"]
-[ext_resource type="ArrayMesh" uid="uid://teylwo5pt6hj" path="res://assets/models/environment/cliff/Cliff_Mid_Waterfall.obj" id="2_0mabr"]
-[ext_resource type="ArrayMesh" uid="uid://bvpv415tbjb2a" path="res://assets/models/environment/cliff/Cliff_Top_Waterfall.obj" id="3_e8cxf"]
+[ext_resource type="ArrayMesh" uid="uid://bva4x4ord44w6" path="res://default_assets/models/environment/cliff/Cliff_Base_Waterfall.obj" id="1_jfcqm"]
+[ext_resource type="ArrayMesh" uid="uid://teylwo5pt6hj" path="res://default_assets/models/environment/cliff/Cliff_Mid_Waterfall.obj" id="2_0mabr"]
+[ext_resource type="ArrayMesh" uid="uid://bvpv415tbjb2a" path="res://default_assets/models/environment/cliff/Cliff_Top_Waterfall.obj" id="3_e8cxf"]
 
 [node name="CliffWaterfall" type="Node3D" unique_id=1482778726]
 

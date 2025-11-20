@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://biie41eopftcn"]
 
 [ext_resource type="Script" uid="uid://d2wlmrahtf4p4" path="res://scripts/abilities/mage_projectile.gd" id="1_dsmo4"]
-[ext_resource type="AudioStream" uid="uid://bf3eavg0ftu75" path="res://assets/audio/sfx/game/hit_magic.wav" id="2_edh1y"]
+[ext_resource type="AudioStream" uid="uid://bf3eavg0ftu75" path="res://default_assets/audio/sfx/game/hit_magic.wav" id="2_edh1y"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_i1cmi"]
 radius = 0.125

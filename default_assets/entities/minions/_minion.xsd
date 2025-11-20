@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="https://open-champ.com/mySchema"
+    xsi:schemaLocation="https://open-champ.com/mySchema ../_entity.xsd"
+    elementFormDefault="qualified"
+> 
+
+
+
+</xs:schema>

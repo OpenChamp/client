@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cc20okx6ro61"
+path="res://.godot/imported/Hill_Side_Transition_To_Gentle.obj-b87639d03a242cfc294d92bb7246cf33.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Hill_Side_Transition_To_Gentle.obj-b87639d03a242cfc294d92bb7246cf33.mesh"]
+
+source_file="res://default_assets/models/environment/Modular Terrain Hilly/Hill_Side_Transition_To_Gentle.obj"
+dest_files=["res://.godot/imported/Hill_Side_Transition_To_Gentle.obj-b87639d03a242cfc294d92bb7246cf33.mesh", "res://.godot/imported/Hill_Side_Transition_To_Gentle.obj-b87639d03a242cfc294d92bb7246cf33.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

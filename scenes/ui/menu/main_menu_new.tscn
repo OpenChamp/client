@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcueoyi475mgi"]
+
+[ext_resource type="PackedScene" uid="uid://wtl7lfjwwe2f" path="res://scenes/ui/menu/widgets/account_info_widget.tscn" id="1_p7wkx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qrd8j"]
+
+[node name="MainMenuNew" type="Control" unique_id=1104455737]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AccountInfoWidget" parent="." unique_id=976313587 instance=ExtResource("1_p7wkx")]
+layout_mode = 1
+offset_left = -266.0
+
+[node name="PlayMenuWidget" type="PanelContainer" parent="." unique_id=1522976911]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayMenuWidget" unique_id=347887667]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayMenuWidget/MarginContainer" unique_id=902582491]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PlayMenuWidget/MarginContainer/VBoxContainer" unique_id=806112871]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "OpenChamp"
+
+[node name="Button" type="Button" parent="PlayMenuWidget/MarginContainer/VBoxContainer" unique_id=403483280]
+layout_mode = 2
+text = "Play"
+
+[node name="Button2" type="Button" parent="PlayMenuWidget/MarginContainer/VBoxContainer" unique_id=999027975]
+layout_mode = 2
+text = "Training"
+
+[node name="Button3" type="Button" parent="PlayMenuWidget/MarginContainer/VBoxContainer" unique_id=999050202]
+layout_mode = 2
+text = "Champions"
+
+[node name="Button4" type="Button" parent="PlayMenuWidget/MarginContainer/VBoxContainer" unique_id=1834465221]
+layout_mode = 2
+text = "Inventory"
+
+[node name="Button5" type="Button" parent="PlayMenuWidget/MarginContainer/VBoxContainer" unique_id=1115455865]
+layout_mode = 2
+text = "Profile"
+
+[node name="Button6" type="Button" parent="PlayMenuWidget/MarginContainer/VBoxContainer" unique_id=1658877454]
+layout_mode = 2
+text = "Settings"
+
+[node name="Button7" type="Button" parent="PlayMenuWidget/MarginContainer/VBoxContainer" unique_id=576771736]
+layout_mode = 2
+text = "Quit"
+
+[node name="NetworkInfoWidget" type="PanelContainer" parent="." unique_id=2060414197]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qrd8j")
+
+[node name="MarginContainer" type="MarginContainer" parent="NetworkInfoWidget" unique_id=697013179]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NetworkInfoWidget/MarginContainer" unique_id=4022132]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NetworkInfoWidget/MarginContainer/VBoxContainer" unique_id=1443154286]
+layout_mode = 2
+text = "Connected To: 127.0.0.1"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NetworkInfoWidget/MarginContainer/VBoxContainer" unique_id=163802355]
+layout_mode = 2
+bbcode_enabled = true
+text = "Ping: [color=green]24ms"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2

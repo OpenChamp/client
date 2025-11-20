@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://3eh5iwr3xark"]
+[gd_scene load_steps=11 format=3 uid="uid://3eh5iwr3xark"]
 
-[ext_resource type="Texture2D" uid="uid://cx3e2xhw48c6m" path="res://assets/textures/champeye.webp" id="1_ct4eq"]
-[ext_resource type="Shader" uid="uid://8eru0ql7pdnx" path="res://assets/shaders/fade_in.gdshader" id="2_6l3is"]
-[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://assets/fonts/LeagueGothic-Regular.woff2" id="3_1lh2i"]
+[ext_resource type="Texture2D" uid="uid://cx3e2xhw48c6m" path="res://default_assets/textures/champeye.webp" id="1_ct4eq"]
+[ext_resource type="Shader" uid="uid://8eru0ql7pdnx" path="res://default_assets/shaders/fade_in.gdshader" id="2_6l3is"]
+[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://default_assets/fonts/LeagueGothic-Regular.woff2" id="3_1lh2i"]
 [ext_resource type="Script" uid="uid://btigfb1oy84ae" path="res://scripts/ui/menu/connection_button.gd" id="4_6l3is"]
+[ext_resource type="Script" uid="uid://dsjhi3bi48x7s" path="res://scripts/ui/menu/local_connect.gd" id="4_7dw31"]
 [ext_resource type="Script" uid="uid://bdk20kh4wcrmv" path="res://scripts/ui/menu/quit_button.gd" id="5_1lh2i"]
 
 [sub_resource type="Animation" id="Animation_6l3is"]
@@ -141,6 +142,7 @@ offset_top = -31.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Local Server (DEBUG)"
+script = ExtResource("4_7dw31")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1303048718]
 layout_mode = 1
@@ -165,3 +167,5 @@ script = ExtResource("4_6l3is")
 layout_mode = 2
 text = "Quit"
 script = ExtResource("5_1lh2i")
+
+[connection signal="pressed" from="LocalConnect" to="LocalConnect" method="_on_pressed"]

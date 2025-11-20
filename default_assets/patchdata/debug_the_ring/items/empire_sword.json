@@ -1,0 +1,19 @@
+{
+    "type": "item",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:empire_sword",
+        "texture": "openchamp:item/empire_sword.png",
+        "recipe": {
+            "gold_cost": 500,
+            "components": [
+                "openchamp:rusty_sword",
+                "openchamp:rusty_sword"
+            ]
+        },
+        "stats": {
+            "attack_damage": 40,
+            "attack_speed": 5
+        }
+    }
+}

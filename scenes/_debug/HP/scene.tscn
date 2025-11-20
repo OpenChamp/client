@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://clcvddxhwffij"]
+[gd_scene load_steps=10 format=3 uid="uid://clcvddxhwffij"]
 
-[ext_resource type="Script" uid="uid://yvtmfj2tcx8i" path="res://HP/PlayerTestButton.gd" id="1_02h2o"]
-[ext_resource type="Script" uid="uid://d054r0jh3ht5d" path="res://HP/PlayerHealthbar.gd" id="1_ahhih"]
-[ext_resource type="Texture2D" uid="uid://yq1ogux6pf2k" path="res://HP/background_nine_patch.png" id="1_cuhkp"]
-[ext_resource type="Script" uid="uid://dw5lfhshgd3tp" path="res://HP/Healthbar.gd" id="4_itvkn"]
-[ext_resource type="Script" uid="uid://b8h8mavnp6fu4" path="res://HP/Camera.gd" id="5_b2lta"]
-[ext_resource type="Script" uid="uid://bqo1fjm6np2yx" path="res://HP/HealthbarFollowUnit.gd" id="6_0x0tf"]
+[ext_resource type="Script" uid="uid://yvtmfj2tcx8i" path="res://scenes/_debug/HP/PlayerTestButton.gd" id="1_02h2o"]
+[ext_resource type="Script" uid="uid://d054r0jh3ht5d" path="res://scenes/_debug/HP/PlayerHealthbar.gd" id="1_ahhih"]
+[ext_resource type="Texture2D" uid="uid://yq1ogux6pf2k" path="res://scenes/_debug/HP/background_nine_patch.png" id="1_cuhkp"]
+[ext_resource type="Script" uid="uid://dw5lfhshgd3tp" path="res://scenes/_debug/HP/Healthbar.gd" id="4_itvkn"]
+[ext_resource type="Script" uid="uid://bqo1fjm6np2yx" path="res://scenes/_debug/HP/HealthbarFollowUnit.gd" id="6_0x0tf"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mwb5w"]
 
@@ -20,15 +19,15 @@ albedo_color = Color(0.473455, 0.575267, 0.992874, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1sln4"]
 albedo_color = Color(0.733423, 0.594127, 0, 1)
 
-[node name="World" type="Node3D"]
+[node name="World" type="Node3D" unique_id=633266076]
 
-[node name="MinionTestArea" type="Control" parent="."]
+[node name="MinionTestArea" type="Control" parent="." unique_id=994181846]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Background" type="ColorRect" parent="MinionTestArea"]
+[node name="Background" type="ColorRect" parent="MinionTestArea" unique_id=1211441487]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -40,7 +39,7 @@ offset_bottom = 595.0
 grow_vertical = 0
 color = Color(0.176471, 0.176471, 0.176471, 1)
 
-[node name="Set" type="Button" parent="MinionTestArea" node_paths=PackedStringArray("health", "max_health", "healthbar")]
+[node name="Set" type="Button" parent="MinionTestArea" unique_id=2046905076 node_paths=PackedStringArray("health", "max_health", "healthbar")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -57,7 +56,7 @@ health = NodePath("../Health")
 max_health = NodePath("../MaxHealth")
 healthbar = NodePath("../../MinionHealthbar")
 
-[node name="Health" type="SpinBox" parent="MinionTestArea"]
+[node name="Health" type="SpinBox" parent="MinionTestArea" unique_id=1093070052]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -71,7 +70,7 @@ max_value = 10000.0
 step = 100.0
 value = 1500.0
 
-[node name="MaxHealth" type="SpinBox" parent="MinionTestArea"]
+[node name="MaxHealth" type="SpinBox" parent="MinionTestArea" unique_id=1450848197]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -85,7 +84,7 @@ max_value = 10000.0
 step = 100.0
 value = 2000.0
 
-[node name="Label" type="Label" parent="MinionTestArea"]
+[node name="Label" type="Label" parent="MinionTestArea" unique_id=897795185]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -98,13 +97,13 @@ grow_vertical = 0
 text = "Minion Healthbar
 Health          Max Health"
 
-[node name="PlayerTestArea" type="Control" parent="."]
+[node name="PlayerTestArea" type="Control" parent="." unique_id=1279903715]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Background" type="ColorRect" parent="PlayerTestArea"]
+[node name="Background" type="ColorRect" parent="PlayerTestArea" unique_id=566193797]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -116,7 +115,7 @@ offset_bottom = 599.0
 grow_vertical = 0
 color = Color(0.176419, 0.176419, 0.176419, 1)
 
-[node name="Set" type="Button" parent="PlayerTestArea" node_paths=PackedStringArray("health", "max_health", "healthbar")]
+[node name="Set" type="Button" parent="PlayerTestArea" unique_id=940126241 node_paths=PackedStringArray("health", "max_health", "healthbar")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -133,7 +132,7 @@ health = NodePath("../Health")
 max_health = NodePath("../MaxHealth")
 healthbar = NodePath("../../PlayerHealthbar")
 
-[node name="Health" type="SpinBox" parent="PlayerTestArea"]
+[node name="Health" type="SpinBox" parent="PlayerTestArea" unique_id=1086420140]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -147,7 +146,7 @@ max_value = 10000.0
 step = 100.0
 value = 1500.0
 
-[node name="MaxHealth" type="SpinBox" parent="PlayerTestArea"]
+[node name="MaxHealth" type="SpinBox" parent="PlayerTestArea" unique_id=65603577]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -161,7 +160,7 @@ max_value = 10000.0
 step = 100.0
 value = 2000.0
 
-[node name="Label" type="Label" parent="PlayerTestArea"]
+[node name="Label" type="Label" parent="PlayerTestArea" unique_id=388281680]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -174,7 +173,7 @@ grow_vertical = 0
 text = "Player Healthbar
 Health          Max Health"
 
-[node name="PlayerHealthbar" type="Control" parent="." node_paths=PackedStringArray("after_effect", "lines", "foreground")]
+[node name="PlayerHealthbar" type="Control" parent="." unique_id=247388668 node_paths=PackedStringArray("after_effect", "lines", "foreground")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 148.0
@@ -186,7 +185,7 @@ after_effect = NodePath("Aftereffect")
 lines = NodePath("Lines")
 foreground = NodePath("Foreground")
 
-[node name="Background" type="NinePatchRect" parent="PlayerHealthbar"]
+[node name="Background" type="NinePatchRect" parent="PlayerHealthbar" unique_id=218763912]
 texture_filter = 1
 layout_mode = 0
 offset_right = 125.0
@@ -197,14 +196,14 @@ patch_margin_top = 2
 patch_margin_right = 2
 patch_margin_bottom = 2
 
-[node name="Aftereffect" type="ColorRect" parent="PlayerHealthbar"]
+[node name="Aftereffect" type="ColorRect" parent="PlayerHealthbar" unique_id=969566548]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 122.0
 offset_bottom = 13.0
 
-[node name="Foreground" type="ColorRect" parent="PlayerHealthbar"]
+[node name="Foreground" type="ColorRect" parent="PlayerHealthbar" unique_id=1336669884]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
@@ -212,14 +211,14 @@ offset_right = 122.0
 offset_bottom = 13.0
 color = Color(0, 0.723777, 0.28666, 1)
 
-[node name="Lines" type="Control" parent="PlayerHealthbar"]
+[node name="Lines" type="Control" parent="PlayerHealthbar" unique_id=1992686796]
 anchors_preset = 0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 122.0
 offset_bottom = 13.0
 
-[node name="MinionHealthbar" type="Control" parent="." node_paths=PackedStringArray("foreground")]
+[node name="MinionHealthbar" type="Control" parent="." unique_id=1994086613 node_paths=PackedStringArray("foreground")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 896.0
@@ -229,13 +228,13 @@ offset_bottom = 131.0
 script = ExtResource("4_itvkn")
 foreground = NodePath("Foreground")
 
-[node name="Background" type="ColorRect" parent="MinionHealthbar"]
+[node name="Background" type="ColorRect" parent="MinionHealthbar" unique_id=2007740510]
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 6.0
 color = Color(0, 0, 0, 1)
 
-[node name="Foreground" type="ColorRect" parent="MinionHealthbar"]
+[node name="Foreground" type="ColorRect" parent="MinionHealthbar" unique_id=1426230562]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 1.0
@@ -243,14 +242,13 @@ offset_right = 63.0
 offset_bottom = 5.0
 color = Color(0.658942, 0, 0.162328, 1)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1961576019]
 transform = Transform3D(-4.37114e-08, -0.76321, 0.646151, 0, 0.646151, 0.76321, -1, 3.3361e-08, -2.82441e-08, 1.09591, 1.28164, 0.0433221)
-script = ExtResource("5_b2lta")
 
-[node name="Plane" type="MeshInstance3D" parent="."]
+[node name="Plane" type="MeshInstance3D" parent="." unique_id=1476046988]
 mesh = SubResource("PlaneMesh_mwb5w")
 
-[node name="Player" type="MeshInstance3D" parent="." node_paths=PackedStringArray("healthbar")]
+[node name="Player" type="MeshInstance3D" parent="." unique_id=551411801 node_paths=PackedStringArray("healthbar")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.5)
 mesh = SubResource("CylinderMesh_uem2c")
 surface_material_override/0 = SubResource("StandardMaterial3D_oi3em")
@@ -258,7 +256,7 @@ script = ExtResource("6_0x0tf")
 healthbar = NodePath("../PlayerHealthbar")
 offset_x = -62.0
 
-[node name="Minion" type="MeshInstance3D" parent="." node_paths=PackedStringArray("healthbar")]
+[node name="Minion" type="MeshInstance3D" parent="." unique_id=1768755510 node_paths=PackedStringArray("healthbar")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.05, -0.5)
 mesh = SubResource("CylinderMesh_uem2c")
 skeleton = NodePath("../Player")
@@ -268,10 +266,10 @@ healthbar = NodePath("../MinionHealthbar")
 offset_x = -32.0
 height = 0.15
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2088730894]
 transform = Transform3D(0.5, -0.433013, 0.75, 0, 0.866025, 0.5, -0.866025, -0.25, 0.433013, 0, 0, 3)
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=153421270]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 525.0

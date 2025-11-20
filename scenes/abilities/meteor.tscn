@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://beuqmvvdrimp6"]
 
 [ext_resource type="Script" uid="uid://bl5ninh6setrf" path="res://scenes/abilities/meteor.gd" id="1_0e1c0"]
-[ext_resource type="Texture2D" uid="uid://cme53aa4kl4ij" path="res://assets/textures/summon_circle.png" id="2_5iv3c"]
+[ext_resource type="Texture2D" uid="uid://cme53aa4kl4ij" path="res://default_assets/textures/summon_circle.png" id="2_5iv3c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxcsg"]
 transparency = 1

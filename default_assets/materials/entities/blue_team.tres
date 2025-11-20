@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bi85ct1cfo1ma"]
+
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://default_assets/shaders/outline.gdshader" id="1_0uvwd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8knq"]
+render_priority = 0
+shader = ExtResource("1_0uvwd")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/thickness = 0.05
+
+[resource]
+next_pass = SubResource("ShaderMaterial_u8knq")
+shading_mode = 2
+diffuse_mode = 3
+albedo_color = Color(0.12315822, 0, 0.7923846, 1)

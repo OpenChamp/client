@@ -1,27 +1,20 @@
 [gd_scene load_steps=20 format=3 uid="uid://csdsv85iamww8"]
 
-[ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/minion_test.gd" id="1_6g8bo"]
-[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="2_ki85r"]
-[ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="3_ksxkq"]
-[ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://assets/materials/dirt_material.tres" id="4_ki85r"]
+[ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/entity.gd" id="1_6g8bo"]
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://default_assets/shaders/outline.gdshader" id="2_ki85r"]
+[ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://default_assets/materials/cloth_material.tres" id="3_ksxkq"]
+[ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://default_assets/materials/dirt_material.tres" id="4_ki85r"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="6_op3rf"]
-[ext_resource type="Material" uid="uid://bcxkuilnhd5hs" path="res://assets/materials/entities/pupil_black.tres" id="7_ksxkq"]
-[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://assets/audio/sfx/game/kill_gold.wav" id="7_x3m6h"]
-[ext_resource type="Material" uid="uid://bfjai1d06f4ec" path="res://assets/materials/entities/white.tres" id="8_0pldu"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvu41"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
+[ext_resource type="Material" uid="uid://bcxkuilnhd5hs" path="res://default_assets/materials/entities/pupil_black.tres" id="7_ksxkq"]
+[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://default_assets/audio/sfx/game/kill_gold.wav" id="7_x3m6h"]
+[ext_resource type="Material" uid="uid://bfjai1d06f4ec" path="res://default_assets/materials/entities/white.tres" id="8_0pldu"]
+[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/HealthBar.tscn" id="9_ksxkq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kt6s7"]
 render_priority = 0
 shader = ExtResource("2_ki85r")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/outline_width = 2.0
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/thickness = 0.05
 
 [sub_resource type="BoxMesh" id="BoxMesh_op3rf"]
 size = Vector3(0.5, 0.25, 1)
@@ -34,8 +27,8 @@ height = 0.1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ly747"]
 render_priority = 0
 shader = ExtResource("2_ki85r")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/outline_width = 2.0
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/thickness = 0.05
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_jn4o3"]
 top_radius = 0.0
@@ -73,9 +66,6 @@ script = ExtResource("1_6g8bo")
 stream = ExtResource("7_x3m6h")
 pitch_scale = 0.75
 max_distance = 20.0
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1073303335]
-replication_config = SubResource("SceneReplicationConfig_vvu41")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=936524432]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3487609, 0)
@@ -172,3 +162,5 @@ mesh = SubResource("SphereMesh_rgxb6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09641299)
 material_override = ExtResource("7_ksxkq")
 mesh = SubResource("SphereMesh_nad7k")
+
+[node name="HealthBar" parent="." unique_id=1277894472 instance=ExtResource("9_ksxkq")]

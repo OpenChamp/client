@@ -1,10 +1,10 @@
 [gd_scene load_steps=31 format=4 uid="uid://c1kj04tpxbmmf"]
 
 [ext_resource type="Script" uid="uid://cky7uy2lqmp8d" path="res://scripts/environment/tower.gd" id="1_xvvt6"]
-[ext_resource type="Material" uid="uid://c30nufpn80reo" path="res://assets/materials/environment/tower/tower.tres" id="2_s06dd"]
-[ext_resource type="Shader" uid="uid://pgipy2o7o3eg" path="res://assets/shaders/banner.gdshader" id="3_p232b"]
-[ext_resource type="Material" uid="uid://sulua6ik03c" path="res://assets/materials/environment/tower/tower_golden_ring.tres" id="4_fuv3k"]
-[ext_resource type="Shader" uid="uid://bdc4tqvbt6jqn" path="res://assets/shaders/crystal.gdshader" id="5_s06dd"]
+[ext_resource type="Material" uid="uid://c30nufpn80reo" path="res://default_assets/materials/environment/tower/tower.tres" id="2_s06dd"]
+[ext_resource type="Shader" uid="uid://pgipy2o7o3eg" path="res://default_assets/shaders/banner.gdshader" id="3_p232b"]
+[ext_resource type="Material" uid="uid://sulua6ik03c" path="res://default_assets/materials/environment/tower/tower_golden_ring.tres" id="4_fuv3k"]
+[ext_resource type="Shader" uid="uid://bdc4tqvbt6jqn" path="res://default_assets/shaders/crystal.gdshader" id="5_s06dd"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nyolb"]
 radius = 5.0

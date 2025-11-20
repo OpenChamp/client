@@ -1,0 +1,70 @@
+{
+    "type": "map",
+    "format_version": "1",
+    "data": {
+        "id": "openchamp:the_ring",
+        "teams": 2,
+        "max_players": 2,
+        "require_all_players": true,
+        "join_wait_time": 10,
+        "allow_join_in_progress": true,
+        "end_conditions": [
+            {
+                "type": "team_elimination",
+                "team": 1
+            }
+        ],
+        "features": [
+            {
+                "type": "player_spawn",
+                "team": 1,
+                "name": "player_spawn_1",
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 10
+                },
+                "spawn_behaviour":{
+                    "respawn_enabled": true,
+                    "respawn_time": 30,
+                    "respawn_time_growth_level": 5,
+                    "respawn_time_growth_time": 0.1
+                }
+            },
+            {
+                "type": "player_spawn",
+                "team": 2,
+                "name": "player_spawn_2",
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": -10
+                },
+                "spawn_behaviour":{
+                    "respawn_enabled": true,
+                    "respawn_time": 30,
+                    "respawn_time_growth_level": 5,
+                    "respawn_time_growth_time": 0.1
+                }
+            },
+            {
+                "type": "unit_spawn",
+                "team": -1,
+                "name": "minion_spawn_1",
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "spawn_behaviour":{
+                    "unit_type": "openchamp:base_minion",
+                    "initial_cooldown": 30,
+                    "wave_interval": 60,
+                    "wave_size": 1,
+                    "wave_growth": 1,
+                    "require_clear": true
+                }
+            }
+        ]
+    }
+}

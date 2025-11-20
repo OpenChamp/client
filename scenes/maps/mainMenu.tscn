@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d4bcxtr2koou0" path="res://scenes/ui/menu/main_menu.tscn" id="1_48ign"]
 [ext_resource type="PackedScene" uid="uid://cg3m5qnyxjev4" path="res://scenes/environment/sky.tscn" id="2_l7wge"]
-[ext_resource type="AudioStream" uid="uid://dsievv3jxm0bo" path="res://assets/audio/music/Heroic Demise (New).mp3" id="3_7nrmo"]
+[ext_resource type="AudioStream" uid="uid://dsievv3jxm0bo" path="res://default_assets/audio/music/Heroic Demise (New).mp3" id="3_7nrmo"]
 
 [node name="MainMenu" type="Node3D" unique_id=1552433693]
 

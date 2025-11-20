@@ -1,31 +1,28 @@
 [gd_scene load_steps=6 format=3 uid="uid://bp0xm6giuadt"]
 
-[ext_resource type="Shader" uid="uid://d3ko7n5gmspq6" path="res://scenes/maps/Konda.tres" id="1_usmur"]
+[ext_resource type="Texture2D" uid="uid://54c8rgk54kqy" path="res://default_assets/textures/low-poly-stary-sky_front.jpg" id="1_usmur"]
 [ext_resource type="Script" uid="uid://ctqy43g86x333" path="res://scripts/environment/world_environment.gd" id="2_6hvil"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ba7uw"]
-shader = ExtResource("1_usmur")
-shader_parameter/Horizon = Color(1, 0.202851, 0.247801, 1)
-shader_parameter/Zenith = Color(0, 0.061391, 0.199103, 1)
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_usmur"]
+rayleigh_coefficient = 1.5
+energy_multiplier = 2.5
+night_sky = ExtResource("1_usmur")
 
 [sub_resource type="Sky" id="Sky_kkoog"]
-sky_material = SubResource("ShaderMaterial_ba7uw")
+sky_material = SubResource("PhysicalSkyMaterial_usmur")
+radiance_size = 1
 
 [sub_resource type="Environment" id="Environment_tabry"]
 background_mode = 2
 sky = SubResource("Sky_kkoog")
 ambient_light_source = 3
+reflected_light_source = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" unique_id=312480994]
 environment = SubResource("Environment_tabry")
 script = ExtResource("2_6hvil")
-SecondsPerCycle = 30
 
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=941959696]
-transform = Transform3D(-4.3711392e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -4.3711392e-08, 0, 0, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=941959696]
+transform = Transform3D(-4.3711402e-08, -3.5527137e-15, -1.0000002, 0, 0.99999976, -3.5527137e-15, 1, -5.7881044e-22, -4.3711395e-08, 0, 0, 0)
 light_color = Color(1, 0.87612945, 0.8129441, 1)
-
-[node name="Moon" type="DirectionalLight3D" parent="." unique_id=1980586021]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
-light_color = Color(0.86981654, 0.9448032, 1, 1)
-light_energy = 0.4
+directional_shadow_mode = 0

@@ -6,7 +6,6 @@ extends MeshInstance3D
 
 func _ready():
 	assert(healthbar != null);
-	GameManager.camera_changed.connect(_on_game_manager_camera_changed)
 
 func _process(delta: float) -> void:
 	if GameManager.player_camera == null:
