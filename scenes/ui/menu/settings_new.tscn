@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbllm6wmpg8gx"]
+[gd_scene load_steps=7 format=3 uid="uid://cbllm6wmpg8gx"]
 
 [ext_resource type="Theme" uid="uid://ddei35c2o487y" path="res://scenes/ui/menu/settings_new.tres" id="1_0fb2g"]
+[ext_resource type="Script" uid="uid://bif02jxlmpwi" path="res://scripts/ui/menu/close_overlay.gd" id="2_73bh8"]
 
 [sub_resource type="Gradient" id="Gradient_73bh8"]
 colors = PackedColorArray(0.15170373, 0.15170373, 0.16409835, 0.85, 0.24780053, 0.24780053, 0.27395758, 0.85)
@@ -1348,3 +1349,4 @@ offset_bottom = 32.0
 grow_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_73bh8")
 text = "Back"
+script = ExtResource("2_73bh8")

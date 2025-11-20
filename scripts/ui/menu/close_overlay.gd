@@ -7,4 +7,4 @@ func _enter_tree() -> void:
 
 func _on_pressed():
 	push_warning("PRESSED")
-	await UIManager.go_back()
+	UIManager.hide_overlay_interface(self.get_parent())

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcueoyi475mgi"]
+[gd_scene load_steps=4 format=3 uid="uid://dcueoyi475mgi"]
 
 [ext_resource type="PackedScene" uid="uid://wtl7lfjwwe2f" path="res://scenes/ui/menu/widgets/account_info_widget.tscn" id="1_p7wkx"]
+[ext_resource type="Script" uid="uid://ckc62kylvyx0q" path="res://scripts/ui/menu/play_menu_widget.gd" id="2_qrd8j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qrd8j"]
 
@@ -26,6 +27,7 @@ offset_top = -20.0
 offset_right = 60.0
 offset_bottom = 20.0
 grow_vertical = 2
+script = ExtResource("2_qrd8j")
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayMenuWidget" unique_id=347887667]
 layout_mode = 2
