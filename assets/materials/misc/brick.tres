@@ -1,5 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://ocn37vjn0pmi"]
-
-[resource]
-normal_enabled = true
-uv1_scale = Vector3(20, 3, 3)
