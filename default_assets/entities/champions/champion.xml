@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity
+    xmlns="https://open-champ.com/mySchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://open-champ.com/mySchema ../_entity.xsd"
+    id="champion"
+>
+    <movement />
+    <stats
+        max_health="500"
+        health="500"
+        max_mana="200"
+        mana="200"
+        move_speed="5.5"
+        physical_power="50"
+        armor="15"
+        magic_resist="25"
+        attack_range="1.75"
+        attack_speed="0.625"
+    />
+    <pathfinding />
+</entity>

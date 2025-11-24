@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://tcuki7sy0jps"]
 
-[ext_resource type="ArrayMesh" uid="uid://d1061usi6uuxh" path="res://assets/models/environment/foliage/Prop_Bush_1.obj" id="1_1710o"]
-[ext_resource type="ArrayMesh" uid="uid://djjiqiythmb24" path="res://assets/models/environment/foliage/Prop_Rock_2.obj" id="2_y6bdk"]
-[ext_resource type="ArrayMesh" uid="uid://dbsarfmcbiyay" path="res://assets/models/environment/foliage/Prop_Rock_3.obj" id="3_6mqnv"]
-[ext_resource type="ArrayMesh" uid="uid://b0lkocesjfk6k" path="res://assets/models/environment/foliage/Prop_Tree_Pine_1.obj" id="4_36rj3"]
-[ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://assets/materials/dirt_material.tres" id="5_pt14j"]
+[ext_resource type="ArrayMesh" uid="uid://d1061usi6uuxh" path="res://default_assets/models/environment/foliage/Prop_Bush_1.obj" id="1_1710o"]
+[ext_resource type="ArrayMesh" uid="uid://djjiqiythmb24" path="res://default_assets/models/environment/foliage/Prop_Rock_2.obj" id="2_y6bdk"]
+[ext_resource type="ArrayMesh" uid="uid://dbsarfmcbiyay" path="res://default_assets/models/environment/foliage/Prop_Rock_3.obj" id="3_6mqnv"]
+[ext_resource type="ArrayMesh" uid="uid://b0lkocesjfk6k" path="res://default_assets/models/environment/foliage/Prop_Tree_Pine_1.obj" id="4_36rj3"]
+[ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://default_assets/materials/dirt_material.tres" id="5_pt14j"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ba7uw"]
 

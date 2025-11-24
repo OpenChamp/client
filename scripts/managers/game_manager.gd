@@ -70,16 +70,11 @@ func game_start():
 
 func reload_settings() -> void:
 	ConfigManager.load_settings()
-	config = ConfigManager.get_ingame_configuration()
 	print("GameManager: Settings reloaded")
 
 func apply_settings() -> void:
 	ConfigManager.apply_settings(config)
 	print("GameManager: Settings applied")
-
-func save_settings() -> void:
-	ConfigManager.save_settings(config)
-	print("GameManager: Settings saved")
 
 func slow_tick_timeout():
 	emit_signal("slow_tick")
@@ -114,8 +109,3 @@ func lobby_check():
 	var total_players = multiplayer.get_peers().size()
 	if total_players == ConfigManager.game_config.max_players:
 		game_start()
-
-func set_player_node(node:Creature):
-	if node.name in player_ids:
-		players[node.name]["node"] = node
-		print("Player node updated")

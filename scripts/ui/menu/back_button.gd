@@ -2,7 +2,9 @@ extends Button
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pressed.connect(func():
-		await UIManager.go_back()
-	)
+func _enter_tree() -> void:
+	pressed.connect(_on_pressed)
+
+func _on_pressed():
+	push_warning("PRESSED")
+	await UIManager.go_back()

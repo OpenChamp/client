@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://q6um4f76w26f"]
 
-[ext_resource type="ArrayMesh" uid="uid://bxpnhisbc1tb8" path="res://assets/models/environment/cliff/Cliff_Base_Corner_Outer_Lg.obj" id="1_kl6u3"]
-[ext_resource type="ArrayMesh" uid="uid://cy4d7rb4dqk4l" path="res://assets/models/environment/cliff/Cliff_Mid_Corner_Outer_Lg.obj" id="2_6w2lj"]
-[ext_resource type="ArrayMesh" uid="uid://b3q5pjqef4hcm" path="res://assets/models/environment/cliff/Cliff_Top_Corner_Outer_Lg.obj" id="3_3od6t"]
+[ext_resource type="ArrayMesh" uid="uid://bxpnhisbc1tb8" path="res://default_assets/models/environment/cliff/Cliff_Base_Corner_Outer_Lg.obj" id="1_kl6u3"]
+[ext_resource type="ArrayMesh" uid="uid://cy4d7rb4dqk4l" path="res://default_assets/models/environment/cliff/Cliff_Mid_Corner_Outer_Lg.obj" id="2_6w2lj"]
+[ext_resource type="ArrayMesh" uid="uid://b3q5pjqef4hcm" path="res://default_assets/models/environment/cliff/Cliff_Top_Corner_Outer_Lg.obj" id="3_3od6t"]
 
 [node name="CliffCornerOuterLg" type="Node3D" unique_id=973360019]
 

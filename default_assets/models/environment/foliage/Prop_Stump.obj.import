@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://clmcir5n6ckk2"
+path="res://.godot/imported/Prop_Stump.obj-e2638857df177a315592d004f17b7eed.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Prop_Stump.obj-e2638857df177a315592d004f17b7eed.mesh"]
+
+source_file="res://default_assets/models/environment/foliage/Prop_Stump.obj"
+dest_files=["res://.godot/imported/Prop_Stump.obj-e2638857df177a315592d004f17b7eed.mesh", "res://.godot/imported/Prop_Stump.obj-e2638857df177a315592d004f17b7eed.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

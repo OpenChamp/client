@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://wtl7lfjwwe2f"]
+
+[ext_resource type="Shader" uid="uid://c1ul8x60yvgl6" path="res://default_assets/shaders/profile_round.gdshader" id="1_jkr3k"]
+[ext_resource type="Texture2D" uid="uid://bsmawm1uoesms" path="res://default_assets/textures/placeholder.png" id="2_w5fsi"]
+[ext_resource type="Texture2D" uid="uid://p00q1t0d0js2" path="res://default_assets/textures/openchamp.png" id="3_y018a"]
+[ext_resource type="Texture2D" uid="uid://cx3e2xhw48c6m" path="res://default_assets/textures/champeye.webp" id="4_qj15y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgw7p"]
+bg_color = Color(0.09985284, 0.09985284, 0.09985284, 0.90000004)
+corner_radius_top_left = 80
+corner_radius_bottom_left = 80
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ecqp"]
+shader = ExtResource("1_jkr3k")
+shader_parameter/border_width = 0.0230000010925
+shader_parameter/border_color = Color(0, 0, 0, 1)
+shader_parameter/radius = 0.5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3h5ht"]
+content_margin_left = 5.0
+
+[node name="AccountInfoWidget" type="PanelContainer" unique_id=976313587]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -260.0
+offset_bottom = 70.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wgw7p")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=576002206]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="Container" type="Control" parent="HBoxContainer" unique_id=1488239912]
+clip_contents = true
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/Container" unique_id=723907662]
+material = SubResource("ShaderMaterial_6ecqp")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_w5fsi")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1594471253]
+layout_mode = 2
+
+[node name="Tag" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1893042732]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/Tag" unique_id=257844358]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3h5ht")
+text = "GamerTag#1234"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1168399308]
+layout_mode = 2
+
+[node name="Money1" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2142132412]
+layout_mode = 2
+theme_override_constants/icon_max_width = 32
+text = "99,999"
+icon = ExtResource("3_y018a")
+flat = true
+
+[node name="Money2" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=109153970]
+layout_mode = 2
+theme_override_constants/icon_max_width = 32
+text = "99,999"
+icon = ExtResource("4_qj15y")
+flat = true

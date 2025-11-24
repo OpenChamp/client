@@ -9,11 +9,11 @@ signal ui_transition_completed(interface_name: String)
 # Interface scene paths - updated to match actual project structure
 const Interface = {
 	"Connect": "res://scenes/ui/menu/connecting_menu.tscn",
-	"Maininterface": "res://scenes/ui/menu/main_menu.tscn", 
-	"Settings": "res://scenes/ui/menu/settings_menu.tscn",
+	"MainMenu": "res://scenes/ui/menu/main_menu_new.tscn", 
+	"Settings": "res://scenes/ui/menu/settings_new.tscn",
 	"Registration": "res://scenes/ui/menu/registration_menu.tscn",
 	"Credits": "res://scenes/ui/menu/credits_menu.tscn",
-	"InGame": "res://scenes/ui/ingame.tscn",
+	"Ingame": "res://scenes/ui/ingame.tscn",
 	"Loading": "res://scenes/ui/loading.tscn"
 }
 
@@ -22,6 +22,7 @@ var ui_root: Node
 var current_interface: Node
 var current_interface_name: String = ""
 var interface_stack: Array[String] = []
+var interface_stack_max : int = 5
 var is_transitioning: bool = false
 
 # Transition settings
@@ -47,7 +48,7 @@ func preload_interface(interface_name: String) -> void:
 		else:
 			push_warning("interface scene not found: " + interface_path)
 
-func change_interface(interface_name: String, add_to_stack: bool = false) -> bool:
+func change_interface(interface_name: String) -> bool:
 	"""Change to a different interface with optional transition"""
 	print("Changing Interface To ", interface_name)
 	if is_transitioning:
@@ -62,9 +63,10 @@ func change_interface(interface_name: String, add_to_stack: bool = false) -> boo
 		push_error("interface scene not found: " + interface_path)
 		return false
 	
-	# Add current interface to stack if requested
-	if add_to_stack and current_interface_name != "":
-		interface_stack.push_back(current_interface_name)
+	# Add current interface to stack
+	interface_stack.push_back(current_interface_name)
+	if interface_stack.size() > interface_stack_max:
+		interface_stack.pop_front()
 	
 	# Start transition
 	is_transitioning = true

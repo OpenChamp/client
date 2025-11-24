@@ -1,0 +1,155 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://ddei35c2o487y"]
+
+[ext_resource type="FontFile" uid="uid://r5exqvsw2q5u" path="res://default_assets/fonts/dosis-medium.ttf" id="1_l8btk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0jh8"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 10.0
+content_margin_bottom = 0.0
+bg_color = Color(0.15294118, 0.15294118, 0.16470589, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.57254905, 0.56078434, 0.5529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l8btk"]
+content_margin_left = 10.0
+
+[sub_resource type="Gradient" id="Gradient_73bh8"]
+colors = PackedColorArray(0.15170373, 0.15170373, 0.16409835, 0.85, 0.24780053, 0.24780053, 0.27395758, 0.85)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3n1pu"]
+gradient = SubResource("Gradient_73bh8")
+fill_from = Vector2(0.47435898, 1)
+fill_to = Vector2(0.47863248, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ob77"]
+texture = SubResource("GradientTexture2D_3n1pu")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68g6m"]
+bg_color = Color(0.15294118, 0.15294118, 0.16470589, 1)
+skew = Vector2(0.5, 0)
+border_width_right = 5
+expand_margin_right = 25.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fxb84"]
+bg_color = Color(0.15294118, 0.15294118, 0.16470589, 1)
+skew = Vector2(0.5, 0)
+border_width_right = 5
+expand_margin_left = 16.0
+expand_margin_right = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8btk"]
+bg_color = Color(0.15294118, 0.15294118, 0.16470589, 1)
+
+[resource]
+default_font = ExtResource("1_l8btk")
+default_font_size = 18
+Button/colors/font_color = Color(0.8980392, 0.8784314, 0.85490197, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/constants/align_to_largest_stylebox = 1
+Button/constants/h_separation = 0
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 18
+Button/fonts/font = ExtResource("1_l8btk")
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = null
+Button/styles/normal = SubResource("StyleBoxFlat_w0jh8")
+Button/styles/pressed = null
+GridContainer/constants/h_separation = 0
+GridContainer/constants/v_separation = 0
+HeaderLarge/font_sizes/font_size = 32
+HeaderSmall/styles/normal = SubResource("StyleBoxEmpty_l8btk")
+Label/colors/font_color = Color(0.9372549, 0.91764706, 0.8901961, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = 0
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 0
+Label/constants/shadow_offset_y = 0
+Label/constants/shadow_outline_size = 0
+Label/font_sizes/font_size = 18
+Label/fonts/font = ExtResource("1_l8btk")
+Label/styles/focus = null
+Label/styles/normal = null
+TabBar/colors/drop_mark_color = Color(0, 0, 0, 1)
+TabBar/colors/font_disabled_color = Color(0, 0, 0, 1)
+TabBar/colors/font_hovered_color = Color(0, 0, 0, 1)
+TabBar/colors/font_outline_color = Color(0, 0, 0, 1)
+TabBar/colors/font_selected_color = Color(0.9372549, 0.91764706, 0.8901961, 1)
+TabBar/colors/font_unselected_color = Color(0.5137255, 0.47843137, 0.43137255, 1)
+TabBar/colors/icon_disabled_color = Color(0, 0, 0, 1)
+TabBar/colors/icon_hovered_color = Color(0, 0, 0, 1)
+TabBar/colors/icon_selected_color = Color(0, 0, 0, 1)
+TabBar/colors/icon_unselected_color = Color(0, 0, 0, 1)
+TabBar/constants/h_separation = 0
+TabBar/constants/hover_switch_wait_msec = 0
+TabBar/constants/icon_max_width = 0
+TabBar/constants/outline_size = 0
+TabBar/font_sizes/font_size = 18
+TabBar/fonts/font = ExtResource("1_l8btk")
+TabBar/icons/close = null
+TabBar/icons/decrement = null
+TabBar/icons/decrement_highlight = null
+TabBar/icons/drop_mark = null
+TabBar/icons/increment = null
+TabBar/icons/increment_highlight = null
+TabBar/styles/button_highlight = null
+TabBar/styles/button_pressed = null
+TabBar/styles/tab_disabled = null
+TabBar/styles/tab_focus = null
+TabBar/styles/tab_hovered = null
+TabBar/styles/tab_selected = null
+TabBar/styles/tab_unselected = null
+TabContainer/colors/drop_mark_color = Color(0, 0, 0, 1)
+TabContainer/colors/font_disabled_color = Color(0, 0, 0, 1)
+TabContainer/colors/font_hovered_color = Color(0, 0, 0, 1)
+TabContainer/colors/font_outline_color = Color(0, 0, 0, 1)
+TabContainer/colors/font_selected_color = Color(0.9372549, 0.91764706, 0.8901961, 1)
+TabContainer/colors/font_unselected_color = Color(0.5137255, 0.47843137, 0.43137255, 1)
+TabContainer/colors/icon_disabled_color = Color(0, 0, 0, 1)
+TabContainer/colors/icon_hovered_color = Color(0, 0, 0, 1)
+TabContainer/colors/icon_selected_color = Color(0, 0, 0, 1)
+TabContainer/colors/icon_unselected_color = Color(0, 0, 0, 1)
+TabContainer/constants/icon_max_width = 0
+TabContainer/constants/icon_separation = 0
+TabContainer/constants/outline_size = 0
+TabContainer/constants/side_margin = 25
+TabContainer/constants/tab_separation = 50
+TabContainer/font_sizes/font_size = 18
+TabContainer/fonts/font = ExtResource("1_l8btk")
+TabContainer/icons/decrement = null
+TabContainer/icons/decrement_highlight = null
+TabContainer/icons/drop_mark = null
+TabContainer/icons/increment = null
+TabContainer/icons/increment_highlight = null
+TabContainer/icons/menu = null
+TabContainer/icons/menu_highlight = null
+TabContainer/styles/panel = SubResource("StyleBoxTexture_8ob77")
+TabContainer/styles/tab_disabled = null
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_68g6m")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_68g6m")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_fxb84")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_68g6m")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxFlat_l8btk")

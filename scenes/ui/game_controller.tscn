@@ -9,11 +9,8 @@ slide_on_slope = true
 [node name="game_controller" type="Node3D" unique_id=689224279]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 script = ExtResource("1_i3130")
-speed = null
-mmb_sensitivity = null
 camera_path = NodePath("SpringArm3D/Camera3D")
 lerp_speed = 10.0
-mmb_lerp_speed = null
 movement_decal_scene = ExtResource("2_cpwyl")
 attack_move_decal_scene = ExtResource("2_cpwyl")
 

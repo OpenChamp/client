@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dd35e6m6oud0l"
+path="res://.godot/imported/Sand_Side_Overlap_Side.obj-b4214f6362aa0478c5c80d8fb57107e5.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Sand_Side_Overlap_Side.obj-b4214f6362aa0478c5c80d8fb57107e5.mesh"]
+
+source_file="res://default_assets/models/environment/Modular Terrain Beach/Sand_Side_Overlap_Side.obj"
+dest_files=["res://.godot/imported/Sand_Side_Overlap_Side.obj-b4214f6362aa0478c5c80d8fb57107e5.mesh", "res://.godot/imported/Sand_Side_Overlap_Side.obj-b4214f6362aa0478c5c80d8fb57107e5.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

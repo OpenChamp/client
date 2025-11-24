@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b3q5pjqef4hcm"
+path="res://.godot/imported/Cliff_Top_Corner_Outer_Lg.obj-7ccc13d6a12c26d21967f48ba76ce255.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Cliff_Top_Corner_Outer_Lg.obj-7ccc13d6a12c26d21967f48ba76ce255.mesh"]
+
+source_file="res://default_assets/models/environment/cliff/Cliff_Top_Corner_Outer_Lg.obj"
+dest_files=["res://.godot/imported/Cliff_Top_Corner_Outer_Lg.obj-7ccc13d6a12c26d21967f48ba76ce255.mesh", "res://.godot/imported/Cliff_Top_Corner_Outer_Lg.obj-7ccc13d6a12c26d21967f48ba76ce255.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

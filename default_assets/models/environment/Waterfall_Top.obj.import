@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b6ny1454t48em"
+path="res://.godot/imported/Waterfall_Top.obj-21af78a8f5bcc977f16ea1a2185d6cb7.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Waterfall_Top.obj-21af78a8f5bcc977f16ea1a2185d6cb7.mesh"]
+
+source_file="res://default_assets/models/environment/Waterfall_Top.obj"
+dest_files=["res://.godot/imported/Waterfall_Top.obj-21af78a8f5bcc977f16ea1a2185d6cb7.mesh", "res://.godot/imported/Waterfall_Top.obj-21af78a8f5bcc977f16ea1a2185d6cb7.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

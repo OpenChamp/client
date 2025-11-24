@@ -1,12 +1,12 @@
 [gd_scene load_steps=34 format=4 uid="uid://ck2ucwywmbfg0"]
 
 [ext_resource type="Script" uid="uid://dkgvqlylqnosc" path="res://scripts/environment/core.gd" id="2_0hmbs"]
-[ext_resource type="Shader" uid="uid://bdc4tqvbt6jqn" path="res://assets/shaders/crystal.gdshader" id="2_gchl0"]
-[ext_resource type="Shader" uid="uid://pgipy2o7o3eg" path="res://assets/shaders/banner.gdshader" id="3_12brt"]
-[ext_resource type="Material" uid="uid://cwe8ycp8yph2c" path="res://assets/materials/environment/core/portal.tres" id="4_gchl0"]
-[ext_resource type="Material" uid="uid://cnn3e2f50ybbd" path="res://assets/materials/environment/core/core_tower.tres" id="5_cgfw8"]
-[ext_resource type="Material" uid="uid://1khqa20tddrr" path="res://assets/materials/environment/core/golden_ring.tres" id="6_odehj"]
-[ext_resource type="Material" uid="uid://pv8ihdaw08vv" path="res://assets/materials/environment/core/golden_rings_core.tres" id="7_sukxs"]
+[ext_resource type="Shader" uid="uid://bdc4tqvbt6jqn" path="res://default_assets/shaders/crystal.gdshader" id="2_gchl0"]
+[ext_resource type="Shader" uid="uid://pgipy2o7o3eg" path="res://default_assets/shaders/banner.gdshader" id="3_12brt"]
+[ext_resource type="Material" uid="uid://cwe8ycp8yph2c" path="res://default_assets/materials/environment/core/portal.tres" id="4_gchl0"]
+[ext_resource type="Material" uid="uid://cnn3e2f50ybbd" path="res://default_assets/materials/environment/core/core_tower.tres" id="5_cgfw8"]
+[ext_resource type="Material" uid="uid://1khqa20tddrr" path="res://default_assets/materials/environment/core/golden_ring.tres" id="6_odehj"]
+[ext_resource type="Material" uid="uid://pv8ihdaw08vv" path="res://default_assets/materials/environment/core/golden_rings_core.tres" id="7_sukxs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mc3bh"]
 resource_name = "Mat.CrystalCore"

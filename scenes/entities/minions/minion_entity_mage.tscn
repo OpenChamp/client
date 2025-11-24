@@ -1,20 +1,21 @@
 [gd_scene load_steps=17 format=3 uid="uid://b3ocvxpgupua3"]
 
-[ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/minion_test.gd" id="1_46l12"]
-[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://assets/shaders/outline.gdshader" id="3_u8jig"]
-[ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://assets/materials/cloth_material.tres" id="4_i1k7y"]
-[ext_resource type="Material" uid="uid://c82oohji8rcpv" path="res://assets/materials/misc/wood.tres" id="5_sbons"]
-[ext_resource type="PackedScene" uid="uid://0kn044mnc5ja" path="res://assets/models/environment/crystalexport.glb" id="6_dq7kq"]
+[ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/entity.gd" id="1_46l12"]
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://default_assets/shaders/outline.gdshader" id="3_u8jig"]
+[ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://default_assets/materials/cloth_material.tres" id="4_i1k7y"]
+[ext_resource type="Material" uid="uid://c82oohji8rcpv" path="res://default_assets/materials/misc/wood.tres" id="5_sbons"]
+[ext_resource type="PackedScene" uid="uid://0kn044mnc5ja" path="res://default_assets/models/environment/crystalexport.glb" id="6_dq7kq"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="7_3xu8f"]
-[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://assets/audio/sfx/game/kill_gold.wav" id="8_8g1k3"]
+[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/HealthBar.tscn" id="8_3xu8f"]
+[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://default_assets/audio/sfx/game/kill_gold.wav" id="8_8g1k3"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vvu41"]
 render_priority = 0
 shader = ExtResource("3_u8jig")
-shader_parameter/outline_color = Color(0.7, 0, 1, 1)
-shader_parameter/outline_width = 2.0
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/thickness = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvu41"]
 next_pass = SubResource("ShaderMaterial_vvu41")
@@ -38,14 +39,6 @@ height = 0.2
 [sub_resource type="CylinderMesh" id="CylinderMesh_sbons"]
 top_radius = 0.05
 bottom_radius = 0.05
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvu41"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
 
 [node name="MinionEntityMage" type="Node3D" unique_id=38201347]
 script = ExtResource("1_46l12")
@@ -86,5 +79,4 @@ stream = ExtResource("8_8g1k3")
 pitch_scale = 0.75
 max_distance = 20.0
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1073303335]
-replication_config = SubResource("SceneReplicationConfig_vvu41")
+[node name="HealthBar" parent="." unique_id=1277894472 instance=ExtResource("8_3xu8f")]

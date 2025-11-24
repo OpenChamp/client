@@ -1,7 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://d27xnfsvmpc83"]
+[gd_scene load_steps=8 format=3 uid="uid://d27xnfsvmpc83"]
 
-[ext_resource type="Theme" uid="uid://e507d8q4wvpm" path="res://assets/styles/themes/default_theme.tres" id="1_tup7k"]
+[ext_resource type="Theme" uid="uid://e507d8q4wvpm" path="res://default_assets/styles/themes/default_theme.tres" id="1_tup7k"]
 [ext_resource type="Script" uid="uid://bj8b7h4albfvy" path="res://scripts/ui/menu/main_menu_controller.gd" id="2_b7pgi"]
+[ext_resource type="PackedScene" uid="uid://dmoo5r164mx3u" path="res://default_assets/models/props/Snowman.glb" id="3_b7pgi"]
+[ext_resource type="PackedScene" uid="uid://cq4js3taoq2b2" path="res://scenes/ui/menu/menu_background.tscn" id="3_snpgo"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_snpgo"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b7pgi"]
+emission_shape_scale = Vector3(5, 1, 5)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+scale_max = 3.0
+turbulence_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_snpgo"]
+radius = 0.01
+height = 0.02
 
 [node name="Menu" type="Control" unique_id=1853382865]
 layout_mode = 3
@@ -12,3 +27,28 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_tup7k")
 script = ExtResource("2_b7pgi")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1637463355]
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 5, -7)
+
+[node name="Node3D" parent="." unique_id=816678413 instance=ExtResource("3_snpgo")]
+
+[node name="MenuBackground" type="Node3D" parent="." unique_id=67273032]
+visible = false
+
+[node name="Floor" type="MeshInstance3D" parent="MenuBackground" unique_id=306202085]
+transform = Transform3D(30.4, 0, 0, 0, 0.1, 0, 0, 0, 15, 0, 0, -3)
+mesh = SubResource("BoxMesh_snpgo")
+
+[node name="Snowman" parent="MenuBackground" unique_id=1751991420 instance=ExtResource("3_b7pgi")]
+transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 1.4779345, 0.5943506, 0.25200057)
+
+[node name="SnowParticles" type="GPUParticles3D" parent="MenuBackground" unique_id=1549327384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.373212, -3.5958557)
+amount = 500
+lifetime = 5.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_b7pgi")
+draw_pass_1 = SubResource("SphereMesh_snpgo")
+
+[node name="MenuOverlay" type="CanvasLayer" parent="." unique_id=117974032]

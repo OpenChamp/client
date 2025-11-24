@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://wsquw55cuajg"]
+[gd_scene load_steps=11 format=3 uid="uid://wsquw55cuajg"]
 
 [ext_resource type="Script" uid="uid://cedu4oyudngf3" path="res://scripts/champs/ranger.gd" id="1_shl3n"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="2_32au6"]
+[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/HealthBar.tscn" id="3_3pwj2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dvd4r"]
 
@@ -28,10 +29,6 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_pu1r2")
 radius = 0.005
 height = 0.01
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_epftc"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3pwj2"]
 
 [node name="Ranger" type="CharacterBody3D" unique_id=99925526]
 transform = Transform3D(0.99999994, -0.00036651915, 0, 0.00036651915, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
@@ -61,12 +58,6 @@ mesh = SubResource("SphereMesh_ua723")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0500978, 0, 0)
 mesh = SubResource("SphereMesh_k8kie")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=257152229]
-shape = SubResource("CapsuleShape3D_epftc")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1971262947]
-
 [node name="MoneyEmitter" parent="." unique_id=118436400 instance=ExtResource("2_32au6")]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=323136172]
-replication_config = SubResource("SceneReplicationConfig_3pwj2")
+[node name="HealthBar" parent="." unique_id=1996912880 instance=ExtResource("3_3pwj2")]

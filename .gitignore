@@ -4,3 +4,5 @@
 .vscode/
 .hidden/
 builds/
+*.TMP
+settings.json

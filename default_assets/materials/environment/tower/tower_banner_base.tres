@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://eavj0lcarrwm"]
+
+[ext_resource type="Texture2D" uid="uid://qrga2prdx8k1" path="res://default_assets/textures/environment/tower/diffuse.tower_banners.webp" id="1_c711v"]
+[ext_resource type="Texture2D" uid="uid://c3b3pgdkni8m8" path="res://default_assets/textures/environment/tower/normal.tower_banners.webp" id="2_n5r6k"]
+
+[resource]
+resource_name = "Mat.TowerBanner"
+cull_mode = 2
+albedo_color = Color(0.937255, 0, 0, 1)
+albedo_texture = ExtResource("1_c711v")
+metallic = 0.0472441
+roughness = 0.71
+normal_enabled = true
+normal_texture = ExtResource("2_n5r6k")

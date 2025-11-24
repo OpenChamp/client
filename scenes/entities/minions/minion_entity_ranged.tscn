@@ -1,0 +1,88 @@
+[gd_scene load_steps=15 format=3 uid="uid://dbugtm41dquc6"]
+
+[ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/entity.gd" id="1_i03iu"]
+[ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://default_assets/shaders/outline.gdshader" id="2_ow7d7"]
+[ext_resource type="Material" uid="uid://bj4a3qp6xrlwk" path="res://default_assets/materials/dirt_material.tres" id="3_urmc1"]
+[ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="6_is6tq"]
+[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/HealthBar.tscn" id="6_mra8w"]
+[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://default_assets/audio/sfx/game/kill_gold.wav" id="7_qttnj"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vvu41"]
+render_priority = 0
+shader = ExtResource("2_ow7d7")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/thickness = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvu41"]
+next_pass = SubResource("ShaderMaterial_vvu41")
+albedo_color = Color(0.5, 0, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ub1fe"]
+albedo_color = Color(1, 1, 0.27451, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mro74"]
+material = SubResource("StandardMaterial3D_ub1fe")
+radius = 0.02
+height = 0.08
+
+[sub_resource type="SphereMesh" id="SphereMesh_wqyuh"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mra8w"]
+render_priority = 0
+shader = ExtResource("2_ow7d7")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/thickness = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_urmc1"]
+
+[node name="MinionEntityMage" type="Node3D" unique_id=38201347]
+script = ExtResource("1_i03iu")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1534131562]
+mesh = SubResource("SphereMesh_3o8tx")
+surface_material_override/0 = SubResource("StandardMaterial3D_vvu41")
+
+[node name="Eye" type="MeshInstance3D" parent="Body" unique_id=1066956009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169789, 0.0850159, 0.465818)
+mesh = SubResource("SphereMesh_mro74")
+
+[node name="Eye2" type="MeshInstance3D" parent="Body" unique_id=1982444215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199696, 0.084904, 0.45354)
+mesh = SubResource("SphereMesh_mro74")
+
+[node name="Hand" type="MeshInstance3D" parent="Body" unique_id=1995887975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5932214, 0, 0.14769208)
+mesh = SubResource("SphereMesh_wqyuh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/Hand" unique_id=1249907840]
+transform = Transform3D(0.08449432, 0, 0, 0, 0.14326979, 0, 0, 0, 0.07832073, 0, 0.036892056, 0.014602989)
+material_overlay = SubResource("ShaderMaterial_mra8w")
+mesh = SubResource("BoxMesh_urmc1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body/Hand" unique_id=1563880815]
+transform = Transform3D(0.08449433, 0, 0, 0, -3.142427e-08, -0.07832073, 0, 0.7189035, -3.4235075e-09, 0, 0.11942732, 0.3039394)
+material_override = ExtResource("3_urmc1")
+mesh = SubResource("BoxMesh_urmc1")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Body/Hand" unique_id=1665936231]
+transform = Transform3D(0.07317424, 0.1437807, -1.7117534e-09, 0, -1.2569706e-08, -0.07832073, -0.042247165, 0.24903546, -2.9648444e-09, -0.064439654, 0.119427316, 0.53569555)
+material_override = ExtResource("3_urmc1")
+mesh = SubResource("BoxMesh_urmc1")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Body/Hand" unique_id=1062814439]
+transform = Transform3D(0.07317424, -0.14378071, 1.7117541e-09, -1.2998356e-16, -1.2569706e-08, -0.07832073, 0.04224717, 0.24903546, -2.9648444e-09, 0.0631063, 0.119427316, 0.53890246)
+material_override = ExtResource("3_urmc1")
+mesh = SubResource("BoxMesh_urmc1")
+
+[node name="MoneyEmitter" parent="." unique_id=905247835 instance=ExtResource("6_is6tq")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=165465111]
+stream = ExtResource("7_qttnj")
+pitch_scale = 0.75
+max_distance = 20.0
+
+[node name="HealthBar" parent="." unique_id=1277894472 instance=ExtResource("6_mra8w")]

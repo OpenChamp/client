@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bi2tptnvx5xf2"
+path="res://.godot/imported/Prop_Mushroom_2.obj-a5088ae25d13b714f18d517c9b1c4b56.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Prop_Mushroom_2.obj-a5088ae25d13b714f18d517c9b1c4b56.mesh"]
+
+source_file="res://default_assets/models/environment/Modular Terrain Hilly/Prop_Mushroom_2.obj"
+dest_files=["res://.godot/imported/Prop_Mushroom_2.obj-a5088ae25d13b714f18d517c9b1c4b56.mesh", "res://.godot/imported/Prop_Mushroom_2.obj-a5088ae25d13b714f18d517c9b1c4b56.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://drnx15ttfbml8"]
 
-[ext_resource type="ArrayMesh" uid="uid://ctnawx48ai01n" path="res://assets/models/environment/cliff/Cliff_Base_Straight.obj" id="1_diabc"]
-[ext_resource type="ArrayMesh" uid="uid://dn2f5baah7w8j" path="res://assets/models/environment/cliff/Cliff_Mid_Straight.obj" id="2_1hhao"]
-[ext_resource type="ArrayMesh" uid="uid://cb77d5oa3a11h" path="res://assets/models/environment/cliff/Cliff_Top_Straight.obj" id="3_ufylc"]
+[ext_resource type="ArrayMesh" uid="uid://ctnawx48ai01n" path="res://default_assets/models/environment/cliff/Cliff_Base_Straight.obj" id="1_diabc"]
+[ext_resource type="ArrayMesh" uid="uid://dn2f5baah7w8j" path="res://default_assets/models/environment/cliff/Cliff_Mid_Straight.obj" id="2_1hhao"]
+[ext_resource type="ArrayMesh" uid="uid://cb77d5oa3a11h" path="res://default_assets/models/environment/cliff/Cliff_Top_Straight.obj" id="3_ufylc"]
 
 [node name="CliffStraight" type="Node3D" unique_id=705029410]
 

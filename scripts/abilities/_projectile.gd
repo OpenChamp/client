@@ -11,10 +11,6 @@ var lifetime: float = 3.0
 # === Ownership Config === #
 var team: int
 var creator: Node3D
-# === Effect & Damage Properties === #
-var damage: float = 10.0
-var damage_type: OC.DAMAGE_TYPE
-var effect: Effect = Effect.new()
 
 func _ready(pos: Vector3 = spawn_pos) -> void:
 	global_position = pos
@@ -29,9 +25,6 @@ func _ready(pos: Vector3 = spawn_pos) -> void:
 	else:
 		print("Warning: Projectile created with zero direction!")
 		queue_free()
-	if Util.dedicated_server:
-		if pos == Vector3.ZERO: queue_free()
-	_setup()
 	
 func _physics_process(delta: float) -> void:
 	lifetime -= delta
@@ -44,24 +37,10 @@ func _physics_process(delta: float) -> void:
 		if distance_to_target > 0.5:
 			var direction_to_target = (target_node.global_position - global_position).normalized()
 			linear_velocity = direction_to_target * speed
-
-func _setup():
-	print("Projectile Setup called on base class... ")
+	
 func _on_body_entered_hitbox(body: Node3D) -> void:
 	if body.is_in_group(str("team", team)): return
-	hit(body)
-
-func hit(entity:Node3D):
-	if not Util.dedicated_server:
-		_create_hit_effect()
-		return
-	if not entity.has_method("take_damage"):
-		queue_free()
-	entity.take_damage.rpc(int(damage), damage_type)
-	if entity is Creature:
-		entity.apply_effect(effect)
-	queue_free()
-
+	_create_hit_effect()
 	
 func _create_hit_effect():
 	$MeshInstance3D.hide()

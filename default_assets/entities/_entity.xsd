@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="https://open-champ.com/mySchema"
+    elementFormDefault="qualified"
+> 
+
+<xs:element name="entity">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="movement" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:attribute name="move_speed" type="xs:float" use="optional" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="pathfinding" minOccurs="0" maxOccurs="1">
+            </xs:element>
+            <xs:element name="stats" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <!-- Core Stats -->
+                    <xs:attribute name="max_health" type="xs:float" use="optional" />
+                    <xs:attribute name="health" type="xs:float" use="optional" />
+                    <xs:attribute name="max_mana" type="xs:float" use="optional" />
+                    <xs:attribute name="mana" type="xs:float" use="optional" />
+                    <xs:attribute name="move_speed" type="xs:float" use="optional" />
+                    <xs:attribute name="required_exp" type="xs:float" use="optional" />
+                    <xs:attribute name="addition_exp_per_level" type="xs:float" use="optional" />
+                    <xs:attribute name="current_exp" type="xs:float" use="optional" />
+                    <xs:attribute name="level" type="xs:int" use="optional" />
+
+                    <!-- Offensive Stats -->
+                    <xs:attribute name="attack_range" type="xs:float" use="optional" />
+                    <xs:attribute name="attack_speed" type="xs:float" use="optional" />
+                    <xs:attribute name="crit_chance" type="xs:float" use="optional" />
+                    <xs:attribute name="crit_bonus" type="xs:int" use="optional" />
+                    <xs:attribute name="true_bonus" type="xs:int" use="optional" />
+                    <xs:attribute name="magic_power" type="xs:float" use="optional" />
+                    <xs:attribute name="physical_power" type="xs:float" use="optional" />
+                    <xs:attribute name="projectile_speed" type="xs:float" use="optional" />
+
+                    <!-- Defensive Stats -->
+                    <xs:attribute name="armor" type="xs:int" use="optional" />
+                    <xs:attribute name="magic_resist" type="xs:int" use="optional" />
+                    <xs:attribute name="dodge" type="xs:int" use="optional" />
+
+                    <!-- Offensive Stats -->
+                    <xs:attribute name="health_regen" type="xs:float" use="optional" />
+                    <xs:attribute name="mana_regen" type="xs:float" use="optional" />
+                    <xs:attribute name="life_steal" type="xs:float" use="optional" />
+                    <xs:attribute name="spell_vamp" type="xs:float" use="optional" />
+                    <xs:attribute name="omni_vamp" type="xs:float" use="optional" />
+                    <xs:attribute name="leech" type="xs:float" use="optional" />
+                    <xs:attribute name="vision_range" type="xs:float" use="optional" />
+
+                    <!-- Team Stats -->
+                    <xs:attribute name="team_id" type="xs:int" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        
+        <xs:attribute name="id" type="xs:string" use="required"/>
+    </xs:complexType>
+</xs:element>
+
+</xs:schema>

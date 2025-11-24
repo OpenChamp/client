@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d2ylrptjtt7y2"]
 
-[ext_resource type="Theme" uid="uid://dt7ssx4cq6sa6" path="res://assets/styles/themes/ingame_ui.tres" id="1_211ni"]
+[ext_resource type="Theme" uid="uid://dt7ssx4cq6sa6" path="res://default_assets/styles/themes/ingame_ui.tres" id="1_211ni"]
 
 [node name="IngameUi" type="CanvasLayer" unique_id=1824765163]
 layer = 100
