@@ -48,7 +48,7 @@ func load_args():
 					ConfigManager.set_game_setting("game", "game_mode", args[i + 1])
 			"-ip", "--host":
 				if i + 1 < args.size():
-					ConfigManager.set_game_setting("network", "server_ip", args[i + 1])
+					NetworkManager.config.host = args[i + 1]
 					external_client_used = true
 			"-m", "--map":
 				if i + 1 < args.size():
@@ -58,7 +58,7 @@ func load_args():
 					ConfigManager.set_game_setting("game", "max_players", int(args[i + 1]))
 			"--port":
 				if i + 1 < args.size():
-					ConfigManager.set_game_setting("network", "port", int(args[i + 1]))
+					NetworkManager.config.port = int(args[i + 1])
 			"-sid", "--serverid":
 				if i + 1 < args.size():
 					ConfigManager.set_game_setting("network", "server_id", args[i + 1])
