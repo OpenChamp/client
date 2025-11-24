@@ -2,14 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://ddei35c2o487y" path="res://scenes/ui/menu/settings_new.tres" id="1_0fb2g"]
 [ext_resource type="Script" uid="uid://bif02jxlmpwi" path="res://scripts/ui/menu/close_overlay.gd" id="2_73bh8"]
-
-[sub_resource type="Gradient" id="Gradient_73bh8"]
-colors = PackedColorArray(0.15170373, 0.15170373, 0.16409835, 0.85, 0.24780053, 0.24780053, 0.27395758, 0.85)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3n1pu"]
-gradient = SubResource("Gradient_73bh8")
-fill_from = Vector2(0.47435898, 1)
-fill_to = Vector2(0.47863248, 0)
+[ext_resource type="Script" uid="uid://djw503amwcm3c" path="res://scripts/ui/menu/hotkeys_controller.gd" id="3_0fb2g"]
+[ext_resource type="Script" uid="uid://bdk20kh4wcrmv" path="res://scripts/ui/menu/quit_button.gd" id="3_cbjjo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fb2g"]
 bg_color = Color(0.15294118, 0.15294118, 0.16470589, 1)
@@ -33,7 +27,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="SettingsNew" type="Control" unique_id=984532020]
+[node name="SettingsNew3" type="Control" unique_id=984532020]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,75 +35,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_0fb2g")
-
-[node name="Background" type="TextureRect" parent="." unique_id=271184443]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_3n1pu")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1896351207]
-visible = false
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 34.0
-grow_horizontal = 2
-size_flags_horizontal = 3
-color = Color(0.15294118, 0.15294118, 0.16470589, 1)
-
-[node name="NavBar" type="HBoxContainer" parent="." unique_id=209422439]
-visible = false
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 31.0
-grow_horizontal = 2
-
-[node name="Button" type="Button" parent="NavBar" unique_id=685059384]
-layout_mode = 2
-text = "About"
-
-[node name="Button2" type="Button" parent="NavBar" unique_id=784020282]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-text = "X"
-flat = true
-
-[node name="ButtonBar" type="HBoxContainer" parent="." unique_id=233011611]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -62.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("1_0fb2g")
-theme_override_constants/separation = 90
-alignment = 1
-
-[node name="Button" type="Button" parent="ButtonBar" unique_id=39989623]
-layout_mode = 2
-text = "Reset Hotkeys..."
-
-[node name="Button2" type="Button" parent="ButtonBar" unique_id=1448390808]
-layout_mode = 2
-text = "Save Settings"
-
-[node name="Button3" type="Button" parent="ButtonBar" unique_id=346696528]
-layout_mode = 2
-text = "Surrender"
-
-[node name="Button4" type="Button" parent="ButtonBar" unique_id=302413793]
-layout_mode = 2
-text = "Exit Game"
 
 [node name="TabContainer" type="TabContainer" parent="." unique_id=22877019]
 layout_mode = 1
@@ -122,6 +47,7 @@ current_tab = 0
 
 [node name="Hotkeys" type="Control" parent="TabContainer" unique_id=1171149799]
 layout_mode = 2
+script = ExtResource("3_0fb2g")
 metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Hotkeys" unique_id=1789750865]
@@ -133,7 +59,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Controlls" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer" unique_id=1540040096]
+[node name="Controls" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer" unique_id=1540040096]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -142,1031 +68,634 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 75
 
-[node name="GridContainer" type="GridContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls" unique_id=850107366]
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls" unique_id=850107366]
 layout_mode = 2
 columns = 4
 
-[node name="Abilities" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer" unique_id=1460499641]
+[node name="Abilities" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer" unique_id=1460499641]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities" unique_id=813143880]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities" unique_id=813143880]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "Abilities"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities" unique_id=443264619]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities" unique_id=443264619]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InputNodes" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer" unique_id=369476187]
+[node name="InputNodes" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer" unique_id=369476187]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="FirstSkill" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=1794134828]
+[node name="FirstSkill" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=1794134828]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/FirstSkill" unique_id=1406354490]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/FirstSkill" unique_id=1406354490]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/FirstSkill/ButtonGroup" unique_id=1476532147]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/FirstSkill/ButtonGroup" unique_id=1476532147]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "First Skill"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/FirstSkill/ButtonGroup" unique_id=238782974]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/FirstSkill/ButtonGroup" unique_id=238782974]
+z_index = 2
+z_as_relative = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "Q"
+metadata/keybind = "ability_1"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/FirstSkill" unique_id=259857147]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/FirstSkill" unique_id=259857147]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="SecondSkill" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=1803397305]
+[node name="SecondSkill" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=1803397305]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondSkill" unique_id=496055923]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondSkill" unique_id=496055923]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondSkill/ButtonGroup" unique_id=1346333872]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondSkill/ButtonGroup" unique_id=1346333872]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Second Skill"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondSkill/ButtonGroup" unique_id=80086695]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondSkill/ButtonGroup" unique_id=80086695]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "W"
+metadata/keybind = "ability_2"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondSkill" unique_id=57433124]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondSkill" unique_id=57433124]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="ThirdSkill" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=2022321978]
+[node name="ThirdSkill" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=2022321978]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/ThirdSkill" unique_id=57006098]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/ThirdSkill" unique_id=57006098]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/ThirdSkill/ButtonGroup" unique_id=329021054]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/ThirdSkill/ButtonGroup" unique_id=329021054]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "ThirdSkill"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/ThirdSkill/ButtonGroup" unique_id=1522728527]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/ThirdSkill/ButtonGroup" unique_id=1522728527]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "E"
+metadata/keybind = "ability_3"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/ThirdSkill" unique_id=393573885]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/ThirdSkill" unique_id=393573885]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="ForthSkill" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=1292227804]
+[node name="ForthSkill" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=1292227804]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/ForthSkill" unique_id=1430541925]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/ForthSkill" unique_id=1430541925]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/ForthSkill/ButtonGroup" unique_id=1951824326]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/ForthSkill/ButtonGroup" unique_id=1951824326]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Fourth Skill"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/ForthSkill/ButtonGroup" unique_id=193202821]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/ForthSkill/ButtonGroup" unique_id=193202821]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "R"
+metadata/keybind = "ability_4"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/ForthSkill" unique_id=1235108825]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/ForthSkill" unique_id=1235108825]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="PrimaryArtifact" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=1878601917]
+[node name="PrimaryArtifact" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=1878601917]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/PrimaryArtifact" unique_id=1205152454]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/PrimaryArtifact" unique_id=1205152454]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/PrimaryArtifact/ButtonGroup" unique_id=202377181]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/PrimaryArtifact/ButtonGroup" unique_id=202377181]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Primary Artifact"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/PrimaryArtifact/ButtonGroup" unique_id=1657315968]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/PrimaryArtifact/ButtonGroup" unique_id=1657315968]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "F"
+metadata/keybind = "artifact_1"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/PrimaryArtifact" unique_id=413828898]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/PrimaryArtifact" unique_id=413828898]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="SecondaryArtifact" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=901660225]
+[node name="SecondaryArtifact" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes" unique_id=901660225]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondaryArtifact" unique_id=1900709333]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondaryArtifact" unique_id=1900709333]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondaryArtifact/ButtonGroup" unique_id=1403265125]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondaryArtifact/ButtonGroup" unique_id=1403265125]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Secondary Artifact"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondaryArtifact/ButtonGroup" unique_id=719169477]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondaryArtifact/ButtonGroup" unique_id=719169477]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "D"
+metadata/keybind = "artifact_2"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondaryArtifact" unique_id=434684212]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Abilities/ScrollContainer/InputNodes/SecondaryArtifact" unique_id=434684212]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="Items" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer" unique_id=654855961]
+[node name="Items" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer" unique_id=654855961]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items" unique_id=99716088]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items" unique_id=99716088]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "Items"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items" unique_id=568084526]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items" unique_id=568084526]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InputNodes" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer" unique_id=1218168322]
+[node name="InputNodes" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer" unique_id=1218168322]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Item1" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=1901992195]
+[node name="Item1" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=1901992195]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item1" unique_id=444983784]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item1" unique_id=444983784]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item1/ButtonGroup" unique_id=241186300]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item1/ButtonGroup" unique_id=241186300]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Item 1"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item1/ButtonGroup" unique_id=490997958]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item1/ButtonGroup" unique_id=490997958]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "1"
+metadata/keybind = "item_1"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item1" unique_id=146506287]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item1" unique_id=146506287]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="Item2" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=2118908257]
+[node name="Item2" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=2118908257]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item2" unique_id=208609892]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item2" unique_id=208609892]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item2/ButtonGroup" unique_id=698964177]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item2/ButtonGroup" unique_id=698964177]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Item 2"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item2/ButtonGroup" unique_id=2129966671]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item2/ButtonGroup" unique_id=2129966671]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "2"
+metadata/keybind = "item_2"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item2" unique_id=1429208476]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item2" unique_id=1429208476]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="Item3" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=614121696]
+[node name="Item3" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=614121696]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item3" unique_id=230726726]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item3" unique_id=230726726]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item3/ButtonGroup" unique_id=883731574]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item3/ButtonGroup" unique_id=883731574]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Item 3"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item3/ButtonGroup" unique_id=1963167577]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item3/ButtonGroup" unique_id=1963167577]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "3"
+metadata/keybind = "item_3"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item3" unique_id=1897932739]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item3" unique_id=1897932739]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="Item4" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=662968339]
+[node name="Item4" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=662968339]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item4" unique_id=1308345724]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item4" unique_id=1308345724]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item4/ButtonGroup" unique_id=667382635]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item4/ButtonGroup" unique_id=667382635]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Item 4"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item4/ButtonGroup" unique_id=800183154]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item4/ButtonGroup" unique_id=800183154]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "4"
+metadata/keybind = "item_4"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item4" unique_id=857406190]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item4" unique_id=857406190]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="Item5" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=360870051]
+[node name="Item5" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=360870051]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item5" unique_id=2028550595]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item5" unique_id=2028550595]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item5/ButtonGroup" unique_id=245696712]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item5/ButtonGroup" unique_id=245696712]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Item 5"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item5/ButtonGroup" unique_id=1140223662]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item5/ButtonGroup" unique_id=1140223662]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "5"
+metadata/keybind = "item_5"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item5" unique_id=467027325]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item5" unique_id=467027325]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="Item6" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=762725925]
+[node name="Item6" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes" unique_id=762725925]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item6" unique_id=413164949]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item6" unique_id=413164949]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item6/ButtonGroup" unique_id=209230602]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item6/ButtonGroup" unique_id=209230602]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Item 6"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item6/ButtonGroup" unique_id=680473514]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item6/ButtonGroup" unique_id=680473514]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "6"
+metadata/keybind = "item_6"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Items/ScrollContainer/InputNodes/Item6" unique_id=474685237]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Items/ScrollContainer/InputNodes/Item6" unique_id=474685237]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="Camera" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer" unique_id=164678378]
+[node name="Camera" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer" unique_id=164678378]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera" unique_id=519663329]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera" unique_id=519663329]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "Camera"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera" unique_id=1114058671]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera" unique_id=1114058671]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InputNodes" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer" unique_id=1199234987]
+[node name="InputNodes" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer" unique_id=1199234987]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="SnapSelf" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=683191696]
+[node name="SnapSelf" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=683191696]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapSelf" unique_id=274120663]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapSelf" unique_id=274120663]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapSelf/ButtonGroup" unique_id=1746210783]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapSelf/ButtonGroup" unique_id=1746210783]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Snap To Player"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapSelf/ButtonGroup" unique_id=1544934816]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapSelf/ButtonGroup" unique_id=1544934816]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "SP"
+metadata/keybind = "camera_snap_self"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapSelf" unique_id=660667782]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapSelf" unique_id=660667782]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="SnapAlly1" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=826216985]
+[node name="SnapAlly1" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=826216985]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly1" unique_id=1399528352]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly1" unique_id=1399528352]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly1/ButtonGroup" unique_id=1781070827]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly1/ButtonGroup" unique_id=1781070827]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Ally 1"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly1/ButtonGroup" unique_id=1801096402]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly1/ButtonGroup" unique_id=1801096402]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "F1"
+metadata/keybind = "camera_snap_ally_1"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly1" unique_id=1262753204]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly1" unique_id=1262753204]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="SnapAlly2" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=1279471577]
+[node name="SnapAlly2" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=1279471577]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly2" unique_id=305333191]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly2" unique_id=305333191]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly2/ButtonGroup" unique_id=919376223]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly2/ButtonGroup" unique_id=919376223]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Ally 2"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly2/ButtonGroup" unique_id=1437790307]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly2/ButtonGroup" unique_id=1437790307]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "F2"
+metadata/keybind = "camera_snap_ally_2"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly2" unique_id=1920885013]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly2" unique_id=1920885013]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="SnapAlly3" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=2038289477]
+[node name="SnapAlly3" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=2038289477]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly3" unique_id=1805007872]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly3" unique_id=1805007872]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly3/ButtonGroup" unique_id=735701958]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly3/ButtonGroup" unique_id=735701958]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Ally 3"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly3/ButtonGroup" unique_id=531003653]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly3/ButtonGroup" unique_id=531003653]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "F3"
+metadata/keybind = "camera_snap_ally_3"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly3" unique_id=2000485981]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly3" unique_id=2000485981]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="SnapAlly4" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=1500946437]
+[node name="SnapAlly4" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=1500946437]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly4" unique_id=1087745086]
+[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly4" unique_id=1087745086]
 z_index = 1
 layout_mode = 2
 theme_type_variation = &"ButtonGroup"
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly4/ButtonGroup" unique_id=862482039]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly4/ButtonGroup" unique_id=862482039]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderSmall"
 text = "Ally 4"
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly4/ButtonGroup" unique_id=1544381942]
+[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly4/ButtonGroup" unique_id=1544381942]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
 text = "F4"
+metadata/keybind = "camera_snap_ally_4"
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly4" unique_id=1414167841]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Camera/ScrollContainer/InputNodes/SnapAlly4" unique_id=1414167841]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
-[node name="SnapEnemy1" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=102047798]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy1" unique_id=976985354]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy1/ButtonGroup" unique_id=438784484]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 1"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy1/ButtonGroup" unique_id=2055159484]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F5"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy1" unique_id=1924776561]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapEnemy2" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=605825604]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy2" unique_id=960909550]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy2/ButtonGroup" unique_id=906546244]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 2"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy2/ButtonGroup" unique_id=2059767761]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F6"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy2" unique_id=51880621]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapEnemy3" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=184031880]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy3" unique_id=19358260]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy3/ButtonGroup" unique_id=943930828]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 3"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy3/ButtonGroup" unique_id=84214751]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F7"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy3" unique_id=1355726242]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapEnemy4" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=1711262371]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy4" unique_id=1845285023]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy4/ButtonGroup" unique_id=1647271]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 4"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy4/ButtonGroup" unique_id=1964704204]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F8"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy4" unique_id=488089542]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapEnemy5" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes" unique_id=300804743]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy5" unique_id=1778396235]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy5/ButtonGroup" unique_id=1170403632]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 5"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy5/ButtonGroup" unique_id=1762390696]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F9"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Camera/ScrollContainer/InputNodes/SnapEnemy5" unique_id=1821119316]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="Others" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer" unique_id=1804737972]
+[node name="Others" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer" unique_id=1804737972]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others" unique_id=513189534]
+[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Others" unique_id=513189534]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "Others"
 horizontal_alignment = 1
 
-[node name="ScrollContainer2" type="ScrollContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others" unique_id=840575944]
+[node name="ScrollContainer2" type="ScrollContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Others" unique_id=840575944]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InputNodes" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2" unique_id=262779109]
+[node name="InputNodes" type="VBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controls/GridContainer/Others/ScrollContainer2" unique_id=262779109]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
-
-[node name="SnapSelf" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=16618510]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapSelf" unique_id=1194848700]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapSelf/ButtonGroup" unique_id=1113068324]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Snap To Player"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapSelf/ButtonGroup" unique_id=1073088607]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "SP"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapSelf" unique_id=543232596]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapAlly1" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=1817370183]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly1" unique_id=1774655186]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly1/ButtonGroup" unique_id=1570338506]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Ally 1"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly1/ButtonGroup" unique_id=1224444295]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F1"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly1" unique_id=959597074]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapAlly2" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=1657894959]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly2" unique_id=195093429]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly2/ButtonGroup" unique_id=201089079]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Ally 2"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly2/ButtonGroup" unique_id=1306074061]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F2"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly2" unique_id=220868440]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapAlly3" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=286902735]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly3" unique_id=1018196317]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly3/ButtonGroup" unique_id=135185826]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Ally 3"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly3/ButtonGroup" unique_id=1490718057]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F3"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly3" unique_id=1820790098]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapAlly4" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=1344912831]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly4" unique_id=1081774813]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly4/ButtonGroup" unique_id=158986652]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Ally 4"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly4/ButtonGroup" unique_id=926903980]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F4"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapAlly4" unique_id=772988324]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapEnemy1" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=1705872239]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy1" unique_id=1855117538]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy1/ButtonGroup" unique_id=2080354082]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 1"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy1/ButtonGroup" unique_id=968919085]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F5"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy1" unique_id=1638239132]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapEnemy2" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=1097989513]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy2" unique_id=673689299]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy2/ButtonGroup" unique_id=116144006]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 2"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy2/ButtonGroup" unique_id=911083413]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F6"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy2" unique_id=1400691861]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapEnemy3" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=2077951942]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy3" unique_id=1887105380]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy3/ButtonGroup" unique_id=1357228824]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 3"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy3/ButtonGroup" unique_id=9910826]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F7"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy3" unique_id=32625434]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapEnemy4" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=1317695573]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy4" unique_id=1291849800]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy4/ButtonGroup" unique_id=484380430]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 4"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy4/ButtonGroup" unique_id=1553055413]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F8"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy4" unique_id=1529768510]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
-
-[node name="SnapEnemy5" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes" unique_id=846219672]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 5
-
-[node name="ButtonGroup" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy5" unique_id=1585334268]
-z_index = 1
-layout_mode = 2
-theme_type_variation = &"ButtonGroup"
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy5/ButtonGroup" unique_id=149958915]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
-text = "Enemy 5"
-
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy5/ButtonGroup" unique_id=2137841947]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0fb2g")
-text = "F9"
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Hotkeys/VBoxContainer/Controlls/GridContainer/Others/ScrollContainer2/InputNodes/SnapEnemy5" unique_id=1184378524]
-layout_mode = 2
-color = Color(0.16862746, 0.16862746, 0.18431373, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Hotkeys/VBoxContainer" unique_id=327850861]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Button" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/HBoxContainer" unique_id=1685879738]
+[node name="SaveButton" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/HBoxContainer" unique_id=1685879738]
 layout_mode = 2
 text = "Save Settings"
 
-[node name="Button2" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/HBoxContainer" unique_id=1613291951]
+[node name="ResetButton" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/HBoxContainer" unique_id=1613291951]
 layout_mode = 2
 text = "Reset Settings"
 
-[node name="Button3" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/HBoxContainer" unique_id=1133341011]
+[node name="ExitButton" type="Button" parent="TabContainer/Hotkeys/VBoxContainer/HBoxContainer" unique_id=1133341011]
 layout_mode = 2
 text = "Exit Game"
+script = ExtResource("3_cbjjo")
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Hotkeys/VBoxContainer" unique_id=1814893112]
 layout_mode = 2

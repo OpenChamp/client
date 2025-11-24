@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://di7n0t2bypmdy"]
 
-[ext_resource type="FontFile" uid="uid://dslx084v40562" path="res://default_assets/fonts/LeagueGothic-Regular.woff2" id="1_wkfxc"]
+[ext_resource type="FontFile" uid="uid://r5exqvsw2q5u" path="res://default_assets/fonts/dosis-medium.ttf" id="1_wkfxc"]
 [ext_resource type="Script" uid="uid://dq5mc3dxwderc" path="res://scripts/ui/loading.gd" id="2_sjr32"]
 [ext_resource type="PackedScene" uid="uid://b16c5nj81xhrv" path="res://scenes/ui/player_icon.tscn" id="3_gbjog"]
 [ext_resource type="Script" uid="uid://b4t66pu2p0670" path="res://scripts/ui/menu/reconnect_button.gd" id="4_gbjog"]

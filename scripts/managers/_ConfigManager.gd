@@ -8,42 +8,26 @@ const SETTINGS_PATH := "user://settings.cfg"
 const AUTH_TOKEN_PATH := "user://auth.dat"
 
 var config_file := ConfigFile.new()
-var game_config: GameConfiguration = GameConfiguration.new()
-
-var client_mode: CLIENTMODE = CLIENTMODE.CLIENT
-
 var debug = false
-
-var username := "Player" # Possibly temporary
-
-enum CLIENTMODE {
-	OFFLINE,
-	CLIENT,
-	DEDICATED_SERVER,
-}
 
 func _ready() -> void:
 	load_settings()
 
-func is_server() -> bool:
-	return client_mode == CLIENTMODE.DEDICATED_SERVER
-
 ##===== Settings File =====##
 
 func load_settings() -> void:
-	"""Load settings from disk into ConfigFile."""
 	var err := config_file.load(SETTINGS_PATH)
 	if err != OK:
 		push_warning("ConfigManager: No settings file found, using defaults")
-	settings_changed.emit()
-
-func save_settings(settings: Dictionary) -> void:
-	"""Update ConfigFile from settings dictionary."""
-	for section in settings:
-		if settings[section] is Dictionary:
-			for key in settings[section]:
-				config_file.set_value(section, key, settings[section][key])
 	
+	for section in config_file.get_sections():
+		match section:
+			"Hotkeys":
+				load_hotkeys()
+			"Video":
+				load_video()
+
+func save_settings() -> void:
 	var err := config_file.save(SETTINGS_PATH)
 	if err != OK:
 		push_error("ConfigManager: Failed to save settings to disk")
@@ -76,6 +60,12 @@ func set_setting(section: String, key: String, value) -> void:
 	var settings := _get_settings_from_file()
 	apply_settings(settings)
 
+func get_hotkey_overrides() -> PackedStringArray:
+	return config_file.get_section_keys("Hotkeys")
+
+func get_value(section, key):
+	return config_file.get_value(section, key)
+
 func _get_settings_from_file() -> Dictionary:
 	"""Convert ConfigFile to a dictionary for easier access."""
 	var settings := {}
@@ -85,11 +75,15 @@ func _get_settings_from_file() -> Dictionary:
 			settings[section][key] = config_file.get_value(section, key)
 	return settings
 
+func load_hotkeys():
+	for key in config_file.get_section_keys("Hotkeys"):
+		set_keybind(key, config_file.get_value("Hotkeys", key) as InputEvent)
+func load_video():
+	push_error("Video settings not implemented");
+	pass;
 ##===== Auth Token Handling =====##
 func save_auth_token(token: String) -> void:
 	"""Save authentication token to disk."""
-	set_game_setting("network", "player_auth_token", token)
-	
 	var file := FileAccess.open(AUTH_TOKEN_PATH, FileAccess.WRITE)
 	if file:
 		file.store_string(token)
@@ -107,51 +101,20 @@ func load_auth_token() -> String:
 	push_warning("ConfigManager: No auth token found")
 	return ""
 
-##===== In-Game Configuration =====##
-class GameConfiguration:
-	"""Holds in-game configuration settings."""
-	var server_id: String = ""
-	var server_ip: String = ""
-	var player_name: String = ""
-	var player_auth_token: String = ""
-	var map_name: String = ""
-	var game_mode: String = ""
-	var max_players: int = 2
-	
-	# Dictionary mapping for cleaner access
-	var _config_map := {
-		"network": {
-			"server_id": &"server_id",
-			"server_ip": &"server_ip",
-			"player_name": &"player_name",
-			"player_auth_token": &"player_auth_token",
-		},
-		"game": {
-			"map_name": &"map_name",
-			"game_mode": &"game_mode",
-			"max_players": &"max_players",
-		}
-	}
-	
-	func set_value(section: String, key: String, value) -> void:
-		if _config_map.has(section) and _config_map[section].has(key):
-			set(_config_map[section][key], value)
-	
-	func get_value(section: String, key: String):
-		if _config_map.has(section) and _config_map[section].has(key):
-			return get(_config_map[section][key])
-		return null
+##==== KeyBinding ====##
+func reset_keybinds():
+	InputMap.load_from_project_settings()
 
-func set_game_setting(section: String, key: String, value) -> void:
-	"""Set an in-game configuration value."""
-	game_config.set_value(section, key, value)
-	settings_changed.emit()
-	print("ConfigManager: In-game setting updated: [%s] %s = %s" % [section, key, str(value)])
-
-func get_game_setting(section: String, key: String):
-	"""Get an in-game configuration value."""
-	return game_config.get_value(section, key)
-
-func get_ingame_configuration() -> Dictionary:
-	"""Get the entire game configuration object as a dictionary."""
-	return game_config._config_map
+func set_keybind(key:String, value:InputEvent) -> bool:
+	if !InputMap.has_action(key):
+		push_error("Attempted to set unknown keybind:" + key)
+		return false
+	var events = InputMap.action_get_events(key)
+	for event in events:
+		InputMap.action_erase_event(key, event)
+	
+	InputMap.action_add_event(key, value)
+	set_setting("Hotkeys", key, value)
+	save_settings()
+	return true;
+	

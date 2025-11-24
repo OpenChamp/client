@@ -15,7 +15,7 @@ func _ready():
 	if ConfigManager.debug:
 		ConfigManager.show_debug_overlay()
 
-	if ConfigManager.client_mode == ConfigManager.CLIENTMODE.DEDICATED_SERVER || external_client_used:
+	if external_client_used:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/game/ingame.tscn")
 	else:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/ui/menu_controller.tscn")
@@ -62,14 +62,6 @@ func load_args():
 			"-sid", "--serverid":
 				if i + 1 < args.size():
 					ConfigManager.set_game_setting("network", "server_id", args[i + 1])
-			# === Client === #
-			"-c", "--client":
-				ConfigManager.client_mode = ConfigManager.CLIENTMODE.CLIENT
-			"-ds", "--dedicated":
-				ConfigManager.client_mode = ConfigManager.CLIENTMODE.DEDICATED_SERVER
-			"-o", "--offline":
-				ConfigManager.client_mode = ConfigManager.CLIENTMODE.OFFLINE
-				
 			# === Debug === #
 			"-debug": # (--debug is used for the engine itself)
 				ConfigManager.debug = true
