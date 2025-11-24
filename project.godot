@@ -27,7 +27,7 @@ buses/default_bus_layout="uid://ddwso3ogy7vee"
 
 [autoload]
 
-CsgToolkitAutoload="*res://addons/csg_toolkit/scripts/csg_toolkit_config.gd"
+CsgToolkitAutoload="*uid://w8ad8q4lneis"
 GameManager="*res://scripts/managers/game_manager.gd"
 AudioManager="*res://scripts/managers/_AudioManager.gd"
 ConfigManager="*res://scripts/managers/_ConfigManager.gd"
@@ -35,7 +35,7 @@ UIManager="*res://scripts/managers/_UIManager.gd"
 WSManager="*res://scripts/managers/_WS_Manager.gd"
 SpawnManager="*res://scripts/managers/_SpawnManager.gd"
 NetworkManager="*res://scripts/managers/_NetworkManager.gd"
-DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+DebugMenu="*uid://cggqb75a8w8r"
 IOManager="*res://scripts/managers/_IOManager.gd"
 
 [debug]
