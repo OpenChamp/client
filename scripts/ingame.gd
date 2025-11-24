@@ -33,9 +33,6 @@ func _ready() -> void:
 	# == Network Setup == #
 	NetworkManager.player_connected.connect(GameManager._on_player_connected)
 	NetworkManager.game_root = self
-	# == Load Config == #
-	var config = ConfigManager.get_ingame_configuration()
-	print("GameRoot: Loaded in-game configuration: %s" % str(config))
 	# == Client Init == #
 	NetworkManager._start.call_deferred()
 

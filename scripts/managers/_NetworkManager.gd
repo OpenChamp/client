@@ -10,7 +10,12 @@ signal game_start
 signal disconnected_from_server
 
 var game_root:Node
-const default_port = 7000
+
+var config = {
+	"host": "",
+	"port": 0,
+	"default_port": 7000
+}
 var packets : Array = [];
 # ======================================================= #
 # === Updated from packet_validator.hpp in GameServer === # 
@@ -82,15 +87,12 @@ func on_disconnect():
 
 	
 func _start():
-	_start_client(ConfigManager.get_game_setting("network", "server_ip"), ConfigManager.get_game_setting("network", "port"))
-
-func _stop():
-	multiplayer.multiplayer_peer = null
-	print("Network stopped")
-
-func _start_client(server_ip, port):
-	if port == null:
-		port = default_port
+	if config.host.is_empty():
+		push_error("No host specified, unable to connect");
+		get_tree().quit(1);
+	if config.port == 0:
+		push_warning("No port specified, defaulting to ", config.default_port)
+		config.port = config.default_port
 	# Connect Signals
 	multiplayer.peer_packet.connect(process_packet)
 	# Start Client
@@ -99,8 +101,13 @@ func _start_client(server_ip, port):
 	if err:
 		print("Client failed to start connection")
 		get_tree().quit()
-	peer = connection.connect_to_host(server_ip, port)
-	print("Client Created, Connecting to server at %s:%d..." % [server_ip, port])
+	peer = connection.connect_to_host(config.host, config.port)
+	print("Client Created, Connecting to server at %s:%d..." % [config.host, config.port])
+
+
+func _stop():
+	multiplayer.multiplayer_peer = null
+	print("Network stopped")
 
 func process_packet(packet:PackedByteArray):
 	packets.append(packet)
