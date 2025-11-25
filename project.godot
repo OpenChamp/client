@@ -37,6 +37,7 @@ SpawnManager="*res://scripts/managers/_SpawnManager.gd"
 NetworkManager="*res://scripts/managers/_NetworkManager.gd"
 DebugMenu="*uid://cggqb75a8w8r"
 IOManager="*res://scripts/managers/_IOManager.gd"
+EntityManager="*uid://tc6y88mvjayk"
 
 [debug]
 
@@ -53,6 +54,10 @@ window/stretch/aspect="expand"
 [dotnet]
 
 project/assembly_name="OpenChamp"
+
+[editor]
+
+run/main_run_args="-ip 127.0.0.1"
 
 [editor_plugins]
 

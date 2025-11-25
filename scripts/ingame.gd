@@ -17,10 +17,6 @@ Gameplay Lifecycle
 	- Game state updates every tick
 """
 # TODO: Reimplement SpawnManager
-@onready var player_spawner := $Spawners/Player
-@onready var map_spawner := $Spawners/Map
-@onready var minion_spawner := $Spawners/Minion
-@onready var jungle_spawner := $Spawners/Jungle
 
 @onready var env := $WorldEnvironment
 # === SETUP FUNCTIONS === #
@@ -30,10 +26,11 @@ func _ready() -> void:
 	UIManager.set_ui_root($"./UI/UIRoot")
 	UIManager.change_interface("Loading")
 	UIManager.preload_interface("InGame")
+	# == Entity Setup == #
+	EntityManager.game_root = self
 	# == Network Setup == #
 	NetworkManager.player_connected.connect(GameManager._on_player_connected)
 	NetworkManager.game_root = self
-	# == Client Init == #
 	NetworkManager._start.call_deferred()
 
 func _on_game_start():
@@ -42,10 +39,6 @@ func _on_game_start():
 	2. Start the pregame timer
 	3. Transition to PREGAME state
 	"""
-	# === 1 === #
-	for id in GameManager.players.keys():
-		player_spawner.spawn_player(id)
-	
 	# Wait 1s so all clients are loaded and ready 
 	get_tree().create_timer(1).timeout.connect(rpc.bind("start_pregame"))
 	# Connect minion wave timer to spawner and start it

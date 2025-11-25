@@ -1,18 +1,14 @@
 class_name Entity
 extends Node3D
 
-enum STATES {
-	alive,
-	dead
-}
-var state := STATES.alive
+var state : EntityManagementSystem.EntityState
 # TODO: Create enum for minion states
 @export var minion_state: int = 0
 var server_position : Vector3
 
 # === Core Stats ===
 var max_health: float = 1.0
-var health:int = 0
+var health: float = 0.0
 var max_mana: float = 0.0
 var mana: float = 0.0
 var move_speed: float = 0.0
@@ -45,12 +41,14 @@ var vision_range: float = 1.0
 
 # === Team & Faction ===
 var team_id: int = 0 # [0 = Neutral, 1 = Team 1, 2 = Team 2] -- cmkrist 15/11/2025
-
 @export var red_material = preload("res://default_assets/materials/entities/red_team.tres")
 @export var blue_material = preload("res://default_assets/materials/entities/blue_team.tres")
 @export var def_material = preload("res://default_assets/materials/cloth_material.tres")
 
+var is_dying : bool = false
 func _process(delta):
+	if state == EntityManagementSystem.EntityState.DEAD:
+		die()
 	# Movement logic here
 	if server_position:
 		# Simple interpolation towards server position
@@ -66,19 +64,53 @@ func set_stat(stat_name: String, stat_value: String) -> void:
 		return
 	var value = null
 	# Attempt to convert to int or float if applicable
-	if stat_value.is_valid_int():
-		value = int(stat_value)
-	elif stat_value.is_valid_float():
+	# Try float first since many stats are floats (including health)
+	print("Converting stat '%s' with value '%s'" % [stat_name, stat_value])
+	print("  is_valid_float: %s" % stat_value.is_valid_float())
+	print("  is_valid_int: %s" % stat_value.is_valid_int())
+	print("  length: %d" % stat_value.length())
+	print("  first char code: %d" % (stat_value[0].unicode_at(0) if stat_value.length() > 0 else -1))
+	
+	if stat_value.is_valid_float():
 		value = float(stat_value)
+		print("  -> Converted to float: %f" % value)
+	elif stat_value.is_valid_int():
+		value = int(stat_value)
+		print("  -> Converted to int: %d" % value)
 	else:
 		value = stat_value
+		print("  -> Kept as string: '%s'" % value)
+	
 	self[stat_name] = value
+	
+	# Clamp health to valid range
+	if stat_name == "health" and typeof(value) in [TYPE_INT, TYPE_FLOAT]:
+		var clamped = max(0.0, min(value, max_health))
+		if clamped != value:
+			print("Clamped health from %s to %f" % [value, clamped])
+			self[stat_name] = clamped
+			value = clamped
+	
 	if $HealthBar:
 		if stat_name == "health":
 			$HealthBar.set_health(value)
 		elif stat_name == "max_health":
 			$HealthBar.set_max_health(value)
-	update_material();
+	update_material()
+	
+	# If health reaches 0 or below, trigger death
+	if stat_name == "health" and value <= 0.0 and state != EntityManagementSystem.EntityState.DEAD:
+		print("Health reached 0 for entity %s, triggering death" % name)
+		update_state(EntityManagementSystem.EntityState.DEAD)
+	
+func dealt_damage(amount):
+	pass # -- dunno if it'll get used, maybe quests? -- cmkrist 24/11/2025
+	
+func take_damage(amount):
+	set_stat("health", str(health - amount));
+func took_damage(amount): # <-- intentional so it reads better, I know it's wrong but I like it -- cmkrist 24/11/2025
+	take_damage(amount)
+	
 
 func get_material(team = self.team_id) -> StandardMaterial3D:
 	if team:
@@ -94,12 +126,31 @@ func update_material():
 	if $Body:
 		$Body.material_override = mat;
 	
+func update_state(state:EntityManagementSystem.EntityState):
+	self.state = state
+	print("New State: ", state)
 
 func die():
-	if state == STATES.dead: return
-	state = STATES.dead
+	if is_dying:
+		return
+	is_dying = true
 	print("Minion Death")
 	$Body.hide()
-	$MoneyEmitter.emitting = true
-	$AudioStreamPlayer3D.play()
-	$AudioStreamPlayer3D.finished.connect(queue_free)
+	
+	# Cleanup after 5 seconds max to ensure corpses don't pile up
+	var cleanup_timer = get_tree().create_timer(5.0)
+	cleanup_timer.timeout.connect(func():
+		print("Destroying entity %s by timeout" % name)
+		EntityManager.destroy_entity(name)
+	)
+	
+	if $AudioStreamPlayer3D:
+		if $MoneyEmitter:
+			$MoneyEmitter.emitting = true
+		$AudioStreamPlayer3D.play()
+		$AudioStreamPlayer3D.finished.connect(func():
+			print("Destroying entity %s after audio" % name)
+			EntityManager.destroy_entity(name)
+		)
+	else:
+		EntityManager.destroy_entity.bind(name)

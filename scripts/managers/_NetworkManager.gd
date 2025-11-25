@@ -19,7 +19,7 @@ var config = {
 var packets : Array = [];
 # ======================================================= #
 # === Updated from packet_validator.hpp in GameServer === # 
-# ===      Last Updated: 18/11/2025 - CMKRIST         === #
+# ===      Last Updated: 24/11/2025 - CMKRIST         === #
 # ======================================================= #
 enum PACKET_TYPE {
 	# Engine reserved packet types
@@ -34,6 +34,9 @@ enum PACKET_TYPE {
 	# Update packets
 	ENTITY_POSITION,
 	ENTITY_STATS,
+	ENTITY_STATE,
+	# Combat packets
+	COMBAT_EVENT,
 	# Player related packets
 	PLAYER_READY,
 	PLAYER_DISCONNECT,
@@ -41,17 +44,10 @@ enum PACKET_TYPE {
 	PLAYER_MOVE
 };
 
-const ENTITY_SCENES = {
-	"champion" : preload("res://scenes/champs/ranger.tscn"),
-	"melee_minion" : preload("res://scenes/entities/minions/minion_entity_melee.tscn"),
-	"ranged_minion" : preload("res://scenes/entities/minions/minion_entity_ranged.tscn"),
-	"magic_minion" : preload("res://scenes/entities/minions/minion_entity_mage.tscn"),
-	"cannon_minion" : preload("res://scenes/entities/minions/minion_entity_cannon.tscn"),
-}
-
 var connection: ENetConnection
 var peer: ENetPacketPeer
 
+@onready var serializer:Serializer = Serializer.new()
 func _process(_delta:float) -> void:
 	if connection == null: return
 	handle_packets()
@@ -135,80 +131,26 @@ func process_packet(packet:PackedByteArray):
 			handle_entity_stats_packet(packet)
 		PACKET_TYPE.ENTITY_POSITION:
 			handle_entity_position_packet(packet)
+		PACKET_TYPE.ENTITY_STATE:
+			handle_entity_state_packet(packet)
+		PACKET_TYPE.COMBAT_EVENT:
+			EntityManager.handle_combat(serializer.deserialize_combat_packet(packet))
 		_:
 			push_error(packet)
 
 func handle_entity_spawn_packet(packet:PackedByteArray):
-	# (1) Type
-	# (4) EntityID
-	# (4) Float PosX
-	# (4) Float PosY
-	# (1) u8int Team
-	# (4) u32 template_id length
-	# (-) template_id (char[])
-	var offset = 1
-	var entity_id = packet.decode_u32(offset)
-	offset += 4
-	var pos_x = packet.decode_float(offset)
-	offset += 4
-	var pos_y = packet.decode_float(offset)
-	offset += 4
-	var entity_pos = Vector3(pos_x, 1, pos_y)
-	var entity_team = packet.decode_u8(offset)
-	offset += 1
-	var size = packet.decode_u32(offset)
-	offset += 4
-	var template_id = packet.slice(offset, offset + size).get_string_from_utf8()
-	var entity : Entity = ENTITY_SCENES[template_id].instantiate()
-	var entity_template = EntityTemplates.get_entity_template(template_id)
-	var components = entity_template.get("_children")
-	if not components:
-		push_warning("Entity: ", entity.name , " Template: ", template_id, " Error: Failed to initialize XML Components")
-		return
-	for key in components:
-		match key:
-			"stats":
-				print(components["stats"]);
-				for stat_name in components["stats"]:
-					if entity[stat_name]:
-						# Typecast everything to string for consistency -- cmkrist 19/11/2025
-						var value : String = str(components["stats"][stat_name])
-						entity.set_stat(stat_name, value)
-			_:
-				print(key, components[key])
-		pass;
+	var entity_data: Dictionary = serializer.deserialize_entity_packet(packet)
+	EntityManager.create_entity(entity_data)
 	
-	entity.name = str(entity_id)
-	game_root.get_node("Entities").add_child(entity)
-	entity.global_position = entity_pos
-	print("Spawned entity %d (%s) at (%.1f, %.1f)" % [entity_id, template_id, pos_x, pos_y])
+func handle_entity_state_packet(packet:PackedByteArray):
+	# Type (1) + Entity ID (4) + State (1)
+	EntityManager.state_change(packet.decode_u32(1), packet.decode_u8(5))
+	pass
 	
 func handle_entity_stats_packet(packet:PackedByteArray):
-	# Type (1 byte) + Entity ID (4) + Name Length (4) + Name + Value Length (4) + Value
-	var offset = 1
-	var entity_id = packet.decode_u32(offset)
-	offset += 4
-	var name_length = packet.decode_u32(offset)
-	offset += 4
-	var stat_name = ""
-	for i in range(offset, offset + name_length):
-		stat_name += char(packet[i])
-	offset += name_length
-	var value_length = packet.decode_u32(offset)
-	offset += 4
-	var stat_value = ""
-	for i in range(offset, offset + value_length):
-		stat_value += char(packet[i])
-	# Verify Existence
-	var entity_node = game_root.get_node_or_null("Entities/%d" % entity_id)
-	if entity_node == null:
-		push_error("Entity with ID %d not found!" % entity_id)
-		return;
-	# Update Stat
-	if not entity_node.has_method("set_stat"):
-		push_error("Entity with ID %d has no set_stat method!" % entity_id)
-		return;
-	entity_node.set_stat(stat_name, stat_value)
+	var stat = serializer.deserialize_stat_packet(packet)
+	print("Received stat update: Entity %d, Stat '%s' = '%s'" % [stat.id, stat.name, stat.value])
+	EntityManager.update_entity_stat(stat)
 	# First byte is packet type
 
 func handle_entity_position_packet(packet:PackedByteArray):

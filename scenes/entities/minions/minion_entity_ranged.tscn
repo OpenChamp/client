@@ -39,7 +39,7 @@ shader_parameter/thickness = 0.05
 
 [sub_resource type="BoxMesh" id="BoxMesh_urmc1"]
 
-[node name="MinionEntityMage" type="Node3D" unique_id=38201347]
+[node name="MinionEntityRanged" type="Node3D" unique_id=38201347]
 script = ExtResource("1_i03iu")
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=1534131562]

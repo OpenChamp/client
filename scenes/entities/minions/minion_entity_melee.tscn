@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1q03yxr2xno5"]
+[gd_scene load_steps=19 format=3 uid="uid://c1q03yxr2xno5"]
 
 [ext_resource type="Script" uid="uid://bq3q5f3jtnuxr" path="res://scripts/entities/entity.gd" id="1_52j74"]
 [ext_resource type="Shader" uid="uid://cqj4indqg8ath" path="res://default_assets/shaders/outline.gdshader" id="3_u8jig"]
 [ext_resource type="Material" uid="uid://bj31adv6yhavv" path="res://default_assets/materials/cloth_material.tres" id="4_i1k7y"]
 [ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/HealthBar.tscn" id="5_n2yh3"]
 [ext_resource type="Material" uid="uid://c82oohji8rcpv" path="res://default_assets/materials/misc/wood.tres" id="5_sbons"]
+[ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="6_60cdr"]
+[ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://default_assets/audio/sfx/game/kill_gold.wav" id="7_b7xko"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
 
@@ -107,3 +109,10 @@ libraries = {
 }
 
 [node name="HealthBar" parent="." unique_id=1277894472 instance=ExtResource("5_n2yh3")]
+
+[node name="MoneyEmitter" parent="." unique_id=905247835 instance=ExtResource("6_60cdr")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=485703118]
+stream = ExtResource("7_b7xko")
+pitch_scale = 0.75
+max_distance = 20.0
