@@ -70,17 +70,20 @@ func create_entity(entity_data): # See utility/serializer/decode_entity_packet f
 			_:
 				print(key, components[key])
 	entity.name = str(entity_data.id)
+	entity.set_stat("team", str(entity_data.team))
 	if not game_root:
 		push_error("No Game Root Set")
 		return
 	game_root.get_node("Entities").add_child(entity, true)
-	entity.global_position =  Vector3(entity_data.pos.x, 0, entity_data.pos.y)
+	entity.global_position =  Vector3(entity_data.pos.x, 1, entity_data.pos.y)
 	print("Entity %d spawned: health=%f, max_health=%f" % [entity_data.id, entity.health, entity.max_health])
 	entity_ref[entity_data.id] = entity
 
 func destroy_entity(entity_id):
 	if entity_ref.has(entity_id) and entity_ref[entity_id]:
-		entity_ref[entity_id].queue_free()
+		var entity = entity_ref[entity_id]
+		entity.queue_free()
+		entity_ref.erase(entity_id)
 	available_ids[entity_id] = true
 
 func handle_combat(combat_data):
