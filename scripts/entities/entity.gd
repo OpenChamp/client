@@ -1,6 +1,8 @@
 class_name Entity
 extends Node3D
 
+const ROTATE_SPEED: float = 5.0  # Radians per second
+
 var state : EntityManagementSystem.EntityState
 # TODO: Create enum for minion states
 @export var minion_state: int = 0
@@ -40,7 +42,7 @@ var leech: float = 0.0 # Percentage of damage dealt returned as mana
 var vision_range: float = 1.0
 
 # === Team & Faction ===
-var team_id: int = 0 # [0 = Neutral, 1 = Team 1, 2 = Team 2] -- cmkrist 15/11/2025
+var team: int = 0 # [0 = Neutral, 1 = Team 1, 2 = Team 2] -- cmkrist 15/11/2025
 @export var red_material = preload("res://default_assets/materials/entities/red_team.tres")
 @export var blue_material = preload("res://default_assets/materials/entities/blue_team.tres")
 @export var def_material = preload("res://default_assets/materials/cloth_material.tres")
@@ -51,11 +53,30 @@ func _process(delta):
 		die()
 	# Movement logic here
 	if server_position:
-		# Simple interpolation towards server position
-		if global_position != server_position:
-			look_at(server_position, Vector3.UP);
-			#global_position = global_position.lerp(server_position, move_speed * delta);
-			global_position = server_position
+		var distance = global_position.distance_to(server_position)
+		if distance > 0.001:  # Avoid near-zero distance which causes singular matrix error
+			# Get direction to server position
+			var direction = (server_position - global_position).normalized()
+			
+			# Get our current forward direction (-Z axis in Godot)
+			var current_forward = -global_transform.basis.z
+			
+			# Calculate angle between current forward and target direction
+			var angle_diff = current_forward.angle_to(direction)
+			
+			# If not already facing the target, rotate towards it
+			if angle_diff > 0.01:  # Small threshold to avoid jitter
+				# Calculate rotation axis (perpendicular to both vectors)
+				var rotation_axis = current_forward.cross(-direction).normalized()
+				
+				# Rotate at ROTATE_SPEED, but don't overshoot
+				var rotation_amount = min(angle_diff, ROTATE_SPEED * delta)
+				
+				# Apply rotation
+				global_transform.basis = global_transform.basis.rotated(rotation_axis, rotation_amount)
+			
+			# Move smoothly towards server position at move_speed
+			global_position += direction * move_speed * delta 
 		
 
 func set_stat(stat_name: String, stat_value: String) -> void:
@@ -90,13 +111,15 @@ func set_stat(stat_name: String, stat_value: String) -> void:
 			print("Clamped health from %s to %f" % [value, clamped])
 			self[stat_name] = clamped
 			value = clamped
+	# update material on team
+	if stat_name == "team":
+		update_material()
 	
 	if $HealthBar:
 		if stat_name == "health":
 			$HealthBar.set_health(value)
 		elif stat_name == "max_health":
 			$HealthBar.set_max_health(value)
-	update_material()
 	
 	# If health reaches 0 or below, trigger death
 	if stat_name == "health" and value <= 0.0 and state != EntityManagementSystem.EntityState.DEAD:
@@ -112,7 +135,7 @@ func took_damage(amount): # <-- intentional so it reads better, I know it's wron
 	take_damage(amount)
 	
 
-func get_material(team = self.team_id) -> StandardMaterial3D:
+func get_material(team = self.team) -> StandardMaterial3D:
 	if team:
 		match team:
 			1:
@@ -137,20 +160,15 @@ func die():
 	print("Minion Death")
 	$Body.hide()
 	
-	# Cleanup after 5 seconds max to ensure corpses don't pile up
-	var cleanup_timer = get_tree().create_timer(5.0)
-	cleanup_timer.timeout.connect(func():
-		print("Destroying entity %s by timeout" % name)
-		EntityManager.destroy_entity(name)
-	)
-	
+	# Play money emitter and audio if available
 	if $AudioStreamPlayer3D:
 		if $MoneyEmitter:
 			$MoneyEmitter.emitting = true
 		$AudioStreamPlayer3D.play()
-		$AudioStreamPlayer3D.finished.connect(func():
-			print("Destroying entity %s after audio" % name)
-			EntityManager.destroy_entity(name)
-		)
-	else:
-		EntityManager.destroy_entity.bind(name)
+	
+	# Cleanup after 5 seconds max to ensure corpses don't pile up
+	var cleanup_timer = get_tree().create_timer(5.0)
+	cleanup_timer.timeout.connect(func():
+		print("Destroying entity %s by timeout" % name)
+		EntityManager.destroy_entity(int(name))
+	)

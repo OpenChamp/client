@@ -14,6 +14,10 @@ func _process(delta: float) -> void:
 
 func set_health(h: float) -> void:
 	$ProgressBar.value = h
+	if h <= 0:
+		hide()
+	else:
+		show()
 	
 func set_max_health(mh: float) -> void:
 	$ProgressBar.max_value = mh
