@@ -67,13 +67,17 @@ func _process(delta):
 			# If not already facing the target, rotate towards it
 			if angle_diff > 0.01:  # Small threshold to avoid jitter
 				# Calculate rotation axis (perpendicular to both vectors)
-				var rotation_axis = current_forward.cross(-direction).normalized()
+				var rotation_axis = current_forward.cross(-direction)
 				
-				# Rotate at ROTATE_SPEED, but don't overshoot
-				var rotation_amount = min(angle_diff, ROTATE_SPEED * delta)
-				
-				# Apply rotation
-				global_transform.basis = global_transform.basis.rotated(rotation_axis, rotation_amount)
+				# Only rotate if cross product is non-zero (vectors not parallel)
+				if rotation_axis.length() > 0.001:
+					rotation_axis = rotation_axis.normalized()
+					
+					# Rotate at ROTATE_SPEED, but don't overshoot
+					var rotation_amount = min(angle_diff, ROTATE_SPEED * delta)
+					
+					# Apply rotation
+					global_transform.basis = global_transform.basis.rotated(rotation_axis, rotation_amount)
 			
 			# Move smoothly towards server position at move_speed
 			global_position += direction * move_speed * delta 
@@ -126,7 +130,7 @@ func set_stat(stat_name: String, stat_value: String) -> void:
 		print("Health reached 0 for entity %s, triggering death" % name)
 		update_state(EntityManagementSystem.EntityState.DEAD)
 	
-func dealt_damage(amount):
+func dealt_damage(_amount):
 	pass # -- dunno if it'll get used, maybe quests? -- cmkrist 24/11/2025
 	
 func take_damage(amount):
