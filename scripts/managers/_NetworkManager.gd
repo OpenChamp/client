@@ -113,7 +113,6 @@ func process_packet(packet:PackedByteArray):
 			UIManager.change_interface("Ingame")
 			var player_controller = load("res://scenes/ui/game_controller.tscn").instantiate()
 			get_tree().current_scene.add_child(player_controller)
-			player_controller.rotate_y(deg_to_rad(-90))
 		PACKET_TYPE.MAP_LOAD:
 			# Next 2 bytes are the length of the map name (Big-endian)
 			var name_length = packet[1] << 8 | packet[2]
