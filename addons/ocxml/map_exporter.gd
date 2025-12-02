@@ -4,20 +4,14 @@ extends EditorScript
 
 ### === Constants === ###
 const spawn_groups = ["minion_spawn", "player_spawn"]
-const structure_groups = ["tower", "core"]
 
-
-func _run():
-	parse_scene_to_map()
-	pass;
+func export_scene(scene):
+	if scene is not NavigationRegion3D:
+		push_warning("Only Maps supported at this time...")
+		return;
+	process_map_scene(scene);
 	
-func parse_scene_to_map():
-	print("Parsing scene to map");
-	# Get current scene
-	var current_scene = EditorInterface.get_edited_scene_root()
-	if current_scene == null:
-		print("No scene is currently open.")
-		return
+func process_map_scene(current_scene : NavigationRegion3D):
 	var nodes = get_all_nodes(current_scene)
 	print("Total nodes in scene: %d" % nodes.size())
 	var map_data = {}
@@ -26,8 +20,7 @@ func parse_scene_to_map():
 	var scene_name = current_scene.name.to_lower()
 
 	# Export Navmesh Data
-	var navmesh_data = export_navmesh(current_scene)
-	map_data["navmesh"] = navmesh_data
+	export_navmesh_binary(current_scene, scene_name)
 
 	# Export Structure Data
 	var structure_data = []
@@ -80,26 +73,56 @@ func parse_scene_to_map():
 	else:
 		print("Failed to serialize map data to XML.")
 
-func export_navmesh(scene) -> Dictionary:
-	print("Exporting navmesh data")
-	var navmesh_info = {}
-	# Check if the scene has a NavigationRegion3D
-	if scene is NavigationRegion3D:
-		var navmesh : NavigationMesh = scene.navigation_mesh
-		navmesh_info["vertices"] = []
-		navmesh_info["indices"] = []
-		# Extract vertices
-		for vertex in navmesh.get_vertices():
-			navmesh_info["vertices"].append([vertex.x, vertex.y, vertex.z])
-		# Extract indices
-		for i in range(navmesh.get_polygon_count()):
-			var polygon = navmesh.get_polygon(i)
-			for index in polygon:
-				navmesh_info["indices"].append(index)
-
-	return navmesh_info
-
 ### === Helper Functions === ###
+
+# Breadth-First Search to find connected nav component
+func bfs_component(start: int, adjacency: Dictionary, visited: Dictionary) -> Array:
+	var component = []
+	var queue = [start]
+	visited[start] = true
+	while queue.size() > 0:
+		var current = queue.pop_front()
+		component.append(current)
+		
+		for neighbor in adjacency[current]:
+			if not visited.has(neighbor):
+				visited[neighbor] = true
+				queue.append(neighbor)
+	return component
+
+func filter_islands(vertices: PackedVector3Array, polygons: Array, used_vertices: Dictionary) -> Dictionary:
+	# Build adjacency graph for vertices
+	var adjacency = {}
+	for vertex_idx in used_vertices.keys():
+		adjacency[vertex_idx] = []
+	
+	for polygon in polygons:
+		for i in range(polygon.size()):
+			var v1 = polygon[i]
+			var v2 = polygon[(i + 1) % polygon.size()]
+			if not adjacency[v1].has(v2):
+				adjacency[v1].append(v2)
+			if not adjacency[v2].has(v1):
+				adjacency[v2].append(v1)
+	
+	# Find largest connected component using BFS
+	var visited = {}
+	var largest_component = []
+	
+	for start_vertex in adjacency.keys():
+		if not visited.has(start_vertex):
+			var component = bfs_component(start_vertex, adjacency, visited)
+			if component.size() > largest_component.size():
+				largest_component = component
+	
+	# Create mapping from old vertex indices to new ones
+	var vertex_map = {}
+	var new_idx = 0
+	for old_idx in largest_component:
+		vertex_map[old_idx] = new_idx
+		new_idx += 1
+	
+	return vertex_map
 
 func get_all_nodes(node: Node) -> Array:
 	var nodes := []
@@ -127,7 +150,73 @@ func get_team(node: Node) -> int:
 	else:
 		return 0
 
-### === XML Export Functions === ###
+### === Export Functions === ###
+func export_navmesh_binary(scene: NavigationRegion3D, scene_name: String) -> void:
+	print("Exporting navmesh data")
+	if scene is not NavigationRegion3D:
+		push_warning("Scene is not a NavigationRegion3D")
+		return
+	
+	var navmesh : NavigationMesh = scene.navigation_mesh
+	var vertices = navmesh.get_vertices()
+	var used_vertices = {}
+	var polygons = []
+	
+	# Collect all polygons and their vertex indices
+	for i in range(navmesh.get_polygon_count()):
+		var polygon = navmesh.get_polygon(i)
+		if polygon.size() > 0:
+			polygons.append(polygon)
+			for index in polygon:
+				used_vertices[index] = true
+	
+	# Filter out island navmeshes - keep only the largest connected component
+	var vertex_map = filter_islands(vertices, polygons, used_vertices)
+	
+	# Create flattened vertex list (X, Z only - removing Y)
+	var flattened_vertices = []
+	for old_idx in vertex_map.keys():
+		var vertex = vertices[old_idx]
+		flattened_vertices.append([vertex.x, vertex.z])
+	
+	# Remap polygon indices
+	var remapped_polygons = []
+	for polygon in polygons:
+		var remapped_polygon = []
+		var valid = true
+		for old_idx in polygon:
+			if vertex_map.has(old_idx):
+				remapped_polygon.append(vertex_map[old_idx])
+			else:
+				valid = false
+				break
+		if valid:
+			remapped_polygons.append(remapped_polygon)
+	
+	# Write binary file
+	var file = FileAccess.open("res://data/maps/%s.nav" % scene_name, FileAccess.WRITE)
+	if file:
+		# Write polygon count (4 bytes, little-endian)
+		file.store_32(remapped_polygons.size())
+		# Write vertex count (4 bytes, little-endian)
+		file.store_32(flattened_vertices.size())
+		
+		# Write vertices (X, Z as floats)
+		for vertex in flattened_vertices:
+			file.store_float(vertex[0])
+			file.store_float(vertex[1])
+		
+		# Write polygons
+		for polygon in remapped_polygons:
+			file.store_32(polygon.size())
+			for index in polygon:
+				file.store_32(index)
+		
+		file.close()
+		print("Navmesh exported to res://data/maps/%s.nav" % scene_name)
+		print("Polygons: %d, Vertices: %d" % [remapped_polygons.size(), flattened_vertices.size()])
+	else:
+		push_error("Failed to open navmesh file for writing.")
 
 func export_map_to_xml(scene_name: String, map_data: Dictionary) -> String:
 	var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -138,38 +227,14 @@ func export_map_to_xml(scene_name: String, map_data: Dictionary) -> String:
 	xml += "\tid=\"%s\"\n" % scene_name
 	xml += ">\n"
 	
-	# Export Navmesh
-	xml += export_navmesh_xml(map_data.get("navmesh", {}))
-	
-	# Export Structures
+	xml += "</map>\n"
+	return xml
 	xml += export_structures_xml(map_data.get("structures", []))
 	
 	# Export Spawn Points
 	xml += export_spawn_points_xml(map_data.get("spawn_points", []))
 	
 	xml += "</map>\n"
-	return xml
-
-func export_navmesh_xml(navmesh_data: Dictionary) -> String:
-	var xml = "\t<navmesh>\n"
-	
-	var vertices = navmesh_data.get("vertices", [])
-	var indices = navmesh_data.get("indices", [])
-	
-	# Export vertices
-	xml += "\t\t<vertices>\n"
-	for vertex in vertices:
-		xml += "\t\t\t<vertex x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />\n" % [vertex[0], vertex[1], vertex[2]]
-	xml += "\t\t</vertices>\n"
-	
-	# Export indices grouped into triangles
-	xml += "\t\t<triangles>\n"
-	for i in range(0, indices.size(), 3):
-		if i + 2 < indices.size():
-			xml += "\t\t\t<triangle v0=\"%d\" v1=\"%d\" v2=\"%d\" />\n" % [indices[i], indices[i+1], indices[i+2]]
-	xml += "\t\t</triangles>\n"
-	
-	xml += "\t</navmesh>\n"
 	return xml
 
 func export_structures_xml(structures: Array) -> String:
