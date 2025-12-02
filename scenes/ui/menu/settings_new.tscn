@@ -27,7 +27,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="SettingsNew3" type="Control" unique_id=984532020]
+[node name="SettingsNew" type="Control" unique_id=984532020]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

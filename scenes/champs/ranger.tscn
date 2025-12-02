@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://wsquw55cuajg"]
+[gd_scene load_steps=13 format=3 uid="uid://wsquw55cuajg"]
 
 [ext_resource type="Script" uid="uid://cedu4oyudngf3" path="res://scripts/champs/ranger.gd" id="1_shl3n"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="2_32au6"]
+[ext_resource type="PackedScene" uid="uid://k0pslpwatp51" path="res://default_assets/models/champions/archer_version_3.glb" id="2_gv0bw"]
 [ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/HealthBar.tscn" id="3_3pwj2"]
+[ext_resource type="PackedScene" uid="uid://218awq4tqhni" path="res://default_assets/models/champions/knightStanding.glb" id="4_jrr1c"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dvd4r"]
 
@@ -34,6 +36,9 @@ height = 0.01
 transform = Transform3D(0.99999994, -0.00036651915, 0, 0.00036651915, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_shl3n")
 
+[node name="archer_version_3" parent="." unique_id=509779221 instance=ExtResource("2_gv0bw")]
+visible = false
+
 [node name="Body" type="MeshInstance3D" parent="." unique_id=358827354]
 mesh = SubResource("CapsuleMesh_dvd4r")
 surface_material_override/0 = SubResource("StandardMaterial3D_jsdwf")
@@ -61,3 +66,10 @@ mesh = SubResource("SphereMesh_k8kie")
 [node name="MoneyEmitter" parent="." unique_id=118436400 instance=ExtResource("2_32au6")]
 
 [node name="HealthBar" parent="." unique_id=1996912880 instance=ExtResource("3_3pwj2")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=511207592]
+root_node = NodePath("../knightStanding")
+
+[node name="knightStanding" parent="." unique_id=1285644893 instance=ExtResource("4_jrr1c")]
+transform = Transform3D(0.42999998, 0.00015760324, 0, -0.00015760324, 0.42999998, 0, 0, 0, 0.43, 0.08309333, -1.0000305, 0.20439148)
+visible = false

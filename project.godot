@@ -70,6 +70,7 @@ team1="Red Team"
 team2="Blue Team"
 minion_spawn="Minion Spawn Points"
 map_root="The root of the map scene"
+structure=""
 
 [input]
 

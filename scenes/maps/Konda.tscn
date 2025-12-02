@@ -25,6 +25,7 @@ size = Vector2(3, 3)
 [node name="Konda" type="NavigationRegion3D" unique_id=553791129 groups=["map_root"]]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_kvq41")
+use_edge_connections = false
 
 [node name="Decorations" type="Node3D" parent="." unique_id=881545062]
 
@@ -306,10 +307,16 @@ skeleton = NodePath("..")
 [node name="Markers" type="Node3D" parent="." unique_id=119093632]
 
 [node name="MinionSpawn1" type="Marker3D" parent="Markers" unique_id=743675213 groups=["minion_spawn", "team1"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -28)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -25)
 
 [node name="MinionSpawn2" type="Marker3D" parent="Markers" unique_id=967825938 groups=["minion_spawn", "team2"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 28)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 25)
+
+[node name="PlayerSpawn1" type="Marker3D" parent="Markers" unique_id=633853524 groups=["minion_spawn", "team1"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 30)
+
+[node name="PlayerSpawn2" type="Marker3D" parent="Markers" unique_id=1783962864 groups=["minion_spawn", "team1"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -30)
 
 [node name="JungleCamp1" type="MeshInstance3D" parent="Markers" unique_id=981915224]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.01, 0)
@@ -324,17 +331,17 @@ mesh = SubResource("PlaneMesh_saiab")
 
 [node name="Structures" type="Node3D" parent="." unique_id=835003913]
 
-[node name="Tower1" parent="Structures" unique_id=161576012 groups=["team1"] instance=ExtResource("1_82gln")]
+[node name="Tower1" parent="Structures" unique_id=161576012 groups=["structure", "team1"] instance=ExtResource("1_82gln")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
-[node name="Tower2" parent="Structures" unique_id=2021147873 groups=["team2"] instance=ExtResource("1_82gln")]
+[node name="Tower2" parent="Structures" unique_id=2021147873 groups=["structure", "team2"] instance=ExtResource("1_82gln")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 team = 2
 
-[node name="core1" parent="Structures" unique_id=651793052 groups=["team1"] instance=ExtResource("6_3jmng")]
+[node name="core1" parent="Structures" unique_id=651793052 groups=["structure", "team1"] instance=ExtResource("6_3jmng")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -33.5)
 
-[node name="core2" parent="Structures" unique_id=1307891470 groups=["team2"] instance=ExtResource("6_3jmng")]
+[node name="core2" parent="Structures" unique_id=1307891470 groups=["structure", "team2"] instance=ExtResource("6_3jmng")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33.5)
 team = 2
 
