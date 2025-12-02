@@ -20,7 +20,7 @@ func process_map_scene(current_scene : NavigationRegion3D):
 	var scene_name = current_scene.name.to_lower()
 
 	# Export Navmesh Data
-	export_navmesh_binary(current_scene, scene_name)
+	export_navmesh_obj(current_scene, scene_name)
 
 	# Export Structure Data
 	var structure_data = []
@@ -151,8 +151,8 @@ func get_team(node: Node) -> int:
 		return 0
 
 ### === Export Functions === ###
-func export_navmesh_binary(scene: NavigationRegion3D, scene_name: String) -> void:
-	print("Exporting navmesh data")
+func export_navmesh_obj(scene: NavigationRegion3D, scene_name: String) -> void:
+	print("Exporting navmesh data to OBJ format")
 	if scene is not NavigationRegion3D:
 		push_warning("Scene is not a NavigationRegion3D")
 		return
@@ -173,11 +173,12 @@ func export_navmesh_binary(scene: NavigationRegion3D, scene_name: String) -> voi
 	# Filter out island navmeshes - keep only the largest connected component
 	var vertex_map = filter_islands(vertices, polygons, used_vertices)
 	
-	# Create flattened vertex list (X, Z only - removing Y)
-	var flattened_vertices = []
+	# Create remapped vertex list with full 3D coordinates
+	var remapped_vertices = []
+	var vertex_list = []
 	for old_idx in vertex_map.keys():
 		var vertex = vertices[old_idx]
-		flattened_vertices.append([vertex.x, vertex.z])
+		vertex_list.append(vertex)
 	
 	# Remap polygon indices
 	var remapped_polygons = []
@@ -193,30 +194,34 @@ func export_navmesh_binary(scene: NavigationRegion3D, scene_name: String) -> voi
 		if valid:
 			remapped_polygons.append(remapped_polygon)
 	
-	# Write binary file
-	var file = FileAccess.open("res://data/maps/%s.nav" % scene_name, FileAccess.WRITE)
+	# Write OBJ file
+	var file = FileAccess.open("res://data/maps/%s.nav.obj" % scene_name, FileAccess.WRITE)
 	if file:
-		# Write polygon count (4 bytes, little-endian)
-		file.store_32(remapped_polygons.size())
-		# Write vertex count (4 bytes, little-endian)
-		file.store_32(flattened_vertices.size())
+		# Write OBJ header
+		file.store_string("# OpenChamp Navigation Mesh\n")
+		file.store_string("# Scene: %s\n" % scene_name)
+		file.store_string("# Vertices: %d\n" % vertex_list.size())
+		file.store_string("# Faces: %d\n" % remapped_polygons.size())
+		file.store_string("\n")
 		
-		# Write vertices (X, Z as floats)
-		for vertex in flattened_vertices:
-			file.store_float(vertex[0])
-			file.store_float(vertex[1])
+		# Write vertices
+		for vertex in vertex_list:
+			file.store_string("v %.6f %.6f %.6f\n" % [vertex.x, vertex.y, vertex.z])
 		
-		# Write polygons
+		file.store_string("\n")
+		
+		# Write faces (OBJ indices are 1-based)
 		for polygon in remapped_polygons:
-			file.store_32(polygon.size())
+			var face_indices = []
 			for index in polygon:
-				file.store_32(index)
+				face_indices.append(str(index + 1))
+			file.store_string("f %s\n" % " ".join(face_indices))
 		
 		file.close()
-		print("Navmesh exported to res://data/maps/%s.nav" % scene_name)
-		print("Polygons: %d, Vertices: %d" % [remapped_polygons.size(), flattened_vertices.size()])
+		print("Navmesh exported to res://data/maps/%s.nav.obj" % scene_name)
+		print("Polygons: %d, Vertices: %d" % [remapped_polygons.size(), vertex_list.size()])
 	else:
-		push_error("Failed to open navmesh file for writing.")
+		push_error("Failed to open OBJ file for writing.")
 
 func export_map_to_xml(scene_name: String, map_data: Dictionary) -> String:
 	var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
