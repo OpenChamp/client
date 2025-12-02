@@ -35,7 +35,6 @@ func _build_asset_list():
 	AssetIndexer.index_files()
 	var dynamic_assets := AssetIndexer.get_asset_map() as Dictionary
 	print('got ' + str(dynamic_assets.size()) + ' assets from indexer')
-	print(dynamic_assets)
 	
 	# create the containers for all the categories
 	var category_continers = {}
