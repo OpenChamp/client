@@ -46,3 +46,4 @@ func _on_selection_changed() -> void:
 
 func _try_export():
 	map_exporter.export_scene(EditorInterface.get_edited_scene_root());
+	

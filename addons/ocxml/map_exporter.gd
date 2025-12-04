@@ -31,9 +31,9 @@ func process_map_scene(current_scene : NavigationRegion3D):
 			structure_info["team"] = get_team(child)
 			# Structure type is XML Template ID based on groups
 			structure_info["type"] = get_structure_type(child)
-			structure_info["position"] = [child.transform.origin.x, child.transform.origin.y, child.transform.origin.z]
-			structure_info["rotation"] = [child.transform.basis.get_euler().x, child.transform.basis.get_euler().y, child.transform.basis.get_euler().z]
-			structure_info["scale"] = [child.transform.basis.get_scale().x, child.transform.basis.get_scale().y, child.transform.basis.get_scale().z]
+			structure_info["position"] = [child.global_position.x, child.global_position.y, child.global_position.z]
+			structure_info["rotation"] = [child.global_rotation.x, child.global_rotation.y, child.global_rotation.z]
+			structure_info["scale"] = [child.scale.x, child.scale.y, child.scale.z]
 			structure_data.append(structure_info)
 	map_data["structures"] = structure_data
 
@@ -52,9 +52,8 @@ func process_map_scene(current_scene : NavigationRegion3D):
 				var spawn_info = {}
 				spawn_info["name"] = child.name
 				spawn_info["team"] = get_team(child)
-				spawn_info["position"] = [child.transform.origin.x, child.transform.origin.y, child.transform.origin.z]
-				# Spawns should point towards their goal -- cmkrist 2/12/2025
-				spawn_info["rotation"] = [child.transform.basis.get_euler().x, child.transform.basis.get_euler().y, child.transform.basis.get_euler().z]
+				spawn_info["position"] = [child.global_position.x, child.global_position.y, child.global_position.z]
+				spawn_info["rotation"] = [child.global_rotation.x, child.global_rotation.y, child.global_rotation.z]
 				spawn_points.append(spawn_info)
 			else:
 				print("Marker3D %s does not belong to spawn groups." % child.name)
@@ -231,12 +230,7 @@ func export_map_to_xml(scene_name: String, map_data: Dictionary) -> String:
 	xml += "\txsi:schemaLocation=\"https://open-champ.com/mySchema ./maps/_map.xsd\"\n"
 	xml += "\tid=\"%s\"\n" % scene_name
 	xml += ">\n"
-	
-	xml += "</map>\n"
-	return xml
 	xml += export_structures_xml(map_data.get("structures", []))
-	
-	# Export Spawn Points
 	xml += export_spawn_points_xml(map_data.get("spawn_points", []))
 	
 	xml += "</map>\n"
