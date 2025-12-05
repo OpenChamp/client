@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cedu4oyudngf3" path="res://scripts/champs/ranger.gd" id="1_shl3n"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="2_32au6"]
 [ext_resource type="PackedScene" uid="uid://k0pslpwatp51" path="res://default_assets/models/champions/archer_version_3.glb" id="2_gv0bw"]
-[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/HealthBar.tscn" id="3_3pwj2"]
-[ext_resource type="PackedScene" uid="uid://218awq4tqhni" path="res://default_assets/models/champions/knightStanding.glb" id="4_jrr1c"]
+[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/StatBar.tscn" id="3_3pwj2"]
+[ext_resource type="PackedScene" uid="uid://dmb1omdey0nbe" path="res://default_assets/models/champions/knightStanding.glb" id="4_jrr1c"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dvd4r"]
 
@@ -65,7 +65,7 @@ mesh = SubResource("SphereMesh_k8kie")
 
 [node name="MoneyEmitter" parent="." unique_id=118436400 instance=ExtResource("2_32au6")]
 
-[node name="HealthBar" parent="." unique_id=1996912880 instance=ExtResource("3_3pwj2")]
+[node name="StatBar" parent="." unique_id=1996912880 instance=ExtResource("3_3pwj2")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=511207592]
 root_node = NodePath("../knightStanding")

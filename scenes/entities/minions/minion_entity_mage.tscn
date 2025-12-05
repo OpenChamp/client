@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://c82oohji8rcpv" path="res://default_assets/materials/misc/wood.tres" id="5_sbons"]
 [ext_resource type="PackedScene" uid="uid://0kn044mnc5ja" path="res://default_assets/models/environment/crystalexport.glb" id="6_dq7kq"]
 [ext_resource type="PackedScene" uid="uid://bin5o26pl0do0" path="res://scenes/utility/money_emitter.tscn" id="7_3xu8f"]
-[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/HealthBar.tscn" id="8_3xu8f"]
+[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/StatBar.tscn" id="8_3xu8f"]
 [ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://default_assets/audio/sfx/game/kill_gold.wav" id="8_8g1k3"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_3o8tx"]
@@ -79,4 +79,4 @@ stream = ExtResource("8_8g1k3")
 pitch_scale = 0.75
 max_distance = 20.0
 
-[node name="HealthBar" parent="." unique_id=1277894472 instance=ExtResource("8_3xu8f")]
+[node name="StatBar" parent="." unique_id=1277894472 instance=ExtResource("8_3xu8f")]

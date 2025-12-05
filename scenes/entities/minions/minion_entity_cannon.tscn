@@ -8,7 +8,7 @@
 [ext_resource type="Material" uid="uid://bcxkuilnhd5hs" path="res://default_assets/materials/entities/pupil_black.tres" id="7_ksxkq"]
 [ext_resource type="AudioStream" uid="uid://q15dfsjc06aj" path="res://default_assets/audio/sfx/game/kill_gold.wav" id="7_x3m6h"]
 [ext_resource type="Material" uid="uid://bfjai1d06f4ec" path="res://default_assets/materials/entities/white.tres" id="8_0pldu"]
-[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/HealthBar.tscn" id="9_ksxkq"]
+[ext_resource type="PackedScene" uid="uid://cbhtm2c8qiif" path="res://scenes/ui/components/StatBar.tscn" id="9_ksxkq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kt6s7"]
 render_priority = 0
@@ -163,4 +163,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.09641299)
 material_override = ExtResource("7_ksxkq")
 mesh = SubResource("SphereMesh_nad7k")
 
-[node name="HealthBar" parent="." unique_id=1277894472 instance=ExtResource("9_ksxkq")]
+[node name="StatBar" parent="." unique_id=1277894472 instance=ExtResource("9_ksxkq")]
