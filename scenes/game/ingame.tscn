@@ -15,7 +15,7 @@ wait_time = 3.0
 
 [node name="UI" type="Node" parent="." unique_id=724723262]
 
-[node name="UIRoot" type="CanvasLayer" parent="UI" unique_id=996385770]
+[node name="UIRoot" type="CanvasLayer" parent="UI" unique_id=996385770 groups=["ui_root"]]
 
 [node name="DebugUI" type="CanvasLayer" parent="UI" unique_id=1965256411]
 

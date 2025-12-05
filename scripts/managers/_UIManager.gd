@@ -52,7 +52,7 @@ func change_interface(interface_name: String) -> bool:
 	"""Change to a different interface with optional transition"""
 	print("Changing Interface To ", interface_name)
 	if is_transitioning:
-		push_warning("Interruping ongoing transition: " + interface_name)
+		push_warning("Interruping ongoing transition: ", current_interface_name, " to ", interface_name)
 
 	var interface_path = Interface.get(interface_name)
 	if not interface_path:
