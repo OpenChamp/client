@@ -133,9 +133,9 @@ func get_all_nodes(node: Node) -> Array:
 func get_structure_type(node: Node) -> String:
 	var name = node.name.to_lower()
 	if name.find("tower") != -1:
-		return "structure_tower"
+		return "tower"
 	elif name.find("core") != -1:
-		return "structure_core"
+		return "core"
 	# Could add gates and other map-structures here -- cmkrist 2/12/25
 	else:
 		return "unknown"

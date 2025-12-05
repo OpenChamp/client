@@ -26,7 +26,7 @@
 		</structure>
 		<structure
 			id="core1"
-			type="structure_core"
+			type="core"
 			team="1"
 		>
 			<position x="-33.500" y="0.000" z="0.000" />
@@ -35,7 +35,7 @@
 		</structure>
 		<structure
 			id="core2"
-			type="structure_core"
+			type="core"
 			team="2"
 		>
 			<position x="33.500" y="0.000" z="-0.000" />
