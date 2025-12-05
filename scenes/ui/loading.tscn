@@ -1,17 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://di7n0t2bypmdy"]
+[gd_scene load_steps=11 format=3 uid="uid://di7n0t2bypmdy"]
 
 [ext_resource type="FontFile" uid="uid://r5exqvsw2q5u" path="res://default_assets/fonts/dosis-medium.ttf" id="1_wkfxc"]
 [ext_resource type="Script" uid="uid://dq5mc3dxwderc" path="res://scripts/ui/loading.gd" id="2_sjr32"]
 [ext_resource type="PackedScene" uid="uid://b16c5nj81xhrv" path="res://scenes/ui/player_icon.tscn" id="3_gbjog"]
+[ext_resource type="Texture2D" uid="uid://dluc7h57sefb2" path="res://default_assets/textures/gemini_splash.png" id="3_vky50"]
 [ext_resource type="Script" uid="uid://b4t66pu2p0670" path="res://scripts/ui/menu/reconnect_button.gd" id="4_gbjog"]
 [ext_resource type="Script" uid="uid://bdk20kh4wcrmv" path="res://scripts/ui/menu/quit_button.gd" id="4_sjr32"]
+[ext_resource type="Texture2D" uid="uid://d1idb1ajotdwa" path="res://default_assets/textures/OpenChamp_Wordart.png" id="7_qqd8l"]
 
 [sub_resource type="Theme" id="Theme_2b8us"]
 default_font = ExtResource("1_wkfxc")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x801w"]
+texture = ExtResource("3_vky50")
+texture_margin_bottom = 1024.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_vky50"]
 font = ExtResource("1_wkfxc")
 font_size = 52
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.78039217)
 
 [node name="Loading" type="Control" unique_id=484814769]
 layout_mode = 3
@@ -30,6 +42,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_x801w")
 
 [node name="RedTeam" type="VBoxContainer" parent="Panel" unique_id=1835835216]
 layout_mode = 1
@@ -68,17 +81,13 @@ layout_mode = 2
 
 [node name="Joining" type="CenterContainer" parent="Panel" unique_id=1325401946]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -97.5
-offset_top = -31.5
-offset_right = 97.5
-offset_bottom = 31.5
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -259.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
 [node name="MiddleHeader" type="Label" parent="Panel/Joining" unique_id=1394989376]
 layout_mode = 2
@@ -117,3 +126,14 @@ script = ExtResource("4_gbjog")
 layout_mode = 2
 text = "Quit"
 script = ExtResource("4_sjr32")
+
+[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=1142046838]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -512.0
+offset_right = 512.0
+offset_bottom = 300.0
+grow_horizontal = 2
+texture = ExtResource("7_qqd8l")

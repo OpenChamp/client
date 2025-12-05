@@ -1,8 +1,7 @@
+class_name LoadingScreen
 extends Control
 
 func _ready() -> void:
-	NetworkManager.connection_failed.connect(connection_fail)
-	NetworkManager.disconnected_from_server.connect(connection_fail)
 	$Panel/Disconnected/ReQueue.pressed.connect(func():
 		change_interface(true)
 	)
@@ -20,6 +19,10 @@ func change_interface(toggle: bool, err:String = ""):
 		if err != "":
 			$Panel/Disconnected/ErrorBox.text = err
 		
+func _enter_tree() -> void:
+	NetworkManager.connection_failed.connect(connection_fail)
+	NetworkManager.disconnected_from_server.connect(connection_fail)
+
 func _exit_tree() -> void:
-	NetworkManager.connection_failed.disconnect(change_interface)
-	NetworkManager.disconnected_from_server.disconnect(change_interface)
+	NetworkManager.connection_failed.disconnect(connection_fail)
+	NetworkManager.disconnected_from_server.disconnect(connection_fail)
