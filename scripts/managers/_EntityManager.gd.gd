@@ -24,8 +24,9 @@ enum EntityState { # -- Pulled from entity_state.hpp -- cmkrist 24/11/25
 
 var available_ids: Dictionary = {}
 var entity_ref: Dictionary = {}
-var game_root:Node
 
+func initialize():
+	_ready()
 
 func _ready():
 	clear_ids()
@@ -39,13 +40,17 @@ func valid_id(id:int):
 		available_ids[id] = false
 		return true
 	return false
-	
 
 func create_entity(entity_data): # See utility/serializer/decode_entity_packet for structure -- cmkrist
+	const blacklist = [
+		"player",
+		"tower",
+		"core"
+	]
 	if not valid_id(entity_data.id):
 		push_warning("EntityID already taken for ",entity_data.id)
 		return;
-	if entity_data.template_id == "player":
+	if blacklist.has(entity_data.template_id):
 		return # Not an entity to the client
 	var entity : Entity = TEMPLATE_SCENES[entity_data.template_id].instantiate()
 	print(EntityTemplates.get_available_entities());
@@ -59,7 +64,15 @@ func create_entity(entity_data): # See utility/serializer/decode_entity_packet f
 			"stats":
 				print("Loading stats for template: ", entity_data.template_id)
 				print("Stats from template: ", components["stats"]);
+				# Set max_health first to ensure health clamping works properly
+				if "max_health" in components["stats"] and "max_health" in entity:
+					var value : String = str(components["stats"]["max_health"])
+					print("  Setting max_health = %s (priority)" % value)
+					entity.set_stat("max_health", value)
+				
 				for stat_name in components["stats"]:
+					if stat_name == "max_health":
+						continue  # Already set above
 					if stat_name in entity:
 						# Typecast everything to string for consistency -- cmkrist 19/11/2025
 						var value : String = str(components["stats"][stat_name])
@@ -71,13 +84,10 @@ func create_entity(entity_data): # See utility/serializer/decode_entity_packet f
 				print(key, components[key])
 	entity.name = str(entity_data.id)
 	entity.set_stat("team", str(entity_data.team))
-	if not game_root:
-		push_error("No Game Root Set")
-		return
-	game_root.get_node("Entities").add_child(entity, true)
-	entity.global_position =  Vector3(entity_data.pos.x, 1, entity_data.pos.y)
-	print("Entity %d spawned: health=%f, max_health=%f" % [entity_data.id, entity.health, entity.max_health])
+	SpawnManager.spawn_entity(entity, Vector3(entity_data.pos.x, 0, entity_data.pos.y))
 	entity_ref[entity_data.id] = entity
+
+
 
 func destroy_entity(entity_id):
 	if entity_ref.has(entity_id) and entity_ref[entity_id]:
@@ -92,20 +102,37 @@ func handle_combat(combat_data):
 		return
 	entity_ref.get(combat_data.attacker_id).dealt_damage(combat_data.damage)
 	entity_ref.get(combat_data.target_id).took_damage(combat_data.damage)
-
-func state_change(entity_id, state:EntityState):
-	if not entity_ref.has(entity_id) or not entity_ref[entity_id]:
-		push_error("Received State for non-existing entity: ", entity_id)
-		return
-	entity_ref[entity_id].update_state(state)
 	
-func update_entity_stat(stat):
+func update_entity_pos(pos_data):
+	if not entity_ref.has(pos_data.id) or not entity_ref[pos_data.id]:
+		push_error("Received Position for non-existing entity: ", pos_data.id)
+		return
+	entity_ref[pos_data.id].server_position = Vector3(pos_data.position.x, entity_ref[pos_data.id].global_position.y, pos_data.position.y)
+
+func update_entity_stat(stat, id = 0):
+	# Override ID (Pseudo override)
+	if stat.has(id) && id == 0:
+		id = stat.id
 	print("update_entity_stat called with: ", stat, " (type: %s)" % typeof(stat))
 	if not entity_ref.has(stat.id) or not entity_ref[stat.id]:
 		push_error("Received State for non-existing entity: ", stat.id)
 		return
 	if not entity_ref[stat.id].has_method("set_stat"):
 		push_error("Entity with ID %d has no set_stat method!" % stat.id)
-		return;
+		return
+	# Wrap in error handling to catch any exceptions during stat setting
+	var entity = entity_ref[stat.id]
 	print("Calling set_stat(%s, %s)" % [stat.name, stat.value])
-	entity_ref[stat.id].set_stat(stat.name, stat.value)
+	
+	# Check if the stat actually exists on the entity before setting
+	if not (stat.name in entity):
+		push_warning("Entity %d does not have stat '%s', skipping" % [stat.id, stat.name])
+		return
+	
+	entity.set_stat(stat.name, stat.value)
+
+func update_entity_state(state_data):
+	if not entity_ref.has(state_data.id) or not entity_ref[state_data.id]:
+		push_error("Received State for non-existing entity: ", state_data.id)
+		return
+	entity_ref[state_data.id].update_state(state_data.state)

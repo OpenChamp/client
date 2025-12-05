@@ -2,7 +2,7 @@ class_name GameplayManager
 extends Node
 
 # == Signals == #
-signal start
+signal game_started
 #signal finish(teamid)
 #signal paused
 #signal resumed
@@ -21,7 +21,6 @@ var game_root: Node
 
 # == Settings (Source of Truth) == #
 var config: Dictionary = {}
-var server: ServerSettings = ServerSettings.new()
 
 # === Player Reference === #
 var players : Dictionary = {}
@@ -31,23 +30,12 @@ class PlayerObject:
 	var id: int
 	var node: Node3D
 	var name: String
-	
-class ServerSettings:
-	var port: int = 7000
-	var max_players := 2
-	var players := {}
-	var player_sessions
-	var player_ids = []
-	var tick_rate: int = 30
-	var slow_tick_rate: float = 1.0
-	
+
 class MinionSettings:
 	var wave_size = 2
 	var wave_timeout = 10
 
 func _ready():
-	GameManager.server = ServerSettings.new()
-	multiplayer.peer_connected.connect(_on_player_connected)
 	# == Load Settings == #
 	reload_settings()
 	# == Slow Tick == #
@@ -57,17 +45,43 @@ func _ready():
 	slow_tick_timer.timeout.connect(slow_tick_timeout)
 	print("GameManager: Initialized")
 
-func initialize():
+func initialize(root:Node):
+	game_root = root;
 	set_state(GAME_STATE.LOADING)
-	Engine.max_fps = 30 # TICK RATE
 
-func game_start():
+	UIManager.set_ui_root(root.get_tree().get_first_node_in_group("ui_root"))
+	UIManager.change_interface("Loading")
+	UIManager.preload_interface("InGame")
+
+	SpawnManager.initialize(root)
+	
+
+func start_game():
+	print("GameplayManager: Starting game...")
+	game_started.emit()
+	# Update required Systems
+	UIManager.change_interface("Ingame")
+	# Add Player Controller to game
+	SpawnManager.spawn_player_controller()
+	# 
 	gamestate = GAME_STATE.ONGOING
 	game_root = get_tree().get_first_node_in_group("game_root")
 	slow_tick_timer.start()
-	start.emit()
 	print("GameManager: Game started")
 
+func load_map(map_name:String) -> Error:
+	if map_name.is_empty():
+		return Error.ERR_FILE_BAD_PATH
+	var map = load("res://scenes/maps/%s.tscn" % map_name)
+	if map == null:
+		return Error.ERR_FILE_NOT_FOUND
+	var map_instance = map.instantiate()
+	game_root.add_child(map_instance)
+	return Error.OK
+	
+func spawn_entity(entity_data: Dictionary):
+	EntityManager.create_entity(entity_data)
+	
 func reload_settings() -> void:
 	ConfigManager.load_settings()
 	print("GameManager: Settings reloaded")
@@ -90,22 +104,6 @@ func set_state(new_state: GAME_STATE):
 			pass
 		GAME_STATE.DONE:
 			pass
-			
+
 func get_state() -> GAME_STATE:
 	return gamestate
-
-func _on_player_connected(id):
-	if not multiplayer.is_server(): return;
-	if not id in server.player_ids:
-		push_warning("Unauthorized player is connecting... allowing for alpha")
-	var player = PlayerObject.new()
-	player.id = id
-	player.name = "Player%d" % id
-	GameManager.players[id] = player
-	lobby_check.call_deferred()
-
-func lobby_check():
-	if gamestate != GAME_STATE.LOADING: return
-	var total_players = multiplayer.get_peers().size()
-	if total_players == ConfigManager.game_config.max_players:
-		game_start()

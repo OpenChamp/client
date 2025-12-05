@@ -20,6 +20,7 @@ const SPAWNER_GROUPS := {
 
 ## Exported variables
 @export var game_root: Node
+@export var entity_root: Node
 @export_group("Spawners")
 @export var map_spawner: MultiplayerSpawner
 @export var player_spawner: MultiplayerSpawner
@@ -40,17 +41,32 @@ var wave_pool: Array[Node] = []
 var _resource_cache: Dictionary = {}
 var _spawner_cache: Dictionary = {}
 
+## Player Controller
+@onready var player_controller = load("res://scenes/ui/game_controller.tscn")
 
 func _ready() -> void:
 	_initialize_pools()
 
-
+## Initialize System
+func initialize(root: Node):
+	# Make sure everything is good
+	reset();
+	# Spawn Nodes
+	game_root = root
+	if not root.get_node_or_null("./Entities"):
+		var node = Node3D.new()
+		node.name = "Entities"
+		root.add_child(node, true)
+	entity_root = root.get_node("./Entities")
+	# Pools
+	_initialize_pools()
+	
+	
 ## Initialize object pools
 func _initialize_pools() -> void:
 	minion_pool.resize(minion_pool_size)
 	camp_pool.resize(camp_pool_size)
 	wave_pool.resize(wave_pool_size)
-
 
 ## Reset all spawners and clear caches
 func reset() -> void:
@@ -61,7 +77,6 @@ func reset() -> void:
 	_spawner_cache.clear()
 	_clear_pools()
 
-
 ## Clear all object pools
 func _clear_pools() -> void:
 	for pool in [minion_pool, camp_pool, wave_pool]:
@@ -69,7 +84,6 @@ func _clear_pools() -> void:
 			if obj and is_instance_valid(obj):
 				obj.queue_free()
 		pool.clear()
-
 
 ## Generic spawner validation with caching
 func _get_spawner(spawner_ref: MultiplayerSpawner, spawner_type: String) -> MultiplayerSpawner:
@@ -93,7 +107,6 @@ func _get_spawner(spawner_ref: MultiplayerSpawner, spawner_type: String) -> Mult
 	
 	return spawner
 
-
 ## Validate if spawner is ready
 func _is_spawner_ready(spawner: MultiplayerSpawner, spawner_type: String) -> bool:
 	if not game_root:
@@ -114,7 +127,6 @@ func _is_spawner_ready(spawner: MultiplayerSpawner, spawner_type: String) -> boo
 	
 	return true
 
-
 ## Load resource with caching
 func _load_cached_resource(path: String) -> Resource:
 	if _resource_cache.has(path):
@@ -125,7 +137,7 @@ func _load_cached_resource(path: String) -> Resource:
 		_resource_cache[path] = resource
 	
 	return resource
-
+	
 
 ## Spawn map with validation and error handling
 func spawn_map(map_name: String = "") -> bool:
@@ -157,42 +169,42 @@ func spawn_map(map_name: String = "") -> bool:
 	map_spawned.emit(map_instance)
 	return true
 
-
-## Spawn player
-func spawn_player(player_id: int, player_data: Dictionary = {}) -> bool:
-	if not _is_spawner_ready(player_spawner, "player"):
+func spawn_entity(entity: Node3D, position: Vector3 = Vector3.ZERO, parent: String = ""):
+	# Called by EntityManager after entity creation
+	if not entity_root:
+		push_error("SpawnManager: Not initialized correctly - entity_node is null")
 		return false
-	
-	# TODO: Implement player spawning logic
-	# This is where you'd load player scene, set properties, etc.
-	
-	player_spawned.emit(player_id, null)
-	return true
-
-
-## Spawn minion wave
-func spawn_wave(wave_config: Dictionary = {}) -> bool:
-	if not _is_spawner_ready(minion_spawner, "minion"):
+	if not entity:
+		push_error("SpawnManager: Entity to spawn is null")
 		return false
-	
-	# TODO: Implement wave spawning logic
-	# Use wave_pool for object pooling
-	
-	wave_spawned.emit(wave_config)
-	return true
-
-
-## Spawn jungle camp
-func spawn_camp(camp_id: int, camp_config: Dictionary = {}) -> bool:
-	if not _is_spawner_ready(jungle_spawner, "jungle"):
+	if not entity.is_class("Node3D"):
+		push_error("SpawnManager: Entity to spawn is not a Node3D")
 		return false
-	
-	# TODO: Implement camp spawning logic
-	# Use camp_pool for object pooling
-	
-	camp_spawned.emit(camp_id, null)
-	return true
 
+	# Parent
+	if not parent.is_empty():
+		if entity_root and entity_root.has_node(parent):
+			entity_root.get_node(parent).add_child(entity, true)
+	else:
+		entity_root.add_child(entity, true)
+	
+	# Position
+	if position != Vector3.ZERO:
+		entity.global_position = position
+	else:
+		entity.global_position = entity.server_position
+
+	return true;
+	
+
+	
+
+	
+
+
+func spawn_player_controller():
+	var controller_instance = player_controller.instantiate()
+	game_root.add_child(controller_instance)
 
 ## Get object from pool or create new one
 func _get_from_pool(pool: Array, scene_path: String) -> Node:
@@ -208,7 +220,6 @@ func _get_from_pool(pool: Array, scene_path: String) -> Node:
 	
 	return null
 
-
 ## Return object to pool
 func _return_to_pool(pool: Array, obj: Node) -> void:
 	if not obj or not is_instance_valid(obj):
@@ -221,7 +232,6 @@ func _return_to_pool(pool: Array, obj: Node) -> void:
 	# Add to pool if not already there
 	if obj not in pool:
 		pool.append(obj)
-
 
 ## Set pool sizes dynamically
 func set_pool_size(pool_type: String, size: int) -> void:
@@ -237,7 +247,6 @@ func set_pool_size(pool_type: String, size: int) -> void:
 			wave_pool.resize(size)
 		_:
 			push_warning("Invalid pool type: %s" % pool_type)
-
 
 ## Get pool statistics
 func get_pool_stats() -> Dictionary:

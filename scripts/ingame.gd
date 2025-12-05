@@ -23,15 +23,9 @@ Gameplay Lifecycle
 func _ready() -> void:
 	print("GameRoot: Initializing in-game scene")
 	# == UI Setup == #
-	UIManager.set_ui_root($"./UI/UIRoot")
-	UIManager.change_interface("Loading")
-	UIManager.preload_interface("InGame")
-	# == Entity Setup == #
-	EntityManager.game_root = self
+	GameManager.initialize(self)
 	# == Network Setup == #
-	NetworkManager.player_connected.connect(GameManager._on_player_connected)
-	NetworkManager.game_root = self
-	NetworkManager._start.call_deferred()
+	NetworkManager.conn.call_deferred()
 
 func _on_game_start():
 	"""

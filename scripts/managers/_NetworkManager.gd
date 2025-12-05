@@ -48,41 +48,13 @@ var connection: ENetConnection
 var peer: ENetPacketPeer
 
 @onready var serializer:Serializer = Serializer.new()
+
 func _process(_delta:float) -> void:
-	if connection == null: return
+	if connection == null:
+		return
 	handle_packets()
-
-func handle_packets():
-	var packet_event = connection.service()
-	var event_type = packet_event[0]
-	while event_type != ENetConnection.EVENT_NONE:
-		var peer = packet_event[1]
-		match event_type:
-			ENetConnection.EVENT_ERROR:
-				push_warning("Packet Error")
-				return
-			ENetConnection.EVENT_CONNECT:
-				on_connection_established()
-			ENetConnection.EVENT_DISCONNECT:
-				on_disconnect()
-			ENetConnection.EVENT_RECEIVE:
-				var packet_data : PackedByteArray = peer.get_packet()
-				process_packet(packet_data)
-		
-		packet_event = connection.service()
-		event_type = packet_event[0]
-				
-
-func on_connection_established():
-	print("Connection Established");
-	pass;
-
-func on_disconnect():
-	disconnected_from_server.emit()
-	pass;
-
 	
-func _start():
+func conn():
 	if config.host.is_empty():
 		push_error("No host specified, unable to connect");
 		get_tree().quit(1);
@@ -90,86 +62,108 @@ func _start():
 		push_warning("No port specified, defaulting to ", config.default_port)
 		config.port = config.default_port
 	# Connect Signals
-	multiplayer.peer_packet.connect(process_packet)
+	var signals_conn := multiplayer.peer_connected.get_connections()
+	var setup = false
+	for sig in signals_conn:
+		if sig.callable == process_packet:
+			setup = true;
+	if not setup:
+		multiplayer.peer_packet.connect(process_packet)
+		multiplayer.peer_connected.connect(peer_connected)
+		multiplayer.peer_disconnected.connect(peer_disconnected)
 	# Start Client
 	connection = ENetConnection.new()
 	var err : Error = connection.create_host(1)
 	if err:
 		print("Client failed to start connection")
-		get_tree().quit()
+		connection_failed.emit()
+		return
 	peer = connection.connect_to_host(config.host, config.port)
 	print("Client Created, Connecting to server at %s:%d..." % [config.host, config.port])
-
-
-func _stop():
-	multiplayer.multiplayer_peer = null
-	print("Network stopped")
-
-func process_packet(packet:PackedByteArray):
-	packets.append(packet)
-	match packet[0]:
-		PACKET_TYPE.GAME_START:
-			game_start.emit()
-			UIManager.change_interface("Ingame")
-			var player_controller = load("res://scenes/ui/game_controller.tscn").instantiate()
-			get_tree().current_scene.add_child(player_controller)
-		PACKET_TYPE.MAP_LOAD:
-			# Next 2 bytes are the length of the map name (Big-endian)
-			var name_length = packet[1] << 8 | packet[2]
-			var map_name = ""
-			for i in range(3, 3 + name_length):
-				map_name += char(packet[i])
-			print("Spawning map: %s" % map_name)
-			# Here you would call your map spawning logic
-			var map = load("res://scenes/maps/%s.tscn" % map_name).instantiate()
-			get_tree().current_scene.add_child(map)
-			send_ready()
-		PACKET_TYPE.ENTITY_SPAWN:
-			handle_entity_spawn_packet(packet)
-		PACKET_TYPE.ENTITY_STATS:
-			handle_entity_stats_packet(packet)
-		PACKET_TYPE.ENTITY_POSITION:
-			handle_entity_position_packet(packet)
-		PACKET_TYPE.ENTITY_STATE:
-			handle_entity_state_packet(packet)
-		PACKET_TYPE.COMBAT_EVENT:
-			EntityManager.handle_combat(serializer.deserialize_combat_packet(packet))
-		_:
-			push_error(packet)
-
-func handle_entity_spawn_packet(packet:PackedByteArray):
-	var entity_data: Dictionary = serializer.deserialize_entity_packet(packet)
-	EntityManager.create_entity(entity_data)
 	
-func handle_entity_state_packet(packet:PackedByteArray):
-	# Type (1) + Entity ID (4) + State (1)
-	EntityManager.state_change(packet.decode_u32(1), packet.decode_u8(5))
+func _conn():
+	print("Connection Established");
+	connected_to_server.emit();
+
+func disc():
+	if connection != null:
+		connection.destroy()
+		peer = null
+		connection = null
+		disconnected_from_server.emit()
+	
+func peer_connected(id:int):
+	print("Player Connected: ", id);
+	player_connected.emit(id);
 	pass
 	
-func handle_entity_stats_packet(packet:PackedByteArray):
-	var stat = serializer.deserialize_stat_packet(packet)
-	print("Received stat update: Entity %d, Stat '%s' = '%s'" % [stat.id, stat.name, stat.value])
-	EntityManager.update_entity_stat(stat)
-	# First byte is packet type
+func peer_disconnected(id:int):
+	print("Player Disconnected: ", id)
+	player_disconnected.emit(id);
+	pass
+	
+func handle_packets():
+	var packet_event = connection.service()
+	var event_type = packet_event[0]
+	while (event_type != ENetConnection.EVENT_NONE) and (connection != null):
+		var event_peer = packet_event[1]
+		match event_type:
+			ENetConnection.EVENT_ERROR:
+				push_error("ENet Packet Error occurred")
+				disc()
+			ENetConnection.EVENT_CONNECT:
+				_conn()
+			ENetConnection.EVENT_DISCONNECT:
+				push_warning("Server disconnected us")
+				disc()
+			ENetConnection.EVENT_RECEIVE:
+				var packet_data : PackedByteArray = event_peer.get_packet()
+				if not process_packet(packet_data):
+					push_error("Packet processing failed")
+					print(packet_data)
+		if connection:
+			packet_event = connection.service()
+			event_type = packet_event[0]
 
-func handle_entity_position_packet(packet:PackedByteArray):
-	# First byte is packet type
-	# Next 4 bytes are entity id (little-endian)
-	# Next 4 bytes are x coord (little-endian)
-	# Next 4 bytes are Z coord (little-endian)
-	var offset = 1
-	var entity_id = packet.decode_u32(offset)
-	offset += 4
-	var pos_x = packet.decode_float(offset)
-	offset += 4
-	var pos_y = packet.decode_float(offset)
-	# Verify Existence
-	var entity_node = game_root.get_node_or_null("Entities/%d" % entity_id)
-	if entity_node == null:
-		push_error("Entity with ID %d not found!" % entity_id)
-		return;
-	# Update Position
-	entity_node.server_position = Vector3(pos_x, entity_node.global_position.y, pos_y)
+func process_packet(packet:PackedByteArray) -> bool:
+	if packet.size() == 0:
+		push_error("Empty packet received")
+		return false
+	packets.append(packet)
+	
+	var packet_type = packet[0]
+	print("Processing packet type: %d, size: %d bytes" % [packet_type, packet.size()])
+	
+	match packet_type:
+		PACKET_TYPE.GAME_START:
+			# Trigger: All players have sent ready packets (After Map Load)
+			GameManager.start_game()
+		PACKET_TYPE.MAP_LOAD:
+			# Trigger: Connected to the Server, First Packet Received (usually)
+			var err = GameManager.load_map(serializer.deserialize_map_packet(packet))
+			if err != OK:
+				push_error("Failed to load map from MAP_LOAD packet")
+				return false
+			send_ready()
+		PACKET_TYPE.ENTITY_SPAWN:
+			var entity = serializer.deserialize_entity_packet(packet)
+			GameManager.spawn_entity(entity)
+		PACKET_TYPE.ENTITY_STATS:
+			var stat = serializer.deserialize_stat_packet(packet)
+			EntityManager.update_entity_stat(stat)
+		PACKET_TYPE.ENTITY_POSITION:
+			var pos = serializer.deserialize_position_packet(packet)
+			EntityManager.update_entity_pos(pos)
+		PACKET_TYPE.ENTITY_STATE:
+			var state = serializer.deserialize_state_packet(packet);
+			EntityManager.update_entity_state(state);
+		PACKET_TYPE.COMBAT_EVENT:
+			var log = serializer.deserialize_combat_packet(packet);
+			EntityManager.handle_combat(log)
+		_:
+			push_warning("Unknown packet type: %d, size: %d bytes" % [packet_type, packet.size()])
+	
+	return true
 
 func send_ready():
 	var data = PackedByteArray()
