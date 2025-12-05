@@ -108,23 +108,39 @@ func set_stat(stat_name: String, stat_value: String) -> void:
 	
 	self[stat_name] = value
 	
-	# Clamp health to valid range
+	# Clamp health to valid range (but only if max_health has been set to a reasonable value)
 	if stat_name == "health" and typeof(value) in [TYPE_INT, TYPE_FLOAT]:
-		var clamped = max(0.0, min(value, max_health))
-		if clamped != value:
-			print("Clamped health from %s to %f" % [value, clamped])
-			self[stat_name] = clamped
-			value = clamped
+		# Only clamp if max_health is actually set to something meaningful (> 1.0 or health is smaller)
+		if max_health > 1.0 or value < max_health:
+			var clamped = max(0.0, min(value, max_health))
+			if clamped != value:
+				print("Clamped health from %s to %f" % [value, clamped])
+				self[stat_name] = clamped
+				value = clamped
+	
+	# Update max_health clamping if health exceeds it
+	if stat_name == "max_health" and typeof(value) in [TYPE_INT, TYPE_FLOAT]:
+		# If health is higher than the new max_health, clamp health down
+		if health > value:
+			var clamped_health = max(0.0, value)
+			print("Clamped health from %f to %f (max_health changed)" % [health, clamped_health])
+			self["health"] = clamped_health
+			health = clamped_health
 	# update material on team
 	if stat_name == "team":
 		update_material()
 	
-	if $HealthBar:
-		if stat_name == "health":
-			$HealthBar.set_health(value)
-		elif stat_name == "max_health":
-			$HealthBar.set_max_health(value)
-	
+	# Update health bar if it exists
+	var stat_bar = get_node_or_null("StatBar")
+	var sb_stat_whitelist = ["health", "mana", "max_health", "max_mana"]
+	if stat_bar != null:
+		if sb_stat_whitelist.has(stat_name):
+			if stat_name.find("max") != -1:
+				stat_bar.set_max(stat_name, value)
+			else:
+				stat_bar.set_stat(stat_name, value)
+		else:
+			print(stat_name)
 	# If health reaches 0 or below, trigger death
 	if stat_name == "health" and value <= 0.0 and state != EntityManagementSystem.EntityState.DEAD:
 		print("Health reached 0 for entity %s, triggering death" % name)
@@ -150,8 +166,9 @@ func get_material(team = self.team) -> StandardMaterial3D:
 
 func update_material():
 	var mat := get_material();
-	if $Body:
-		$Body.material_override = mat;
+	var body = get_node_or_null("Body")
+	if body != null:
+		body.material_override = mat;
 	
 func update_state(state:EntityManagementSystem.EntityState):
 	self.state = state
@@ -162,13 +179,17 @@ func die():
 		return
 	is_dying = true
 	print("Minion Death")
-	$Body.hide()
+	var body = get_node_or_null("Body")
+	if body != null:
+		body.hide()
 	
 	# Play money emitter and audio if available
-	if $AudioStreamPlayer3D:
-		if $MoneyEmitter:
-			$MoneyEmitter.emitting = true
-		$AudioStreamPlayer3D.play()
+	var audio_player = get_node_or_null("AudioStreamPlayer3D")
+	var money_emitter = get_node_or_null("MoneyEmitter")
+	if audio_player != null:
+		if money_emitter != null:
+			money_emitter.emitting = true
+		audio_player.play()
 	
 	# Cleanup after 5 seconds max to ensure corpses don't pile up
 	var cleanup_timer = get_tree().create_timer(5.0)
