@@ -8,4 +8,4 @@ func _try_reconnect():
 	if not NetworkManager:
 		push_error("No Network Manager Available to reconnect")
 		
-	NetworkManager._start()
+	NetworkManager.conn()
